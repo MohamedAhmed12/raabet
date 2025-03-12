@@ -10,6 +10,10 @@ module.exports = {
       fontFamily: {
         noto: ["Noto Sans Display", "sans-serif"],
       },
+      colors: {
+        customPrimary: "var(--custom-primary)",
+        customFontPrimary: "var(--custom-font-primary)",
+      },
     },
   },
   plugins: [],
