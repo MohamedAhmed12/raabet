@@ -1,4 +1,4 @@
-import { CentralizePresence } from "@/components/CentralizePresence/page";
+import { CentralizePresence } from "@/components/Home/CentralizePresence/page";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Star } from "lucide-react";
