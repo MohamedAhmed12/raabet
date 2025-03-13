@@ -1,6 +1,6 @@
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Link } from "lucide-react";
-import { Input } from "../ui/input";
 
 export const Claim = () => {
   return (
