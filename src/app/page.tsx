@@ -1,14 +1,5 @@
-import AnimatedBar from "@/components/AnimatedBar/page";
-import { CentralizePresence } from "@/components/Home/CentralizePresence/page";
-import { TryNow } from "@/components/Home/TryNow/page";
+import Home from "./Home/page";
 
-export default function Home() {
-  return (
-    <>
-      {/* Hero Section */}
-      <CentralizePresence />
-      <AnimatedBar />
-      <TryNow />
-    </>
-  );
+export default function App() {
+  return <Home />;
 }
