@@ -2,16 +2,10 @@
 
 import { useEffect, useState } from "react";
 // import { Button } from "./ui/button";
-import { AppWindow, Clock8, HandHelping } from "lucide-react";
 import Marquee from "react-fast-marquee";
-import { ReviewsSlider } from "./ReviewsSlider";
 import { Button } from "../ui/button";
-
-const messages = [
-  { text: "Powerful Block Builder", icon: AppWindow },
-  { text: "Go Live in Minutes", icon: Clock8 },
-  { text: "Fully Customizable", icon: HandHelping },
-];
+import { ReviewsSlider } from "./ReviewsSlider";
+import { Prosbar } from "../Prosbar";
 
 export default function AnimatedBar() {
   const [reviews, setReviews] = useState([]);
@@ -29,21 +23,7 @@ export default function AnimatedBar() {
 
   return (
     <>
-      {/* Animated Text Bar */}
-      <div className="bg-[#fed396] py-4 overflow-hidden whitespace-nowraps">
-        <Marquee>
-          {/* Duplicate messages for an infinite loop */}
-          {[...messages, ...messages].map(({ text, icon: Icon }, index) => (
-            <div
-              key={index}
-              className="flex space-x-16 text-white font-bold text-2xl uppercase tracking-wide w-max"
-            >
-              <p>{text}</p>
-              <Icon size={30} />
-            </div>
-          ))}
-        </Marquee>
-      </div>
+      <Prosbar bgColorClass="bg=[#fed396]" />
 
       {/* Reviews Section */}
       <div className="relative flex flex-col justify-center items-center h-screen w-full overflow-hidden py-10 bg-[#D7A9FF] space-3">
@@ -52,15 +32,16 @@ export default function AnimatedBar() {
           <h2 className="font-bold">What are people</h2>
           <span className="relative inline-block z-[1]">
             <span className="relative font-bold">saying</span>
-            <div className="absolute inset-0 top-15 bottom-4 left-0 right-0 bg-white -z-10"/>
+            <div className="absolute inset-0 top-15 bottom-4 left-0 right-0 bg-white -z-10" />
           </span>
-            <span>about us?</span>
+          <span>about us?</span>
         </div>
-
-        <ReviewsSlider reviews={reviews} />
+        <ReviewsSlider reviews={reviews} speed={25} />
         <div className="h-10"></div> {/* Spacer */}
-        <ReviewsSlider reviews={reviews} />
-        <Button className="bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold mt-8">Get Started</Button>
+        <ReviewsSlider reviews={reviews} speed={15} />
+        <Button className="bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold mt-8">
+          Get Started
+        </Button>
       </div>
     </>
   );

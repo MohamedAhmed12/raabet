@@ -13,9 +13,15 @@ interface Review {
   image: string;
   stars: number;
 }
-export const ReviewsSlider = ({ reviews }: { reviews: Review[] }) => {
+export const ReviewsSlider = ({
+  reviews,
+  speed,
+}: {
+  reviews: Review[];
+  speed: number;
+}) => {
   return (
-    <Marquee speed={40} gradient={false}>
+    <Marquee autoFill speed={speed}>
       {reviews.map((review, index) => (
         <div
           key={index}
