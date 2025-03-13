@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 const notoSans = Noto_Sans_Display({
   subsets: ["latin"],
   variable: "--font-noto-sans-display",
-  weight: ["400", "600", "800"], // Add font weights as needed
+  weight: ["400", "600", "700", "800"], // Add font weights as needed
 });
 
 export const metadata: Metadata = {
