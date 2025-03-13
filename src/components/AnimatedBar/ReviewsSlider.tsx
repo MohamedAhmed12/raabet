@@ -1,9 +1,9 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Star } from "lucide-react";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
+import { Icon } from "../Icon";
 
 interface Review {
   id: number;
@@ -32,7 +32,7 @@ export const ReviewsSlider = ({
               {/* Star Rating */}
               <div className="flex items-center text-yellow-500">
                 {Array.from({ length: review.stars }).map((_, i) => (
-                  <Star key={i} size={18} fill="currentColor" />
+                  <Icon name="star" key={i} size={18} fill="currentColor" />
                 ))}
               </div>
 

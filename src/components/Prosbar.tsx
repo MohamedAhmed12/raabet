@@ -1,11 +1,12 @@
+import { iconNameType } from "@/assets/icons";
 import { cn } from "@/lib/utils";
-import { AppWindow, Clock8, HandHelping } from "lucide-react";
 import Marquee from "react-fast-marquee";
+import { Icon } from "./Icon";
 
-const messages = [
-  { text: "Powerful Block Builder", icon: AppWindow },
-  { text: "Go Live in Minutes", icon: Clock8 },
-  { text: "Fully Customizable", icon: HandHelping },
+const messages: { text: string; icon: iconNameType }[] = [
+  { text: "Powerful Block Builder", icon: "appWindow" },
+  { text: "Go Live in Minutes", icon: "clock8" },
+  { text: "Fully Customizable", icon: "handHelping" },
 ];
 
 export const Prosbar = ({
@@ -25,9 +26,9 @@ export const Prosbar = ({
     >
       <Marquee autoFill speed={10} gradientWidth={300} className="flex">
         {/* Duplicate messages for an infinite loop */}
-        {messages.map(({ text, icon: Icon }, index) => (
+        {messages.map(({ text, icon }, index) => (
           <div key={index} className="flex items-center text-2xl">
-            <Icon size={30} width={48} height={"auto"} />
+            <Icon name={icon} size={30} width={48} height={"auto"} />
             <p className="px-8">{text}</p>
           </div>
         ))}

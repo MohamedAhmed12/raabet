@@ -38,7 +38,7 @@ export default function RootLayout({
         />
       </Head>
       <body
-        className={`${notoSans.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${notoSans.variable} ${geistSans.variable} ${geistMono.variable} antialiased text-deep-blue-gray`}
       >
         {children}
       </body>
