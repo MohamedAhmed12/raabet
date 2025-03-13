@@ -1,13 +1,12 @@
 import { CentralizePresence } from "@/components/Home/CentralizePresence/page";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Star } from "lucide-react";
+import { TryNow } from "@/components/Home/TryNow/page";
 
 export default function Home() {
   return (
     <>
       {/* Hero Section */}
       <CentralizePresence />
+      <TryNow />
     </>
   );
 }

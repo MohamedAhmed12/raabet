@@ -1,11 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import { Link, Star } from "lucide-react";
+import { Star } from "lucide-react";
+import { Claim } from "../Claim";
 
 export const ContentSection = () => {
   return (
-    <div className="w-full md:w-1/2 flex flex-col justify-center font-noto text-center md:text-left px-[7vw] min-h-[calc(100vh-70px-72px)]">
+    <div className="w-full md:w-1/2 flex flex-col justify-center font-noto-sans text-center md:text-left px-[7vw] min-h-[calc(100vh-70px-72px)]">
       {/* Avatar & Star Rating */}
       <div className="w-full flex gap-3">
         <div className="flex -space-x-2">
@@ -52,35 +51,7 @@ export const ContentSection = () => {
           link-in-bio page. Claim your name today!
         </p>
 
-        <div className="flex flex-col md:flex-row items-center gap-3">
-          <div className="flex items-center rounded-[100px] border border-[#1d1d28] shadow-[3px_3px_0px_#1d1d28] bg-white cursor-text p-2 font-noto">
-            <Link
-              size={40}
-              width={40}
-              strokeWidth={3}
-              className="mx-4 text-[#1b97f5]"
-              fontWeight={800}
-            />
-            <span className="mr-[2px]">liinks.co/</span>
-            <Input
-              type="text"
-              placeholder="name"
-              className={cn(
-                "bg-none border-none shadow-none pl-0",
-                "focus:ring-0 focus:rounded-none focus:outline-none",
-                "focus-visible:ring-0 focus-visible:rounded-none focus-visible:outline-none"
-              )}
-            />
-
-            <button
-              className={cn(
-                "bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold"
-              )}
-            >
-              Claim
-            </button>
-          </div>
-        </div>
+        <Claim />
       </div>
     </div>
   );
