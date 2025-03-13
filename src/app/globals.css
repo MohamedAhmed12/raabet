@@ -33,6 +33,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-deep-blue-gray: var(--deep-blue-gray);  
+  --color-light-orange: var(--light-orange);  
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
@@ -82,6 +83,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --deep-blue-gray: oklch(23.59% 0.021 284.67);
+  --light-orange: oklch(89% 0.0913 75.83);
 }
 
 .dark {

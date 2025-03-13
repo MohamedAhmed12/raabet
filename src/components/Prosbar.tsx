@@ -18,7 +18,7 @@ export const Prosbar = ({
   return (
     <div
       className={cn(
-        "bg-[#fed396] py-4 overflow-hidden font-bold uppercase tracking-wide font-noto-sans",
+        "bg-light-orange py-4 overflow-hidden font-bold uppercase tracking-wide font-noto-sans",
         colorClass,
         bgColorClass
       )}

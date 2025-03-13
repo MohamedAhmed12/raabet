@@ -23,7 +23,7 @@ export default function AnimatedBar() {
 
   return (
     <>
-      <Prosbar bgColorClass="bg=[#fed396]" />
+      <Prosbar bgColorClass="bg-light-orange" />
 
       {/* Reviews Section */}
       <div className="relative flex flex-col justify-center items-center h-screen w-full overflow-hidden py-10 bg-[#D7A9FF] space-3">
