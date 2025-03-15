@@ -1,9 +1,9 @@
 "use client";
 
+import { Icon } from "@/components/Icon";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
-import { Icon } from "../Icon";
 
 interface Review {
   id: number;

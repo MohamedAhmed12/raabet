@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 // import { Button } from "./ui/button";
-import Marquee from "react-fast-marquee";
-import { Button } from "../ui/button";
+import { Prosbar } from "@/components/Prosbar";
+import { Button } from "@/components/ui/button";
 import { ReviewsSlider } from "./ReviewsSlider";
-import { Prosbar } from "../Prosbar";
 
 export default function AnimatedBar() {
   const [reviews, setReviews] = useState([]);
