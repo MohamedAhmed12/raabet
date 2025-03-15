@@ -1,6 +1,8 @@
 import {
   AppWindow,
   Check,
+  ChevronDown,
+  ChevronUp,
   Clock8,
   HandHelping,
   Link,
@@ -16,6 +18,8 @@ const icons = {
   handHelping: HandHelping,
   check: Check,
   x: X,
+  chevronDown: ChevronDown,
+  chevronUp: ChevronUp,
 };
 
 export type iconNameType = keyof typeof icons;
