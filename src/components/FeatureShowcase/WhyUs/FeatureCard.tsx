@@ -1,6 +1,6 @@
 import { cn } from "@/lib/cn";
 
-export const SectionCopmonent = ({
+export const FeatureCard = ({
   src,
   alt,
   label,

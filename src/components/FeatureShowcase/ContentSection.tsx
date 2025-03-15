@@ -1,13 +1,15 @@
 import { cn } from "@/lib/cn";
+import Link from "next/link";
 
-export const LabelComponent = ({
+export const ContentSection = ({
   titleLabel,
   coloredLabel,
   mainLabel,
   buttonLabel,
   className,
   underlineColor,
-  widthClass
+  widthClass,
+  redirectUrl,
 }: {
   titleLabel: string;
   coloredLabel: string;
@@ -15,7 +17,8 @@ export const LabelComponent = ({
   buttonLabel: string;
   className?: string;
   underlineColor: string;
-  widthClass?:string
+  widthClass?: string;
+  redirectUrl: string;
 }) => {
   return (
     <div
@@ -38,13 +41,11 @@ export const LabelComponent = ({
           </span>
         </div>
         <div className="3xl mb-6">{mainLabel}</div>
-        <button
-          className={cn(
-            "bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold"
-          )}
-        >
-          {buttonLabel}
-        </button>
+        <Link href={redirectUrl}>
+          <button className="bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold inline-block cursor-pointer transition-all duration-300">
+            {buttonLabel}
+          </button>
+        </Link>
       </div>
     </div>
   );
