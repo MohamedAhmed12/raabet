@@ -1,8 +1,13 @@
+"use client";
+
 import { Icon } from "@/components/Icon";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
+import { useDashboardNotFoundRedirect } from "./hooks/useDashboardNotFoundRedirect";
 
-export default function NotFound() {
+export default function PublicNotFound() {
+  useDashboardNotFoundRedirect();
+
   return (
     <div className="flex w-full pt-[55px] pb-[110px] justify-center w-2/3">
       <Card className="flex p-11 justify-center items-center">
@@ -17,7 +22,7 @@ export default function NotFound() {
           <Link href="/" className="flex mt-5 font-semibold">
             Return Home
             <span className="ml-4">
-              <Icon name="home" className="text-dashboard-primary"/>
+              <Icon name="home" className="text-dashboard-primary" />
             </span>
           </Link>
         </CardContent>

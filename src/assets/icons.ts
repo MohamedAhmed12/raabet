@@ -5,8 +5,10 @@ import {
   ChevronUp,
   Clock8,
   HandHelping,
+  Home,
   Link,
   Star,
+  User,
   X,
 } from "lucide-react";
 
@@ -20,6 +22,8 @@ const icons = {
   x: X,
   chevronDown: ChevronDown,
   chevronUp: ChevronUp,
+  user: User,
+  home: Home,
 };
 
 export type iconNameType = keyof typeof icons;
