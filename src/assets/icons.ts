@@ -1,5 +1,7 @@
 import {
   AppWindow,
+  ChartLine,
+  ChartNoAxesCombined,
   Check,
   ChevronDown,
   ChevronUp,
@@ -7,6 +9,13 @@ import {
   HandHelping,
   Home,
   Link,
+  LockKeyholeOpen,
+  LogOut,
+  Paintbrush,
+  ScanLine,
+  Settings,
+  Sparkle,
+  Sparkles,
   Star,
   User,
   X,
@@ -24,6 +33,15 @@ const icons = {
   chevronUp: ChevronUp,
   user: User,
   home: Home,
+  paintbrush: Paintbrush,
+  settings: Settings,
+  "chart-no-axes-combined": ChartNoAxesCombined,
+  "chart-line": ChartLine,
+  "scan-line": ScanLine,
+  sparkle: Sparkle,
+  sparkles: Sparkles,
+  "lock-keyhole-open": LockKeyholeOpen,
+  "log-out": LogOut,
 };
 
 export type iconNameType = keyof typeof icons;
