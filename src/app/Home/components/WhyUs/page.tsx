@@ -1,5 +1,5 @@
 import { ContentSection } from "../ContentSection";
-import { WhyUsBlock } from "./whyUsBlock";
+import { WhyUsBlock } from "./components/whyUsBlock";
 
 export const WhyUs = () => {
   return (
