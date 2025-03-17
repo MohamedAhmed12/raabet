@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { authOptions } from "@/lib/auth";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -34,24 +35,16 @@ export const LoginForm = ({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginFormData) => {
-    // debugger;
+  const onSubmit = async ({ email, password }: LoginFormData) => {
     try {
-      // const result = await signIn("credentials", {
-      //   email: data.email,
-      //   password: data.password,
-      //   redirect: false, // Prevent automatic redirection
-      // });
-     
-    const result= await signIn("credentials", data);
+      const result = await signIn("credentials", {
+        email: email,
+        password: password,
+        redirect: false, // Prevent automatic redirection
+      });
 
-      console.log(333333333, result);
       if (result?.error) {
         setError("Invalid email or password"); // Show custom error message
-        // if (result?.error) {
-        //   console.error("Login Error:", result.error);
-        //   setError(result.error); // Display the actual error message
-        // }
       } else {
         router.push("/dashboard"); // Redirect after successful login
       }
@@ -59,8 +52,6 @@ export const LoginForm = ({
       setError("Something went wrong. Please try again.");
     }
   };
-
-  console.log("errors", errors);
 
   return (
     <form
