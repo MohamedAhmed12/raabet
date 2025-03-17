@@ -1,7 +1,5 @@
-"use client";
-import { SignUpForm } from "@/components/signup-form";
+import SignUpForm from "../components/SignupForm";
 import { GalleryVerticalEnd } from "lucide-react";
-
 
 export default function SignUp() {
   return (
@@ -29,5 +27,5 @@ export default function SignUp() {
         />
       </div>
     </div>
-  )
+  );
 }
