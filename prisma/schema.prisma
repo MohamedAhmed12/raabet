@@ -37,9 +37,31 @@ model ActivationCode {
 }
 
 model Link {
-  id       String @id @default(uuid())
-  title    String
-  url      String
-  user     User   @relation(fields: [userId], references: [id])
-  userId   String
+  id                               String  @id @default(uuid())
+  user                             User    @relation(fields: [userId], references: [id])
+  userId                           String
+  general_styles_desktop_bgcolor   String
+  general_styles_primary_text_color String
+  general_styles_primary_bgcolor   String
+  general_styles_is_secondary_bgcolor Boolean
+  general_styles_secondary_bgcolor String
+  general_styles_soft_shadow       Boolean
+  header_styles_profile_shadow     Float
+  header_styles_profile_border_width Int
+  header_styles_profile_border_color String
+  header_styles_collapse_long_bio  Boolean
+  header_styles_social_icons_size  Int
+  card_styles_card_color           String
+  card_styles_text_color           String
+  card_styles_card_corner          Int
+  card_styles_card_border_width    Int
+  card_styles_card_border_color    String
+  card_styles_card_shadow          Int
+  card_styles_card_spacing         Int
+  title_font                       String
+  text_font                        String
+  social_enable_add_contacts       Boolean
+  social_enable_share_btn          Boolean
+  social_enable_search             Boolean
+  social_enable_qr_code            Boolean
 }

@@ -17,9 +17,9 @@ interface IconProps {
 }
 
 const sizeMap = {
-  sm: "w-4 h-4", // 16px
-  md: "w-6 h-6", // 24px
-  lg: "w-8 h-8", // 32px
+  sm: "!w-4 !h-4", // 16px
+  md: "!w-6 !h-6", // 24px
+  lg: "!w-8 !h-8", // 32px
 };
 
 export const Icon: React.FC<IconProps> = ({

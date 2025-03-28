@@ -1,5 +1,6 @@
-import { redirect } from "next/navigation";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import CustomSidebar from "./components/CustomSidebar";
+import { DashboardContainer } from "./components/DashboardContainer";
 import { UpgradePlanBanner } from "./components/UpgradePlanBanner";
 
 export default async function DashboardLayout({
@@ -8,12 +9,10 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="">
-      <UpgradePlanBanner />
-      <div className="font-noto-sans pt-[50px]">
-        <CustomSidebar />
-        <div className="test">{children}</div>
-      </div>
-    </div>
+    <SidebarProvider className="bg-gray-100">
+      <CustomSidebar/>
+        <UpgradePlanBanner />
+        <DashboardContainer>{children}</DashboardContainer>
+    </SidebarProvider>
   );
 }
