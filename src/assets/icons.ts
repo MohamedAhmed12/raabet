@@ -19,6 +19,7 @@ import {
   Star,
   User,
   X,
+  CircleCheckBig,
 } from "lucide-react";
 
 const icons = {
@@ -42,6 +43,7 @@ const icons = {
   sparkles: Sparkles,
   "lock-keyhole-open": LockKeyholeOpen,
   "log-out": LogOut,
+  "circle-check-big":CircleCheckBig,
 };
 
 export type iconNameType = keyof typeof icons;
