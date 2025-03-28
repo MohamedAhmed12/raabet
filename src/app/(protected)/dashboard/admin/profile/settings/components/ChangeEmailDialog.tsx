@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
-import { FieldController } from "./FieldController";
+import { FieldController } from "../../../components/FieldController";
 
 export function ChangeEmailDialog({ title }: Readonly<{ title?: string }>) {
   const confirmed = true;

@@ -54,10 +54,7 @@ const sidebarTabs: { text: string; url: string; icon: iconNameType }[] = [
   },
 ];
 
-export default function CustomSidebar({}: // children,
-Readonly<{
-  // children: React.ReactNode;
-}>) {
+export default function CustomSidebar() {
   const pathname = usePathname();
   const isActive = (url: string) => pathname === url;
 
@@ -65,22 +62,6 @@ Readonly<{
     <Sidebar className="font-noto-sans font-medium">
       <SidebarContent className="p-[11px] pt-[55px]">
         <SidebarMenu className="capitalize text-sm font-bold">
-          {/* {sidebarTabs.map((tab, index) => (
-            <SidebarMenuItem
-              key={index}
-              className="focus:bg-dashboard-primary hover:bg-dashboard-primary"
-            >
-              <Link
-                href={`/dashboard/admin/${tab.url}`}
-                className="flex gap-2 p-[5.5px] mb-[6px] rounded-sm focus:bg-dashboard-primary"
-              >
-                <Icon name={tab.icon} size={20} />
-                <span>{tab.text}</span>
-              </Link>
-
-            </SidebarMenuItem>
-          ))} */}
-
           {sidebarTabs.map((tab, index) => (
             <SidebarMenuItem key={index}>
               <SidebarMenuButton

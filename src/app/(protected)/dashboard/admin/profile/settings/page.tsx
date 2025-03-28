@@ -1,13 +1,10 @@
-import { DashboardContainer } from "../../components/DashboardContainer";
-import { MainTitle } from "../../components/MainTitle";
-import { FieldController } from "../../components/FieldController";
-import DashboardLayout from "../../layout";
-import { CustomForm } from "../../components/CustomForm";
-import { ChangeEmailDialog } from "../../components/ChangeEmailDialog";
+import { ChangeEmailDialog } from "./components/ChangeEmailDialog";
+import { CustomForm } from "./components/CustomForm";
+import { MainTitle } from "./components/MainTitle";
 
 export default function ProfileSettings() {
   return (
-    <>
+    <div className="w-full max-w-[650px]">
       <MainTitle
         title="settings"
         subTitle="Configure our account details and integrations."
@@ -51,6 +48,6 @@ export default function ProfileSettings() {
 
       {/* <FieldController title="email">s</FieldController> */}
       {/* <FieldController title="username">s</FieldController> */}
-    </>
+    </div>
   );
 }

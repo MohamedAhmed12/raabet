@@ -1,7 +1,7 @@
 "use client";
 
 import CustomDropdown from "@/components/CustomDropdown";
-import { MainTitle } from "../../components/MainTitle";
+import { MainTitle } from "../../profile/settings/components/MainTitle";
 import { BlockInteractions } from "./components/BlockInteractions";
 import {
   ProfileAnalytics
@@ -15,7 +15,7 @@ export default function Analyticsmetrics() {
     console.log(e);
   };
   return (
-    <>
+    <div className="w-full max-w-[1000px]">
       <MainTitle
         title="profile metrics"
         subTitle="Discover how visitors are viewing and interacting with your profile."
@@ -25,6 +25,6 @@ export default function Analyticsmetrics() {
       <ProfileAnalytics />
       <SocialClicks />
       <BlockInteractions />
-    </>
+    </div>
   );
 }
