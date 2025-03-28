@@ -40,6 +40,11 @@ export default function UserName() {
         >
           <LinksNavbar />
 
+          <div className="flex flex-col flex-1 ">
+            <LinksHeader />
+          </div>
+
+          <LinksFooter />
         </div>
       </div>
     )

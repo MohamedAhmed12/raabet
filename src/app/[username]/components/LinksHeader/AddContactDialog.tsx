@@ -1,5 +1,6 @@
 "use client";
 
+import { generateVCardAction } from "@/app/[username]/actions/generateVCardAction";
 import { useLinkStore } from "@/app/store/use-link-store";
 import { Icon } from "@/components/Icon";
 import { Button } from "@/components/ui/button";
@@ -11,9 +12,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { LinksNavbarIcon } from "../StickyLinksNavbar";
-import { generateVCardAction } from "@/app/[username]/actions/generateVCardAction";
 import { toast } from "sonner";
+import { LinksNavbarIcon } from "./StickyLinksNavbar";
 
 export function AddContactDialog({ isSticky }: { isSticky: boolean }) {
   const user = useLinkStore((state) => state.link.user);
@@ -24,13 +24,10 @@ export function AddContactDialog({ isSticky }: { isSticky: boolean }) {
 
     if (!responseBlob) return toast.error("Something wrong happened!");
 
-    // Get the Blob containing the vCard data
-    // const blob = await response.blob();
-
     // Create a download link for the Blob
     const link = document.createElement("a");
     link.href = URL.createObjectURL(responseBlob);
-    link.download = `${user.fullname}_contact.vcf`; // Set the filename
+    link.download = `${user.fullname}_contact.vcf`;
     link.click(); // Programmatically trigger the download
   };
 
@@ -39,17 +36,17 @@ export function AddContactDialog({ isSticky }: { isSticky: boolean }) {
       <DialogTrigger asChild>
         <LinksNavbarIcon isSticky={isSticky} iconName="user-round-plus" />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[350px]">
+      <DialogContent className="sm:max-w-[350px] font-noto-sans">
         <DialogHeader className="flex items-center">
           <DialogTitle>
-            <Icon
-              size={30}
-              name="user-round-plus"
-              // className="stroke-[#6b5b71]"
-            />
+            <Icon size={30} name="user-round-plus" />
           </DialogTitle>
         </DialogHeader>
-        <div className="text-center">{`Add ${user.fullname} as a contact.`}</div>
+        <div className="text-center mb-3">
+          <span>Add</span>
+          <span className="font-semibold mx-1">{user.fullname}</span>
+          <span>as a contact.</span>
+        </div>
         <DialogFooter>
           <Button
             className="w-full flex items-center capitalize bg-deep-blue-gray hover:bg-deep-blue-gray cursor-pointer"

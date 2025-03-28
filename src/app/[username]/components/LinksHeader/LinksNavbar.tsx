@@ -2,8 +2,8 @@
 
 import { cn } from "@/lib/cn";
 import { useEffect, useState } from "react";
-import { LinksNavbarIcon } from "../StickyLinksNavbar";
 import { AddContactDialog } from "./AddContactDialog";
+import { LinksNavbarIcon } from "./StickyLinksNavbar";
 
 export default function LinksNavbar() {
   const [isSticky, setIsSticky] = useState(false);
