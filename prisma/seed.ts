@@ -17,7 +17,7 @@ async function main() {
   // Create a Link associated with the created user
   const link = await prisma.link.create({
     data: {
-      userId: user.id, // Link it to the user
+      userName: user.fullname, // Link it to the user
       general_styles_desktop_bgcolor: "#F1F1F1",
       general_styles_primary_text_color: "#000000",
       general_styles_primary_bgcolor: "#FFFFFF",
