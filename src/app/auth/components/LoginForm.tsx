@@ -2,16 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { executeAction } from "@/lib/executeAction";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { authOptions } from "@/lib/auth";
+import Link from "next/link";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -24,7 +21,6 @@ export const LoginForm = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) => {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
   const {
@@ -40,14 +36,17 @@ export const LoginForm = ({
       const result = await signIn("credentials", {
         email: email,
         password: password,
-        redirect: false, // Prevent automatic redirection
+        redirect: true, // Prevent automatic redirection
+        callbackUrl:'/dashboard'
       });
 
       if (result?.error) {
         setError("Invalid email or password"); // Show custom error message
-      } else {
-        router.push("/dashboard"); // Redirect after successful login
-      }
+         }   // } else {
+      //   router.push(`/auth/confirm`); // Pass email as query parameter
+
+      //   // router.push("/dashboard"); // Redirect after successful login
+      // }
     } catch (err) {
       setError("Something went wrong. Please try again.");
     }
@@ -97,10 +96,12 @@ export const LoginForm = ({
           )}
         </div>
         {error && <p className="text-red-500 text-sm">{error}</p>}
-        <a href="#" className="text-xs">
-          Forgot your password?
-        </a>
-        <Button type="submit" className="w-full">
+        <Link href="/auth/forgetPassword">
+        <span className="cursor-pointer text-xs">
+        Forgot your password?
+        </span>
+        </Link>
+        <Button type="submit" className="w-full bg-blue-400 hover:bg-blue-400 cursor-pointer">
           Sign In
         </Button>
       </div>
