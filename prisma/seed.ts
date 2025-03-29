@@ -17,6 +17,11 @@ async function main() {
   // Create a Link associated with the created user
   const link = await prisma.link.create({
     data: {
+      phone: "",
+      website: "",
+      instagram: "",
+      twitter: "",
+      bio: "Write you Bio here...",
       userName: user.fullname, // Link it to the user
       general_styles_desktop_bgcolor: "#F1F1F1",
       general_styles_primary_text_color: "#000000",
@@ -46,6 +51,33 @@ async function main() {
   });
 
   console.log("Link created:", link.id);
+
+  // Create Social records for the created Link
+  const socials = await prisma.social.createMany({
+    data: [
+      {
+        linkId: link.id, // Make sure this matches the Link's ID
+        icon: "Facebook",
+        url: "https://facebook.com/username",
+        order: 1,
+      },
+      {
+        linkId: link.id,
+        icon: "Twitter",
+        url: "https://twitter.com/username",
+        order: 2,
+      },
+      {
+        linkId: link.id,
+        icon: "Instagram",
+        url: "https://instagram.com/username",
+        order: 3,
+      },
+    ],
+    skipDuplicates: true, // Skip 'Bobo'
+  });
+
+  console.log("Link socials created:");
 }
 
 main()
