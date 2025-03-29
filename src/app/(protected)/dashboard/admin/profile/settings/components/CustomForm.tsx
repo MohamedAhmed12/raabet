@@ -4,23 +4,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { toast } from "sonner";
+import { CustomTooltip } from "@/components/CustomTooltip";
+import { Icon } from "@/components/Icon";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
+  FormControl, FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FieldController } from "./FieldController";
-import { CustomTooltip } from "@/components/CustomTooltip";
-import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/cn";
-import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
+import { FieldController } from "../../../components/FieldController";
 
 const FormSchema = z.object({
   username: z.string().min(2, {

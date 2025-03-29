@@ -16,10 +16,10 @@ datasource db {
 
 model User {
   id              String  @id @default(uuid())
-  fullname        String?
+  fullname        String  @unique
   email           String  @unique
   password        String
-  avatar          String?
+  avatar          String @default("/images/user-placeholder.png")
   createdAt DateTime @default(now()) @db.Timestamp(3) // Database-specific type
   links           Link[]
   is_confirmed    Boolean  @default(false)
@@ -38,8 +38,8 @@ model ActivationCode {
 
 model Link {
   id                               String  @id @default(uuid())
-  user                             User    @relation(fields: [userId], references: [id])
-  userId                           String
+  userName String
+  user     User   @relation(fields: [userName], references: [fullname]) // Reference `name` in User
   general_styles_desktop_bgcolor   String
   general_styles_primary_text_color String
   general_styles_primary_bgcolor   String
