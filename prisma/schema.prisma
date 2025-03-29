@@ -38,8 +38,19 @@ model ActivationCode {
 
 model Link {
   id                               String  @id @default(uuid())
-  userName String
+  phone        String
+  website      String
+  instagram    String
+  twitter      String
+  bio          String
+
+  // Relationship 
+  blocks                           Block[]  // One-to-many relationship with Block
+  socials                          Social[]  // One-to-many relationship with social
+  userName     String
   user     User   @relation(fields: [userName], references: [fullname]) // Reference `name` in User
+ 
+  // Styling and design fields
   general_styles_desktop_bgcolor   String
   general_styles_primary_text_color String
   general_styles_primary_bgcolor   String
@@ -64,4 +75,24 @@ model Link {
   social_enable_share_btn          Boolean
   social_enable_search             Boolean
   social_enable_qr_code            Boolean
+}
+
+model Block {
+  id            String  @id @default(uuid())
+  style         Boolean
+  textColor     String  // Color value for the text
+  corner        Int     // Corner value (e.g., rounded corners)
+  
+  linkId        String
+  link          Link    @relation(fields: [linkId], references: [id]) // Linking Block to Link
+}
+
+model Social {
+  id      String @id @default(uuid())
+  icon    String
+  url     String
+  order   Int
+ 
+  linkId  String
+  link    Link   @relation(fields: [linkId], references: [id])
 }

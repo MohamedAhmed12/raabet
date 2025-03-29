@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fetchSingleLink } from "../actions/fetchSingleLink";
 import { useLinkStore } from "../store/use-link-store";
 
@@ -9,8 +9,11 @@ const useFetchLink = (username: string | undefined) => {
 
   const { setLink } = useLinkStore((state) => state);
 
+  // Use ref to track if the data has been fetched already
+  const hasFetchedRef = useRef<boolean>(false);
+
   useEffect(() => {
-    if (!username) return;
+    if (!username || hasFetchedRef.current) return; // Don't fetch if username is missing or data already fetched
 
     const fetchLink = async () => {
       setIsLoading(true);
@@ -22,6 +25,7 @@ const useFetchLink = (username: string | undefined) => {
         if (response) {
           setData(response);
           setLink(response);
+          hasFetchedRef.current = true; // Mark as fetched
         } else {
           const e = `No record matches this username`;
           console.debug(e);
