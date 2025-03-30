@@ -142,6 +142,7 @@ const icons = {
   search: Search,
   "loader-circle": LoaderCircle,
   ...socialIcons,
+  "circle-check-big": CircleCheckBig,
 };
 
 export type iconNameType = keyof typeof icons;

@@ -3,8 +3,8 @@
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { generateActivationCode } from "../auth/verify/generateActivationCode";
-import { sendEmail } from "../auth/verify/emailService";
 import { EmailTemplate } from "../auth/components/EmailTemplate";
+import { sendEmail } from "../auth/components/emailService";
 
 export const signup = async ({
   fullname,
