@@ -1,3 +1,5 @@
+"use client"
+
 import icons, { iconNameType } from "@/assets/icons";
 import { cn } from "@/lib/utils";
 
@@ -17,9 +19,9 @@ interface IconProps {
 }
 
 const sizeMap = {
-  sm: "w-4 h-4", // 16px
-  md: "w-6 h-6", // 24px
-  lg: "w-8 h-8", // 32px
+  sm: "!w-4 !h-4", // 16px
+  md: "!w-6 !h-6", // 24px
+  lg: "!w-8 !h-8", // 32px
 };
 
 export const Icon: React.FC<IconProps> = ({
@@ -32,6 +34,7 @@ export const Icon: React.FC<IconProps> = ({
 }) => {
   const IconComponent = icons[name];
   const sizeClassName = !size && sizeMap[sizeClass];
+console.log('IconComponent',IconComponent);
 
   return (
     <IconComponent

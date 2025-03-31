@@ -48,6 +48,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --default-font-family: var(--font-noto-sans-display);
 }
 
 :root {
@@ -78,8 +79,8 @@
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
   --sidebar-background: oklch(0.769 0.188 70.08);
-  --sidebar: var(--deep-blue-gray);
-  --sidebar-color: oklch(100% 0 0);
+  --sidebar: var(--deep-blue-gray); /* background */
+  --sidebar-color: oklch(100% 0 0); /* text color */
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: var(--deep-blue-gray);
@@ -89,6 +90,7 @@
   --sidebar-ring: oklch(0.708 0 0);
   --deep-blue-gray: oklch(23.59% 0.021 284.67);
   --light-orange: oklch(89% 0.0913 75.83);
+  --default-font-family: (noto);
 }
 
 .dark {
@@ -136,4 +138,21 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.dashboard-general-style-controller {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px; /* 10 * 0.25rem (based on Tailwind's default spacing scale) */
+  padding-left: 11px;
+  padding-right: 11px;
+  border: 1px solid oklch(0.928 0.006 264.531); /* Tailwind's gray-300 color */
+  border-radius: 0.25rem; /* Tailwind's rounded-sm */
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 400;
+}
+.dashboard-general-style-controller:hover {
+  background-color: #fafafa;
 }

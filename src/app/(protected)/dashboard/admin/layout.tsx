@@ -1,6 +1,10 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { SidebarProvider } from "@/components/ui/sidebar";
 import CustomSidebar from "./components/CustomSidebar";
+import { DashboardContainer } from "./components/DashboardContainer";
 import { UpgradePlanBanner } from "./components/UpgradePlanBanner";
+import { SessionProvider } from "next-auth/react";
 
 export default async function DashboardLayout({
   children,
@@ -8,12 +12,12 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="">
-      <UpgradePlanBanner />
-      <div className="font-noto-sans pt-[50px]">
+    <SessionProvider>
+      <SidebarProvider className="bg-gray-100">
         <CustomSidebar />
-        <div className="test">{children}</div>
-      </div>
-    </div>
+        <UpgradePlanBanner />
+        <DashboardContainer>{children}</DashboardContainer>
+      </SidebarProvider>
+    </SessionProvider>
   );
 }
