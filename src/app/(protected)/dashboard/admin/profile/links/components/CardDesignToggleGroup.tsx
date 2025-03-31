@@ -1,10 +1,10 @@
 "use client";
 
 import { iconNameType } from "@/assets/icons";
-import { CustomTooltip } from "@/components/CustomTooltip";
 import { Icon } from "@/components/Icon";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/cn";
+import { HelperTooltip } from "../../../components/HelperTooltip";
 
 const cardDesigns: { value: string; icon: iconNameType }[] = [
   {
@@ -40,16 +40,7 @@ export const CardDesignToggleGroup = ({
 }>) => (
   <div className={cn("flex flex-col border-1 border-gray-300 rounded-sm mb-4")}>
     <div className="flex items-center justify-start h-10 gap-2 px-[11px] border-b-1 border-gray-300">
-      <CustomTooltip
-        trigger={
-          <Icon
-            name="circle-help"
-            sizeClass="sm"
-            className="text-[#097cd4] cursor-help"
-          />
-        }
-        content={tooltipContent}
-      />
+      <HelperTooltip content={tooltipContent} />
       <div className="text-sm mr-[22px] capitalize">{title}</div>
     </div>
     <ToggleGroup
