@@ -20,19 +20,19 @@ export default function LinksNavbar() {
   return (
     <header
       className={cn(
-        "sticky flex items-center justify-between top-0 z-50",
+        "sticky flex items-center justify-between top-0 z-50 text-current",
         isSticky ? "pt-[11px] mr-[-20px] ml-[-20px]" : "px-[11px]"
       )}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 text-current">
         <AddContactDialog isSticky={isSticky} />
         <LinksNavbarIcon isSticky={isSticky} iconName="share" />
       </div>
 
-      {/* Right section */}
-      <div className="flex items-center gap-4 stroke-[#6b5b71]">
+      {/* Right section  will be released next itteration */}
+      {/* <div className="flex items-center gap-4 stroke-[#6b5b71]">
         <LinksNavbarIcon isSticky={isSticky} iconName="search" />
-      </div>
+      </div> */}
     </header>
   );
 }

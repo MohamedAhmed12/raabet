@@ -11,6 +11,8 @@ export async function fetchSingleLink(username: string) {
       },
       include: {
         user: true, // Optionally include user details in the response
+        socials: true,
+        blocks: true,
       },
     });
   } catch (error) {

@@ -29,7 +29,7 @@ export const LinksNavbarIcon: React.FC<LinksNavbarIconProps> = ({
       <Icon
         size={21}
         name={iconName}
-        className={cn(!isSticky ? "stroke-[#6b5b71]" : "stroke-white")}
+        className={cn(!isSticky ? "stroke-current" : "stroke-white")}
       />
     </div>
   );
