@@ -1,9 +1,7 @@
-"use client";
-import { GalleryVerticalEnd } from "lucide-react"
+import SignUpForm from "../components/SignupForm";
+import { GalleryVerticalEnd } from "lucide-react";
 
-import { LoginForm } from "@/app/auth/components/LoginForm"
-
-export default function LoginPage() {
+export default function SignUp() {
   return (
     <div className="flex min-h-svh flex-col lg:flex-row">
       <div className="flex flex-1 flex-col gap-4 p-6 md:p-10">
@@ -17,7 +15,7 @@ export default function LoginPage() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-md">
-            <LoginForm />
+            <SignUpForm />
           </div>
         </div>
       </div>
@@ -29,5 +27,5 @@ export default function LoginPage() {
         />
       </div>
     </div>
-  )
+  );
 }

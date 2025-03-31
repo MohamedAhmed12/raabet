@@ -5,6 +5,7 @@ import { TryNow } from "./components/TryNow/page";
 import { WhyUs } from "./components/WhyUs/page";
 
 export default function Home() {
+  
   return (
     <>
       <CentralizePresence />

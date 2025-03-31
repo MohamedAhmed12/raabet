@@ -6,7 +6,7 @@ import { DashboardContainer } from "./components/DashboardContainer";
 import { UpgradePlanBanner } from "./components/UpgradePlanBanner";
 import { SessionProvider } from "next-auth/react";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

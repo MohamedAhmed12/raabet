@@ -40,7 +40,7 @@ export const ContentSection = ({
             ></div>
           </span>
         </div>
-        <div className="3xl mb-6">{mainLabel}</div>
+        <div className="mb-6">{mainLabel}</div>
         <Link href={redirectUrl}>
           <button className="bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold inline-block cursor-pointer transition-all duration-300">
             {buttonLabel}
