@@ -10,6 +10,7 @@ import {
   CircleHelp,
   CircleX,
   Clock8,
+  Copy,
   HandHelping,
   Home,
   Link,
@@ -72,10 +73,10 @@ import {
   SiSlack,
 } from "@icons-pack/react-simple-icons";
 
-import cardDesign1 from '../../public/svg/cardDesign1';
-import cardDesign2 from '../../public/svg/cardDesign2';
-import cardDesign3 from '../../public/svg/cardDesign3';
-import cardDesign4 from '../../public/svg/cardDesign4';
+import cardDesign1 from "../../public/svg/cardDesign1";
+import cardDesign2 from "../../public/svg/cardDesign2";
+import cardDesign3 from "../../public/svg/cardDesign3";
+import cardDesign4 from "../../public/svg/cardDesign4";
 
 const socialIcons = {
   facebook: SiFacebook,
@@ -143,6 +144,7 @@ const icons = {
   monitor: Monitor,
   airplay: Airplay,
   share: Share2,
+  copy: Copy,
   "user-round-plus": UserRoundPlus,
   search: Search,
   "loader-circle": LoaderCircle,

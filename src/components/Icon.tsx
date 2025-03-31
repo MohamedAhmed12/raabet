@@ -34,7 +34,6 @@ export const Icon: React.FC<IconProps> = ({
 }) => {
   const IconComponent = icons[name];
   const sizeClassName = !size && sizeMap[sizeClass];
-console.log('IconComponent',IconComponent);
 
   return (
     <IconComponent
