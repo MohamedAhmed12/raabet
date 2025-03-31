@@ -78,7 +78,7 @@ export function CustomForm({
                           <Icon
                             name="circle-help"
                             sizeClass="sm"
-                            className="text-[#097cd4]"
+                            className="text-[#097cd4] cursor-help"
                           />
                         }
                         content={tooltipContent}

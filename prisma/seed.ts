@@ -34,6 +34,7 @@ async function main() {
       header_styles_profile_border_color: "rgb(37, 37, 61)",
       header_styles_collapse_long_bio: true,
       header_styles_social_icons_size: 10,
+      card_styles_design: 2,
       card_styles_card_color: "#F1F1F1",
       card_styles_text_color: "#000000",
       card_styles_card_corner: 0,
@@ -57,21 +58,78 @@ async function main() {
     data: [
       {
         linkId: link.id, // Make sure this matches the Link's ID
-        icon: "Facebook",
+        icon: "facebook",
         url: "https://facebook.com/username",
         order: 1,
       },
       {
         linkId: link.id,
-        icon: "Twitter",
-        url: "https://twitter.com/username",
+        icon: "",
+        url: "",
         order: 2,
       },
       {
         linkId: link.id,
-        icon: "Instagram",
-        url: "https://instagram.com/username",
+        icon: "twitter",
+        url: "https://twitter.com/username",
         order: 3,
+      },
+      {
+        linkId: link.id,
+        icon: "",
+        url: "",
+        order: 4,
+      },
+      {
+        linkId: link.id,
+        icon: "instagram",
+        url: "https://instagram.com/username",
+        order: 5,
+      },
+      {
+        linkId: link.id,
+        icon: "instagram",
+        url: "https://instagram.com/username",
+        order: 6,
+      },
+    ],
+    skipDuplicates: true, // Skip 'Bobo'
+  });
+
+  console.log("Link socials created:");
+
+  // Create Social records for the created Link
+  const blocks = await prisma.block.createMany({
+    data: [
+      {
+        linkId: link.id, // Make sure this matches the Link's ID
+        text: "ddddd",
+        textColor: link.card_styles_text_color,
+        corner: 0,
+      },
+      {
+        linkId: link.id, // Make sure this matches the Link's ID
+        text: "ddddd",
+        textColor: link.card_styles_text_color,
+        corner: 0,
+      },
+      {
+        linkId: link.id,
+        text: "ddddd",
+        textColor: link.card_styles_text_color,
+        corner: 0,
+      },
+      {
+        linkId: link.id,
+        text: "ddddd",
+        textColor: link.card_styles_text_color,
+        corner: 0,
+      },
+      {
+        linkId: link.id,
+        text: "ddddd",
+        textColor: link.card_styles_text_color,
+        corner: 0,
       },
     ],
     skipDuplicates: true, // Skip 'Bobo'

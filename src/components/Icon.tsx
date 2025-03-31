@@ -1,3 +1,5 @@
+"use client"
+
 import icons, { iconNameType } from "@/assets/icons";
 import { cn } from "@/lib/utils";
 
@@ -32,6 +34,7 @@ export const Icon: React.FC<IconProps> = ({
 }) => {
   const IconComponent = icons[name];
   const sizeClassName = !size && sizeMap[sizeClass];
+console.log('IconComponent',IconComponent);
 
   return (
     <IconComponent

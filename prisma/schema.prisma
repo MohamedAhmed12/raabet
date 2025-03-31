@@ -62,6 +62,7 @@ model Link {
   header_styles_profile_border_color String
   header_styles_collapse_long_bio  Boolean
   header_styles_social_icons_size  Int
+  card_styles_design               Int     // options [0, 1, 2, 3, 4]
   card_styles_card_color           String
   card_styles_text_color           String
   card_styles_card_corner          Int
@@ -79,9 +80,9 @@ model Link {
 
 model Block {
   id            String  @id @default(uuid())
-  style         Boolean
+  text          String
   textColor     String  // Color value for the text
-  corner        Int     // Corner value (e.g., rounded corners)
+  corner        Int     // Corner value (e.g., rounded corners) max value is 28px
   
   linkId        String
   link          Link    @relation(fields: [linkId], references: [id]) // Linking Block to Link

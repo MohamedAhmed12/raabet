@@ -8,6 +8,7 @@ import {
   ChevronDown,
   ChevronUp,
   CircleHelp,
+  CircleX,
   Clock8,
   HandHelping,
   Home,
@@ -70,6 +71,11 @@ import {
   SiTidal,
   SiSlack,
 } from "@icons-pack/react-simple-icons";
+
+import cardDesign1 from '../../public/svg/cardDesign1';
+import cardDesign2 from '../../public/svg/cardDesign2';
+import cardDesign3 from '../../public/svg/cardDesign3';
+import cardDesign4 from '../../public/svg/cardDesign4';
 
 const socialIcons = {
   facebook: SiFacebook,
@@ -140,6 +146,11 @@ const icons = {
   "user-round-plus": UserRoundPlus,
   search: Search,
   "loader-circle": LoaderCircle,
+  "circle-x": CircleX,
+  "card-design-1": cardDesign1,
+  "card-design-2": cardDesign2,
+  "card-design-3": cardDesign3,
+  "card-design-4": cardDesign4,
   ...socialIcons,
 };
 

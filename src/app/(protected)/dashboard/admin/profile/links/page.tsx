@@ -1,6 +1,6 @@
-import GeneralStylesSidebar from "../components/GeneralStylesSidebar";
-import LinkBuilderSidebar from "../components/LinkBuilderSidebar";
-import { LinkViewer } from "../components/LinkViewer/page";
+import GeneralStylesSidebar from "./components/GeneralStylesSidebar/page";
+import LinkBuilderSidebar from "./components/LinkBuilderSidebar";
+import { LinkViewer } from "./components/LinkViewer/page";
 
 export default function ProfileLinks() {
   return (
