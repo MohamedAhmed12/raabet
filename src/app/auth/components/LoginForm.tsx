@@ -37,7 +37,7 @@ export const LoginForm = ({
         email: email,
         password: password,
         redirect: true, // Prevent automatic redirection
-        callbackUrl:'/dashboard'
+        callbackUrl:'/dashboard/admin'
       });
 
       if (result?.error) {

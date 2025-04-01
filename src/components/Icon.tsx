@@ -1,3 +1,5 @@
+"use client"
+
 import icons, { iconNameType } from "@/assets/icons";
 import { cn } from "@/lib/utils";
 

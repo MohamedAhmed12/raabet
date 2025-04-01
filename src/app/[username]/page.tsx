@@ -6,6 +6,7 @@ import Loading from "../loading";
 import LinksFooter from "./components/LinksFooter";
 import LinksNavbar from "./components/LinksHeader/LinksNavbar";
 import { LinksHeader } from "./components/LinksHeader/page";
+import LinksSocialIcons from "./components/LinksSocialIcons";
 import useFetchLink from "./useFetchLink";
 
 export default function UserName() {
@@ -31,7 +32,7 @@ export default function UserName() {
       >
         <div
           className={cn(
-            "w-full flex flex-col h-screen max-w-[530px] h-[1200px]",
+            "w-full flex flex-col text-red-800 max-w-[530px] min-h-[calc(100vh+60px)]",
             "pt-[33px] pb-[33px] px-[33px] shadow-[0px_7px_29px_0px_rgba(100,100,111,0.15)]"
           )}
           style={{
@@ -40,8 +41,9 @@ export default function UserName() {
         >
           <LinksNavbar />
 
-          <div className="flex flex-col flex-1 ">
+          <div className="flex flex-col flex-1">
             <LinksHeader />
+            <LinksSocialIcons />
           </div>
 
           <LinksFooter />

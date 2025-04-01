@@ -8,7 +8,10 @@ import {
   ChevronDown,
   ChevronUp,
   CircleHelp,
+  CircleX,
   Clock8,
+  Copy,
+  GripVertical,
   HandHelping,
   Home,
   Link,
@@ -18,6 +21,7 @@ import {
   LogOut,
   Monitor,
   Paintbrush,
+  Pencil,
   Podcast,
   QrCode,
   ScanLine,
@@ -28,6 +32,7 @@ import {
   Sparkle,
   Sparkles,
   Star,
+  Trash2,
   User,
   UserRoundPlus,
   X,
@@ -71,6 +76,11 @@ import {
   SiTidal,
   SiSlack,
 } from "@icons-pack/react-simple-icons";
+
+import cardDesign1 from "../../public/svg/cardDesign1";
+import cardDesign2 from "../../public/svg/cardDesign2";
+import cardDesign3 from "../../public/svg/cardDesign3";
+import cardDesign4 from "../../public/svg/cardDesign4";
 
 const socialIcons = {
   facebook: SiFacebook,
@@ -138,9 +148,18 @@ const icons = {
   monitor: Monitor,
   airplay: Airplay,
   share: Share2,
+  copy: Copy,
   "user-round-plus": UserRoundPlus,
   search: Search,
   "loader-circle": LoaderCircle,
+  "circle-x": CircleX,
+  "card-design-1": cardDesign1,
+  "card-design-2": cardDesign2,
+  "card-design-3": cardDesign3,
+  "card-design-4": cardDesign4,
+  "grip-vertical": GripVertical,
+  pencil: Pencil,
+  "trash-2": Trash2,
   ...socialIcons,
   "circle-check-big": CircleCheckBig,
 };

@@ -15,15 +15,15 @@ datasource db {
 }
 
 model User {
-  id                 String              @id @default(uuid())
-  fullname           String              @unique
-  email              String              @unique
-  password           String
-  avatar             String              @default("/images/user-placeholder.png")
-  createdAt          DateTime            @default(now()) @db.Timestamp(3) // Database-specific type
-  links              Link[]
-  is_confirmed       Boolean             @default(false)
-  activationCodes    ActivationCode[] // One-to-many relationship
+  id              String  @id @default(uuid())
+  fullname        String  @unique
+  email           String  @unique
+  password        String
+  avatar          String @default("/images/user-placeholder.png")
+  createdAt DateTime @default(now()) @db.Timestamp(3) // Database-specific type
+  links           Link[]
+  is_confirmed    Boolean  @default(false)
+  activationCodes ActivationCode[] // One-to-many relationship
   passwordResetToken PasswordResetToken?
   resetToken        String?  @unique
   resetTokenExpires DateTime?
@@ -60,40 +60,42 @@ model Link {
   blocks                           Block[]  // One-to-many relationship with Block
   socials                          Social[]  // One-to-many relationship with social
   userName     String
-  user     User   @relation(fields: [userName], references: [fullname]) // Reference `name` in User
+  userId       String
+  user         User   @relation(fields: [userId], references: [id]) // Reference `id` in User
  
   // Styling and design fields
   general_styles_desktop_bgcolor   String
   general_styles_primary_text_color String
   general_styles_primary_bgcolor   String
   general_styles_is_secondary_bgcolor Boolean
-  general_styles_secondary_bgcolor    String
-  general_styles_soft_shadow          Boolean
-  header_styles_profile_shadow        Float
-  header_styles_profile_border_width  Int
-  header_styles_profile_border_color  String
-  header_styles_collapse_long_bio     Boolean
-  header_styles_social_icons_size     Int
-  card_styles_card_color              String
-  card_styles_text_color              String
-  card_styles_card_corner             Int
-  card_styles_card_border_width       Int
-  card_styles_card_border_color       String
-  card_styles_card_shadow             Int
-  card_styles_card_spacing            Int
-  title_font                          String
-  text_font                           String
-  social_enable_add_contacts          Boolean
-  social_enable_share_btn             Boolean
-  social_enable_search                Boolean
-  social_enable_qr_code               Boolean
+  general_styles_secondary_bgcolor String
+  general_styles_soft_shadow       Boolean
+  header_styles_profile_shadow     Float
+  header_styles_profile_border_width Int
+  header_styles_profile_border_color String
+  header_styles_collapse_long_bio  Boolean
+  header_styles_social_icons_size  Int
+  card_styles_design               Int     // options [0, 1, 2, 3, 4]
+  card_styles_card_color           String
+  card_styles_text_color           String
+  card_styles_card_corner          Int
+  card_styles_card_border_width    Int
+  card_styles_card_border_color    String
+  card_styles_card_shadow          Int
+  card_styles_card_spacing         Int
+  title_font                       String
+  text_font                        String
+  social_enable_add_contacts       Boolean
+  social_enable_share_btn          Boolean
+  social_enable_search             Boolean
+  social_enable_qr_code            Boolean
 }
 
 model Block {
   id            String  @id @default(uuid())
-  style         Boolean
+  text          String
   textColor     String  // Color value for the text
-  corner        Int     // Corner value (e.g., rounded corners)
+  corner        Int     // Corner value (e.g., rounded corners) max value is 28px
   
   linkId        String
   link          Link    @relation(fields: [linkId], references: [id]) // Linking Block to Link

@@ -13,13 +13,13 @@ export function CustomTooltip({
   trigger: React.ReactNode;
   content: React.ReactNode;
 }>) {
-  // console.log('conten',content);
-  
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>{trigger}</TooltipTrigger>
-        <TooltipContent color="gray" className="max-w-[280px]">{content}</TooltipContent>
+        <TooltipContent color="gray" className="max-w-[280px] font-noto-sans">
+          {content}
+        </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );
