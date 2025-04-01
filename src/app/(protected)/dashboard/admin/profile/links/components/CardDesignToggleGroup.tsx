@@ -41,7 +41,7 @@ export const CardDesignToggleGroup = ({
   <div className={cn("flex flex-col border-1 border-gray-300 rounded-sm mb-4")}>
     <div className="flex items-center justify-start h-10 gap-2 px-[11px] border-b-1 border-gray-300">
       <HelperTooltip content={tooltipContent} />
-      <div className="text-sm mr-[22px] capitalize">{title}</div>
+      <div className="text-[13px] mr-[22px] capitalize">{title}</div>
     </div>
     <ToggleGroup
       type="single"

@@ -27,7 +27,7 @@ export const DashboardChromPicker = ({
     <PopoverTrigger asChild>
       <div className="dashboard-general-style-controller cursor-pointer">
         <span className="flex gap-2 justify-center items-center">
-          <div className="text-sm mr-[22px] capitalize">{label}</div>
+          <div className="text-[13px] mr-[22px] capitalize">{label}</div>
         </span>
         <div
           className={cn("rounded-full w-5 h-5")}

@@ -14,7 +14,7 @@ export const DashboardSlider = ({
   onValueChange: (value: number) => void;
 }>) => (
   <div className="dashboard-general-style-controller">
-    <div className="text-sm mr-[22px] capitalize">{label}</div>
+    <div className="text-[13px] mr-[22px] capitalize">{label}</div>
     <Slider
       defaultValue={defaultValue}
       max={max}

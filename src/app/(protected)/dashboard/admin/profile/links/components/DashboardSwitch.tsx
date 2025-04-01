@@ -15,7 +15,7 @@ export const DashboardSwitch = ({
   <div className="dashboard-general-style-controller">
     <span className="flex gap-2 justify-center items-center">
       <HelperTooltip content={tooltipContent} />
-      <div className="text-sm mr-[22px] capitalize">{label}</div>
+      <div className="text-[13px] mr-[22px] capitalize">{label}</div>
     </span>
     <Switch
       id="show-deleted"
