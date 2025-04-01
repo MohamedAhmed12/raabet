@@ -11,6 +11,7 @@ import {
   CircleX,
   Clock8,
   Copy,
+  GripVertical,
   HandHelping,
   Home,
   Link,
@@ -20,6 +21,7 @@ import {
   LogOut,
   Monitor,
   Paintbrush,
+  Pencil,
   Podcast,
   QrCode,
   ScanLine,
@@ -30,6 +32,7 @@ import {
   Sparkle,
   Sparkles,
   Star,
+  Trash2,
   User,
   UserRoundPlus,
   X,
@@ -153,6 +156,9 @@ const icons = {
   "card-design-2": cardDesign2,
   "card-design-3": cardDesign3,
   "card-design-4": cardDesign4,
+  "grip-vertical": GripVertical,
+  pencil: Pencil,
+  "trash-2": Trash2,
   ...socialIcons,
 };
 

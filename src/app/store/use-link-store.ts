@@ -24,11 +24,12 @@ export interface Block {
 }
 
 export interface Link {
-  phone: number;
+  phone: string;
   website: string;
   instagram: string;
   twitter: string;
   bio: string;
+  fullName: string;
   general_styles_desktop_bgcolor: string;
   general_styles_primary_text_color: string;
   general_styles_primary_bgcolor: string;
@@ -68,11 +69,12 @@ interface LinkState {
 const createLinkSlice: StateCreator<LinkState> = (set) => ({
   link: {
     // contact data
-    phone: 0,
+    phone: "",
     website: "",
     instagram: "",
     twitter: "",
     bio: "",
+    fullName: "",
     // general style
     general_styles_desktop_bgcolor: "",
     general_styles_primary_text_color: "",
@@ -89,6 +91,7 @@ const createLinkSlice: StateCreator<LinkState> = (set) => ({
 
     // card style
     //         // card_styles_tactile_cards: 10,
+    card_styles_design: 1,
     card_styles_card_color: "#000000",
     card_styles_text_color: "#000000",
     card_styles_card_corner: 0, // border radius
