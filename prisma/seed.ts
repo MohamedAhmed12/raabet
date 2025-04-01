@@ -26,6 +26,7 @@ async function main() {
       twitter: "",
       bio: "Write you Bio here...",
       userName: user.fullname, // Link it to the user
+      userId: user.id, // Link it to the user
       general_styles_desktop_bgcolor: "#F1F1F1",
       general_styles_primary_text_color: "#000000",
       general_styles_primary_bgcolor: "#FFFFFF",

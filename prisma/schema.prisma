@@ -48,7 +48,8 @@ model Link {
   blocks                           Block[]  // One-to-many relationship with Block
   socials                          Social[]  // One-to-many relationship with social
   userName     String
-  user     User   @relation(fields: [userName], references: [fullname]) // Reference `name` in User
+  userId       String
+  user         User   @relation(fields: [userId], references: [id]) // Reference `id` in User
  
   // Styling and design fields
   general_styles_desktop_bgcolor   String
