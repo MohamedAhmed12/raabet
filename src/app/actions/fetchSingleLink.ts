@@ -11,7 +11,11 @@ export async function fetchSingleLink(username: string) {
       },
       include: {
         user: true, // Optionally include user details in the response
-        socials: true,
+        socials: {
+          orderBy: {
+            order: "asc", // Change 'order' to whatever field you want to order by (ascending or descending)
+          },
+        },
         blocks: true,
       },
     });
