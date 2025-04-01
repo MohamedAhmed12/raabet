@@ -5,7 +5,6 @@ import { DashboardChromPicker } from "../DashboardChromPicker";
 
 export default function HeaderStyles() {
   const { link, setLink } = useLinkStore((state) => state);
-  console.log("link", link);
 
   const handleLinkPropertyValChange = (
     key: keyof Link,
