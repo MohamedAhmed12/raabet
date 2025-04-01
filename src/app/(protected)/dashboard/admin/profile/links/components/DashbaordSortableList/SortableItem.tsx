@@ -27,11 +27,12 @@ export const SortableItem = ({
     resolver: zodResolver(schema),
   });
 
-  const { ref, handleRef } = useSortable({
+  const { ref } = useSortable({
     id: social.id,
     index: index,
   });
 
+  const onSubmit = () => {};
   return (
     <li
       className="item w-full flex justify-between items-center mb-5"
