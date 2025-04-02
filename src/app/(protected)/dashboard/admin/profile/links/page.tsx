@@ -10,11 +10,11 @@ import { LinkViewer } from "./components/LinkViewer/page";
 
 export default function ProfileLinks() {
   const session = useSession();
-  const username = session?.data?.fullname as string;
-  // You can validate or fetch data based on the username
-  if (!username && session.status == "authenticated") return notFound();
+  const userId = session?.data?.id as string;
+  // You can validate or fetch data based on the userId
+  if (!userId && session.status == "authenticated") return notFound();
 
-  const { isLoading, data, error } = useFetchLink(username);
+  const { isLoading, data, error } = useFetchLink({userId});
 
   if (error) return notFound();
 
@@ -24,7 +24,6 @@ export default function ProfileLinks() {
     data && (
       <div className={"flex w-full h-full justify-between"}>
         <LinkBuilderSidebar />
-
         <LinkViewer />
         <GeneralStylesSidebar />
       </div>

@@ -1,12 +1,14 @@
 "use client";
 
+import { useLinkStore } from "@/app/store/use-link-store";
 import { cn } from "@/lib/cn";
 import { useState } from "react";
 import { LinkViewerTabs } from "./LinkViewerTabs";
 
 export function LinkViewer() {
   const [selectedTab, setSelectedTab] = useState(0);
-  const session = { name: "mohamed" };
+  const link = useLinkStore((state) => state.link);
+
   const handleOnClick = (i: number) => setSelectedTab(i);
 
   return (
@@ -23,7 +25,7 @@ export function LinkViewer() {
           className="flex justify-center h-full bg-green-400 w-[35vh] shadow-lg bg-white rounded-3xl border-3 border-[#333]"
         >
           <iframe
-            src={`/${session.name}`}
+            src={`/${link.userName}`}
             width="100%"
             height="100%"
             title="Embedded Content"

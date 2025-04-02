@@ -15,7 +15,7 @@ export default function UserName() {
   // You can validate or fetch data based on the username
   if (!username) return notFound();
 
-  const { isLoading, data, error } = useFetchLink("johndoe");
+  const { isLoading, data, error } = useFetchLink({ username });
 
   if (error) return notFound();
 
