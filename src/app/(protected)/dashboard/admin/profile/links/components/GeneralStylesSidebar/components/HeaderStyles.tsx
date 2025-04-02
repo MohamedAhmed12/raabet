@@ -2,16 +2,11 @@ import { Link, useLinkStore } from "@/app/store/use-link-store";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
+import { useUpdateLink } from "../../../helper/UpdateLinkData";
 
 export default function HeaderStyles() {
-  const { link, setLink } = useLinkStore((state) => state);
-
-  const handleLinkPropertyValChange = (
-    key: keyof Link,
-    val: string | boolean | number
-  ) => {
-    setLink({ [key]: val });
-  };
+    const { link,handleLinkPropertyValChange } = useUpdateLink();
+  
 
   return (
     <div className="section">
@@ -40,10 +35,10 @@ export default function HeaderStyles() {
         }
       />
 
-      {link.header_styles_profile_border_width > 0 && (
+      {link?.header_styles_profile_border_width > 0 && (
         <DashboardChromPicker
           label="profile picture border color"
-          currentColor={link.header_styles_profile_border_color}
+          currentColor={link?.header_styles_profile_border_color}
           onColorChange={({ hex }: { hex: string }) =>
             handleLinkPropertyValChange(
               "header_styles_profile_border_color",
@@ -56,7 +51,7 @@ export default function HeaderStyles() {
       <DashboardSwitch
         label="Collapse Long Bio"
         tooltipContent="aaa"
-        checked={link.header_styles_collapse_long_bio}
+        checked={link?.header_styles_collapse_long_bio}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange(
             "header_styles_collapse_long_bio",

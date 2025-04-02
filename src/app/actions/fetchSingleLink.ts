@@ -14,8 +14,8 @@ export async function fetchSingleLink({
     return await prisma.link.findFirst({
       where: {
         OR: [
-          { userName: username }, // Filter by the `userName` field
-          { userId }, // Filter by the `userName` foreign key
+          { userName: username }, // Filter by the `userName` field for [username] unauth page (visitor)
+          { userId }, // Filter by the `userName` foreign key for all of dashboard/auth page
         ],
       },
       include: {
