@@ -1,7 +1,7 @@
 import { Link, useLinkStore } from "@/app/store/use-link-store";
-import { CardDesignToggleGroup } from "../CardDesignToggleGroup";
-import { DashboardChromPicker } from "../DashboardChromPicker";
-import { DashboardSlider } from "../DashboardSlider";
+import { CardDesignToggleGroup } from "../../CardDesignToggleGroup";
+import { DashboardChromPicker } from "../../DashboardChromPicker";
+import { DashboardSlider } from "../../DashboardSlider";
 
 export default function CardStyles() {
   const { link, setLink } = useLinkStore((state) => state);

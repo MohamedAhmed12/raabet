@@ -1,7 +1,7 @@
 import { Link, useLinkStore } from "@/app/store/use-link-store";
-import { DashboardSlider } from "../DashboardSlider";
-import { DashboardSwitch } from "../DashboardSwitch";
-import { DashboardChromPicker } from "../DashboardChromPicker";
+import { DashboardSlider } from "../../DashboardSlider";
+import { DashboardSwitch } from "../../DashboardSwitch";
+import { DashboardChromPicker } from "../../DashboardChromPicker";
 
 export default function HeaderStyles() {
   const { link, setLink } = useLinkStore((state) => state);
