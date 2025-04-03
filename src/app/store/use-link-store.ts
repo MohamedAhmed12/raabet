@@ -29,7 +29,7 @@ export interface Link {
   instagram: string;
   twitter: string;
   bio: string;
-  fullName: string;
+  userName: string;
   general_styles_desktop_bgcolor: string;
   general_styles_primary_text_color: string;
   general_styles_primary_bgcolor: string;
@@ -74,7 +74,7 @@ const createLinkSlice: StateCreator<LinkState> = (set) => ({
     instagram: "",
     twitter: "",
     bio: "",
-    fullName: "",
+    userName: "",
     // general style
     general_styles_desktop_bgcolor: "",
     general_styles_primary_text_color: "",

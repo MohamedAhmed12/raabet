@@ -2,12 +2,21 @@
 
 import { prisma } from "@/lib/prisma";
 
-export async function fetchSingleLink(username: string) {
+export async function fetchSingleLink({
+  userId,
+  username,
+}: {
+  userId?: string | undefined;
+  username?: string;
+}) {
   try {
     // Fetch links associated with the user by `username`
     return await prisma.link.findFirst({
       where: {
-        userName: username, // Filter by the `userName` foreign key
+        OR: [
+          { userName: username }, // Filter by the `userName` field
+          { userId }, // Filter by the `userName` foreign key
+        ],
       },
       include: {
         user: true, // Optionally include user details in the response

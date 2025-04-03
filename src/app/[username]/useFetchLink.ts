@@ -2,7 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { fetchSingleLink } from "../actions/fetchSingleLink";
 import { useLinkStore } from "../store/use-link-store";
 
-const useFetchLink = (username: string | undefined) => {
+const useFetchLink = ({
+  userId,
+  username,
+}: {
+  userId?: string | undefined;
+  username?: string;
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [data, setData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -13,21 +19,22 @@ const useFetchLink = (username: string | undefined) => {
   const hasFetchedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (!username || hasFetchedRef.current) return; // Don't fetch if username is missing or data already fetched
+    if ((!userId && !username) || hasFetchedRef.current) return; // Don't fetch if userId is missing or data already fetched
 
     const fetchLink = async () => {
       setIsLoading(true);
       setError(null);
 
       try {
-        const response = await fetchSingleLink(username);
+        const response = await fetchSingleLink({ userId, username });
+        console.log("res", response);
 
         if (response) {
           setData(response);
           setLink(response);
           hasFetchedRef.current = true; // Mark as fetched
         } else {
-          const e = `No record matches this username`;
+          const e = `No record matches this userId`;
           console.debug(e);
           setError(e);
         }
@@ -40,7 +47,7 @@ const useFetchLink = (username: string | undefined) => {
     };
 
     fetchLink();
-  }, [username]);
+  }, [userId]);
 
   return { isLoading, data, error };
 };

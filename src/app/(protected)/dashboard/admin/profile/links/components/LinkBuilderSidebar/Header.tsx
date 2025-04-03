@@ -28,7 +28,7 @@ export const Header = () => {
         id="name"
         type="name"
         placeholder="Name"
-        value={link.fullName}
+        value={link.userName}
         className="mb-[14px]"
         onChange={handleNameChange}
       />

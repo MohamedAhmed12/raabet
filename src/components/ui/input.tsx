@@ -7,7 +7,7 @@ function Input({
   icon,
   type,
   ...props
-}: React.ComponentProps<"input"> & { icon: React.ReactNode }) {
+}: React.ComponentProps<"input"> & { icon?: React.ReactNode }) {
   return (
     <div className="relative w-full">
       <input

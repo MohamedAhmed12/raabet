@@ -5,6 +5,7 @@ import { useIsScreenWidthLessThan } from "@/hooks/use-is-screen-width-less-than.
 import { Header } from "./Header";
 import { MainHeaderSection } from "./MainHeaderSection";
 import { Socials } from "./Socials";
+import { Blocks } from "./Blocks/page";
 export default function LinkBuilderSidebar() {
   const showSidebar = !useIsScreenWidthLessThan(800);
 
@@ -16,6 +17,7 @@ export default function LinkBuilderSidebar() {
         <div className="px-[22px] pt-6">
           <Header />
           <Socials />
+          <Blocks />
         </div>
       </div>
     )

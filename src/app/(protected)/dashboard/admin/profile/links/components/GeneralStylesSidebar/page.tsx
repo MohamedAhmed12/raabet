@@ -2,8 +2,8 @@
 
 import { Separator } from "@/components/ui/separator";
 import { useIsScreenWidthLessThan } from "@/hooks/use-is-screen-width-less-than.ts";
-import CardStyles from "./CardStyles";
-import HeaderStyles from "./HeaderStyles";
+import CardStyles from "./components/CardStyles";
+import HeaderStyles from "./components/HeaderStyles";
 
 export default function GeneralStylesSidebar() {
   const showSidebar = !useIsScreenWidthLessThan(1200);
