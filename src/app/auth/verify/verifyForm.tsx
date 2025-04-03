@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function VerifyForm({ email }: { email: string }) {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const handleVerify = async () => {
     setLoading(true);
@@ -22,6 +24,7 @@ export default function VerifyForm({ email }: { email: string }) {
 
     if (res.ok) {
       setMessage("✅ Activation successful!");
+      setTimeout(() => router.replace("/auth/login"), 2000);
     } else {
       setMessage(`❌ ${data.error}`);
     }

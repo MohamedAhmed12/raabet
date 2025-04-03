@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
 
     // Get the latest activation code for the user
     const activationCode = await prisma.activationCode.findFirst({
-      where: { user: { email }, used: false },
+      where: { user: { email }, used: false,expiresAt: { gt: new Date() } },
       orderBy: { createdAt: "desc" }, // Fetch the latest code
     });
 
