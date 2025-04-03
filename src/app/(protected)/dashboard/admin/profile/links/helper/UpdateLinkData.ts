@@ -14,7 +14,6 @@ export function useUpdateLink() {
     setLink(updatedLink);
 
     const result = await updateSingleLink(link.id, key, val);
-    console.log("Result from updateSingleLink:", result);
 
     if (!result?.success) {
       console.error("Failed to update link:", result?.error);
