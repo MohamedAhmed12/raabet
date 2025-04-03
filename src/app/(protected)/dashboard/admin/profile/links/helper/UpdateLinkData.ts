@@ -1,19 +1,3 @@
-// import { useLinkStore } from "@/app/store/use-link-store";
-
-// export  function UpdateLinkData() {
-
-//   const { link, setLink } = useLinkStore((state) => state);
-
-//     // move this to a custom hook and call action inside it UpdateSingleLInk
-//     const handleLinkPropertyValChange = (
-//       key: keyof Link,
-//       val: string | boolean | number
-//     ) => {
-//       setLink({ [key]: val });
-//       // call database to update link table to set the new link object form store into DB
-//     };
-// }
-
 "use client";
 
 import { useLinkStore } from "@/app/store/use-link-store";
