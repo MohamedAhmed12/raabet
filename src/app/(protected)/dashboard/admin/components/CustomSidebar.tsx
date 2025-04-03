@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react"; // Import signOut from NextAuth.js
 
 const sidebarTabs: { text: string; url: string; icon: iconNameType }[] = [
   {
@@ -68,7 +69,12 @@ export default function CustomSidebar() {
                 className="flex gap-2 p-[5.5px] mb-[6px] rounded-sm "
                 variant="dashboardDefault"
                 isActive={isActive(tab.url)}
-                onClick={() => console.log("Sidebar button clicked")}
+                onClick={() => {
+                  // For the logout button, trigger signOut
+                  if (tab.text === "log out") {
+                    signOut({ callbackUrl: '/auth/login' }); // Redirect to home page after logout
+                  }
+                }}
               >
                 <Link
                   href={tab.url} // Corrected href format

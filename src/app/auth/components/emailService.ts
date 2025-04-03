@@ -34,12 +34,9 @@ export const sendEmail = async ({
       subject,
       html,
     };
-    console.log(22, mailOptions);
 
     // Send email
     const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully:", info.messageId);
-
     return info;
   } catch (error) {
     console.error("Failed to send activation email:", error);
