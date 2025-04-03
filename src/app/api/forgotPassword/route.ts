@@ -1,5 +1,5 @@
-import { sendEmail } from "@/app/auth/components/emailService";
-import { ForgetPasswordTemplate } from "@/app/auth/components/ForgetPasswordTemplate";
+import { sendEmail } from '@/app/auth/components/emailService';
+import { ForgetPasswordTemplate } from '@/app/auth/components/ForgetPasswordTemplate';
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -7,13 +7,7 @@ import jwt from "jsonwebtoken";
 
 // Zod Schema for validation
 const forgotPasswordSchema = z.object({
-  identifier: z
-    .string()
-    .min(3, "Email or Full Name is required")
-    .refine(
-      (val) => !val.includes("@") || z.string().email().safeParse(val).success,
-      { message: "Invalid email address" }
-    ),
+  identifier: z.string().min(3, "Email or Full Name is required"),
 });
 
 export async function POST(req: Request) {
@@ -21,19 +15,15 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { identifier } = forgotPasswordSchema.parse(body);
 
-    // Determine if identifier is an email
-    const isEmail = identifier.includes("@");
-    
+    // Check if identifier is an email
+    const isEmail = /\S+@\S+\.\S+/.test(identifier);
+
     // Find user by email or full name (case insensitive)
     const user = await prisma.user.findFirst({
       where: {
         OR: [
           { email: isEmail ? identifier : undefined },
-          {
-            fullname: isEmail
-              ? undefined
-              : { equals: identifier, mode: "insensitive" },
-          },
+          { fullname: isEmail ? undefined : { equals: identifier, mode: "insensitive" } },
         ],
       },
     });
@@ -41,15 +31,17 @@ export async function POST(req: Request) {
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
+    
 
-    const token = jwt.sign(
-      { email: user.email },
-      process.env.JWT_SECRET as string,
-      { expiresIn: "1h" }
-    );
+const token = jwt.sign(
+  { email: user.email }, 
+  process.env.JWT_SECRET as string, 
+  { expiresIn: "1h" }
+);
+
 
     const htmlContent = ForgetPasswordTemplate({
-      user: user.fullname as string,
+      user: user.fullname as string, // Ensure fullName is correctly used
       token: token,
     });
 

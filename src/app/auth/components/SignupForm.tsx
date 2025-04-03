@@ -34,11 +34,14 @@ export default function SignUpForm({
   const [error, setError] = useState<string | null>(null);
 
   const onSubmit = async (data: SignupFormData) => {
+    // setLoading(true);
     const result = await signup(data);
 
     if (result?.error) {
       setError(result.error);
+      // setloadin(false)
     } else {
+      // setloadin(false)
       
       await signIn("credentials", {
         email: data.email,
@@ -46,6 +49,7 @@ export default function SignUpForm({
         redirect: true, // Prevent automatic redirection
         callbackUrl: "/auth/verify",
       });
+      // router.push(`/auth/verify?email=${encodeURIComponent(data.email)}`); // Pass email as query parameter
     }
   };
 

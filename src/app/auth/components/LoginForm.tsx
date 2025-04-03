@@ -42,7 +42,11 @@ export const LoginForm = ({
 
       if (result?.error) {
         setError("Invalid email or password"); // Show custom error message
-         } 
+         }   // } else {
+      //   router.push(`/auth/confirm`); // Pass email as query parameter
+
+      //   // router.push("/dashboard"); // Redirect after successful login
+      // }
     } catch (err) {
       setError("Something went wrong. Please try again.");
     }

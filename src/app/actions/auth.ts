@@ -44,7 +44,7 @@ export const signup = async ({
       },
     });
     const htmlContent = EmailTemplate({
-      user: user.fullname,
+      user: "Mazen",
       activationCode: activationCode,
     });
 

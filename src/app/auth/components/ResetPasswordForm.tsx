@@ -1,3 +1,90 @@
+// "use client";
+
+// import { useState } from "react";
+// import { useSearchParams, useRouter } from "next/navigation";
+// import { z } from "zod";
+// import { useForm } from "react-hook-form";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { Button } from "@/components/ui/button";
+// import { Input } from "@/components/ui/input";
+// import { cn } from "@/lib/cn";
+
+// const resetPasswordSchema = z
+//   .object({
+//     password: z.string().min(6, "Password must be at least 6 characters"),
+//     confirmPassword: z.string(),
+//   })
+//   .refine((data) => data.password === data.confirmPassword, {
+//     message: "Passwords do not match",
+//     path: ["confirmPassword"],
+//   });
+
+// type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
+
+// export default function ResetPasswordForm({
+//   className,
+//   ...props
+// }: React.ComponentPropsWithoutRef<"form">) {
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//   } = useForm<ResetPasswordFormData>({
+//     resolver: zodResolver(resetPasswordSchema),
+//   });
+
+//   const [error, setError] = useState<string | null>(null);
+//   const [loading, setLoading] = useState(false);
+//   const searchParams = useSearchParams();
+//   const router = useRouter();
+//   const token = searchParams.get("token");
+
+//   const onSubmit = async (data: ResetPasswordFormData) => {
+//     if (!token) return;
+
+//     setLoading(true);
+//     try {
+//       const response = await fetch("/api/resetPassword", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ token, password: data.password }),
+//       });
+
+//       const result = await response.json();
+//       if (!response.ok) throw new Error(result.message);
+
+//       router.push("/auth/login");
+//     } catch (error: unknown) {
+//       setError((error as Error).message || "Something went wrong");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <div className="max-w-md mx-auto mt-10 p-6 border rounded-lg shadow">
+//       <h2 className="text-2xl font-semibold mb-4">Reset Password</h2>
+//       {error && <p className="text-red-500 mb-3">{error}</p>}
+
+//       <form onSubmit={handleSubmit(onSubmit)} className={cn("flex flex-col", className)} {...props}>
+//         <div className="grid gap-3">
+//           <div className="grid">
+//             <Input type="password" placeholder="New Password" {...register("password")} required />
+//             {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+//           </div>
+//           <div className="grid">
+//             <Input type="password" placeholder="Confirm Password" {...register("confirmPassword")} required />
+//             {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
+//           </div>
+//           <Button type="submit" className="w-full bg-blue-400 hover:bg-blue-500 cursor-pointer" disabled={loading}>
+//             {loading ? "Resetting..." : "Reset Password"}
+//           </Button>
+//         </div>
+//       </form>
+//     </div>
+//   );
+// }
+
 "use client";
 
 import { useState } from "react";
@@ -47,7 +134,7 @@ export default function ResetPasswordForm({
       const result = await response.json();
       if (!response.ok) throw new Error(result.message);
 
-      router.replace("/auth/login");
+      router.push("/auth/login");
     } catch (error: unknown) {
       setError((error as Error).message || "Something went wrong");
     } finally {

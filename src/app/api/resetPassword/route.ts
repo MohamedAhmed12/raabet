@@ -20,6 +20,7 @@ export async function POST(req: Request) {
       );
     }
 
+    console.log("Received token:", token); // Debugging
 
     let decoded;
     try {
@@ -71,6 +72,8 @@ export async function POST(req: Request) {
       where: { email },
       data: { password: hashedPassword },
     });
+
+    console.log(`Password updated successfully for user: ${email}`);
 
     return NextResponse.json(
       { message: "Password reset successfully" },
