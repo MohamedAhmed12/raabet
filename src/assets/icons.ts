@@ -44,6 +44,7 @@ import {
   User,
   UserRoundPlus,
   X,
+  CircleCheckBig,
 } from "lucide-react";
 
 import {
@@ -175,6 +176,7 @@ const icons = {
   folder: Folder,
   type: Type,
   ...socialIcons,
+  "circle-check-big": CircleCheckBig,
 };
 
 export type iconNameType = keyof typeof icons;

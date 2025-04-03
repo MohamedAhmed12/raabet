@@ -1,16 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useRouter } from "next/navigation";
+import { signup } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { signup } from "@/app/actions/auth";
 import { cn } from "@/lib/cn";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const signupSchema = z.object({
   fullname: z.string().min(2, "Full name is required"),
@@ -33,18 +32,20 @@ export default function SignUpForm({
   });
 
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   const onSubmit = async (data: SignupFormData) => {
-    // setLoading(true);
     const result = await signup(data);
 
     if (result?.error) {
       setError(result.error);
-      // setloadin(false)
     } else {
-      // setloadin(false)
-      router.push("/auth/login");
+      
+      await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: true, // Prevent automatic redirection
+        callbackUrl: "/dashboard",
+      });
     }
   };
 
@@ -122,7 +123,7 @@ export default function SignUpForm({
               privacy policy.
             </a>
           </div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full bg-blue-400 hover:bg-blue-400 cursor-pointer">
             Sign Up
           </Button>
         </div>
