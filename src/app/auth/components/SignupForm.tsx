@@ -44,7 +44,7 @@ export default function SignUpForm({
         email: data.email,
         password: data.password,
         redirect: true, // Prevent automatic redirection
-        callbackUrl: "/auth/verify",
+        callbackUrl: "/dashboard",
       });
     }
   };
