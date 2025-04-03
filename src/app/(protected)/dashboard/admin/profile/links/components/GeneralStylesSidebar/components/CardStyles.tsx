@@ -2,16 +2,10 @@ import { Link, useLinkStore } from "@/app/store/use-link-store";
 import { CardDesignToggleGroup } from "../../CardDesignToggleGroup";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
+import { useUpdateLink } from "../../../helper/UpdateLinkData";
 
 export default function CardStyles() {
-  const { link, setLink } = useLinkStore((state) => state);
-
-  const handleLinkPropertyValChange = (
-    key: keyof Link,
-    val: string | boolean | number
-  ) => {
-    setLink({ [key]: val });
-  };
+  const { link, handleLinkPropertyValChange } = useUpdateLink();
 
   return (
     <div className="section">
@@ -22,19 +16,22 @@ export default function CardStyles() {
       <CardDesignToggleGroup
         title="Tactile Cards"
         tooltipContent="Tactile cards give your cards a soft, tactile, look and feel. When using tactile cards, your page's background color will be used as the card color. Some design options are not available when using tactile cards."
-        onValueChange={(val) => console.log(val)}
+        onValueChange={(value) => {
+          const numericValue = parseInt(value); // Convert string value to number
+          handleLinkPropertyValChange("card_styles_design", numericValue); // Pass the numeric value
+        }}
       />
 
       <DashboardChromPicker
         label="card color"
-        currentColor={link.card_styles_card_color}
+        currentColor={link?.card_styles_card_color}
         onColorChange={({ hex }: { hex: string }) =>
           handleLinkPropertyValChange("card_styles_card_color", hex)
         }
       />
       <DashboardChromPicker
         label="card text color"
-        currentColor={link.card_styles_text_color}
+        currentColor={link?.card_styles_text_color}
         onColorChange={({ hex }: { hex: string }) =>
           handleLinkPropertyValChange("card_styles_text_color", hex)
         }
@@ -57,10 +54,10 @@ export default function CardStyles() {
           handleLinkPropertyValChange("card_styles_card_border_width", value)
         }
       />
-      {link.card_styles_card_border_width > 0 && (
+      {link?.card_styles_card_border_width > 0 && (
         <DashboardChromPicker
           label="card border color"
-          currentColor={link.card_styles_card_border_color}
+          currentColor={link?.card_styles_card_border_color}
           onColorChange={({ hex }: { hex: string }) =>
             handleLinkPropertyValChange("card_styles_card_border_color", hex)
           }

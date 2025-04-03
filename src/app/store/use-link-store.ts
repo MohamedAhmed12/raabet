@@ -24,6 +24,7 @@ export interface Block {
 }
 
 export interface Link {
+  id: string;
   phone: string;
   website: string;
   instagram: string;
@@ -68,6 +69,7 @@ interface LinkState {
 
 const createLinkSlice: StateCreator<LinkState> = (set) => ({
   link: {
+    id: "",
     // contact data
     phone: "",
     website: "",
