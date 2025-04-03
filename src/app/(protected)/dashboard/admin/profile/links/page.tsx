@@ -11,10 +11,8 @@ import { LinkViewer } from "./components/LinkViewer/page";
 export default function ProfileLinks() {
   const session = useSession();
   const userId = session?.data?.id as string;
-  // You can validate or fetch data based on the userId
-  if (!userId && session.status == "authenticated") return notFound();
 
-  const { isLoading, data, error } = useFetchLink({userId});
+  const { isLoading, data, error } = useFetchLink({ userId });
 
   if (error) return notFound();
 

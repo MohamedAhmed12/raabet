@@ -9,7 +9,7 @@ export default function LinksSocialIcons() {
       <div className="social-icons-container flex mt-[31px] justify-center items-center flex-wrap">
         {socials.map((social) => {
           return !social?.icon ? (
-            <div key="separator" className="w-full"></div>
+            <div key={social.id} className="w-full"></div>
           ) : (
             <a key={social.id}>
               <Icon

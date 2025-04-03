@@ -12,6 +12,7 @@ async function main() {
       email: "user@raabet.com",
       password: hashedPassword, // Use hashed password in real applications
       fullname: "johndoe",
+      is_confirmed: true,
     },
   });
 
