@@ -1,17 +1,10 @@
-import { Link, useLinkStore } from "@/app/store/use-link-store";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useUpdateLink } from "../../../helper/UpdateLinkData";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSwitch } from "../../DashboardSwitch";
 
 export default function GeneralStyles() {
-  const { link, setLink } = useLinkStore((state) => state);
-
-  const handleLinkPropertyValChange = (
-    key: keyof Link,
-    val: string | boolean | number
-  ) => {
-    setLink({ [key]: val });
-  };
+  const { link, handleLinkPropertyValChange } = useUpdateLink();
 
   return (
     <div className="section">

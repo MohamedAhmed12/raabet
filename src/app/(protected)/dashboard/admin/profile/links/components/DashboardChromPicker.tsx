@@ -20,7 +20,7 @@ export const DashboardChromPicker = ({
   onColorChange,
 }: Readonly<{
   label?: string;
-  currentColor: string;
+  currentColor: string | undefined;
   onColorChange?: ({ hex }: { hex: string }) => void;
 }>) => (
   <Popover>

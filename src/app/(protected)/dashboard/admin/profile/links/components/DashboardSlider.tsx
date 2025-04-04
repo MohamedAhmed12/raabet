@@ -19,7 +19,7 @@ export const DashboardSlider = ({
       defaultValue={defaultValue}
       max={max}
       step={step}
-      className="w-[130px] cursor-grab active:cursor-grabbing"
+      className="w-[124px] cursor-grab active:cursor-grabbing"
       progressbarcolor="bg-dashboard-primary"
       onValueChange={(val) => onValueChange(val[0])}
     />

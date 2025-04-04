@@ -8,7 +8,7 @@ export const DashboardSwitch = ({
   onCheckedChange,
 }: Readonly<{
   label?: string;
-  checked: boolean;
+  checked: boolean | undefined;
   tooltipContent?: string;
   onCheckedChange: (checked: boolean) => void;
 }>) => (

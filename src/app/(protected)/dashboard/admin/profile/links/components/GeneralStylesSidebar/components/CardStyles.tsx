@@ -1,8 +1,7 @@
-import { Link, useLinkStore } from "@/app/store/use-link-store";
+import { useUpdateLink } from "../../../helper/UpdateLinkData";
 import { CardDesignToggleGroup } from "../../CardDesignToggleGroup";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
-import { useUpdateLink } from "../../../helper/UpdateLinkData";
 
 export default function CardStyles() {
   const { link, handleLinkPropertyValChange } = useUpdateLink();

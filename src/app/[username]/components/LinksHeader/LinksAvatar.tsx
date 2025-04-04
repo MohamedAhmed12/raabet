@@ -6,8 +6,8 @@ export function LinksAvatar() {
 
   return (
     <Avatar className="size-[110px]">
-      <AvatarImage src={user?.avatar || '/images/user-placeholder.png'} alt={user.fullname} />
-      <AvatarFallback>{user.fullname}</AvatarFallback>
+      <AvatarImage src={user?.avatar || '/images/user-placeholder.png'} alt={user?.fullname} />
+      <AvatarFallback>{user?.fullname}</AvatarFallback>
     </Avatar>
   );
 }
