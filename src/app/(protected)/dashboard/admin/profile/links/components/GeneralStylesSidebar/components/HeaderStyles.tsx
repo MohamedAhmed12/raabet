@@ -5,8 +5,7 @@ import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { useUpdateLink } from "../../../helper/UpdateLinkData";
 
 export default function HeaderStyles() {
-    const { link,handleLinkPropertyValChange } = useUpdateLink();
-  
+  const { link, handleLinkPropertyValChange } = useUpdateLink();
 
   return (
     <div className="section">
@@ -15,7 +14,7 @@ export default function HeaderStyles() {
       </div>
       <DashboardSlider
         label="Profile Picture Shadow"
-        defaultValue={[0.02]}
+        defaultValue={[link?.header_styles_profile_shadow || 0]}
         max={1}
         step={0.001}
         onValueChange={(value) =>
@@ -24,14 +23,18 @@ export default function HeaderStyles() {
       />
       <DashboardSlider
         label="Profile Picture border"
-        defaultValue={[0]}
+        defaultValue={[link?.header_styles_profile_border_width || 0]}
         max={1}
         step={0.001}
         onValueChange={(value) =>
+         {
+          console.log('valeeeeee',value);
           handleLinkPropertyValChange(
             "header_styles_profile_border_width",
             value
           )
+          
+         }
         }
       />
 
@@ -61,7 +64,7 @@ export default function HeaderStyles() {
       />
       <DashboardSlider
         label="Social Icon Size"
-        defaultValue={[0.02]}
+        defaultValue={[link?.header_styles_social_icons_size || 0]}
         max={1}
         step={0.001}
         onValueChange={(value) =>

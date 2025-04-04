@@ -2,15 +2,15 @@
 
 import { useLinkStore } from "@/app/store/use-link-store";
 import { cn } from "@/lib/cn";
+import { useState } from "react";
 import { LinksAvatar } from "./LinksAvatar";
 
 export function LinksHeader() {
-  const { link, setLink } = useLinkStore((state) => state);
+  const [collapseBio, setCollapseBio] = useState<boolean>(true);
+  const link = useLinkStore((state) => state.link);
 
   const handleToggleCollapseBio = () => {
-    setLink({
-      header_styles_collapse_long_bio: !link.header_styles_collapse_long_bio,
-    });
+    setCollapseBio((prev) => !prev);
   };
   return (
     <div className="flex flex-col items-center mb-[33px] text-current">
@@ -28,9 +28,12 @@ export function LinksHeader() {
         {/* bio */}
         <h2
           className={cn(
-            "font-normal text-[13px] leading-[1.3] max-w-[300px] mt-[31px] cursor-pointer",
+            "font-normal text-[13px] leading-[1.3] max-w-[300px] mt-[31px]",
             link.text_font && `${link.text_font}`,
-            link.header_styles_collapse_long_bio && "line-clamp-3"
+            link.header_styles_collapse_long_bio &&
+              collapseBio &&
+              "line-clamp-3",
+            link.header_styles_collapse_long_bio && "cursor-pointer"
           )}
           onClick={handleToggleCollapseBio}
         >

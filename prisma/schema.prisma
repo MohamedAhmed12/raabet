@@ -71,10 +71,10 @@ model Link {
   general_styles_secondary_bgcolor String
   general_styles_soft_shadow       Boolean
   header_styles_profile_shadow     Float
-  header_styles_profile_border_width Int
+  header_styles_profile_border_width Float
   header_styles_profile_border_color String
   header_styles_collapse_long_bio  Boolean
-  header_styles_social_icons_size  Int
+  header_styles_social_icons_size  Float
   card_styles_design               Int     // options [0, 1, 2, 3, 4]
   card_styles_card_color           String
   card_styles_text_color           String
