@@ -78,11 +78,11 @@ model Link {
   card_styles_design               Int     // options [0, 1, 2, 3, 4]
   card_styles_card_color           String
   card_styles_text_color           String
-  card_styles_card_corner          Int
-  card_styles_card_border_width    Int
+  card_styles_card_corner          Float
+  card_styles_card_border_width    Float
   card_styles_card_border_color    String
-  card_styles_card_shadow          Int
-  card_styles_card_spacing         Int
+  card_styles_card_shadow          Float
+  card_styles_card_spacing         Float
   title_font                       String
   text_font                        String
   social_enable_add_contacts       Boolean
@@ -93,7 +93,8 @@ model Link {
 
 model Block {
   id            String  @id @default(uuid())
-  text          String
+  title         String  @default("")
+  text          String  @default("")
   textColor     String  // Color value for the text
   corner        Int     // Corner value (e.g., rounded corners) max value is 28px
   

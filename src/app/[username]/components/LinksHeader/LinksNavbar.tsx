@@ -21,7 +21,7 @@ export default function LinksNavbar() {
     <header
       className={cn(
         "sticky flex items-center justify-between top-0 z-50 text-current",
-        isSticky ? "pt-[11px] mr-[-20px] ml-[-20px]" : "px-[11px]"
+        isSticky && "pt-[11px] mr-[-20px] ml-[-20px]"
       )}
     >
       <div className="flex items-center gap-4 text-current">

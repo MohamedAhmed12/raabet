@@ -2,25 +2,19 @@
 
 import { cn } from "@/lib/cn";
 import { notFound, useParams } from "next/navigation";
+import { useEffect } from "react";
 import Loading from "../loading";
-import { Link, useLinkStore } from "../store/use-link-store";
+import { useLinkStore } from "../store/use-link-store";
 import LinksFooter from "./components/LinksFooter";
 import LinksNavbar from "./components/LinksHeader/LinksNavbar";
 import { LinksHeader } from "./components/LinksHeader/page";
 import LinksSocialIcons from "./components/LinksSocialIcons";
 import useFetchLink from "./useFetchLink";
-import { inherits } from "util";
-import { useEffect } from "react";
+import LinksBlocks from "./components/LinksBlocks";
 
-export default function UserName({
-  link: propsLink,
-  className,
-}: {
-  link: Link;
-  className: string;
-}) {
+export default function UserName() {
   const { username } = useParams();
-  const { setLink, link: storeLink } = useLinkStore((state) => state);
+  const { setLink, link } = useLinkStore((state) => state);
 
   // useFetchLink is setting link data from DB in linkStore internally
   const { isLoading, error } = useFetchLink({ username });
@@ -29,7 +23,6 @@ export default function UserName({
    * propsLink exists when using profile link viewer
    * store link
    */
-  const link = propsLink || storeLink;
   if ((!username && !link) || error) return notFound();
 
   if (isLoading) return <Loading />;
@@ -74,7 +67,7 @@ export default function UserName({
         >
           <div
             className={cn(
-              "h-full pt-[33px] pb-[33px] px-[33px]",
+              "flex flex-col h-full p-[33px]",
               link?.general_styles_is_secondary_bgcolor &&
                 "pt-[18px] mt-[210px]"
             )}
@@ -94,6 +87,7 @@ export default function UserName({
             >
               <LinksHeader />
               <LinksSocialIcons />
+              <LinksBlocks/>
             </div>
 
             <LinksFooter />

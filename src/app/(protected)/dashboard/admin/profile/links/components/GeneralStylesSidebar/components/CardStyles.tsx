@@ -22,13 +22,6 @@ export default function CardStyles() {
       />
 
       <DashboardChromPicker
-        label="card color"
-        currentColor={link?.card_styles_card_color}
-        onColorChange={({ hex }: { hex: string }) =>
-          handleLinkPropertyValChange("card_styles_card_color", hex)
-        }
-      />
-      <DashboardChromPicker
         label="card text color"
         currentColor={link?.card_styles_text_color}
         onColorChange={({ hex }: { hex: string }) =>
@@ -42,6 +35,14 @@ export default function CardStyles() {
         step={0.001}
         onValueChange={(value) =>
           handleLinkPropertyValChange("card_styles_card_corner", value)
+        }
+      />
+
+      <DashboardChromPicker
+        label="card color"
+        currentColor={link?.card_styles_card_color}
+        onColorChange={({ hex }: { hex: string }) =>
+          handleLinkPropertyValChange("card_styles_card_color", hex)
         }
       />
       <DashboardSlider
@@ -62,7 +63,6 @@ export default function CardStyles() {
           }
         />
       )}
-
       <DashboardSlider
         label="card shadow"
         defaultValue={[0.02]}

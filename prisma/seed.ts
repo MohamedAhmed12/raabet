@@ -108,31 +108,36 @@ async function main() {
     data: [
       {
         linkId: link.id, // Make sure this matches the Link's ID
-        text: "ddddd",
+        title: "title1",
+        text: "text1",
         textColor: link.card_styles_text_color,
         corner: 0,
       },
       {
         linkId: link.id, // Make sure this matches the Link's ID
-        text: "ddddd",
+        title: "title2",
+        text: "text2",
         textColor: link.card_styles_text_color,
         corner: 0,
       },
       {
         linkId: link.id,
-        text: "ddddd",
+        title: "title3",
+        text: "text3",
         textColor: link.card_styles_text_color,
         corner: 0,
       },
       {
         linkId: link.id,
-        text: "ddddd",
+        title: "title4",
+        text: "text4",
         textColor: link.card_styles_text_color,
         corner: 0,
       },
       {
         linkId: link.id,
-        text: "ddddd",
+        title: "title5",
+        text: "text5",
         textColor: link.card_styles_text_color,
         corner: 0,
       },

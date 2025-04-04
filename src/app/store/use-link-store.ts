@@ -16,6 +16,7 @@ export interface LinkSocial {
 export interface Block {
   id: string;
   style: number;
+  title: string;
   text: string;
   textColor: number;
   corner: number;

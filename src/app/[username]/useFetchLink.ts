@@ -31,6 +31,8 @@ const useFetchLink = ({
         if (response) {
           setData(response);
           setLink(response);
+          console.log('response1',response);
+          
           hasFetchedRef.current = true; // Mark as fetched
         } else {
           const e = `No record matches this userId`;
