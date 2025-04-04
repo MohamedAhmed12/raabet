@@ -35,7 +35,7 @@ export const DashboardChromPicker = ({
         ></div>
       </div>
     </PopoverTrigger>
-    <PopoverContent className="w-80">
+    <PopoverContent className="w-full" hasPadding={false}>
       <ChromePicker
         color={currentColor} // Ensure this color is passed correctly to the picker
         onChange={onColorChange} // Trigger onChange to update state

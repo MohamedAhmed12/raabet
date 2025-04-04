@@ -6,8 +6,6 @@ import { DashbaordSortableList } from "../DashbaordSortableList/page";
 import { DashboardAccordion } from "../DashboardAccordion";
 
 export const Socials = () => {
-  const { link, setLink } = useLinkStore((state) => state);
-
   const handleAddSeparator = () => {};
   const handleSocial = () => {};
 

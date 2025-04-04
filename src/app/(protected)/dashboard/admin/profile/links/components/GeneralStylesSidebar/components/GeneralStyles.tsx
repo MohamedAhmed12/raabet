@@ -54,6 +54,8 @@ export default function GeneralStyles() {
         }
       />
 
+      {/* to be applied next itteration */}
+      {/* 
       <Tabs
         onValueChange={(val) =>
           handleLinkPropertyValChange("general_styles_soft_shadow", val == "1")
@@ -69,7 +71,7 @@ export default function GeneralStyles() {
             solid shadow
           </TabsTrigger>
         </TabsList>
-      </Tabs>
+      </Tabs> */}
     </div>
   );
 }
