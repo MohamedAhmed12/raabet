@@ -13,7 +13,7 @@ const useFetchLink = ({
   const [data, setData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const { setLink } = useLinkStore((state) => state);
+  const setLink = useLinkStore((state) => state.setLink);
 
   // Use ref to track if the data has been fetched already
   const hasFetchedRef = useRef<boolean>(false);
@@ -27,7 +27,6 @@ const useFetchLink = ({
 
       try {
         const response = await fetchSingleLink({ userId, username });
-        console.log("res", response);
 
         if (response) {
           setData(response);
@@ -47,7 +46,7 @@ const useFetchLink = ({
     };
 
     fetchLink();
-  }, [userId]);
+  }, [userId, username]);
 
   return { isLoading, data, error };
 };

@@ -1,38 +1,39 @@
 "use client";
 
-import { useLinkStore } from "@/app/store/use-link-store";
-import { cn } from "@/lib/cn";
-import { useState } from "react";
+import { Link } from "@/app/store/use-link-store";
+import { useEffect, useRef, useState } from "react";
 import { LinkViewerTabs } from "./LinkViewerTabs";
 
-export function LinkViewer() {
+export function LinkViewer({ link }: { link: Link }) {
   const [selectedTab, setSelectedTab] = useState(0);
-  const link = useLinkStore((state) => state.link);
+
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  useEffect(() => {
+    // Check if iframeRef.current is not null
+    if (iframeRef.current) {
+      // Send the data to the iframe when it is loaded
+      const iframeWindow = iframeRef.current.contentWindow;
+      iframeWindow?.postMessage({ type: "linkData", data: link }, "*"); // '*' allows any domain to receive the message
+    }
+  }, [link]);
 
   const handleOnClick = (i: number) => setSelectedTab(i);
 
   return (
-    <div className="flex flex-col flex-1 items-center lg:px-[22px] lg:pb-[44px]">
-      <LinkViewerTabs selectedTab={selectedTab} onclick={handleOnClick} />
-      <div
-        className={cn(
-          "link-viewer-display-container flex flex-col flex-1 items-center w-full h-full",
-          ""
-        )}
-      >
-        <div
-          id="dialog-container"
-          className="flex justify-center h-full bg-green-400 w-[35vh] shadow-lg bg-white rounded-3xl border-3 border-[#333]"
-        >
-          <iframe
-            src={`/${link.userName}`}
-            width="100%"
-            height="100%"
-            title="Embedded Content"
-            className="rounded-3xl"
-          ></iframe>
-        </div>
+    link.id && (
+      <div className="flex flex-col flex-1 items-center lg:px-[22px] lg:pb-[44px]">
+        <LinkViewerTabs selectedTab={selectedTab} onclick={handleOnClick} />
+
+        <iframe
+          ref={iframeRef}
+          src={`/${link.userName}`}
+          width="100%"
+          height="100%"
+          title="Embedded Content"
+          className="rounded-3xl flex max-h-[500px] w-[60%] shadow-lg bg-white rounded-3xl border-3 border-[#333] rounded-[35px]"
+        ></iframe>
       </div>
-    </div>
+    )
   );
 }

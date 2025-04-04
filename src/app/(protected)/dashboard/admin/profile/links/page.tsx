@@ -7,11 +7,12 @@ import { notFound } from "next/navigation";
 import GeneralStylesSidebar from "./components/GeneralStylesSidebar/page";
 import LinkBuilderSidebar from "./components/LinkBuilderSidebar/page";
 import { LinkViewer } from "./components/LinkViewer/page";
+import { useUpdateLink } from "./helper/UpdateLinkData";
 
 export default function ProfileLinks() {
   const session = useSession();
-  const userId = session?.data?.id as string;
-
+  const { link } = useUpdateLink();
+  const userId = session?.data?.user?.id?.id as string;
   const { isLoading, data, error } = useFetchLink({ userId });
 
   if (error) return notFound();
@@ -20,9 +21,9 @@ export default function ProfileLinks() {
 
   return (
     data && (
-      <div className={"flex w-full h-full justify-between"}>
+      <div className={"flex w-full justify-between max-h-full"}>
         <LinkBuilderSidebar />
-        <LinkViewer />
+        <LinkViewer link={link} />
         <GeneralStylesSidebar />
       </div>
     )

@@ -5,6 +5,6 @@ declare module "next-auth" {
   interface User extends NextAuthUser {
     fullname: string;
     avatar: string;
-    links: Link[];
+    links?: Link[];
   }
 }
