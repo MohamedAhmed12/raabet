@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/cn";
 import { notFound, useParams } from "next/navigation";
-import { useEffect } from "react";
 import Loading from "../loading";
 import { Link, useLinkStore } from "../store/use-link-store";
 import LinksFooter from "./components/LinksFooter";
@@ -10,6 +9,8 @@ import LinksNavbar from "./components/LinksHeader/LinksNavbar";
 import { LinksHeader } from "./components/LinksHeader/page";
 import LinksSocialIcons from "./components/LinksSocialIcons";
 import useFetchLink from "./useFetchLink";
+import { inherits } from "util";
+import { useEffect } from "react";
 
 export default function UserName({
   link: propsLink,
@@ -78,7 +79,9 @@ export default function UserName({
                 "pt-[18px] mt-[210px]"
             )}
             style={{
-              backgroundColor: link?.general_styles_secondary_bgcolor,
+              backgroundColor: link?.general_styles_is_secondary_bgcolor
+                ? link?.general_styles_secondary_bgcolor
+                : link?.general_styles_primary_bgcolor,
             }}
           >
             <LinksNavbar />
