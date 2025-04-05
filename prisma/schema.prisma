@@ -68,6 +68,7 @@ model Link {
   general_styles_primary_text_color String
   general_styles_primary_bgcolor   String
   general_styles_is_secondary_bgcolor Boolean
+  general_styles_is_label_exist Boolean
   general_styles_secondary_bgcolor String
   general_styles_soft_shadow       Boolean
   header_styles_profile_shadow     Float
@@ -78,6 +79,8 @@ model Link {
   card_styles_design               Int     // options [0, 1, 2, 3, 4]
   card_styles_card_color           String
   card_styles_text_color           String
+  card_styles_label_color          String
+  card_styles_label_text_color     String
   card_styles_card_corner          Float
   card_styles_card_border_width    Float
   card_styles_card_border_color    String

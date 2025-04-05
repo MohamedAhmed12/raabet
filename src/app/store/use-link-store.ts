@@ -36,6 +36,7 @@ export interface Link {
   general_styles_primary_text_color?: string;
   general_styles_primary_bgcolor?: string;
   general_styles_is_secondary_bgcolor?: boolean;
+  general_styles_is_label_exist?: boolean;
   general_styles_secondary_bgcolor?: string;
   general_styles_soft_shadow?: boolean;
   header_styles_profile_shadow?: number;
@@ -52,6 +53,8 @@ export interface Link {
   card_styles_card_border_color?: string;
   card_styles_card_shadow?: number;
   card_styles_card_spacing?: number;
+  card_styles_label_color?: string;
+  card_styles_label_text_color?: string;
   title_font?: string;
   text_font?: string;
   social_enable_add_contacts?: boolean;
