@@ -2,6 +2,9 @@ import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
 export default withAuth(function middleware(req) {
+  if (!req?.nextauth?.token) {
+    return NextResponse.redirect(new URL("/auth/login", req.url));
+  }
   const isUserConfirmed = req?.nextauth?.token?.id?.is_confirmed;
   if (!isUserConfirmed) {
     return NextResponse.redirect(new URL("/auth/verify", req.url));
