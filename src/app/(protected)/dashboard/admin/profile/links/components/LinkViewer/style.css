@@ -1,0 +1,16 @@
+.link-viewer::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+.link-viewer::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Set the background of the scrollbar track */
+}
+
+.link-viewer::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px; /* Round the corners of the thumb */
+}
+
+.link-viewer::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darken the thumb color on hover */
+}

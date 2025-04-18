@@ -11,7 +11,7 @@ export default function LinkBuilderSidebar() {
 
   return (
     showSidebar && (
-      <div className="font-noto-sans font-medium !bg-white w-[370px] border-1 border-r-[#d3d3d3] max-h-[100vh] overflow-y-auto">
+      <div className="font-noto-sans font-medium !bg-white w-[330px] border-1 border-r-[#d3d3d3] max-h-[100vh] overflow-y-auto">
         <MainHeaderSection />
         <Separator />
         <div className="px-[22px] pt-6">

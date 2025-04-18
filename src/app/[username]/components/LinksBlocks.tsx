@@ -33,7 +33,7 @@ export default function LinksBlocks() {
           >
             <div
               className={cn(
-                "text-md font-medium leading-[1.3em] mb-1.5",
+                "text-[1em] font-medium leading-[1.3em] mb-1.5",
                 link?.title_font
               )}
             >

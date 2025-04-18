@@ -1,10 +1,13 @@
 "use client";
 
-import { Link } from "@/app/store/use-link-store";
-import { useEffect, useRef, useState } from "react";
-import { LinkViewerTabs } from "./LinkViewerTabs";
+import {Link} from "@/app/store/use-link-store";
+import {useEffect, useRef, useState} from "react";
 
-export function LinkViewer({ link }: { link: Link }) {
+import {LinkViewerTabs} from "./LinkViewerTabs";
+
+import "./style.css"; // TO DO: conditionally import it only in links page
+
+export function LinkViewer({link}: {link: Link}) {
   const [selectedTab, setSelectedTab] = useState(0);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -14,7 +17,7 @@ export function LinkViewer({ link }: { link: Link }) {
     if (iframeRef.current) {
       // Send the data to the iframe when it is loaded
       const iframeWindow = iframeRef.current.contentWindow;
-      iframeWindow?.postMessage({ type: "linkData", data: link }, "*"); // '*' allows any domain to receive the message
+      iframeWindow?.postMessage({type: "linkData", data: link}, "*"); // '*' allows any domain to receive the message
     }
   }, [link]);
 
@@ -22,7 +25,7 @@ export function LinkViewer({ link }: { link: Link }) {
 
   return (
     link.id && (
-      <div className="flex flex-col flex-1 items-center lg:px-[22px] lg:pb-[44px]">
+      <div className="flex flex-col flex-1 items-center lg:px-[22px] lg:pb-[35px]">
         <LinkViewerTabs selectedTab={selectedTab} onclick={handleOnClick} />
 
         <iframe
@@ -31,7 +34,7 @@ export function LinkViewer({ link }: { link: Link }) {
           width="100%"
           height="100%"
           title="Embedded Content"
-          className="rounded-3xl flex max-h-[500px] w-[60%] shadow-lg bg-white rounded-3xl border-3 border-[#333] rounded-[35px]"
+          className="link-viewer rounded-3xl flex max-h-[85px] w-[64%] max-w-[350px] shadow-lg bg-white rounded-3xl border-3 border-[#333] rounded-[35px]"
         ></iframe>
       </div>
     )
