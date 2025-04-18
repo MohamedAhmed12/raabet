@@ -34,7 +34,7 @@ export function LinkViewer({link}: {link: Link}) {
           width="100%"
           height="100%"
           title="Embedded Content"
-          className="link-viewer rounded-3xl flex max-h-[85px] w-[64%] max-w-[350px] shadow-lg bg-white rounded-3xl border-3 border-[#333] rounded-[35px]"
+          className="link-viewer rounded-3xl flex h-[85%] w-[64%] max-w-[350px] shadow-lg bg-white rounded-3xl border-3 border-[#333] rounded-[35px]"
         ></iframe>
       </div>
     )
