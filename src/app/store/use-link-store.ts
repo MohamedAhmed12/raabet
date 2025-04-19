@@ -1,25 +1,16 @@
-import { iconNameType } from "@/assets/icons";
-import { User } from "next-auth";
-import type { StateCreator } from "zustand";
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import {iconNameType} from "@/assets/icons";
+import {User} from "next-auth";
+import type {StateCreator} from "zustand";
+import {create} from "zustand";
+import {devtools} from "zustand/middleware";
+import {BlockType} from "../(protected)/dashboard/admin/profile/links/types/block";
+import {Block} from "../types/block";
 
 export interface LinkSocial {
   id: string;
   icon: iconNameType;
   url: string;
   order: number;
-  linkId: string;
-  link?: Link;
-}
-
-export interface Block {
-  id: string;
-  style: number;
-  title: string;
-  text: string;
-  textColor: number;
-  corner: number;
   linkId: string;
   link?: Link;
 }
@@ -85,5 +76,5 @@ const createLinkSlice: StateCreator<LinkState> = (set) => ({
 });
 
 export const useLinkStore = create<LinkState>()(
-  devtools(createLinkSlice, { name: "user-context-store" })
+  devtools(createLinkSlice, {name: "user-context-store"})
 );

@@ -15,7 +15,7 @@ import {
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {BlockType} from "../../../../../../../../links/types/block";
-import {Block} from "@/app/store/use-link-store";
+import {Block} from "@/app/types/block";
 
 const linkOptions: {
   // id: number;
