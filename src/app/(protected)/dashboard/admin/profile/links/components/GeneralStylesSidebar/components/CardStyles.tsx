@@ -80,19 +80,18 @@ export default function CardStyles() {
               )
             }
           />
-          {link?.card_styles_card_border_width &&
-            link?.card_styles_card_border_width > 0 && (
-              <DashboardChromPicker
-                label="card border color"
-                currentColor={link?.card_styles_card_border_color}
-                onColorChange={({hex}: {hex: string}) =>
-                  handleLinkPropertyValChange(
-                    "card_styles_card_border_color",
-                    hex
-                  )
-                }
-              />
-            )}
+          {link?.card_styles_card_border_width > 0 && (
+            <DashboardChromPicker
+              label="card border color"
+              currentColor={link?.card_styles_card_border_color}
+              onColorChange={({hex}: {hex: string}) =>
+                handleLinkPropertyValChange(
+                  "card_styles_card_border_color",
+                  hex
+                )
+              }
+            />
+          )}
           <DashboardSlider
             label="card shadow"
             defaultValue={[0.02]}

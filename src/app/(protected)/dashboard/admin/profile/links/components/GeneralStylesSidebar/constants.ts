@@ -4,7 +4,7 @@ export const cardDesigns = [
   {
     value: "1",
     icon: "card-design-1",
-    className: "rounded-lg shadow-md",
+    className: "border-[rgb(236,51,80)] shadow-[rgb(255,56,87)_-5px_-5px_13px,_rgb(194,42,66)_5px_5px_13px] border-0 rounded-[28px] mb-[26px] mr-0",
   },
   {
     value: "2",
