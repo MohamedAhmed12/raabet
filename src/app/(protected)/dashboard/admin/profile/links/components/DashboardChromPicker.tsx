@@ -1,9 +1,5 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/cn";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+import {cn} from "@/lib/cn";
 import dynamic from "next/dynamic";
 
 // Dynamically import ChromePicker with ssr: false to disable SSR
@@ -16,12 +12,12 @@ const ChromePicker = dynamic(
 
 export const DashboardChromPicker = ({
   label,
-  currentColor,
+  currentColor = "#000000",
   onColorChange,
 }: Readonly<{
   label?: string;
-  currentColor: string | undefined;
-  onColorChange?: ({ hex }: { hex: string }) => void;
+  currentColor?: string | undefined;
+  onColorChange?: ({hex}: {hex: string}) => void;
 }>) => (
   <Popover>
     <PopoverTrigger asChild>
@@ -31,7 +27,7 @@ export const DashboardChromPicker = ({
         </span>
         <div
           className={cn("rounded-full w-5 h-5")}
-          style={{ backgroundColor: currentColor }}
+          style={{backgroundColor: currentColor}}
         ></div>
       </div>
     </PopoverTrigger>

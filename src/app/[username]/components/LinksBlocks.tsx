@@ -1,16 +1,16 @@
-import { cardDesigns } from "@/app/(protected)/dashboard/admin/profile/links/components/CardDesignToggleGroup";
-import { useLinkStore } from "@/app/store/use-link-store";
-import { cn } from "@/lib/cn";
+"use client";
 
+import {cardDesigns} from "@/app/(protected)/dashboard/admin/profile/links/components/GeneralStylesSidebar/constants";
+import {useLinkStore} from "@/app/store/use-link-store";
+import {cn} from "@/lib/cn";
 
 export default function LinksBlocks() {
   const link = useLinkStore((state) => state.link);
-  
+
   const selectedDesignClass = cardDesigns.find(
-    
-    d => parseInt(d.value) === link?.card_styles_design
+    (d) => parseInt(d.value) === link?.card_styles_design
   )?.className;
-  
+
   return (
     link?.blocks && (
       <div className="block-icons-container flex flex-col mt-[31px] justify-center items-center flex-wrap font-noto-sans">
@@ -22,12 +22,15 @@ export default function LinksBlocks() {
             )}
             style={{
               color: link?.card_styles_text_color,
-              borderRadius: link?.card_styles_card_corner * 28,
+              borderRadius: link?.card_styles_card_corner * 28 || 5,
               backgroundColor: link?.card_styles_card_color,
-              border: `${(link?.card_styles_card_border_width || 0) * 6}px  solid ${link?.card_styles_card_border_color}`,
-               boxShadow: `0 0 ${(link?.card_styles_card_shadow || 0) * 10}px ${(link?.card_styles_card_shadow || 0) / 10}px`,
-              margin: `${11 + (2 * (link?.card_styles_card_spacing ||0))}px 0px`
-              
+              border: `${
+                (link?.card_styles_card_border_width || 0) * 6
+              }px  solid ${link?.card_styles_card_border_color}`,
+              boxShadow: `0 0 ${(link?.card_styles_card_shadow || 0) * 10}px ${
+                (link?.card_styles_card_shadow || 0) / 10
+              }px`,
+              margin: `${11 + 2 * (link?.card_styles_card_spacing || 0)}px 0px`,
             }}
             target="_blank"
           >

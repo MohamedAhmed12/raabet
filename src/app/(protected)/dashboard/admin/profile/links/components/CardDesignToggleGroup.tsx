@@ -1,10 +1,11 @@
 import {Icon} from "@/components/Icon";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 import {cn} from "@/lib/cn";
-import {HelperTooltip} from "../../../components/HelperTooltip";
 import {useState} from "react";
+import {HelperTooltip} from "../../../components/HelperTooltip";
 
 export const CardDesignToggleGroup = ({
+  initialVal,
   title,
   hasTooltip = false,
   tooltipContent,
@@ -12,6 +13,7 @@ export const CardDesignToggleGroup = ({
   toggleItems,
   onValueChange,
 }: Readonly<{
+  initialVal?: string | undefined;
   title: string;
   hasTooltip?: boolean;
   tooltipContent?: string;
@@ -20,7 +22,7 @@ export const CardDesignToggleGroup = ({
   onValueChange: (value: string) => void;
 }>) => {
   const [selectedValue, setSelectedValue] = useState<string>(
-    toggleItems[0].value
+    initialVal || toggleItems[0].value
   );
 
   const handleOnChange = (value: string) => {

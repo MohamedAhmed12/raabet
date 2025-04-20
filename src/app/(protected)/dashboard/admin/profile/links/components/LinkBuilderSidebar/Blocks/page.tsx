@@ -31,6 +31,7 @@ export const Blocks = () => {
   return (
     <>
       <DashboardCard
+        hasHelperTooltip
         HelperTooltipContent={HelperTooltipContent}
         title="blocks"
         headerContent={

@@ -6,14 +6,20 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Icon } from "./Icon";
-import { useState } from "react";
+import {Icon} from "./Icon";
+import {useState} from "react";
+import {cn} from "@/lib/utils";
 
 interface CustomDropdownProps {
   items: string[];
+  className?: string;
   onSelect: (index: number) => void;
 }
-export function CustomDropdown({ items, onSelect }: CustomDropdownProps) {
+export function CustomDropdown({
+  items,
+  className,
+  onSelect,
+}: CustomDropdownProps) {
   const [selected, setSelected] = useState(0);
   const handleOnSelect = (index: number) => {
     setSelected(index);
@@ -22,7 +28,12 @@ export function CustomDropdown({ items, onSelect }: CustomDropdownProps) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex justify-between items-center bg-white px-2 py-1 min-w-[175px] min-h-[38px] cursor-pointer border rounded-sm">
+      <DropdownMenuTrigger
+        className={cn(
+          "flex justify-between items-center bg-white px-2 py-1 min-w-[175px] min-h-[38px] cursor-pointer border rounded-sm",
+          className
+        )}
+      >
         <span>{items[selected]}</span>
         <Icon name="chevronDown" sizeClass="sm" />
       </DropdownMenuTrigger>

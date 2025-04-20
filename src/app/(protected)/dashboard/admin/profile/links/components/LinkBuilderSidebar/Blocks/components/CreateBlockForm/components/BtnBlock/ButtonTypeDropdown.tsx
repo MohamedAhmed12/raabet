@@ -2,6 +2,7 @@
 
 import * as React from "react";
 
+import {Block} from "@/app/types/block";
 import {Button} from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,11 +15,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-import {BlockType} from "../../../../../../../../links/types/block";
-import {Block} from "@/app/types/block";
 
 const linkOptions: {
-  // id: number;
   label: string;
   value: string;
   inputType: "text" | "file";
@@ -41,12 +39,13 @@ const linkOptions: {
 ];
 
 export const ButtonTypeDropdown = ({
+  block,
   onChange,
 }: {
+  block: Block;
   onChange: (key: keyof Block, val: string) => void;
 }) => {
   const [btnType, setBtnType] = React.useState("url");
-  const [test, setTest] = React.useState();
   const selectedType = React.useMemo(
     () => linkOptions.find((opt) => opt.value === btnType) || linkOptions[0],
     [btnType]
@@ -56,6 +55,7 @@ export const ButtonTypeDropdown = ({
     setBtnType(value);
     onChange("type", value);
   };
+
   return (
     <div className="flex flex-col font-inherit gap-5">
       <div className="w-1/3">
@@ -96,9 +96,9 @@ export const ButtonTypeDropdown = ({
             id={btnType}
             type={selectedType.inputType}
             placeholder={selectedType.placeholder}
-            value={test}
+            value={block.url}
             className="mb-[14px]"
-            onChange={(e) => console.log(e)}
+            onChange={(e) => onChange("url", e.currentTarget.value)}
           />
         </div>
       )}
