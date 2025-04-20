@@ -3,9 +3,9 @@ import {Separator} from "@/components/ui/separator";
 
 export const CreateBlockFormFooter = ({onClose}: {onClose: () => void}) => {
   return (
-    <>
+    <span>
       <Separator />
-      <div className="flex self-end justify-between items-center gap-3 px-3 h-[66px] w-full">
+      <div className="flex self-end justify-between items-center gap-3 p-3 h-[66px] w-full">
         <Button
           variant={"outline"}
           className="flex-1 cursor-pointer"
@@ -17,6 +17,6 @@ export const CreateBlockFormFooter = ({onClose}: {onClose: () => void}) => {
           create
         </Button>
       </div>
-    </>
+    </span>
   );
 };

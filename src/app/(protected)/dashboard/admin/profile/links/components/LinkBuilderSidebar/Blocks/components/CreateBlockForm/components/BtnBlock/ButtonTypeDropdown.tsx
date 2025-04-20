@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
+import {BlockType} from "@/app/(protected)/dashboard/admin/profile/links/types/block";
 
 const linkOptions: {
   label: string;
@@ -45,14 +46,14 @@ export const ButtonTypeDropdown = ({
   block: Block;
   onChange: (key: keyof Block, val: string) => void;
 }) => {
-  const [btnType, setBtnType] = React.useState("url");
+  const [btnType, setBtnType] = React.useState(block.type);
   const selectedType = React.useMemo(
     () => linkOptions.find((opt) => opt.value === btnType) || linkOptions[0],
     [btnType]
   );
 
   const handleTypeSelected = (value: string) => {
-    setBtnType(value);
+    setBtnType(value as BlockType);
     onChange("type", value);
   };
 

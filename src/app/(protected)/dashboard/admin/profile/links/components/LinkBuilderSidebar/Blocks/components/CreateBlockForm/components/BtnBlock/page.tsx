@@ -15,7 +15,7 @@ export const BtnBlock = ({
   onUpdateBlockProperty: (key: keyof Block, val: string) => void;
 }) => {
   return (
-    <div className="flex flex-col p-[22px] gap-3">
+    <div className="flex flex-col p-[22px] gap-3 pb-8">
       <ButtonTypeDropdown block={block} onChange={onUpdateBlockProperty} />
 
       {/* layout  */}
