@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import {useState} from "react";
 
+import {Block} from "@/app/types/block";
 import {cn} from "@/lib/utils";
 
 const MenuBar = () => {
@@ -158,7 +159,13 @@ const extensions = [
   Underline,
 ];
 
-export const TextBlock = () => {
+export const TextBlock = ({
+  block,
+  onUpdateBlockProperty,
+}: {
+  block: Block;
+  onUpdateBlockProperty: (key: keyof Block, val: string) => void;
+}) => {
   const [content, setContent] = useState("");
 
   return (
@@ -166,8 +173,8 @@ export const TextBlock = () => {
       <EditorProvider
         slotBefore={<MenuBar />}
         extensions={extensions}
-        content={content}
-        onUpdate={(e) => setContent(e.editor.getHTML())}
+        content={block.text}
+        onUpdate={(e) => onUpdateBlockProperty("text", e.editor.getHTML())}
       ></EditorProvider>
     </div>
   );
