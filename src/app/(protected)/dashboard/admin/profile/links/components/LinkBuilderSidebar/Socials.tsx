@@ -2,7 +2,7 @@
 
 import { Link, useLinkStore } from "@/app/store/use-link-store";
 import { Icon } from "@/components/Icon";
-import { DashbaordSortableList } from "../DashbaordSortableList/page";
+import { DashbaordSortableList } from "../../components/DashbaordSortableList/page";
 import { DashboardAccordion } from "../DashboardAccordion";
 
 export const Socials = () => {
