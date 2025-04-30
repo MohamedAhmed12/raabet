@@ -44,10 +44,9 @@ export default function ProfileSettings() {
           </p>
         }
       />
-      {/* <CustomForm title="Instagram sync" prefix="raabet.com/" submitText="update google analytics ID" placeholder="G-XXXXXXXXXX" /> */}
 
-      {/* <FieldController title="email">s</FieldController> */}
-      {/* <FieldController title="username">s</FieldController> */}
+      {/* to be added in future release */}
+      {/* <CustomForm title="Instagram sync" prefix="raabet.com/" submitText="update google analytics ID" placeholder="G-XXXXXXXXXX" /> */}
     </div>
   );
 }

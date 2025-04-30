@@ -89,7 +89,7 @@ export const SortableItem = ({
           />
         )}
         <Icon
-          name="trash-2"
+          name="delete"
           size={16}
           className="cursor-pointer text-red-600"
         />

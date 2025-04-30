@@ -35,7 +35,7 @@ export const DashboardCard = ({
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="p-[11px]">{children}</CardContent>
+      <CardContent className="py-3 px-[11px]">{children}</CardContent>
     </Card>
   );
 };

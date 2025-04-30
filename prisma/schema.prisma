@@ -14,7 +14,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model User {  
   id              String  @id @default(uuid())
   fullname        String  @unique
   email           String  @unique
@@ -68,7 +68,7 @@ model Link {
   general_styles_primary_text_color String
   general_styles_primary_bgcolor   String
   general_styles_is_secondary_bgcolor Boolean
-  general_styles_is_label_exist Boolean
+  general_styles_is_label_exist    Boolean
   general_styles_secondary_bgcolor String
   general_styles_soft_shadow       Boolean
   header_styles_profile_shadow     Float
@@ -95,14 +95,23 @@ model Link {
 }
 
 model Block {
-  id            String  @id @default(uuid())
-  title         String  @default("")
-  text          String  @default("")
-  textColor     String  // Color value for the text
-  corner        Int     // Corner value (e.g., rounded corners) max value is 28px
+  id                     String  @id @default(uuid())
+  style                  Int     @default(0)
+  type                   String
+  title                  String  @default("")
+  description            String  @default("")
+  text                   String  @default("")
+  text_align             String  @default("")
+  text_color             String  @default("")
+  animation              String  @default("none")
+  bg_image               String  @default("")
+  custom_text_color      String  @default("")             
+  url                    String
+  corner                 Int     @default(0) // Corner value (e.g., rounded corners) max value is 28px
+  layout                 String  @default("0") // it has to be string although it only have strings as value
   
-  linkId        String
-  link          Link    @relation(fields: [linkId], references: [id]) // Linking Block to Link
+  linkId                 String
+  link                   Link    @relation(fields: [linkId], references: [id]) // Linking Block to Link
 }
 
 model Social {

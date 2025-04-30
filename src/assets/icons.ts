@@ -175,7 +175,7 @@ const icons = {
   "btn-block-style-3": btnBlockStyle3,
   "grip-vertical": GripVertical,
   pencil: Pencil,
-  "trash-2": Trash2,
+  "delete": Trash2,
   mail: Mail,
   file: File,
   image: Image,

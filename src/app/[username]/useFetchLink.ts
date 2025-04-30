@@ -34,7 +34,7 @@ const useFetchLink = ({
           
           hasFetchedRef.current = true; // Mark as fetched
         } else {
-          const e = `No record matches this userId`;
+          const e = `No link attached to this userId`;
           console.debug(e);
           setError(e);
         }

@@ -2,27 +2,37 @@
 
 import {Icon} from "@/components/Icon";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import {HelperTooltip} from "../../../../../components/HelperTooltip";
 import {BlockType} from "../../../types/block";
 import {BlocksDialog} from "./components/BlocksDialog";
 import {CreateBlockForm} from "./components/CreateBlockForm/page";
 import {DashboardCard} from "@/app/(protected)/dashboard/admin/components/DashboardCard";
+import {useUpdateLink} from "../../../helper/UpdateLinkData";
+import {useLinkStore} from "@/app/store/use-link-store";
+import {BlockItem} from "./components/BlockItem";
 
 export const Blocks = () => {
   const [createNewBlockType, setCreateNewBlockType] =
     useState<BlockType | null>(null);
 
-  const HelperTooltipContent = (
-    <div className=" items-center justify-center">
-      Drag the
-      <Icon name="grip-vertical" className="inline-flex" sizeClass="sm" />
-      to reorder blocks. Click a block to edit it. Hover the
-      {/* <Icon name="grip-vertical" className="inline-flex" sizeClass="sm" /> */}
-      <Icon name="settings" className="inline-flex mx-[2px]" sizeClass="sm" />
-      to view all options for a block.
-    </div>
+  const blocks = useLinkStore((state) => state.link.blocks);
+
+  const HelperTooltipContent = useMemo(
+    () => (
+      <div className=" items-center justify-center">
+        Drag the
+        <Icon name="grip-vertical" className="inline-flex" sizeClass="sm" />
+        to reorder blocks. Click a block to edit it. Hover the
+        {/* <Icon name="grip-vertical" className="inline-flex" sizeClass="sm" /> */}
+        <Icon name="settings" className="inline-flex mx-[2px]" sizeClass="sm" />
+        to view all options for a block.
+      </div>
+    ),
+    []
   );
+
+  const renderBlock = () => blocks?.map((block) => <BlockItem block={block} />);
 
   const handleOnCreateNewBlock = (blockType: BlockType) => {
     setCreateNewBlockType(blockType);
@@ -38,7 +48,8 @@ export const Blocks = () => {
           //  add block button & dialog
           <BlocksDialog onCreateNewBlock={handleOnCreateNewBlock} />
         }
-        children="children"
+        children={renderBlock()}
+        className="gap-0"
       />
 
       {/* overlay create block form  */}

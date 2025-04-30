@@ -30,7 +30,7 @@ export async function fetchSingleLink({
     });
   } catch (error) {
     console.error(error);
-    return null;
+    return error;
   } finally {
     await prisma.$disconnect();
   }

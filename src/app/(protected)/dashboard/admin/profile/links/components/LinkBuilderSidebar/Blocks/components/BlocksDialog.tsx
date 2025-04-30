@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import { BlockType } from "../../../../types/block";
 
-const buttons: {
+export const blocksStaticData: {
   icon: iconNameType;
   type: BlockType;
   title: string;
@@ -106,7 +106,7 @@ export const BlocksDialog = ({
 
         {/* body */}
         <div className="dialog-body flex flex-wrap gap-4">
-          {buttons.map((btn) => (
+          {blocksStaticData.map((btn) => (
             <Button
               key={btn.icon}
               variant="outline"
