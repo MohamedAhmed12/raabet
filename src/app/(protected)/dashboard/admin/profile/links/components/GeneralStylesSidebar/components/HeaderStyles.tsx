@@ -25,29 +25,27 @@ export default function HeaderStyles() {
         defaultValue={[link?.header_styles_profile_border_width || 0]}
         max={1}
         step={0.001}
-        onValueChange={(value) =>
-         {
+        onValueChange={(value) => {
           handleLinkPropertyValChange(
             "header_styles_profile_border_width",
             value
-          )
-          
-         }
-        }
+          );
+        }}
       />
 
-      {link?.header_styles_profile_border_width > 0 && (
-        <DashboardChromPicker
-          label="profile picture border color"
-          currentColor={link?.header_styles_profile_border_color}
-          onColorChange={({ hex }: { hex: string }) =>
-            handleLinkPropertyValChange(
-              "header_styles_profile_border_color",
-              hex
-            )
-          }
-        />
-      )}
+      {link?.header_styles_profile_border_width &&
+        link?.header_styles_profile_border_width > 0 && (
+          <DashboardChromPicker
+            label="profile picture border color"
+            currentColor={link?.header_styles_profile_border_color}
+            onColorChange={({hex}: {hex: string}) =>
+              handleLinkPropertyValChange(
+                "header_styles_profile_border_color",
+                hex
+              )
+            }
+          />
+        )}
 
       <DashboardSwitch
         label="Collapse Long Bio"

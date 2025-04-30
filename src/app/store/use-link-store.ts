@@ -11,8 +11,6 @@ export interface LinkSocial {
   icon: iconNameType;
   url: string;
   order: number;
-  linkId: string;
-  link?: Link;
 }
 
 export interface Link {
@@ -65,7 +63,7 @@ interface LinkState {
 const createLinkSlice: StateCreator<LinkState> = (set) => ({
   link: {},
 
-  setLink: (data: Partial<Link>) => {
+  setLink: (data: Partial<Link>) => {    
     set((state) => ({
       link: {
         ...state.link,

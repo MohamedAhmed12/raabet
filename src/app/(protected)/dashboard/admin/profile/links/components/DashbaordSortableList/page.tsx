@@ -1,58 +1,43 @@
-'use client';
+"use client";
 
-import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { useState } from 'react';
-import { SortableItem } from './SortableItem';
-import { useLinkStore } from '@/app/store/use-link-store';
+import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
-export const DashbaordSortableList = () => {
-  const link = useLinkStore((state) => state.link);
-  const [socials, setSocials] = useState(link?.socials || []);
+interface SortableListProps<T> {
+  items: T[];
+  onDragEnd: (sortedItems: T) => void;
+  children: React.ReactNode;
+}
 
+export const DashbaordSortableList = ({
+  items,
+  onDragEnd,
+  children,
+}: SortableListProps<T>) => {
   const handleDragEnd = async (event: DragEndEvent) => {
-    const { active, over } = event;
+    const {active, over} = event;
     if (!over || !over.data?.current?.sortable?.items || active.id === over.id)
       return;
-    const sortedSocial = [...socials];
+    const sortedItems = [...items];
 
     const i = active.data.current.sortable.index;
     const j = over.data.current.sortable.index;
 
-    sortedSocial[i].order = j;
-    sortedSocial[j].order = i;
+    sortedItems[i].order = j;
+    sortedItems[j].order = i;
 
-    [sortedSocial[i], sortedSocial[j]] = [sortedSocial[j], sortedSocial[i]];
+    [sortedItems[i], sortedItems[j]] = [sortedItems[j], sortedItems[i]];
 
-    setSocials(sortedSocial);
-
-    try {
-      const res = await fetch('/api/socials/order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(sortedSocial),
-      });
-
-      if (!res.ok) throw new Error('Failed to update order');
-    } catch (error) {
-      console.error('Update error:', error);
-    }
+    onDragEnd(sortedItems);
   };
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <SortableContext
-        items={socials.map((i) => i.id)}
+        items={items.map((i) => i.id)}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="list w-full">
-          {socials.map((social, index) => (
-            <SortableItem key={social.id} social={social} index={index} />
-          ))}
-        </ul>
+        {children}
       </SortableContext>
     </DndContext>
   );
