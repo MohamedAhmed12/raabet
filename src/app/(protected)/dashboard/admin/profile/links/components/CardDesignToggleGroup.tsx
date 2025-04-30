@@ -1,67 +1,65 @@
-"use client";
-
-import { iconNameType } from "@/assets/icons";
-import { Icon } from "@/components/Icon";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { cn } from "@/lib/cn";
-import { HelperTooltip } from "../../../components/HelperTooltip";
-
-export const cardDesigns = [
-  { value: "0", icon: "circle-x", className: "" },
-  {
-    value: "1",
-    icon: "card-design-1",
-    className: "rounded-lg shadow-md",
-  },
-  {
-    value: "2",
-    icon: "card-design-2",
-    className:
-      "relative rounded-lg shadow-md before:absolute before:content-[''] before:-bottom-2 before:left-1/2 before:-translate-x-1/2 before:w-20 before:h-5 before:bg-white before:rounded-full",
-  },
-  {
-    value: "3",
-    icon: "card-design-3",
-    className:
-      "relative rounded-lg shadow-md before:absolute before:content-[''] before:-bottom-2 before:left-0 before:w-full before:h-5 before:bg-white before:clip-path-wave",
-  },
-  {
-    value: "4",
-    icon: "card-design-4",
-    className:
-      "relative rounded-lg shadow-md before:absolute before:content-[''] before:-bottom-2 before:left-1/2 before:-translate-x-1/2 before:w-20 before:h-5 before:bg-white before:clip-path-notch",
-  },
-];
+import {Icon} from "@/components/Icon";
+import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
+import {cn} from "@/lib/cn";
+import {useState} from "react";
+import {HelperTooltip} from "../../../components/HelperTooltip";
 
 export const CardDesignToggleGroup = ({
+  initialVal,
   title,
+  hasTooltip = false,
   tooltipContent,
+  titleBg = "",
+  toggleItems,
   onValueChange,
 }: Readonly<{
+  initialVal?: string | undefined;
   title: string;
+  hasTooltip?: boolean;
   tooltipContent?: string;
+  titleBg?: string;
+  toggleItems: {icon: string; value: string}[];
   onValueChange: (value: string) => void;
-}>) => (
-  <div className={cn("flex flex-col border-1 border-gray-300 rounded-sm mb-4")}>
-    <div className="flex items-center justify-start h-10 gap-2 px-[11px] border-b-1 border-gray-300">
-      <HelperTooltip content={tooltipContent} />
-      <div className="text-[13px] mr-[22px] capitalize">{title}</div>
-    </div>
-    <ToggleGroup
-      type="single"
-      onValueChange={(value) => onValueChange(value)}
-      className="flex w-full h-10"
+}>) => {
+  const [selectedValue, setSelectedValue] = useState<string>(
+    initialVal || toggleItems[0].value
+  );
+
+  const handleOnChange = (value: string) => {
+    setSelectedValue(value);
+    onValueChange(value);
+  };
+
+  return (
+    <div
+      className={cn("flex flex-col border-1 border-gray-300 rounded-sm mb-4")}
     >
-      {cardDesigns.map((cardDesign, i) => (
-        <ToggleGroupItem
-          key={`card-${cardDesign.value}`}
-          value={cardDesign.value}
-          className={cn("cursor-pointer", i != 4 && "border-r-1")}
-          size="lg"
-        >
-          <Icon name={cardDesign.icon} size={20} />
-        </ToggleGroupItem>
-      ))}
-    </ToggleGroup>
-  </div>
-);
+      <div
+        className="flex items-center justify-start h-10 gap-2 px-[11px] border-b-1 border-gray-300 rounded-t-sm"
+        style={{
+          backgroundColor: titleBg,
+        }}
+      >
+        {hasTooltip && <HelperTooltip content={tooltipContent} />}
+        <div className="text-[13px] mr-[22px] capitalize">{title}</div>
+      </div>
+      <ToggleGroup
+        type="single"
+        value={selectedValue}
+        onValueChange={handleOnChange}
+        className="flex w-full h-10"
+      >
+        {toggleItems.map((item, i) => (
+          <ToggleGroupItem
+            key={`card-${item.value}`}
+            value={item.value}
+            className={cn("cursor-pointer")}
+            size="lg"
+          >
+            <Icon name={item.icon} size={20} />
+          </ToggleGroupItem>
+        ))}
+      </ToggleGroup>
+    </div>
+  );
+};

@@ -2,9 +2,10 @@ import { LinkSocial } from "@/app/store/use-link-store";
 import { Icon } from "@/components/Icon";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { useSortable } from "@dnd-kit/react/sortable";
+import { useSortable } from "@dnd-kit/sortable";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { CSS } from "@dnd-kit/utilities";
 import { z } from "zod";
 
 const schema = z.object({
@@ -19,6 +20,7 @@ export const SortableItem = ({
   index: number;
 }) => {
   const isSeparator = !social?.icon;
+
   const {
     register,
     handleSubmit,
@@ -27,16 +29,30 @@ export const SortableItem = ({
     resolver: zodResolver(schema),
   });
 
-  const { ref } = useSortable({
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+  } = useSortable({
     id: social.id,
-    index: index,
   });
 
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   const onSubmit = () => {};
+
   return (
     <li
+      ref={setNodeRef}
+      style={style}
       className="item w-full flex justify-between items-center mb-5"
-      ref={ref}
+      {...attributes}
+      {...listeners}
     >
       <Icon
         name="grip-vertical"
@@ -46,7 +62,7 @@ export const SortableItem = ({
       />
 
       {!isSeparator ? (
-        <form onSubmit={handleSubmit(onSubmit)} className=" w-full !mb-0 mx-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full !mb-0 mx-2">
           <div>
             <Input
               id="website"

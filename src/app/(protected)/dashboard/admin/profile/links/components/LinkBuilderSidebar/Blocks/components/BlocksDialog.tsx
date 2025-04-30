@@ -20,25 +20,25 @@ const buttons: {
 }[] = [
   {
     icon: "link",
-    type: "urlBtn",
+    type: "url",
     title: "URL Button",
     description: "Opens a web page to the specified URL.",
   },
   {
     icon: "mail",
-    type: "emailBtn",
+    type: "email",
     title: "Email Button",
     description: "Opens an email to the specified address.",
   },
   {
     icon: "file",
-    type: "fileBtn",
+    type: "file",
     title: "File Button",
     description: "Opens an uploaded file (PDF, image, audio, etc.)",
   },
   {
     icon: "image",
-    type: "imageBtn",
+    type: "image",
     title: "Image Button",
     description: "Opens an uploaded image in a lightbox.",
   },
@@ -73,12 +73,12 @@ const buttons: {
   //   title: "Subscribers",
   //   description: "Collect email addresses on your profile.",
   // },
-  {
-    icon: "folder",
-    type: "group",
-    title: "Group",
-    description: "Group blocks for better organization.",
-  },
+  // {
+  //   icon: "folder",
+  //   type: "group",
+  //   title: "Group",
+  //   description: "Group blocks for better organization.",
+  // },
 ];
 
 export const BlocksDialog = ({

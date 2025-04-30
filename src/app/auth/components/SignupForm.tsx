@@ -88,7 +88,7 @@ export default function SignUpForm({
           <div className="grid">
             <Input
               id="email"
-              type="email"
+              type="text"
               {...register("email")}
               placeholder="Email"
               required

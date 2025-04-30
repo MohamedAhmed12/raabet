@@ -45,6 +45,9 @@ import {
   UserRoundPlus,
   X,
   CircleCheckBig,
+  AlignLeft,
+  AlignRight,
+  AlignCenter,
 } from "lucide-react";
 
 import {
@@ -88,6 +91,9 @@ import cardDesign1 from "../../public/svg/cardDesign1";
 import cardDesign2 from "../../public/svg/cardDesign2";
 import cardDesign3 from "../../public/svg/cardDesign3";
 import cardDesign4 from "../../public/svg/cardDesign4";
+import btnBlockStyle1 from "../../public/svg/BtnBlockLayout1";
+import btnBlockStyle2 from "../../public/svg/BtnBlockLayout2";
+import btnBlockStyle3 from "../../public/svg/BtnBlockLayout3";
 
 const socialIcons = {
   facebook: SiFacebook,
@@ -164,6 +170,9 @@ const icons = {
   "card-design-2": cardDesign2,
   "card-design-3": cardDesign3,
   "card-design-4": cardDesign4,
+  "btn-block-style-1": btnBlockStyle1,
+  "btn-block-style-2": btnBlockStyle2,
+  "btn-block-style-3": btnBlockStyle3,
   "grip-vertical": GripVertical,
   pencil: Pencil,
   "trash-2": Trash2,
@@ -175,8 +184,11 @@ const icons = {
   "monitor-play": MonitorPlay,
   folder: Folder,
   type: Type,
-  ...socialIcons,
   "circle-check-big": CircleCheckBig,
+  alignLeft: AlignLeft,
+  alignRight: AlignRight,
+  alignCenter: AlignCenter,
+  ...socialIcons,
 };
 
 export type iconNameType = keyof typeof icons;
