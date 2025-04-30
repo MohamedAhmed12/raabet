@@ -5,19 +5,19 @@ import { notFound, useParams } from "next/navigation";
 import { useEffect } from "react";
 import Loading from "../loading";
 import { useLinkStore } from "../store/use-link-store";
+import LinksBlocks from "./components/LinksBlocks";
 import LinksFooter from "./components/LinksFooter";
 import LinksNavbar from "./components/LinksHeader/LinksNavbar";
 import { LinksHeader } from "./components/LinksHeader/page";
 import LinksSocialIcons from "./components/LinksSocialIcons";
 import useFetchLink from "./useFetchLink";
-import LinksBlocks from "./components/LinksBlocks";
 
 export default function UserName() {
-  const { username } = useParams();
-  const { setLink, link } = useLinkStore((state) => state);
+  const {username}: {username: string} = useParams();
+  const {setLink, link} = useLinkStore((state) => state);
 
   // useFetchLink is setting link data from DB in linkStore internally
-  const { isLoading, error } = useFetchLink({ username });
+  const {isLoading, error} = useFetchLink({username});
 
   /*
    * propsLink exists when using profile link viewer
@@ -87,7 +87,7 @@ export default function UserName() {
             >
               <LinksHeader />
               <LinksSocialIcons />
-              <LinksBlocks/>
+              <LinksBlocks />
             </div>
 
             <LinksFooter />

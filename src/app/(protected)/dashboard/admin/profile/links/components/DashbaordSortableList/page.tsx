@@ -27,7 +27,6 @@ export const DashbaordSortableList = () => {
 
     [sortedSocial[i], sortedSocial[j]] = [sortedSocial[j], sortedSocial[i]];
 
-    debugger;
     setSocials(sortedSocial);
 
     try {

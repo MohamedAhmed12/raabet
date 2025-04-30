@@ -1,5 +1,4 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useUpdateLink } from "../../../helper/UpdateLinkData";
+import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSwitch } from "../../DashboardSwitch";
 

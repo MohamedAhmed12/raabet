@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { fetchSingleLink } from "../actions/fetchSingleLink";
-import { useLinkStore } from "../store/use-link-store";
+import {useEffect, useRef, useState} from "react";
+import {fetchSingleLink} from "../actions/fetchSingleLink";
+import {useLinkStore} from "../store/use-link-store";
 
 const useFetchLink = ({
   userId,
@@ -19,19 +19,19 @@ const useFetchLink = ({
   const hasFetchedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if ((!userId && !username) || hasFetchedRef.current) return; // Don't fetch if userId is missing or data already fetched
+    if (!userId && !username) return; // Don't fetch if userId is missing or data already fetched
 
     const fetchLink = async () => {
       setIsLoading(true);
       setError(null);
 
       try {
-        const response = await fetchSingleLink({ userId, username });
+        const response = await fetchSingleLink({userId, username});
 
         if (response) {
           setData(response);
           setLink(response);
-          
+
           hasFetchedRef.current = true; // Mark as fetched
         } else {
           const e = `No link attached to this userId`;
@@ -49,7 +49,7 @@ const useFetchLink = ({
     fetchLink();
   }, [userId, username]);
 
-  return { isLoading, data, error };
+  return {isLoading, data, error};
 };
 
 export default useFetchLink;

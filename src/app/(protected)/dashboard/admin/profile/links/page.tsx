@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import GeneralStylesSidebar from "./components/GeneralStylesSidebar/page";
 import LinkBuilderSidebar from "./components/LinkBuilderSidebar/page";
 import { LinkViewer } from "./components/LinkViewer/page";
-import { useUpdateLink } from "./helper/UpdateLinkData";
+import { useUpdateLink } from "./hooks/useUpdateLink";
 
 export default function ProfileLinks() {
   const session = useSession();

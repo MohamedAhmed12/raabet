@@ -1,4 +1,4 @@
-import {useUpdateLink} from "../../../helper/UpdateLinkData";
+import {useUpdateLink} from "../../../hooks/useUpdateLink";
 import {CardDesignToggleGroup} from "../../CardDesignToggleGroup";
 import {DashboardChromPicker} from "../../DashboardChromPicker";
 import {DashboardSlider} from "../../DashboardSlider";

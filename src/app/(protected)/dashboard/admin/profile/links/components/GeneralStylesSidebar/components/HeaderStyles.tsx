@@ -1,8 +1,7 @@
-import { Link, useLinkStore } from "@/app/store/use-link-store";
+import { useUpdateLink } from "../../../hooks/useUpdateLink";
+import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
-import { DashboardChromPicker } from "../../DashboardChromPicker";
-import { useUpdateLink } from "../../../helper/UpdateLinkData";
 
 export default function HeaderStyles() {
   const { link, handleLinkPropertyValChange } = useUpdateLink();
@@ -28,7 +27,6 @@ export default function HeaderStyles() {
         step={0.001}
         onValueChange={(value) =>
          {
-          console.log('valeeeeee',value);
           handleLinkPropertyValChange(
             "header_styles_profile_border_width",
             value
