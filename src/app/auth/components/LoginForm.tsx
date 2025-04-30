@@ -70,7 +70,7 @@ export const LoginForm = ({
         <div className="grid">
           <Input
             id="email"
-            type="email"
+            type="text"
             placeholder="Email"
             {...register("email")}
             className={errors.email ? "border-red-500" : ""}
