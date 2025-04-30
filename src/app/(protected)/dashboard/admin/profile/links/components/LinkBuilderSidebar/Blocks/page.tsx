@@ -41,7 +41,7 @@ export const Blocks = () => {
       <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
         <ul className="list w-full">
           {blocks?.map((block) => (
-            <BlockSortableItem block={block} />
+            <BlockSortableItem key={block.id} block={block} />
           ))}
         </ul>
       </DashbaordSortableList>

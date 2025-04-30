@@ -1,9 +1,12 @@
 import { Block } from "@/app/types/block";
+import { iconNameType } from "@/assets/icons";
 import { CustomTooltip } from "@/components/CustomTooltip";
 import { Icon } from "@/components/Icon";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { memo } from "react";
 import { z } from "zod";
+import { copyBlock } from "../../actions/copyBlocks";
 
 const schema = z.object({
   website: z.string().url("Please enter a valid URL"),
@@ -19,13 +22,37 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
     transform: CSS.Transform.toString(transform),
     transition,
   };
+
+  const MemoizedActionBtn = memo(
+    ({
+      icon,
+      onClick,
+      content,
+    }: {
+      icon: iconNameType;
+      onClick: any;
+      content: string;
+    }) => (
+      <CustomTooltip
+        trigger={
+          <Icon
+            name={icon}
+            sizeClass="sm"
+            className="cursor-pointer hover:bg-gray-100"
+            onClick={onClick}
+          />
+        }
+        content={content}
+      />
+    )
+  );
+
   return (
     <li
       ref={setNodeRef}
       style={style}
       className="flex items-center bg-white rounded-lg border border-blue-300 shadow-md hover:shadow-lg font-noto-sans font-light h-[62px] overflow-hidden not-last:mb-3"
       {...attributes}
-      {...listeners}
     >
       <div className="flex items-center justify-center px-1 min-h-max cursor-move bg-gray-100 h-full">
         <Icon name="grip-vertical" sizeClass="sm" />
@@ -39,44 +66,24 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
         <div className="flex items-center justify-between">
           <div className="text-sm text-gray-400 capitalize">{block.type}</div>
           <div className="flex space-x-1 text-gray-600">
-            <CustomTooltip
-              trigger={
-                <Icon
-                  name="copy"
-                  sizeClass="sm"
-                  className="cursor-pointer hover:bg-gray-100"
-                />
-              }
+            <MemoizedActionBtn
+              icon="copy"
+              onClick={() => copyBlock(block)}
               content={"Copy Block"}
             />
-            <CustomTooltip
-              trigger={
-                <Icon
-                  name="pencil"
-                  sizeClass="sm"
-                  className="cursor-pointer hover:bg-gray-100"
-                />
-              }
+            <MemoizedActionBtn
+              icon="pencil"
+              onClick={() => console.log(1)}
               content={"Edit"}
-            />{" "}
-            <CustomTooltip
-              trigger={
-                <Icon
-                  name="clock"
-                  sizeClass="sm"
-                  className="cursor-pointer hover:bg-gray-100"
-                />
-              }
+            />
+            <MemoizedActionBtn
+              icon="clock"
+              onClick={() => console.log(1)}
               content={"Schedule"}
             />
-            <CustomTooltip
-              trigger={
-                <Icon
-                  name="delete"
-                  sizeClass="sm"
-                  className="cursor-pointer hover:bg-gray-100"
-                />
-              }
+            <MemoizedActionBtn
+              icon="delete"
+              onClick={() => console.log(1)}
               content={"Delete"}
             />
           </div>

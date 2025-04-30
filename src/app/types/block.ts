@@ -30,8 +30,9 @@ export interface Block {
   text_color: string;
   animation: BlockAnimation;
   bg_image?: string;
-  custom_text_color?: string | null;
+  custom_text_color?: string;
   url: string;
   corner: number;
   layout: string;
+  linkId?: string;
 }
