@@ -62,8 +62,14 @@ async function main() {
   console.log("Link created:", link.id);
 
   // Create Social records for the created Link
-  const socials = await prisma.social.createMany({
+  await prisma.social.createMany({
     data: [
+      {
+        linkId: link.id,
+        icon: "instagram",
+        url: "https://instagram.com/username",
+        order: 0,
+      },
       {
         linkId: link.id, // Make sure this matches the Link's ID
         icon: "facebook",
@@ -94,12 +100,6 @@ async function main() {
         url: "https://instagram.com/username",
         order: 5,
       },
-      {
-        linkId: link.id,
-        icon: "instagram",
-        url: "https://instagram.com/username",
-        order: 6,
-      },
     ],
     skipDuplicates: true, // Skip 'Bobo'
   });
@@ -107,7 +107,7 @@ async function main() {
   console.log("Link socials created:");
 
   // Create Social records for the created Link
-  const blocks = await prisma.block.createMany({
+  await prisma.block.createMany({
     data: [
       {
         linkId: link.id, // Make sure this matches the Link's ID
@@ -117,6 +117,7 @@ async function main() {
         text: "text1",
         text_color: link.card_styles_text_color,
         corner: 0,
+        order: 0,
       },
       {
         linkId: link.id, // Make sure this matches the Link's ID
@@ -126,6 +127,7 @@ async function main() {
         text: "text2",
         text_color: link.card_styles_text_color,
         corner: 0,
+        order: 1,
       },
       {
         linkId: link.id,
@@ -135,6 +137,7 @@ async function main() {
         text: "text3",
         text_color: link.card_styles_text_color,
         corner: 0,
+        order: 2,
       },
       {
         linkId: link.id,
@@ -144,6 +147,7 @@ async function main() {
         text: "text4",
         text_color: link.card_styles_text_color,
         corner: 0,
+        order: 3,
       },
       {
         linkId: link.id,
@@ -153,6 +157,7 @@ async function main() {
         text: "text5",
         text_color: link.card_styles_text_color,
         corner: 0,
+        order: 4,
       },
     ],
     skipDuplicates: true, // Skip 'Bobo'

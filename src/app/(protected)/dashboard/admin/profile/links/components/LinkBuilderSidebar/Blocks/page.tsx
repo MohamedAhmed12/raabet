@@ -2,10 +2,14 @@
 
 import { DashboardCard } from "@/app/(protected)/dashboard/admin/components/DashboardCard";
 import { useLinkStore } from "@/app/store/use-link-store";
+import { Block } from "@/app/types/block";
 import { Icon } from "@/components/Icon";
 import { useMemo, useState } from "react";
+import { toast } from "sonner";
+import { orderBlocks } from "../../../actions/orderBlocks";
 import { BlockType } from "../../../types/block";
-import { BlockItem } from "./components/BlockItem";
+import { BlockSortableItem } from "../../DashbaordSortableList/BlockSortableItem";
+import { DashbaordSortableList } from "../../DashbaordSortableList/page";
 import { BlocksDialog } from "./components/BlocksDialog";
 import { CreateBlockForm } from "./components/CreateBlockForm/page";
 
@@ -14,6 +18,7 @@ export const Blocks = () => {
     useState<BlockType | null>(null);
 
   const blocks = useLinkStore((state) => state.link.blocks);
+  const setLink = useLinkStore((state) => state.setLink);
 
   const HelperTooltipContent = useMemo(
     () => (
@@ -29,10 +34,43 @@ export const Blocks = () => {
     []
   );
 
-  const renderBlock = () => blocks?.map((block) => <BlockItem block={block} />);
+  const renderBlock = () => {
+    if (!blocks) return null;
+
+    return (
+      <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
+        <ul className="list w-full">
+          {blocks?.map((block) => (
+            <BlockSortableItem block={block} />
+          ))}
+        </ul>
+      </DashbaordSortableList>
+    );
+  };
 
   const handleOnCreateNewBlock = (blockType: BlockType) => {
     setCreateNewBlockType(blockType);
+  };
+
+  const onDragEnd = async (blocks: Block[]) => {
+    const oldBlocks = [...blocks!];
+    const data = blocks.map(({id, order}) => ({
+      id,
+      order,
+    }));
+
+    setLink({
+      blocks,
+    });
+
+    try {
+      await orderBlocks(data);
+    } catch (error) {
+      toast.error("Something went wrong while sorting socials!");
+      setLink({
+        blocks: oldBlocks,
+      });
+    }
   };
 
   return (

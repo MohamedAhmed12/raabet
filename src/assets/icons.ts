@@ -48,6 +48,7 @@ import {
   AlignLeft,
   AlignRight,
   AlignCenter,
+  Clock,
 } from "lucide-react";
 
 import {
@@ -137,6 +138,7 @@ const icons = {
   star: Star,
   appWindow: AppWindow,
   clock8: Clock8,
+  clock: Clock,
   handHelping: HandHelping,
   check: Check,
   x: X,
@@ -175,7 +177,7 @@ const icons = {
   "btn-block-style-3": btnBlockStyle3,
   "grip-vertical": GripVertical,
   pencil: Pencil,
-  "delete": Trash2,
+  delete: Trash2,
   mail: Mail,
   file: File,
   image: Image,

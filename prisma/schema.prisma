@@ -107,6 +107,7 @@ model Block {
   bg_image               String  @default("")
   custom_text_color      String  @default("")             
   url                    String
+  order                  Int
   corner                 Int     @default(0) // Corner value (e.g., rounded corners) max value is 28px
   layout                 String  @default("0") // it has to be string although it only have strings as value
   

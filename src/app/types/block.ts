@@ -23,6 +23,7 @@ export interface Block {
   style: number;
   type: BlockType;
   title: string;
+  order: number;
   description: string;
   text: string;
   text_align: BlockTextAlign;
@@ -33,6 +34,4 @@ export interface Block {
   url: string;
   corner: number;
   layout: string;
-  linkId: string;
-  link?: Link;
 }
