@@ -7,6 +7,8 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {CSS} from "@dnd-kit/utilities";
 import {z} from "zod";
+import { useState } from "react";
+import { updateLinkUrl } from "../../actions/updateLinkUrl";
 
 const schema = z.object({
   website: z.string().url("Please enter a valid URL"),
@@ -14,26 +16,41 @@ const schema = z.object({
 
 export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
   const isSeparator = !item?.icon;
+  const [isFocused, setIsFocused] = useState(false);
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
 
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
   const {
     register,
     handleSubmit,
     formState: {errors},
   } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: {
+      website: item.url || "",
+    },
   });
 
   const {setNodeRef, attributes, listeners, transform, transition} =
     useSortable({
       id: item.id,
+      disabled: isFocused,
     });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    willChange: 'transform',
   };
 
-  const onSubmit = () => {};
+  const onSubmit = async (data: { website: string }) => {
+    console.log("Submitted URL:", data.website); // <- Add this
+    await updateLinkUrl(item.id, data.website);
+  };
 
   return (
     <li
@@ -54,10 +71,15 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
         <form onSubmit={handleSubmit(onSubmit)} className="w-full !mb-0 mx-2">
           <div>
             <Input
-              id="website"
-              {...register("website")}
-              placeholder="Enter website URL"
-              icon={<Icon name={item?.icon} sizeClass="sm" />}
+               id="website"
+               {...register("website")}
+               placeholder="Enter website URL"
+               icon={<Icon name={item?.icon} sizeClass="sm" />}
+               onFocus={handleFocus}
+               onBlur={(e) => {
+                 handleBlur();
+                 handleSubmit(onSubmit)();
+               }}
             />
             {errors.website && <p>{errors.website.message}</p>}
           </div>
