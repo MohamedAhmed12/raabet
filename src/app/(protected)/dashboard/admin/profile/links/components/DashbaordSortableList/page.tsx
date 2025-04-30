@@ -16,19 +16,27 @@ export const DashbaordSortableList = ({
 }: SortableListProps<T>) => {
   const handleDragEnd = async (event: DragEndEvent) => {
     const {active, over} = event;
+
+    // Ensure there's a valid drop target and the dragged item isn't dropped on itself
     if (!over || !over.data?.current?.sortable?.items || active.id === over.id)
       return;
-    const sortedItems = [...items];
 
-    const i = active.data.current.sortable.index;
-    const j = over.data.current.sortable.index;
+    const activeIndex = items.findIndex((item) => item.id === active.id);
+    const overIndex = items.findIndex((item) => item.id === over.id);
 
-    sortedItems[i].order = j;
-    sortedItems[j].order = i;
+    // If both items are found in the list
+    if (activeIndex !== -1 && overIndex !== -1) {
+      const updatedItems = [...items];
+      const [movedItem] = updatedItems.splice(activeIndex, 1);
+      updatedItems.splice(overIndex, 0, movedItem);
 
-    [sortedItems[i], sortedItems[j]] = [sortedItems[j], sortedItems[i]];
+      // Update the order property based on the new index
+      updatedItems.forEach((item, index) => {
+        item.order = index + 1;
+      });
 
-    onDragEnd(sortedItems);
+      onDragEnd(updatedItems);
+    }
   };
 
   return (
