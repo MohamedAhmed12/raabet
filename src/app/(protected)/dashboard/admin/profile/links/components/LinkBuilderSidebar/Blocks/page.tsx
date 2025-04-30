@@ -52,23 +52,24 @@ export const Blocks = () => {
     setCreateNewBlockType(blockType);
   };
 
-  const onDragEnd = async (blocks: Block[]) => {
-    const oldBlocks = [...blocks!];
-    const data = blocks.map(({id, order}) => ({
-      id,
-      order,
-    }));
+  const onDragEnd = async (newBlocksOrder: Block[]) => {
+    const oldBlocksOrder = [...blocks!];
 
     setLink({
-      blocks,
+      blocks: newBlocksOrder,
     });
 
     try {
+      const data = newBlocksOrder.map(({id, order}) => ({
+        id,
+        order,
+      }));
+
       await orderBlocks(data);
     } catch (error) {
       toast.error("Something went wrong while sorting socials!");
       setLink({
-        blocks: oldBlocks,
+        blocks: oldBlocksOrder,
       });
     }
   };
