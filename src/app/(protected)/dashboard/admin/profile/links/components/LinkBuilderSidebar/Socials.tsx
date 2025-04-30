@@ -1,18 +1,36 @@
-"use client";
+'use client';
 
-import {LinkSocial, useLinkStore} from "@/app/store/use-link-store";
-import {Icon} from "@/components/Icon";
-import {toast} from "sonner";
-import {updateSocials} from "../../actions/updateSocials";
-import {DashbaordSortableList} from "../DashbaordSortableList/page";
-import {SocialSortableItem} from "../DashbaordSortableList/SocialSortableItem";
-import {DashboardAccordion} from "../DashboardAccordion";
+import { LinkSocial, useLinkStore } from '@/app/store/use-link-store';
+import { Icon } from '@/components/Icon';
+import { toast } from 'sonner';
+import { updateSocials } from '../../actions/updateSocials';
+import { DashbaordSortableList } from '../DashbaordSortableList/page';
+import { SocialSortableItem } from '../DashbaordSortableList/SocialSortableItem';
+import { DashboardAccordion } from '../DashboardAccordion';
+import { createSeparator } from '../../actions/createSeparator';
 
 export const Socials = () => {
   const socials = useLinkStore((state) => state.link.socials);
   const setLink = useLinkStore((state) => state.setLink);
 
-  const handleAddSeparator = () => {};
+  const handleAddSeparator = async () => {
+    const linkId = useLinkStore.getState().link.id;
+    if (!linkId) {
+      toast.error('Missing link ID');
+      return;
+    }
+
+    const result = await createSeparator(linkId);
+
+    if (result.success && result.socials) {
+      const currentLink = useLinkStore.getState().link;
+      setLink({ ...currentLink, socials: result.socials });
+      toast.success('Separator added');
+    } else {
+      toast.error(result.error || 'Failed to add separator');
+    }
+  };
+
   const handleSocial = () => {};
   const onDragEnd = async (data: LinkSocial[]) => {
     const oldSocials = [...socials!];
@@ -23,7 +41,7 @@ export const Socials = () => {
     try {
       await updateSocials(data);
     } catch (error) {
-      toast.error("Something went wrong while sorting socials!");
+      toast.error('Something went wrong while sorting socials!');
       setLink({
         socials: oldSocials,
       });
