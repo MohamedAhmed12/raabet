@@ -1,3 +1,4 @@
+import { useLinkStore } from "@/app/store/use-link-store";
 import { Block } from "@/app/types/block";
 import { iconNameType } from "@/assets/icons";
 import { CustomTooltip } from "@/components/CustomTooltip";
@@ -5,14 +6,18 @@ import { Icon } from "@/components/Icon";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { memo } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 import { copyBlock } from "../../actions/copyBlocks";
+import { deleteBlock } from "../../actions/deleteBlocks";
 
 const schema = z.object({
   website: z.string().url("Please enter a valid URL"),
 });
 
 export const BlockSortableItem = ({block}: {block: Block}) => {
+  const replaceLink = useLinkStore((state) => state.replaceLink);
+
   const {setNodeRef, attributes, listeners, transform, transition} =
     useSortable({
       id: block.id,
@@ -47,6 +52,45 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
     )
   );
 
+  const handleCopyBlock = async () => {
+    try {
+      const clonedBlock = await copyBlock(block);
+
+      replaceLink((prev) => {
+        const prevBlocks = prev?.blocks || [];
+
+        return {
+          ...prev,
+          blocks: [...prevBlocks, clonedBlock],
+        };
+      });
+    } catch (error) {
+      toast.error("Something went wrong while creating new block!");
+    }
+  };
+
+  const handleDeleteBlock = async () => {
+    try {
+      const deletedBlock = await deleteBlock(block.id);
+
+      replaceLink((prev) => {
+        const prevBlocks = prev?.blocks || [];
+
+        // Remove the deleted block from the array
+        const updatedBlocks = prevBlocks.filter(
+          (b) => b.id !== deletedBlock.id
+        );
+
+        return {
+          ...prev,
+          blocks: updatedBlocks,
+        };
+      });
+    } catch (error) {
+      toast.error("Something went wrong while creating new block!");
+    }
+  };
+
   return (
     <li
       ref={setNodeRef}
@@ -68,7 +112,7 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
           <div className="flex space-x-1 text-gray-600">
             <MemoizedActionBtn
               icon="copy"
-              onClick={() => copyBlock(block)}
+              onClick={() => handleCopyBlock()}
               content={"Copy Block"}
             />
             <MemoizedActionBtn
@@ -83,7 +127,7 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
             />
             <MemoizedActionBtn
               icon="delete"
-              onClick={() => console.log(1)}
+              onClick={() => handleDeleteBlock()}
               content={"Delete"}
             />
           </div>

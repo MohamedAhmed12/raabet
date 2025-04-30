@@ -40,8 +40,8 @@ export const Blocks = () => {
     return (
       <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
         <ul className="list w-full">
-          {blocks?.map((block) => (
-            <BlockSortableItem key={block.id} block={block} />
+          {blocks?.map((block,index) => (
+            <BlockSortableItem key={index} block={block} />
           ))}
         </ul>
       </DashbaordSortableList>

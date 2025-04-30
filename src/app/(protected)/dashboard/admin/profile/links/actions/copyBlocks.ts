@@ -10,7 +10,7 @@ export async function copyBlock(data: Block) {
 
   try {
     // Create a new record with the cloned data
-    const newBlock = await prisma.block.create({
+    return await prisma.block.create({
       data: {
         ...dataToCopy,
         link: {
@@ -21,7 +21,6 @@ export async function copyBlock(data: Block) {
       },
     });
 
-    return newBlock;
   } catch (error) {
     console.error("Error copying block:", error);
     throw error;
