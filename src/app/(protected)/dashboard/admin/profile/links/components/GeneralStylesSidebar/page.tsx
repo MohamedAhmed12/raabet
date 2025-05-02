@@ -11,7 +11,7 @@ export default function GeneralStylesSidebar() {
 
   return (
     showSidebar && (
-      <div className="font-noto-sans font-medium !bg-white w-[360px] hidden lg:block border-1 border-l-[#d3d3d3] p-[22px] pb-11 max-h-[100vh] overflow-y-auto">
+      <div className="font-noto-sans font-medium !bg-white w-[360px] hidden lg:block border-1 border-l-[#d3d3d3] p-[22px] pb-15 max-h-[100vh] overflow-y-auto">
         <GeneralStyles />
         <Separator className="my-[22px]" />
         <HeaderStyles />

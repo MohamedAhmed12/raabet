@@ -11,6 +11,7 @@ import { z } from "zod";
 import { copyBlock } from "../../actions/copyBlocks";
 import { deleteBlock } from "../../actions/deleteBlocks";
 import { CreateUpdateBlockForm } from "../LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/page";
+import { cn } from "@/lib/utils";
 
 const schema = z.object({
   website: z.string().url("Please enter a valid URL"),
@@ -18,6 +19,9 @@ const schema = z.object({
 
 export const BlockSortableItem = ({block}: {block: Block}) => {
   const [isDialogVisible, setIsDialogVisible] = useState(false);
+  const [isCopying, setIsCopying] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const replaceLink = useLinkStore((state) => state.replaceLink);
 
   const {setNodeRef, attributes, transform, transition} = useSortable({
@@ -34,17 +38,19 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
       icon,
       onClick,
       content,
+      className,
     }: {
       icon: iconNameType;
       onClick: any;
       content: string;
+      className?: string;
     }) => (
       <CustomTooltip
         trigger={
           <Icon
             name={icon}
             sizeClass="sm"
-            className="cursor-pointer hover:bg-gray-100"
+            className={cn("cursor-pointer hover:bg-gray-100", className)}
             onClick={onClick}
           />
         }
@@ -54,6 +60,7 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
   );
 
   const handleCopyBlock = async () => {
+    setIsCopying(true);
     try {
       const clonedBlock = await copyBlock(block);
 
@@ -68,9 +75,11 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
     } catch (error) {
       toast.error("Something went wrong while creating new block!");
     }
+    setIsCopying(false);
   };
 
   const handleDeleteBlock = async () => {
+    setIsDeleting(true);
     try {
       if (!block.id) return;
 
@@ -92,6 +101,7 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
     } catch (error) {
       toast.error("Something went wrong while creating new block!");
     }
+    setIsDeleting(false);
   };
 
   return (
@@ -114,9 +124,10 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
           <div className="text-sm text-gray-400 capitalize">{block.type}</div>
           <div className="flex space-x-1 text-gray-600">
             <MemoizedActionBtn
-              icon="copy"
+              icon={!isCopying ? "copy" : "loader-circle"}
               onClick={() => handleCopyBlock()}
               content={"Copy Block"}
+              className={!isCopying ? "" : "animate-spin"}
             />
 
             <MemoizedActionBtn
@@ -133,9 +144,10 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
             /> */}
 
             <MemoizedActionBtn
-              icon="delete"
+              icon={!isDeleting ? "delete" : "loader-circle"}
               onClick={() => handleDeleteBlock()}
               content={"Delete"}
+              className={!isDeleting ? "" : "animate-spin"}
             />
           </div>
         </div>
