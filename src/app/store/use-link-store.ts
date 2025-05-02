@@ -58,12 +58,13 @@ export interface Link {
 interface LinkState {
   link: Link;
   setLink: (link: Partial<Link>) => void;
+  replaceLink: (link: Link | ((prev: Link) => Link)) => void;
 }
 
 const createLinkSlice: StateCreator<LinkState> = (set) => ({
   link: {},
 
-  setLink: (data: Partial<Link>) => {    
+  setLink: (data: Partial<Link>) => {
     set((state) => ({
       link: {
         ...state.link,
@@ -71,6 +72,11 @@ const createLinkSlice: StateCreator<LinkState> = (set) => ({
       },
     }));
   },
+
+  replaceLink: (update) =>
+    set((state) => ({
+      link: typeof update === 'function' ? update(state.link) : update,
+    })),
 });
 
 export const useLinkStore = create<LinkState>()(
