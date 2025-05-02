@@ -75,8 +75,15 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
   };
 
   const handleDialogSubmit = async (value: string) => {
-    console.log('Received value:', value);
-
+    const currentLink = useLinkStore.getState().link;
+    const updatedSocials = currentLink.socials.map((social) =>
+      social.id === item.id ? { ...social, label: value } : social
+    );
+  
+    useLinkStore.getState().setLink({
+      ...currentLink,
+      socials: updatedSocials,
+    });
     const response = await updateSocialLabel(item.id, value);
 
     if (response.success) {
@@ -131,6 +138,7 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
           <EditInputDialog
             iconName="pencil"
             placeholder="Icon Label"
+            initialValue={item.label}
             onSubmit={handleDialogSubmit}
           />
         )}

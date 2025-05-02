@@ -17,20 +17,23 @@ import { useState } from 'react';
 interface EditInputDialogProps {
   iconName?: string;
   placeholder?: string;
+  initialValue?: string;
   onSubmit: (value: string) => void;
 }
 
 export const EditInputDialog = ({
   iconName = 'pencil',
   placeholder = 'Edit Label',
+  initialValue = '',
   onSubmit,
 }: EditInputDialogProps) => {
-  const [value, setValue] = useState('');
-  const [isDialogOpen, setIsDialogOpen] = useState(false); 
+  const [value, setValue] = useState(initialValue);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleSubmit = () => {
-    onSubmit(value);
-    setIsDialogOpen(false);
+  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setValue(newValue);
+    onSubmit(newValue);
   };
 
   return (
@@ -43,15 +46,19 @@ export const EditInputDialog = ({
         />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[400px]">
-      <DialogTitle>
-        </DialogTitle>
+        <DialogTitle></DialogTitle>
         <Input
           placeholder={placeholder}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={handleSubmit}
         />
         <DialogFooter className="mt-4 w-full">
-          <Button className="w-full cursor-pointer bg-black hover:bg-black" onClick={handleSubmit}>Submit</Button>
+          <Button
+            className="w-full cursor-pointer bg-black hover:bg-black"
+            onClick={()=>setIsDialogOpen(false)}
+          >
+            Submit
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
