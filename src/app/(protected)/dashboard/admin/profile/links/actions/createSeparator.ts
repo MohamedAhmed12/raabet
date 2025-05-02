@@ -19,6 +19,7 @@ export async function createSeparator(linkId: string) {
         icon: '',
         url: '',
         order: newOrder,
+        label: '',
       },
     });
 

@@ -1,3 +1,4 @@
+'use client';
 import { LinkSocial, useLinkStore } from '@/app/store/use-link-store';
 import { Icon } from '@/components/Icon';
 import { Input } from '@/components/ui/input';
@@ -10,18 +11,14 @@ import { z } from 'zod';
 import { useState, useTransition } from 'react';
 import { updateLinkUrl } from '../../actions/updateLinkUrl';
 import { deleteItem } from '../../actions/deleteItem';
+import { EditInputDialog } from './components/EditItemDialog';
+import { updateSocialLabel } from '../../actions/updateSocialLabel';
 
 const schema = z.object({
   website: z.string().url('Please enter a valid URL'),
 });
 
-export const SocialSortableItem = ({
-  item,
-  linkId,
-}: {
-  item: LinkSocial;
-  linkId: string;
-}) => {
+export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
   const isSeparator = !item?.icon;
   const [isFocused, setIsFocused] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -62,6 +59,7 @@ export const SocialSortableItem = ({
   };
 
   const handleDelete = async () => {
+    const linkId = useLinkStore.getState().link.id ?? '';
     startTransition(async () => {
       const result = await deleteItem(item.id, linkId);
       if (result.success && result.socials) {
@@ -74,6 +72,19 @@ export const SocialSortableItem = ({
         console.error('Failed to delete item:', result.error);
       }
     });
+  };
+
+  const handleDialogSubmit = async (value: string) => {
+    console.log('Received value:', value);
+
+    const response = await updateSocialLabel(item.id, value);
+
+    if (response.success) {
+      console.log('Label updated:', response.updatedSocial);
+      // Optionally refresh or update the local state to reflect changes
+    } else {
+      console.error('Failed to update label:', response.error);
+    }    // your logic here
   };
 
   return (
@@ -117,11 +128,10 @@ export const SocialSortableItem = ({
       )}
       <div className="actions">
         {!isSeparator && (
-          <Icon
-            name="pencil"
-            size={16}
-            className="cursor-pointer text-dashboard-primary mb-[3px]"
-            onClick={() => {}}
+          <EditInputDialog
+            iconName="pencil"
+            placeholder="Icon Label"
+            onSubmit={handleDialogSubmit}
           />
         )}
         <Icon

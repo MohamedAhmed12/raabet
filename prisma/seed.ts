@@ -69,36 +69,42 @@ async function main() {
         icon: "instagram",
         url: "https://instagram.com/username",
         order: 0,
+        label:"",
       },
       {
         linkId: link.id, // Make sure this matches the Link's ID
         icon: "facebook",
         url: "https://facebook.com/username",
         order: 1,
+        label:"",
       },
       {
         linkId: link.id,
         icon: "",
         url: "",
         order: 2,
+        label:"",
       },
       {
         linkId: link.id,
         icon: "twitter",
         url: "https://twitter.com/username",
         order: 3,
+        label:"",
       },
       {
         linkId: link.id,
         icon: "",
         url: "",
         order: 4,
+        label:"",
       },
       {
         linkId: link.id,
         icon: "instagram",
         url: "https://instagram.com/username",
         order: 5,
+        label:"",
       },
     ],
     skipDuplicates: true, // Skip 'Bobo'
