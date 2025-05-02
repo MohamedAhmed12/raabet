@@ -1,7 +1,15 @@
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
 
-export const CreateBlockFormFooter = ({onClose}: {onClose: () => void}) => {
+export const CreateUpdateBlockFormFooter = ({
+  submitbtnLabel,
+  onClose,
+  onSubmit,
+}: {
+  submitbtnLabel: string;
+  onClose: () => void;
+  onSubmit: () => void;
+}) => {
   return (
     <span>
       <Separator />
@@ -13,8 +21,12 @@ export const CreateBlockFormFooter = ({onClose}: {onClose: () => void}) => {
         >
           Cancel
         </Button>
-        <Button variant={"dashboard-default"} className="flex-1">
-          create
+        <Button
+          variant={"dashboard-default"}
+          className="flex-1"
+          onClick={onSubmit}
+        >
+          {submitbtnLabel}
         </Button>
       </div>
     </span>

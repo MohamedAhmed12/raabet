@@ -14,13 +14,15 @@ export const BtnBlock = ({
   block: Block;
   onUpdateBlockProperty: (key: keyof Block, val: string) => void;
 }) => {
+  console.log('dsafads',block?.layout);
+  
   return (
     <div className="flex flex-col p-[22px] gap-3 pb-8">
       <ButtonTypeDropdown block={block} onChange={onUpdateBlockProperty} />
 
       {/* layout  */}
       <CardDesignToggleGroup
-        initialVal={block?.layout}
+        initialVal={block?.layout || "1"}
         title="layout"
         titleBg="#fafafa"
         toggleItems={buttonBlockLayouts}

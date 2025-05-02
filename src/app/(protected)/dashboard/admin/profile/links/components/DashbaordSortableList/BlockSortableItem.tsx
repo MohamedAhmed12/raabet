@@ -5,23 +5,24 @@ import { CustomTooltip } from "@/components/CustomTooltip";
 import { Icon } from "@/components/Icon";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { copyBlock } from "../../actions/copyBlocks";
 import { deleteBlock } from "../../actions/deleteBlocks";
+import { CreateUpdateBlockForm } from "../LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/page";
 
 const schema = z.object({
   website: z.string().url("Please enter a valid URL"),
 });
 
 export const BlockSortableItem = ({block}: {block: Block}) => {
+  const [isDialogVisible, setIsDialogVisible] = useState(false);
   const replaceLink = useLinkStore((state) => state.replaceLink);
 
-  const {setNodeRef, attributes, listeners, transform, transition} =
-    useSortable({
-      id: block.id,
-    });
+  const {setNodeRef, attributes, transform, transition} = useSortable({
+    id: block?.id || "",
+  });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -71,6 +72,8 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
 
   const handleDeleteBlock = async () => {
     try {
+      if (!block.id) return;
+
       const deletedBlock = await deleteBlock(block.id);
 
       replaceLink((prev) => {
@@ -115,16 +118,20 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
               onClick={() => handleCopyBlock()}
               content={"Copy Block"}
             />
+
             <MemoizedActionBtn
               icon="pencil"
-              onClick={() => console.log(1)}
+              onClick={() => setIsDialogVisible(true)}
               content={"Edit"}
             />
-            <MemoizedActionBtn
+
+            {/* present schedule blocks next release  */}
+            {/* <MemoizedActionBtn
               icon="clock"
               onClick={() => console.log(1)}
               content={"Schedule"}
-            />
+            /> */}
+
             <MemoizedActionBtn
               icon="delete"
               onClick={() => handleDeleteBlock()}
@@ -133,6 +140,15 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
           </div>
         </div>
       </div>
+
+      {/* overlay create/update block form  */}
+      {isDialogVisible && (
+        <CreateUpdateBlockForm
+          type={block.type}
+          block={block}
+          onClose={() => setIsDialogVisible(false)}
+        />
+      )}
     </li>
   );
 };

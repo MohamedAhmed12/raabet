@@ -11,7 +11,7 @@ import { BlockType } from "../../../types/block";
 import { BlockSortableItem } from "../../DashbaordSortableList/BlockSortableItem";
 import { DashbaordSortableList } from "../../DashbaordSortableList/page";
 import { BlocksDialog } from "./components/BlocksDialog";
-import { CreateBlockForm } from "./components/CreateBlockForm/page";
+import { CreateUpdateBlockForm } from "./components/CreateUpdateBlockForm/page";
 
 export const Blocks = () => {
   const [createNewBlockType, setCreateNewBlockType] =
@@ -40,7 +40,7 @@ export const Blocks = () => {
     return (
       <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
         <ul className="list w-full">
-          {blocks?.map((block,index) => (
+          {blocks?.map((block, index) => (
             <BlockSortableItem key={index} block={block} />
           ))}
         </ul>
@@ -90,7 +90,7 @@ export const Blocks = () => {
 
       {/* overlay create block form  */}
       {createNewBlockType && (
-        <CreateBlockForm
+        <CreateUpdateBlockForm
           type={createNewBlockType}
           onClose={() => setCreateNewBlockType(null)}
         />
