@@ -1,22 +1,32 @@
-import {LinkSocial} from "@/app/store/use-link-store";
-import {Icon} from "@/components/Icon";
-import {Input} from "@/components/ui/input";
-import {Separator} from "@/components/ui/separator";
-import {useSortable} from "@dnd-kit/sortable";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useForm} from "react-hook-form";
-import {CSS} from "@dnd-kit/utilities";
-import {z} from "zod";
-import { useState } from "react";
-import { updateLinkUrl } from "../../actions/updateLinkUrl";
+import { LinkSocial, useLinkStore } from '@/app/store/use-link-store';
+import { Icon } from '@/components/Icon';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { useSortable } from '@dnd-kit/sortable';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { CSS } from '@dnd-kit/utilities';
+import { z } from 'zod';
+import { useState, useTransition } from 'react';
+import { updateLinkUrl } from '../../actions/updateLinkUrl';
+import { deleteItem } from '../../actions/deleteItem';
 
 const schema = z.object({
-  website: z.string().url("Please enter a valid URL"),
+  website: z.string().url('Please enter a valid URL'),
 });
 
-export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
+export const SocialSortableItem = ({
+  item,
+  linkId,
+}: {
+  item: LinkSocial;
+  linkId: string;
+}) => {
   const isSeparator = !item?.icon;
   const [isFocused, setIsFocused] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const setLink = useLinkStore((state) => state.setLink);
+
   const handleFocus = () => {
     setIsFocused(true);
   };
@@ -27,15 +37,15 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      website: item.url || "",
+      website: item.url || '',
     },
   });
 
-  const {setNodeRef, attributes, listeners, transform, transition} =
+  const { setNodeRef, attributes, listeners, transform, transition } =
     useSortable({
       id: item.id,
       disabled: isFocused,
@@ -48,8 +58,22 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
   };
 
   const onSubmit = async (data: { website: string }) => {
-    console.log("Submitted URL:", data.website); // <- Add this
     await updateLinkUrl(item.id, data.website);
+  };
+
+  const handleDelete = async () => {
+    startTransition(async () => {
+      const result = await deleteItem(item.id, linkId);
+      if (result.success && result.socials) {
+        const currentLink = useLinkStore.getState().link;
+        useLinkStore.getState().setLink({
+          ...currentLink,
+          socials: result.socials,
+        });
+      } else {
+        console.error('Failed to delete item:', result.error);
+      }
+    });
   };
 
   return (
@@ -57,29 +81,29 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
       ref={setNodeRef}
       style={style}
       className="item w-full flex justify-between items-center mb-5"
-      {...attributes}
-      {...listeners}
     >
-      <Icon
-        name="grip-vertical"
-        size={isSeparator ? 15 : 18}
-        strokeWidth={2}
-        className="cursor-move"
-      />
+      <div {...attributes} {...listeners} className="cursor-move mr-2">
+        <Icon
+          name="grip-vertical"
+          size={isSeparator ? 15 : 18}
+          strokeWidth={2}
+          className="cursor-move"
+        />
+      </div>
 
       {!isSeparator ? (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full !mb-0 mx-2">
           <div>
             <Input
-               id="website"
-               {...register("website")}
-               placeholder="Enter website URL"
-               icon={<Icon name={item?.icon} sizeClass="sm" />}
-               onFocus={handleFocus}
-               onBlur={(e) => {
-                 handleBlur();
-                 handleSubmit(onSubmit)();
-               }}
+              id="website"
+              {...register('website')}
+              placeholder="Enter website URL"
+              icon={<Icon name={item?.icon} sizeClass="sm" />}
+              onFocus={handleFocus}
+              onBlur={(e) => {
+                handleBlur();
+                handleSubmit(onSubmit)();
+              }}
             />
             {errors.website && <p>{errors.website.message}</p>}
           </div>
@@ -97,9 +121,17 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
             name="pencil"
             size={16}
             className="cursor-pointer text-dashboard-primary mb-[3px]"
+            onClick={() => {}}
           />
         )}
-        <Icon name="delete" size={16} className="cursor-pointer text-red-600" />
+        <Icon
+          name="delete"
+          size={16}
+          className="cursor-pointer text-red-600"
+          onClick={() => {
+            handleDelete();
+          }}
+        />
       </div>
     </li>
   );

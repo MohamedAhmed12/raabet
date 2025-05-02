@@ -25,7 +25,6 @@ export const Socials = () => {
     if (result.success && result.socials) {
       const currentLink = useLinkStore.getState().link;
       setLink({ ...currentLink, socials: result.socials });
-      toast.success('Separator added');
     } else {
       toast.error(result.error || 'Failed to add separator');
     }
