@@ -1,6 +1,6 @@
 import {DashboardCard} from "@/app/(protected)/dashboard/admin/components/DashboardCard";
-import {Block} from "@/app/types/block";
 import {Input} from "@/components/ui/input";
+import {Block} from "@prisma/client";
 import {CardDesignToggleGroup} from "../../../../../../CardDesignToggleGroup";
 import {buttonBlockLayouts} from "../../constants";
 import {BtnBlockStyling} from "./BtnBlockStyling";
@@ -14,8 +14,6 @@ export const BtnBlock = ({
   block: Block;
   onUpdateBlockProperty: (key: keyof Block, val: string) => void;
 }) => {
-  console.log('dsafads',block?.layout);
-  
   return (
     <div className="flex flex-col p-[22px] gap-3 pb-8">
       <ButtonTypeDropdown block={block} onChange={onUpdateBlockProperty} />

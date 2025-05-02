@@ -1,17 +1,18 @@
 import { useLinkStore } from "@/app/store/use-link-store";
-import { Block } from "@/app/types/block";
 import { iconNameType } from "@/assets/icons";
 import { CustomTooltip } from "@/components/CustomTooltip";
 import { Icon } from "@/components/Icon";
+import { cn } from "@/lib/utils";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Block } from "@prisma/client";
 import { memo, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { copyBlock } from "../../actions/copyBlocks";
 import { deleteBlock } from "../../actions/deleteBlocks";
+import { updateBlock as updateBlockAction } from "../../actions/updateBlock";
 import { CreateUpdateBlockForm } from "../LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/page";
-import { cn } from "@/lib/utils";
 
 const schema = z.object({
   website: z.string().url("Please enter a valid URL"),
@@ -104,6 +105,20 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
     setIsDeleting(false);
   };
 
+  const createBlock = async (block: Block) => {
+    try {
+      const newBlock = await createBlockAction(block);
+      const blocksData: Block[] = blocks ? [...blocks, newBlock] : [newBlock];
+
+      setLink({
+        blocks: blocksData,
+      });
+      setCreateNewBlockType(null);
+    } catch (error) {
+      toast.error("Something went wrong while creating new block!");
+    }
+  };
+
   return (
     <li
       ref={setNodeRef}
@@ -158,6 +173,7 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
         <CreateUpdateBlockForm
           type={block.type}
           block={block}
+          onSubmit={(block) => updateBlockAction(block)}
           onClose={() => setIsDialogVisible(false)}
         />
       )}

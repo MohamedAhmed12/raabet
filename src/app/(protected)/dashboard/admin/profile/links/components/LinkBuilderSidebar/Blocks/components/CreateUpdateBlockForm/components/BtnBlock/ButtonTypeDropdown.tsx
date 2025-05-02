@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import {Block} from "@/app/types/block";
+import {BlockType} from "@/app/(protected)/dashboard/admin/profile/links/types/block";
 import {Button} from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-import {BlockType} from "@/app/(protected)/dashboard/admin/profile/links/types/block";
+import {Block} from "@prisma/client";
 
 const linkOptions: {
   label: string;
