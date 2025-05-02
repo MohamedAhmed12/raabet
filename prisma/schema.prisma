@@ -94,10 +94,22 @@ model Link {
   social_enable_qr_code            Boolean
 }
 
+// Define the enum
+enum BlockType {
+  text
+  url
+  email
+  file
+  image
+  separator
+  audio
+  video
+}
+
 model Block {
   id                     String  @id @default(uuid())
   style                  Int     @default(0)
-  type                   String
+  type                   BlockType
   title                  String  @default("")
   description            String  @default("")
   text                   String  @default("")

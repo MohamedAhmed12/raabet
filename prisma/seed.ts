@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { BlockType } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -112,51 +113,56 @@ async function main() {
       {
         linkId: link.id, // Make sure this matches the Link's ID
         url: "https://test.com",
-        type: "text",
+        type: BlockType.text,
         title: "title1",
         text: "text1",
         text_color: link.card_styles_text_color,
         corner: 0,
+        layout: "2",
         order: 0,
       },
       {
         linkId: link.id, // Make sure this matches the Link's ID
         url: "https://test.com",
-        type: "url",
+        type: BlockType.url,
         title: "title2",
         text: "text2",
         text_color: link.card_styles_text_color,
         corner: 0,
+        layout: "2",
         order: 1,
       },
       {
         linkId: link.id,
         url: "https://test.com",
-        type: "email",
+        type: BlockType.email,
         title: "title3",
         text: "text3",
         text_color: link.card_styles_text_color,
         corner: 0,
+        layout: "1",
         order: 2,
       },
       {
         linkId: link.id,
         url: "https://test.com",
-        type: "file",
+        type: BlockType.file,
         title: "title4",
         text: "text4",
         text_color: link.card_styles_text_color,
         corner: 0,
+        layout: "1",
         order: 3,
       },
       {
         linkId: link.id,
         url: "https://test.com",
-        type: "image",
+        type: BlockType.image,
         title: "title5",
         text: "text5",
         text_color: link.card_styles_text_color,
         corner: 0,
+        layout: "1",
         order: 4,
       },
     ],
