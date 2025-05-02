@@ -3,7 +3,7 @@
 import {prisma} from "@/lib/prisma";
 
 interface BlockProps {
-  id: string;
+  id?: string;
   order: number;
 }
 
@@ -11,8 +11,6 @@ export async function orderBlocks(data: BlockProps[]) {
   if (!data.length) throw new Error("No data provided");
 
   try {
-    console.log("332322", data);
-
     // Prepare update operations
     const updatePromises = data.map(({id, order}) =>
       prisma.block.update({

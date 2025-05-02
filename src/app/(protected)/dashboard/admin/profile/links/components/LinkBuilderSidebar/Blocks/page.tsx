@@ -6,6 +6,7 @@ import { Block } from "@/app/types/block";
 import { Icon } from "@/components/Icon";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
+import { createBlock as createBlockAction } from "../../../actions/createBlocks";
 import { orderBlocks } from "../../../actions/orderBlocks";
 import { BlockType } from "../../../types/block";
 import { BlockSortableItem } from "../../DashbaordSortableList/BlockSortableItem";
@@ -74,6 +75,20 @@ export const Blocks = () => {
     }
   };
 
+  const createBlock = async (block: Block) => {
+    try {
+      const newBlock = await createBlockAction(block);
+      const blocksData: Block[] = blocks ? [...blocks, newBlock] : [newBlock];
+
+      setLink({
+        blocks: blocksData,
+      });
+      setCreateNewBlockType(null);
+    } catch (error) {
+      toast.error("Something went wrong while creating new block!");
+    }
+  };
+
   return (
     <>
       <DashboardCard
@@ -92,6 +107,7 @@ export const Blocks = () => {
       {createNewBlockType && (
         <CreateUpdateBlockForm
           type={createNewBlockType}
+          onSubmit={(block) => createBlock(block)}
           onClose={() => setCreateNewBlockType(null)}
         />
       )}
