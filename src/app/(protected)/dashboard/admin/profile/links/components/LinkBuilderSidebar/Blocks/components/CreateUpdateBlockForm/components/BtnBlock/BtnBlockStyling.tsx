@@ -3,12 +3,13 @@
 import * as React from "react";
 
 import {DashboardCard} from "@/app/(protected)/dashboard/admin/components/DashboardCard";
-import {Block, BlockAnimation, BlockTextAlign} from "@/app/types/block";
+import {BlockAnimation, BlockTextAlign} from "@/app/types/block";
 import {iconNameType} from "@/assets/icons";
 import CustomDropdown from "@/components/CustomDropdown";
 import {Icon} from "@/components/Icon";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 import {cn} from "@/lib/utils";
+import {Block} from "@prisma/client";
 import {DashboardChromPicker} from "../../../../../../DashboardChromPicker";
 
 const textAlign: {value: BlockTextAlign; icon: iconNameType}[] = [

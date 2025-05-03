@@ -1,8 +1,8 @@
-import {AudioBlock} from "../components/LinkBuilderSidebar/Blocks/components/CreateBlockForm/components/AudioBlock";
-import {BtnBlock} from "../components/LinkBuilderSidebar/Blocks/components/CreateBlockForm/components/BtnBlock/page";
-import {SeparatorBlock} from "../components/LinkBuilderSidebar/Blocks/components/CreateBlockForm/components/SeparatorBlock";
-import {TextBlock} from "../components/LinkBuilderSidebar/Blocks/components/CreateBlockForm/components/TextBlock/page";
-import {VideoBlock} from "../components/LinkBuilderSidebar/Blocks/components/CreateBlockForm/components/VideoBlock";
+import {AudioBlock} from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/AudioBlock";
+import {BtnBlock} from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/BtnBlock/page";
+import {SeparatorBlock} from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/SeparatorBlock";
+import {TextBlock} from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/TextBlock/page";
+import {VideoBlock} from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/VideoBlock";
 
 export const blocks = {
   text: TextBlock,

@@ -2,16 +2,17 @@
 
 import { DashboardCard } from "@/app/(protected)/dashboard/admin/components/DashboardCard";
 import { useLinkStore } from "@/app/store/use-link-store";
-import { Block } from "@/app/types/block";
 import { Icon } from "@/components/Icon";
+import { Block } from "@prisma/client";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
+import { createBlock as createBlockAction } from "../../../actions/createBlocks";
 import { orderBlocks } from "../../../actions/orderBlocks";
 import { BlockType } from "../../../types/block";
 import { BlockSortableItem } from "../../DashbaordSortableList/BlockSortableItem";
 import { DashbaordSortableList } from "../../DashbaordSortableList/page";
 import { BlocksDialog } from "./components/BlocksDialog";
-import { CreateBlockForm } from "./components/CreateBlockForm/page";
+import { CreateUpdateBlockForm } from "./components/CreateUpdateBlockForm/page";
 
 export const Blocks = () => {
   const [createNewBlockType, setCreateNewBlockType] =
@@ -34,13 +35,13 @@ export const Blocks = () => {
     []
   );
 
-  const renderBlock = () => {
+  const renderBlockCards = () => {
     if (!blocks) return null;
 
     return (
       <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
         <ul className="list w-full">
-          {blocks?.map((block,index) => (
+          {blocks?.map((block, index) => (
             <BlockSortableItem key={index} block={block} />
           ))}
         </ul>
@@ -74,6 +75,20 @@ export const Blocks = () => {
     }
   };
 
+  const createBlock = async (block: Block) => {
+    try {
+      const newBlock = await createBlockAction(block);
+      const blocksData: Block[] = blocks ? [...blocks, newBlock] : [newBlock];
+
+      setLink({
+        blocks: blocksData,
+      });
+      setCreateNewBlockType(null);
+    } catch (error) {
+      toast.error("Something went wrong while creating new block!");
+    }
+  };
+
   return (
     <>
       <DashboardCard
@@ -84,14 +99,15 @@ export const Blocks = () => {
           //  add block button & dialog
           <BlocksDialog onCreateNewBlock={handleOnCreateNewBlock} />
         }
-        children={renderBlock()}
+        children={renderBlockCards()}
         className="gap-0"
       />
 
       {/* overlay create block form  */}
       {createNewBlockType && (
-        <CreateBlockForm
+        <CreateUpdateBlockForm
           type={createNewBlockType}
+          onSubmit={(block) => createBlock(block)}
           onClose={() => setCreateNewBlockType(null)}
         />
       )}

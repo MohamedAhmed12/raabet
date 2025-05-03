@@ -19,7 +19,7 @@ export enum BlockAnimation {
 }
 
 export interface Block {
-  id: string;
+  id?: string;
   style: number;
   type: BlockType;
   title: string;

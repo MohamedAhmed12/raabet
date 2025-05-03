@@ -1,6 +1,6 @@
 import {Separator} from "@/components/ui/separator";
 
-export const CreateBlockFormHeader = ({title}: {title: string}) => {
+export const CreateUpdateBlockFormHeader = ({title}: {title: string}) => {
   return (
     <span>
       <div className="text-xl capitalize p-[22px] font-bold leading-none">
