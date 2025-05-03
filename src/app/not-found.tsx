@@ -3,10 +3,12 @@
 import { Icon } from "@/components/Icon";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
-import { useDashboardNotFoundRedirect } from "./hooks/useDashboardNotFoundRedirect";
+import { useTranslations } from "use-intl";
+// import { useDashboardNotFoundRedirect } from "../hooks/useDashboardNotFoundRedirect";
 
 export default function PublicNotFound() {
-  useDashboardNotFoundRedirect();
+  const t = useTranslations("NotFoundPage");
+  // useDashboardNotFoundRedirect();
 
   return (
     <div className="flex w-full pt-[55px] pb-[110px] justify-center w-2/3">
@@ -15,12 +17,9 @@ export default function PublicNotFound() {
           <Icon name="user" size={60} strokeWidth={1} />
         </CardHeader>
         <CardContent className="flex flex-col justify-center items-center">
-          <p>
-            No user was found for this url. The url may be incorrect, or the
-            user may have deleted their account or been suspended.
-          </p>
+          <p>{t("description")} </p>
           <Link href="/" className="flex mt-5 font-semibold">
-            Return Home
+            {t("return_home")}
             <span className="ml-4">
               <Icon name="home" className="text-dashboard-primary" />
             </span>

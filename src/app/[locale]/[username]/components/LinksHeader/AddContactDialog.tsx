@@ -1,5 +1,6 @@
 "use client";
 
+import { generateVCardAction } from "@/app/[locale]/[username]/actions/generateVCardAction";
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Icon } from "@/components/Icon";
 import { Button } from "@/components/ui/button";
@@ -11,29 +12,29 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { toast } from "sonner";
+import { LinksNavbarIcon } from "./StickyLinksNavbar";
 
-export function ShareBtn({ isSticky }: { isSticky?: boolean }) {
+export function AddContactDialog({ isSticky }: { isSticky: boolean }) {
   const user = useLinkStore((state) => state.link.user);
   if (!user) return;
 
-  //   const handleAddContact = async () => {
-  //     const responseBlob = await generateVCardAction(user.fullname);
+  const handleAddContact = async () => {
+    const responseBlob = await generateVCardAction(user.fullname);
 
-  //     if (!responseBlob) return toast.error("Something wrong happened!");
+    if (!responseBlob) return toast.error("Something wrong happened!");
 
-  //     // Create a download link for the Blob
-  //     const link = document.createElement("a");
-  //     link.href = URL.createObjectURL(responseBlob);
-  //     link.download = `${user.fullname}_contact.vcf`;
-  //     link.click(); // Programmatically trigger the download
-  //   };
+    // Create a download link for the Blob
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(responseBlob);
+    link.download = `${user.fullname}_contact.vcf`;
+    link.click(); // Programmatically trigger the download
+  };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="text-black border-1 border-gray-300 rounded-sm !p-2 cursor-pointer bg-white hover:bg-gray-200">
-          <Icon name="share" sizeClass="sm" />
-        </div>
+        <LinksNavbarIcon isSticky={isSticky} iconName="user-round-plus" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[350px] font-noto-sans">
         <DialogHeader className="flex items-center">

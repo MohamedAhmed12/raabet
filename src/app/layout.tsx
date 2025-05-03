@@ -1,13 +1,14 @@
 import "./globals.css";
 
 import type {Metadata} from "next";
-import {NextIntlClientProvider, useLocale} from "next-intl";
+import {hasLocale, NextIntlClientProvider, useLocale} from "next-intl";
 import {Geist, Geist_Mono, Noto_Sans_Display} from "next/font/google";
 import Head from "next/head";
 import {Toaster} from "sonner";
 
 import arMessages from "../messages/ar.json";
 import enMessages from "../messages/en.json";
+import {notFound} from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,8 +32,8 @@ export const metadata: Metadata = {
 };
 
 const messages: Record<string, any> = {
-  'en': enMessages,
-  'ar': arMessages,
+  en: enMessages,
+  ar: arMessages,
 };
 
 export default function RootLayout({
@@ -42,22 +43,27 @@ export default function RootLayout({
 }>) {
   const locale: string = useLocale();
 
+  if (!hasLocale(["en", "ar"], locale)) {
+    notFound();
+  }
+console.log('locan current',locale);
+
   return (
-    <html lang="en">
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-      <body
-        className={`${notoSans.variable} ${geistSans.variable} ${geistMono.variable} antialiased text-deep-blue-gray`}
-      >
-        <NextIntlClientProvider locale={locale} messages={messages[locale]}>
+    <NextIntlClientProvider locale={locale} messages={messages[locale]}>
+      <html lang={locale}>
+        <Head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@400;700&display=swap"
+            rel="stylesheet"
+          />
+        </Head>
+        <body
+          className={`${notoSans.variable} ${geistSans.variable} ${geistMono.variable} antialiased text-deep-blue-gray`}
+        >
           <Toaster />
           {children}
-        </NextIntlClientProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </NextIntlClientProvider>
   );
 }

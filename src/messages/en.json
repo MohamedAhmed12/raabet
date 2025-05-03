@@ -1,5 +1,7 @@
 {
-  "HomePage": {
-    "title": "Hello world!"
+  "NotFoundPage": {
+    "title": "Page Not Found",
+    "description": "No user was found for this url. The url may be incorrect, or the user may have deleted their account or been suspended.",
+    "return_home": "Return Home"
   }
 }

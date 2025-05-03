@@ -1,38 +1,36 @@
-import {NextRequest, NextResponse, NextFetchEvent} from "next/server";
-import createMiddleware from "next-intl/middleware";
-import withAuth from "./middlewares/withAuthMiddleware"; // Authentication middleware
-import {withVerification} from "./middlewares/withVerification"; // Verification middleware
-
-const locales = ["en", "ar"];
-const defaultLocale = "ar";
-
-const intlMiddleware = createMiddleware({
-  locales,
-  defaultLocale,
-  localeDetection: true,
-});
+import { NextFetchEvent, NextResponse } from "next/server";
+import withAuth from "./middlewares/withAuthMiddleware";
+import intlMiddleware from "./middlewares/withI18nMiddleware";
+import { withVerification } from "./middlewares/withVerification";
+import { NextRequestWithAuth } from "next-auth/middleware";
 
 export default async function middleware(
-  req: NextRequest,
+  req: NextRequestWithAuth,
   event: NextFetchEvent
 ) {
   const {pathname} = req.nextUrl;
 
-  // Apply localization middleware first
   const intlResponse = intlMiddleware(req);
-  if (intlResponse) return intlResponse;
+  const localeChanged = intlResponse.cookies.get("NEXT_LOCALE");
+
+  // if needed to be redirect to path that has '[locale]/' in it or local changed
+  if (localeChanged || intlResponse.status == 307) return intlResponse;
 
   // Check if the path is protected
-  const protectedPaths = ["/dashboard", "/:locale/dashboard"];
-  if (protectedPaths.some((path) => pathname.startsWith(path))) {
+  if (pathname.includes("dashboard")) {
     // First, apply the authentication middleware
     const authResponse = await withAuth(req, event);
-    if (authResponse) return authResponse; // Redirect if not authenticated
+    if (authResponse) return authResponse;
 
     // Then, apply the verification middleware
     const verificationResponse = withVerification(req);
-    if (verificationResponse) return verificationResponse; // Redirect if not verified
+
+    if (verificationResponse) return verificationResponse;
   }
 
   return NextResponse.next(); // Proceed with the request
 }
+
+export const config = {
+  matcher: ["/((?!api|logout|_next|.*\\..*).*)"], // Matches all paths except for API routes and static files
+};

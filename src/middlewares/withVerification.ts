@@ -1,8 +1,9 @@
-import {NextRequest, NextResponse} from "next/server";
+import { NextRequestWithAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
 
-export function withVerification(req: NextRequest) {
+export function withVerification(req: NextRequestWithAuth) {
   const currentUrl = req.url;
-  const isUserConfirmed = req?.nextauth?.token?.id?.is_confirmed;
+  const isUserConfirmed: string = req?.nextauth?.token?.id?.is_confirmed;
 
   if (!isUserConfirmed) {
     return NextResponse.redirect(new URL("/auth/verify", req.url));
@@ -15,5 +16,5 @@ export function withVerification(req: NextRequest) {
     );
   }
 
-  return NextResponse.next();
+  return null;
 }
