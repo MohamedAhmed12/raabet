@@ -10,6 +10,7 @@ export interface LinkSocial {
   icon: iconNameType;
   url: string;
   order: number;
+  label: string;
 }
 
 export interface Link {

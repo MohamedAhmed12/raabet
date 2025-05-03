@@ -132,7 +132,8 @@ model Social {
   icon    String
   url     String
   order   Int
- 
+  lable   String?
+  
   linkId  String
   link    Link   @relation(fields: [linkId], references: [id])
 }
