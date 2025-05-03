@@ -1,16 +1,36 @@
-import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
+import { NextFetchEvent, NextResponse } from "next/server";
+import withAuth from "./middlewares/withAuthMiddleware";
+import intlMiddleware from "./middlewares/withI18nMiddleware";
+import { withVerification } from "./middlewares/withVerification";
+import { NextRequestWithAuth } from "next-auth/middleware";
 
-export default withAuth(function middleware(req) {
-  if (!req?.nextauth?.token) {
-    return NextResponse.redirect(new URL("/auth/login", req.url));
+export default async function middleware(
+  req: NextRequestWithAuth,
+  event: NextFetchEvent
+) {
+  const {pathname} = req.nextUrl;
+
+  const intlResponse = intlMiddleware(req);
+  const localeChanged = intlResponse.cookies.get("NEXT_LOCALE");
+
+  // if needed to be redirect to path that has '[locale]/' in it or local changed
+  if (localeChanged || intlResponse.status == 307) return intlResponse;
+
+  // Check if the path is protected
+  if (pathname.includes("dashboard")) {
+    // First, apply the authentication middleware
+    const authResponse = await withAuth(req, event);
+    if (authResponse) return authResponse;
+
+    // Then, apply the verification middleware
+    const verificationResponse = withVerification(req);
+
+    if (verificationResponse) return verificationResponse;
   }
-  const isUserConfirmed = req?.nextauth?.token?.id?.is_confirmed;
-  if (!isUserConfirmed) {
-    return NextResponse.redirect(new URL("/auth/verify", req.url));
-  }  
-  return NextResponse.next();
-});
 
-// See "Matching Paths" below to learn more
-export const config = { matcher: ["/dashboard/:path*"] };
+  return NextResponse.next(); // Proceed with the request
+}
+
+export const config = {
+  matcher: ["/((?!api|logout|_next|.*\\..*).*)"], // Matches all paths except for API routes and static files
+};
