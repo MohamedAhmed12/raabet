@@ -18,6 +18,7 @@ export default function ProfileLinks() {
   if (error) return notFound();
 
   if (isLoading) return <Loading />;
+  console.log('aaaaaaaaaaesesieon',session);
 
   return (
     data && (

@@ -1,18 +1,22 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/cn";
+import {Button} from "@/components/ui/button";
+import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
+import {Separator} from "@/components/ui/separator";
+import {cn} from "@/lib/cn";
 import Link from "next/link";
-import { Separator } from "@/components/ui/separator";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import {useState} from "react";
 
-export default function VerifyForm({ email }: { email: string }) {
+export default function VerifyForm({
+  email,
+  onVerify,
+}: {
+  email: string;
+  onVerify: () => void;
+}) {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const router = useRouter();
 
   const handleVerify = async () => {
     setLoading(true);
@@ -20,8 +24,8 @@ export default function VerifyForm({ email }: { email: string }) {
 
     const res = await fetch("/api/verify", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, code }),
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({email, code}),
     });
 
     const data = await res.json();
@@ -29,7 +33,7 @@ export default function VerifyForm({ email }: { email: string }) {
 
     if (res.ok) {
       setMessage("✅ Activation successful!");
-      setTimeout(() => router.replace("/auth/login"), 2000);
+      onVerify();
     } else {
       setMessage(`❌ ${data.error}`);
     }

@@ -1,10 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "./prisma";
+import {PrismaAdapter} from "@next-auth/prisma-adapter";
+import {prisma} from "./prisma";
 
-import type { AuthOptions } from "next-auth";
+import type {AuthOptions} from "next-auth";
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -12,8 +12,8 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text" }, // Expecting email field
-        password: { label: "Password", type: "password" }, // Expecting password field
+        email: {label: "Email", type: "text"}, // Expecting email field
+        password: {label: "Password", type: "password"}, // Expecting password field
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -22,7 +22,7 @@ export const authOptions: AuthOptions = {
 
         // Fetch user from the Prisma database by email
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: {email: credentials.email},
         });
 
         if (
@@ -41,13 +41,27 @@ export const authOptions: AuthOptions = {
     strategy: "jwt", // Using JWT for session management
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({token, user, trigger, session}) {
       if (user) {
         token.id = user;
       }
+
+      // update session's user
+      if (trigger === "update" && session) {
+        const newUserData = {
+          ...token,
+          id: {
+            ...session,
+          },
+        };
+
+        // Update the token with the new user data
+        Object.assign(token, newUserData);
+      }
+
       return token;
     },
-    async session({ session, token }) {
+    async session({session, token}) {
       if (token) {
         session.user = token;
       }
@@ -62,4 +76,4 @@ export const authOptions: AuthOptions = {
 };
 
 const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+export {handler as GET, handler as POST};
