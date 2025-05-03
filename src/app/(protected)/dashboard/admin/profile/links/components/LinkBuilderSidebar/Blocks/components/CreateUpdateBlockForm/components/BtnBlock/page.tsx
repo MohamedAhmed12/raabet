@@ -6,6 +6,7 @@ import {buttonBlockLayouts} from "../../constants";
 import {BtnBlockStyling} from "./BtnBlockStyling";
 import {ButtonTypeDropdown} from "./ButtonTypeDropdown";
 import {TextBlockStyling} from "./TextBlockStyling";
+import {cn} from "@/lib/utils";
 
 export const BtnBlock = ({
   block,
@@ -30,18 +31,26 @@ export const BtnBlock = ({
       />
 
       {["2", "3"].includes(block.layout.toString()) && (
-        <DashboardCard title="image">
+        <DashboardCard title="image" className={cn(block.bg_image && "gap-0")}>
+          {block.bg_image && (
+            <label htmlFor="sad" className="file-upload-label text-sm mb-3 flex">
+              Uploaded file: {block.bg_image}
+            </label>
+          )}
+
           <Input
             id="sad"
             type="file"
             className="mb-[14px]"
+            aria-label="s"
+            placeholder="dsdsds"
+            prefix="dfadsf"
             onChange={(e) => onUpdateBlockProperty("bg_image", "aaaaaaaaaaa")}
           />
         </DashboardCard>
       )}
 
       <TextBlockStyling block={block} onChange={onUpdateBlockProperty} />
-
       <BtnBlockStyling block={block} onChange={onUpdateBlockProperty} />
     </div>
   );

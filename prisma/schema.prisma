@@ -113,7 +113,7 @@ model Block {
   title                  String  @default("")
   description            String  @default("")
   text                   String  @default("")
-  text_align             String  @default("")
+  text_align             String  @default("left")
   text_color             String  @default("")
   animation              String  @default("none")
   bg_image               String  @default("")

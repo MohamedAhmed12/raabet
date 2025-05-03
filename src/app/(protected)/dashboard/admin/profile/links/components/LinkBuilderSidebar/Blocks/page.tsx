@@ -2,8 +2,8 @@
 
 import { DashboardCard } from "@/app/(protected)/dashboard/admin/components/DashboardCard";
 import { useLinkStore } from "@/app/store/use-link-store";
-import { Block } from "@/app/types/block";
 import { Icon } from "@/components/Icon";
+import { Block } from "@prisma/client";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { createBlock as createBlockAction } from "../../../actions/createBlocks";
@@ -35,7 +35,7 @@ export const Blocks = () => {
     []
   );
 
-  const renderBlock = () => {
+  const renderBlockCards = () => {
     if (!blocks) return null;
 
     return (
@@ -99,7 +99,7 @@ export const Blocks = () => {
           //  add block button & dialog
           <BlocksDialog onCreateNewBlock={handleOnCreateNewBlock} />
         }
-        children={renderBlock()}
+        children={renderBlockCards()}
         className="gap-0"
       />
 

@@ -115,7 +115,7 @@ async function main() {
         url: "https://test.com",
         type: BlockType.text,
         title: "title1",
-        text: "text1",
+        text: "",
         text_color: link.card_styles_text_color,
         corner: 0,
         layout: "2",
@@ -145,7 +145,7 @@ async function main() {
       },
       {
         linkId: link.id,
-        url: "https://test.com",
+        url: "https://picsum.photos/300/200",
         type: BlockType.file,
         title: "title4",
         text: "text4",
@@ -156,7 +156,7 @@ async function main() {
       },
       {
         linkId: link.id,
-        url: "https://test.com",
+        url: "https://picsum.photos/300/200",
         type: BlockType.image,
         title: "title5",
         text: "text5",

@@ -1,3 +1,4 @@
+import { stripHtmlTags } from "@/app/[username]/helpers/stripHtmlTags";
 import { useLinkStore } from "@/app/store/use-link-store";
 import { iconNameType } from "@/assets/icons";
 import { CustomTooltip } from "@/components/CustomTooltip";
@@ -105,17 +106,25 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
     setIsDeleting(false);
   };
 
-  const createBlock = async (block: Block) => {
+  const updateBlock = async (block: Block) => {
     try {
-      const newBlock = await createBlockAction(block);
-      const blocksData: Block[] = blocks ? [...blocks, newBlock] : [newBlock];
+      const updatedBlock = await updateBlockAction(block);
 
-      setLink({
-        blocks: blocksData,
+      replaceLink((prev) => {
+        const prevBlocks = prev?.blocks || [];
+
+        const updatedBlocks = prevBlocks.map((block) =>
+          block.id === updatedBlock.id ? updatedBlock : block
+        );
+
+        return {
+          ...prev,
+          blocks: updatedBlocks,
+        };
       });
-      setCreateNewBlockType(null);
+      setIsDialogVisible(false);
     } catch (error) {
-      toast.error("Something went wrong while creating new block!");
+      toast.error("Something went wrong while updating the block!");
     }
   };
 
@@ -130,9 +139,12 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
         <Icon name="grip-vertical" sizeClass="sm" />
       </div>
 
-      <div className="w-full flex flex-col px-2.5 py-2">
-        <div className="text-dashboard-primary text-sm mb-[6px]">
-          {block.title}
+      <div
+        className="w-full flex flex-col px-2.5 py-2 cursor-pointer"
+        onClick={() => setIsDialogVisible(true)}
+      >
+        <div className="text-dashboard-primary text-sm mb-[6px] truncate max-w-[7rem]">
+          {stripHtmlTags(block.title)}
         </div>
 
         <div className="flex items-center justify-between">
@@ -173,7 +185,7 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
         <CreateUpdateBlockForm
           type={block.type}
           block={block}
-          onSubmit={(block) => updateBlockAction(block)}
+          onSubmit={(block) => updateBlock(block)}
           onClose={() => setIsDialogVisible(false)}
         />
       )}

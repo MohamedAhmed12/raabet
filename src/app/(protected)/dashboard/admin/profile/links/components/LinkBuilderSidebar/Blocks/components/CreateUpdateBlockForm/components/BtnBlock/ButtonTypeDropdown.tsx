@@ -95,7 +95,7 @@ export const ButtonTypeDropdown = ({
 
           <Input
             id={btnType}
-            type={selectedType.inputType}
+            type='text'
             placeholder={selectedType.placeholder}
             value={block.url}
             className="mb-[14px]"

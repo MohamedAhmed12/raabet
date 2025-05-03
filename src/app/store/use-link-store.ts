@@ -1,10 +1,9 @@
 import {iconNameType} from "@/assets/icons";
+import {Block} from "@prisma/client";
 import {User} from "next-auth";
 import type {StateCreator} from "zustand";
 import {create} from "zustand";
 import {devtools} from "zustand/middleware";
-import {BlockType} from "../(protected)/dashboard/admin/profile/links/types/block";
-import {Block} from "../types/block";
 
 export interface LinkSocial {
   id: string;
@@ -75,7 +74,7 @@ const createLinkSlice: StateCreator<LinkState> = (set) => ({
 
   replaceLink: (update) =>
     set((state) => ({
-      link: typeof update === 'function' ? update(state.link) : update,
+      link: typeof update === "function" ? update(state.link) : update,
     })),
 });
 

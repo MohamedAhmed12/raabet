@@ -16,7 +16,6 @@ import {
   ListOrdered,
   Strikethrough,
 } from "lucide-react";
-import {useState} from "react";
 
 import {cn} from "@/lib/utils";
 import {Block} from "@prisma/client";
@@ -166,15 +165,13 @@ export const TextBlock = ({
   block: Block;
   onUpdateBlockProperty: (key: keyof Block, val: string) => void;
 }) => {
-  const [content, setContent] = useState("");
-
   return (
     <div className="flex-1 p-5 mt-4">
       <EditorProvider
         slotBefore={<MenuBar />}
         extensions={extensions}
-        content={block.text}
-        onUpdate={(e) => onUpdateBlockProperty("text", e.editor.getHTML())}
+        content={block.title}
+        onUpdate={(e) => onUpdateBlockProperty("title", e.editor.getHTML())}
       ></EditorProvider>
     </div>
   );
