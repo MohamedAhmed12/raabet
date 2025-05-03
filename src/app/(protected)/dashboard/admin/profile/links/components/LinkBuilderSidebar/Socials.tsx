@@ -8,6 +8,7 @@ import { DashbaordSortableList } from '../DashbaordSortableList/page';
 import { SocialSortableItem } from '../DashbaordSortableList/SocialSortableItem';
 import { DashboardAccordion } from '../DashboardAccordion';
 import { createSeparator } from '../../actions/createSeparator';
+import { AddSocialDialog } from '../DashbaordSortableList/components/addItemDialog';
 
 export const Socials = () => {
   const socials = useLinkStore((state) => state.link.socials);
@@ -30,7 +31,6 @@ export const Socials = () => {
     }
   };
 
-  const handleSocial = () => {};
   const onDragEnd = async (data: LinkSocial[]) => {
     const oldSocials = [...socials!];
     setLink({
@@ -62,14 +62,8 @@ export const Socials = () => {
         </DashbaordSortableList>
       )}
       <div className="footer flex flex-col items-center justify-center gap-2 flex-end mt-4 w-full">
-        <button
-          className="dashboard-general-style-controller w-full !justify-center !m-0 capitalize text-ms text-center !font-medium cursor-pointer"
-          onClick={handleSocial}
-        >
-          add social
-          <Icon name="link" size={13} className="ml-2" strokeWidth="3" />
-        </button>
-        <button
+      <AddSocialDialog />
+      <button
           className="dashboard-general-style-controller w-full !justify-center !m-0 capitalize text-ms text-center !font-medium cursor-pointer"
           onClick={handleAddSeparator}
         >

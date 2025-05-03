@@ -96,7 +96,7 @@ import btnBlockStyle1 from "../../public/svg/BtnBlockLayout1";
 import btnBlockStyle2 from "../../public/svg/BtnBlockLayout2";
 import btnBlockStyle3 from "../../public/svg/BtnBlockLayout3";
 
-const socialIcons = {
+export const socialIcons = {
   facebook: SiFacebook,
   instagram: SiInstagram,
   // linkedin: SiLinkedin,
