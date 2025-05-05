@@ -10,11 +10,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useLocaleMeta } from "@/hooks/use-locale-meta";
+import { signOut } from "next-auth/react"; // Import signOut from NextAuth.js
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react"; // Import signOut from NextAuth.js
 
-const sidebarTabs: { text: string; url: string; icon: iconNameType }[] = [
+const sidebarTabs: {text: string; url: string; icon: iconNameType}[] = [
   {
     text: "design",
     url: "/dashboard/admin/profile/links",
@@ -48,33 +49,24 @@ const sidebarTabs: { text: string; url: string; icon: iconNameType }[] = [
     url: "subscripe",
     icon: "lock-keyhole-open",
   },
-  {
-    text: "log out",
-    url: "logout",
-    icon: "log-out",
-  },
 ];
 
 export default function CustomSidebar() {
   const pathname = usePathname();
-  const isActive = (url: string) => pathname === url;
+  const {getOppositeLang, switchLocale} = useLocaleMeta();
 
+  const isActive = (url: string) => pathname === url;
   return (
     <Sidebar className="font-noto-sans font-medium">
       <SidebarContent className="p-[11px] pt-[55px]">
         <SidebarMenu className="capitalize text-sm font-bold">
+          {/* tabs  */}
           {sidebarTabs.map((tab, index) => (
             <SidebarMenuItem key={index}>
               <SidebarMenuButton
                 className="flex gap-2 p-[5.5px] mb-[6px] rounded-sm "
                 variant="dashboardDefault"
                 isActive={isActive(tab.url)}
-                onClick={() => {
-                  // For the logout button, trigger signOut
-                  if (tab.text === "log out") {
-                    signOut({ callbackUrl: '/auth/login' }); // Redirect to home page after logout
-                  }
-                }}
               >
                 <Link
                   href={tab.url} // Corrected href format
@@ -86,6 +78,34 @@ export default function CustomSidebar() {
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
+
+          {/* localization tab */}
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              className="flex gap-2 p-[11px] mb-[6px] rounded-sm cursor-pointer"
+              variant="dashboardDefault"
+              isActive={false}
+              onClick={() => switchLocale()}
+            >
+              <Icon name={getOppositeLang.code as iconNameType} size={20} />
+              <span>{getOppositeLang.label}</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          {/* logout tab */}
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              className="flex gap-2 p-[5.5px] mb-[6px] rounded-sm "
+              variant="dashboardDefault"
+              isActive={isActive("logout")}
+              onClick={() => signOut({callbackUrl: "/auth/login"})}
+            >
+              <Link href={"logout"} className="flex gap-2 p-[5.5px] rounded-sm">
+                <Icon name={"log-out"} size={20} />
+                <span>logout</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="p-[11px] font-noto-sans">

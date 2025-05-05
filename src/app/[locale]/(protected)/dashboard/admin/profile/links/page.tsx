@@ -3,7 +3,7 @@
 import useFetchLink from "@/app/[locale]/[username]/useFetchLink";
 import Loading from "@/app/loading";
 import { useSession } from "next-auth/react";
-import { notFound } from "next/navigation";
+import DashboardNotFound from "../../not-found";
 import GeneralStylesSidebar from "./components/GeneralStylesSidebar/page";
 import LinkBuilderSidebar from "./components/LinkBuilderSidebar/page";
 import { LinkViewer } from "./components/LinkViewer/page";
@@ -15,10 +15,9 @@ export default function ProfileLinks() {
   const userId = session?.data?.user?.id?.id as string;
   const { isLoading, data, error } = useFetchLink({ userId });
 
-  if (error) return notFound();
-
   if (isLoading) return <Loading />;
-  console.log('aaaaaaaaaaesesieon',session);
+
+  if (error) return <DashboardNotFound />;
 
   return (
     data && (

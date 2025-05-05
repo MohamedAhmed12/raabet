@@ -1,14 +1,14 @@
 import "./globals.css";
 
 import type {Metadata} from "next";
-import {hasLocale, NextIntlClientProvider, useLocale} from "next-intl";
+import {NextIntlClientProvider} from "next-intl";
 import {Geist, Geist_Mono, Noto_Sans_Display} from "next/font/google";
 import Head from "next/head";
 import {Toaster} from "sonner";
 
+import {customGetLocale} from "@/lib/customGetLocale";
 import arMessages from "../messages/ar.json";
 import enMessages from "../messages/en.json";
-import {notFound} from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,17 +36,12 @@ const messages: Record<string, any> = {
   ar: arMessages,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale: string = useLocale();
-
-  if (!hasLocale(["en", "ar"], locale)) {
-    notFound();
-  }
-console.log('locan current',locale);
+  const locale: string = await customGetLocale();
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages[locale]}>

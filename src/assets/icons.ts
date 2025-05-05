@@ -95,6 +95,8 @@ import cardDesign4 from "../../public/svg/cardDesign4";
 import btnBlockStyle1 from "../../public/svg/BtnBlockLayout1";
 import btnBlockStyle2 from "../../public/svg/BtnBlockLayout2";
 import btnBlockStyle3 from "../../public/svg/BtnBlockLayout3";
+import ar from "../../public/svg/SaFlag";
+import en from "../../public/svg/UkFlag";
 
 export const socialIcons = {
   facebook: SiFacebook,
@@ -175,6 +177,8 @@ const icons = {
   "btn-block-style-1": btnBlockStyle1,
   "btn-block-style-2": btnBlockStyle2,
   "btn-block-style-3": btnBlockStyle3,
+  ar,
+  en,
   "grip-vertical": GripVertical,
   pencil: Pencil,
   delete: Trash2,

@@ -13,7 +13,7 @@ import { z } from 'zod';
 import { deleteSocial } from '../../actions/deleteSocial';
 import { updateLinkUrl } from '../../actions/updateLinkUrl';
 import { updateSocialLabel } from '../../actions/updateSocialLabel';
-import { EditInputDialog } from '../components/EditItemDialog';
+import { EditSocialLabelDialog } from './EditSocialLabelDialog';
 
 const schema = z.object({
   website: z.string().url('Please enter a valid URL'),
@@ -136,7 +136,7 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
       )}
       <div className="actions">
         {!isSeparator && (
-          <EditInputDialog
+          <EditSocialLabelDialog
             iconName="pencil"
             placeholder="Icon Label"
             initialValue={item.label}
