@@ -9,6 +9,7 @@ import {Toaster} from "sonner";
 import {customGetLocale} from "@/lib/customGetLocale";
 import arMessages from "../messages/ar.json";
 import enMessages from "../messages/en.json";
+import {languageMeta} from "@/constants";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,7 +46,7 @@ export default async function RootLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages[locale]}>
-      <html lang={locale}>
+      <html lang={locale} dir={locale == "ar" ? "rtl" : "ltr"}>
         <Head>
           <link
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@400;700&display=swap"

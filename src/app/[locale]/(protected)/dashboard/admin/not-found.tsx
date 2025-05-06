@@ -2,7 +2,7 @@
 
 import {Icon} from "@/components/Icon";
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import {useTranslations} from "use-intl";
+import {useTranslations} from 'next-intl';
 
 export default function DashboardNotFound() {
   const t = useTranslations("NotFoundPage");

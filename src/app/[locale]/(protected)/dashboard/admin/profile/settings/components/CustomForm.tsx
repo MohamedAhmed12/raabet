@@ -16,15 +16,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
+import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { FieldController } from "../../../components/FieldController";
 import { HelperTooltip } from "../../../components/HelperTooltip";
-
-const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
 
 export function CustomForm({
   label,
@@ -43,6 +38,13 @@ export function CustomForm({
   prefix?: string;
   btnBelow?: boolean;
 }>) {
+  const locale = useLocale();
+  const t = useTranslations();
+  const FormSchema = z.object({
+    username: z.string().min(2, {
+      message: t("Errors.username"),
+    }),
+  });
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -68,7 +70,7 @@ export function CustomForm({
           <FormField
             control={form.control}
             name="username"
-            render={({ field }) => (
+            render={({field}) => (
               <FormItem className="space-y-3">
                 {label && (
                   <FormLabel className="font-semisbold capitalize">
@@ -89,7 +91,10 @@ export function CustomForm({
                       {prefix && (
                         <Badge
                           variant="secondary"
-                          className="rounded-r-none shadow-xs"
+                          className={cn(
+                            "shadow-xs border-input",
+                            locale == "ar" ? "rounded-l-none border-l-0" : "rounded-r-none border-r-0"
+                          )}
                         >
                           {prefix}
                         </Badge>
@@ -97,7 +102,10 @@ export function CustomForm({
                       <Input
                         placeholder={placeholder}
                         {...field}
-                        className={prefix && "rounded-l-none"}
+                        className={
+                          prefix &&
+                          (locale == "ar" ? "rounded-r-none border-r-0" : "rounded-l-none border-r-0")
+                        }
                       />
                     </span>
                     <Button

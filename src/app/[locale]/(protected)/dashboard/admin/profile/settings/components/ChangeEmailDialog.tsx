@@ -1,10 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { FieldController } from "../../../components/FieldController";
+import { getTranslations } from "next-intl/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
-export function ChangeEmailDialog({ title }: Readonly<{ title?: string }>) {
-  const confirmed = true;
-  const email = "email@google.com";
+export async function ChangeEmailDialog({title}: Readonly<{title?: string}>) {
+  const t = await getTranslations('Shared');
+  const session = await getServerSession(authOptions);
+  const user = session?.user?.id;
+  const isConfirmed = !!user?.is_confirmed;
+  const email = user?.email || "";
 
   return (
     <FieldController
@@ -12,11 +18,11 @@ export function ChangeEmailDialog({ title }: Readonly<{ title?: string }>) {
       titleIcon={
         <div
           className={cn(
-            "w-full text-right",
-            confirmed ? "text-green-700" : "text-red-600"
+            "text-right",
+            isConfirmed ? "text-green-700" : "text-red-600"
           )}
         >
-          {confirmed ? "confirmed" : "need confirmation"}
+          {isConfirmed ? t("confirmed") : t("needConfirmation")}
         </div>
       }
     >

@@ -32,18 +32,19 @@ const sidebarTabs: {text: string; url: string; icon: iconNameType}[] = [
     icon: "chart-no-axes-combined",
     // icon: "chart-line",
   },
-  {
-    text: "QR codes",
-    url: "qr-code",
-    icon: "qr-code",
-    // icon: "scan-line",
-  },
-  {
-    text: "AI chat",
-    url: "ai-chat",
-    icon: "sparkle",
-    // icon: "sparkles",
-  },
+  // next release
+  // {
+  //   text: "QR codes",
+  //   url: "qr-code",
+  //   icon: "qr-code",
+  //   // icon: "scan-line",
+  // },
+  // {
+  //   text: "AI chat",
+  //   url: "ai-chat",
+  //   icon: "sparkle",
+  //   // icon: "sparkles",
+  // },
   {
     text: "subscripe",
     url: "subscripe",

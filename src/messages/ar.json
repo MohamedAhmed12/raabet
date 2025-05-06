@@ -2,6 +2,32 @@
   "NotFoundPage": {
     "title": "الصفحة غير موجودة",
     "description": "لم يتم العثور على مستخدم لهذا الرابط. قد يكون الرابط غير صحيح، أو ربما قام المستخدم بحذف حسابه أو تم تعليقه.",
-    "return_home": "العودة الى الصفحة الرئيسية"
+    "return_home": "العودة الى الصفحة الرئيسية",
+    "something_went_wrong": "! حدث خطأ ما"
+  },
+  "Settings": {
+    "title": "ال",
+    "subTitle": "قم بإعداد تفاصيل حسابك والتكاملات.",
+    "usernameForm": {
+      "title": "اسم المستخدم",
+      "placeholder": "اسمك",
+      "submitText": "تحديث الاسم"
+    }
+  },
+  "ActivationBanner": {
+    "firstHalf": "لتفعيل ملفك الشخصي، يجب عليك",
+    "secondHalf": "الاشتراك في خطة.",
+    "confirmed": "تم التأكيد",
+    "needConfirmation": "في انتظار التأكيد"
+  },
+  "Shared": {
+    "email": "البريد الإلكتروني",
+    "subscribe": "اشترك",
+    "username": "اسم المستخدم",
+    "confirmed": "تم التأكيد",
+    "needConfirmation": "في انتظار التأكيد"
+  },
+  "Errors": {
+    "username": "يجب أن يكون اسم المستخدم مكونًا من حرفين على الأقل."
   }
 }

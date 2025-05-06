@@ -1,24 +1,29 @@
+import { getTranslations } from "next-intl/server";
 import { ChangeEmailDialog } from "./components/ChangeEmailDialog";
 import { CustomForm } from "./components/CustomForm";
 import { MainTitle } from "./components/MainTitle";
 
-export default function ProfileSettings() {
+export default async function ProfileSettings() {
+  const t = await getTranslations();
+
   return (
     <div className="w-full max-w-[650px]">
       <MainTitle
-        title="settings"
-        subTitle="Configure our account details and integrations."
+        title={t("Settings.title")}
+        subTitle={t("Settings.subTitle")}
       ></MainTitle>
 
-      <ChangeEmailDialog title="email" />
+      <ChangeEmailDialog title={t("Shared.email")} />
 
       <CustomForm
-        title="username"
+        title={t("Settings.usernameForm.title")}
         prefix="raabet.com/"
-        submitText="update google analytics ID"
-        placeholder="Your name"
+        submitText={t("Settings.usernameForm.submitText")}
+        placeholder={t("Settings.usernameForm.placeholder")}
       />
-      <CustomForm
+
+      {/* to be added in future release */}
+      {/* <CustomForm
         title="google analytics"
         label="google analytics ID"
         submitText="update google analytics ID"
@@ -43,7 +48,7 @@ export default function ProfileSettings() {
             <br /> Click ? to learn more.
           </p>
         }
-      />
+      /> */}
 
       {/* to be added in future release */}
       {/* <CustomForm title="Instagram sync" prefix="raabet.com/" submitText="update google analytics ID" placeholder="G-XXXXXXXXXX" /> */}

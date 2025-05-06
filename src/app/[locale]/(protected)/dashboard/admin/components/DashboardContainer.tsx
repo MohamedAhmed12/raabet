@@ -1,7 +1,23 @@
+"use client";
+
+import {usePathname} from "@/i18n/navigation";
+import {cn} from "@/lib/cn";
+
 export const DashboardContainer = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) => (
-  <div className="flex flex-col items-center font-noto-sans pt-[44px] w-[calc(100%+(-66px))] mx-auto">{children}</div>
-);
+}>) => {
+  const pathname = usePathname();
+
+  return (
+    <div
+      className={cn(
+        "flex flex-col items-center font-noto-sans pt-[44px] w-[calc(100%+(-66px))] mx-auto",
+        pathname == "/dashboard/admin/profile/links" && "max-h-screen"
+      )}
+    >
+      {children}
+    </div>
+  );
+};

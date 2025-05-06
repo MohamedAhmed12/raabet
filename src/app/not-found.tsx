@@ -3,7 +3,7 @@
 import { Icon } from "@/components/Icon";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
-import { useTranslations } from "use-intl";
+import { useTranslations } from 'next-intl';
 // import { useDashboardNotFoundRedirect } from "../hooks/useDashboardNotFoundRedirect";
 
 export default function PublicNotFound() {

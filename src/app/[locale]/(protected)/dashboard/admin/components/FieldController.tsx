@@ -13,7 +13,7 @@ export const FieldController = ({
   <Card className="mt-4 font-noto-sans">
     {title && (
       <CardHeader
-        className={cn("flex flex-row", titleIcon && "justify-between")}
+        className={cn("flex flex-row gap-0", titleIcon && "justify-between")}
       >
         <CardTitle className="flex capitalize font-semibold items-center">
           {title}

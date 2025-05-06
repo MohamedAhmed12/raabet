@@ -21,7 +21,7 @@ export default function ProfileLinks() {
 
   return (
     data && (
-      <div className={"flex w-full justify-between max-h-full h-full"}>
+      <div className={"flex w-full justify-between h-screen max-h-full overflow-hidden"}>
         <LinkBuilderSidebar />
         <LinkViewer link={link} />
         <GeneralStylesSidebar />
