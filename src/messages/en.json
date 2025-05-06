@@ -5,14 +5,8 @@
     "returnHome": "Return Home",
     "somethingWentWrong": "Something went wrong. Please try again later."
   },
-  "Settings": {
-    "title": "Settings",
-    "subTitle": "Configure your account details and integrations.",
-    "usernameForm": {
-      "title": "username",
-      "placeholder": "Your name",
-      "submitText": "update your name"
-    }
+  "Errors": {
+    "username": "Username must be at least 2 characters long."
   },
   "ActivationBanner": {
     "firstHalf": "To activate your profile, you must",
@@ -27,7 +21,25 @@
     "confirmed": "Confirmed",
     "needConfirmation": "Pending Confirmation"
   },
-  "Errors": {
-    "username": "Username must be at least 2 characters long."
+  "Settings": {
+    "title": "Settings",
+    "subTitle": "Configure your account details and integrations.",
+    "usernameForm": {
+      "title": "username",
+      "placeholder": "Your name",
+      "submitText": "update your name"
+    }
+  },
+  "Sidebar": {
+    "tabs": {
+      "design": "design",
+      "settings": "settings",
+      "analytics": "analytics",
+      "subscribe": "subscribe",
+      "logout": "logout"
+    },
+    "activateProfile": "Activate profile",
+    "tryFree": "Try free",
+    "14days": "for 14 days"
   }
 }

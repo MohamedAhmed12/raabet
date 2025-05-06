@@ -5,6 +5,22 @@
     "return_home": "العودة الى الصفحة الرئيسية",
     "something_went_wrong": "! حدث خطأ ما"
   },
+  "Errors": {
+    "username": "يجب أن يكون اسم المستخدم مكونًا من حرفين على الأقل."
+  },
+  "ActivationBanner": {
+    "firstHalf": "لتفعيل ملفك الشخصي يجب عليك",
+    "secondHalf": "في خطة.",
+    "confirmed": "تم التأكيد",
+    "needConfirmation": "في انتظار التأكيد"
+  },
+  "Shared": {
+    "email": "البريد الإلكتروني",
+    "subscribe": "الاشتراك",
+    "username": "اسم المستخدم",
+    "confirmed": "تم التأكيد",
+    "needConfirmation": "في انتظار التأكيد"
+  },
   "Settings": {
     "title": "ال",
     "subTitle": "قم بإعداد تفاصيل حسابك والتكاملات.",
@@ -14,20 +30,16 @@
       "submitText": "تحديث الاسم"
     }
   },
-  "ActivationBanner": {
-    "firstHalf": "لتفعيل ملفك الشخصي، يجب عليك",
-    "secondHalf": "الاشتراك في خطة.",
-    "confirmed": "تم التأكيد",
-    "needConfirmation": "في انتظار التأكيد"
-  },
-  "Shared": {
-    "email": "البريد الإلكتروني",
-    "subscribe": "اشترك",
-    "username": "اسم المستخدم",
-    "confirmed": "تم التأكيد",
-    "needConfirmation": "في انتظار التأكيد"
-  },
-  "Errors": {
-    "username": "يجب أن يكون اسم المستخدم مكونًا من حرفين على الأقل."
+  "Sidebar": {
+    "tabs": {
+      "design": "التصميم",
+      "settings": "الإعدادات",
+      "analytics": "التحليلات",
+      "subscribe": "الاشتراك",
+      "logout": "تسجيل الخروج"
+    },
+    "activateProfile": "تفعيل الملف الشخصي",
+    "tryFree": "جرّب مجانًا",
+    "14days": "لمدة 14 يومًا"
   }
 }
