@@ -82,5 +82,10 @@
     "activateProfile": "Activate profile",
     "tryFree": "Try free",
     "14days": "for 14 days"
+  },
+  "ShareBtn": {
+    "add": "add",
+    "addContact": "add contact",
+    "asContact": "as a contact."
   }
 }

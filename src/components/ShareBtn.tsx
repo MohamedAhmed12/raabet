@@ -1,8 +1,8 @@
 "use client";
 
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
-import { Icon } from "@/components/Icon";
-import { Button } from "@/components/ui/button";
+import {useLinkStore} from "@/app/[locale]/store/use-link-store";
+import {Icon} from "@/components/Icon";
+import {Button} from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -11,8 +11,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {useTranslations} from "next-intl";
 
-export function ShareBtn({ isSticky }: { isSticky?: boolean }) {
+export function ShareBtn({isSticky}: {isSticky?: boolean}) {
+  const t = useTranslations("ShareBtn");
   const user = useLinkStore((state) => state.link.user);
   if (!user) return;
 
@@ -42,16 +44,16 @@ export function ShareBtn({ isSticky }: { isSticky?: boolean }) {
           </DialogTitle>
         </DialogHeader>
         <div className="text-center mb-3">
-          <span>Add</span>
+          <span className="capitalize"> {t("add")}</span>
           <span className="font-semibold mx-1">{user.fullname}</span>
-          <span>as a contact.</span>
+          <span>{t("asContact")}.</span>
         </div>
         <DialogFooter>
           <Button
             className="w-full flex items-center capitalize bg-deep-blue-gray hover:bg-deep-blue-gray cursor-pointer"
             onClick={() => handleAddContact()}
           >
-            add contact
+            {t("addContact")}
           </Button>
         </DialogFooter>
       </DialogContent>

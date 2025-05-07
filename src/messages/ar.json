@@ -82,5 +82,10 @@
     "activateProfile": "تفعيل الملف الشخصي",
     "tryFree": "جرّب مجانًا",
     "14days": "لمدة 14 يومًا"
+  },
+  "ShareBtn": {
+    "add": "إضافة",
+    "addContact": "إضافة جهة اتصال",
+    "asContact": "كجهة اتصال"
   }
 }
