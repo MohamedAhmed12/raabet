@@ -1,31 +1,33 @@
+import { useTranslations } from "next-intl";
 import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSwitch } from "../../DashboardSwitch";
 
 export default function GeneralStyles() {
-  const { link, handleLinkPropertyValChange } = useUpdateLink();
+  const t = useTranslations("LinksPage");
+  const {link, handleLinkPropertyValChange} = useUpdateLink();
 
   return (
     <div className="section">
       <div className="section-title text-[.82rem] font-bold mb-[22px]">
-        General Styles
+        {t("title")}
       </div>
       <DashboardChromPicker
-        label="primary text color"
+        label={t("primaryTextColor")}
         currentColor={link.general_styles_primary_text_color}
-        onColorChange={({ hex }: { hex: string }) =>
+        onColorChange={({hex}: {hex: string}) =>
           handleLinkPropertyValChange("general_styles_primary_text_color", hex)
         }
       />
       <DashboardChromPicker
-        label="primary background color"
+        label={t("primaryBgColor")}
         currentColor={link.general_styles_primary_bgcolor}
-        onColorChange={({ hex }: { hex: string }) =>
+        onColorChange={({hex}: {hex: string}) =>
           handleLinkPropertyValChange("general_styles_primary_bgcolor", hex)
         }
       />
       <DashboardSwitch
-        label="secondary background"
+        label={t("secondaryBgColor")}
         checked={link.general_styles_is_secondary_bgcolor}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange(
@@ -37,18 +39,18 @@ export default function GeneralStyles() {
 
       {link.general_styles_is_secondary_bgcolor && (
         <DashboardChromPicker
-          label="secondary primary background color"
+          label={t("secondaryPrimaryBgColor")}
           currentColor={link.general_styles_secondary_bgcolor}
-          onColorChange={({ hex }: { hex: string }) =>
+          onColorChange={({hex}: {hex: string}) =>
             handleLinkPropertyValChange("general_styles_secondary_bgcolor", hex)
           }
         />
       )}
 
       <DashboardChromPicker
-        label="desktop background color"
+        label={t("desktopBgColor")}
         currentColor={link.general_styles_desktop_bgcolor}
-        onColorChange={({ hex }: { hex: string }) =>
+        onColorChange={({hex}: {hex: string}) =>
           handleLinkPropertyValChange("general_styles_desktop_bgcolor", hex)
         }
       />

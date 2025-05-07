@@ -22,6 +22,14 @@
     "needConfirmation": "في انتظار التأكيد",
     "export": "تصدير"
   },
+  "LinksPage": {
+    "title": "الأنماط العامة",
+    "primaryTextColor": "لون النص الأساسي",
+    "primaryBgColor": "لون الخلفية الأساسي",
+    "secondaryBgColor": "لون الخلفية الثانوية",
+    "secondaryPrimaryBgColor": "لون الخلفية الثانوية الأساسية",
+    "desktopBgColor": "لون الخلفية على سطح المكتب"
+  },
   "Settings": {
     "title": "ال",
     "subTitle": "قم بإعداد تفاصيل حسابك والتكاملات.",

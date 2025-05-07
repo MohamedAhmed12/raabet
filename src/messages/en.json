@@ -22,6 +22,14 @@
     "needConfirmation": "Pending Confirmation",
     "export": "export"
   },
+  "LinksPage": {
+    "title": "General Styles",
+    "primaryTextColor": "Primary text color",
+    "primaryBgColor": "Primary background color",
+    "secondaryBgColor": "Secondary background color",
+    "secondaryPrimaryBgColor": "Secondary primary background color",
+    "desktopBgColor": "Desktop background color"
+  },
   "Settings": {
     "title": "Settings",
     "subTitle": "Configure your account details and integrations.",
