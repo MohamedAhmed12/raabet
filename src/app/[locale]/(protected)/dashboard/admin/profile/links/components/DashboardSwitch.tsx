@@ -1,7 +1,8 @@
-import { Switch } from "@/components/ui/switch";
-import { HelperTooltip } from "../../../components/HelperTooltip";
-import { cn } from "@/lib/utils";
-import { useLocale } from "next-intl";
+import {Switch} from "@/components/ui/switch";
+import {HelperTooltip} from "../../../components/HelperTooltip";
+import {cn} from "@/lib/utils";
+import {useLocale} from "next-intl";
+import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
 
 export const DashboardSwitch = ({
   label,
@@ -19,14 +20,7 @@ export const DashboardSwitch = ({
     <div className="dashboard-general-style-controller">
       <span className="flex gap-2 justify-center items-center">
         {tooltipContent && <HelperTooltip content={tooltipContent} />}
-        <div
-          className={cn(
-            "text-[13px] capitalize",
-            locale == "ar" ? "ml-[22px]" : "mr-[22px]"
-          )}
-        >
-          {label}
-        </div>
+        <LinksPageFieldLabel>{label}</LinksPageFieldLabel>
       </span>
       <Switch
         id="show-deleted"

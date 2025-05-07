@@ -1,3 +1,4 @@
+import {useTranslations} from "use-intl";
 import {useUpdateLink} from "../../../hooks/useUpdateLink";
 import {CardDesignToggleGroup} from "../../CardDesignToggleGroup";
 import {DashboardChromPicker} from "../../DashboardChromPicker";
@@ -5,19 +6,20 @@ import {DashboardSlider} from "../../DashboardSlider";
 import {cardDesigns} from "../constants";
 
 export default function CardStyles() {
+  const t = useTranslations("LinksPage.cardStyles");
   const {link, handleLinkPropertyValChange} = useUpdateLink();
 
   return (
     <div className="section">
       <div className="section-title text-[.82rem] font-bold mb-[22px]">
-        Card Styles
+        {t("title")}
       </div>
 
       <CardDesignToggleGroup
         initialVal={link?.card_styles_design?.toString()}
-        title="Tactile Cards"
+        title={t("designGroupTitle")}
         hasTooltip
-        tooltipContent="Tactile cards give your cards a soft, tactile, look and feel. When using tactile cards, your page's background color will be used as the card color. Some design options are not available when using tactile cards."
+        tooltipContent={t("designGrouptooltipContent")}
         toggleItems={cardDesigns}
         onValueChange={(value) => {
           const numericValue = parseInt(value);
@@ -26,7 +28,7 @@ export default function CardStyles() {
       />
 
       <DashboardChromPicker
-        label="card text color"
+        label={t("cardTextColor")}
         currentColor={link?.card_styles_text_color}
         onColorChange={({hex}: {hex: string}) =>
           handleLinkPropertyValChange("card_styles_text_color", hex)
@@ -35,14 +37,14 @@ export default function CardStyles() {
       {link?.general_styles_is_label_exist === true && (
         <>
           <DashboardChromPicker
-            label="label color"
+            label={t("labelColor")}
             currentColor={link?.card_styles_label_color}
             onColorChange={({hex}: {hex: string}) =>
               handleLinkPropertyValChange("card_styles_label_color", hex)
             }
           />
           <DashboardChromPicker
-            label="label text color"
+            label={t("labelTextColor")}
             currentColor={link?.card_styles_label_text_color}
             onColorChange={({hex}: {hex: string}) =>
               handleLinkPropertyValChange("card_styles_label_text_color", hex)
@@ -51,7 +53,7 @@ export default function CardStyles() {
         </>
       )}
       <DashboardSlider
-        label="card corner"
+        label={t("cardCorner")}
         defaultValue={[0.02]}
         max={1}
         step={0.001}
@@ -62,14 +64,14 @@ export default function CardStyles() {
       {link?.card_styles_design === 0 && (
         <>
           <DashboardChromPicker
-            label="card color"
+            label={t("cardColor")}
             currentColor={link?.card_styles_card_color}
             onColorChange={({hex}: {hex: string}) =>
               handleLinkPropertyValChange("card_styles_card_color", hex)
             }
           />
           <DashboardSlider
-            label="card border"
+            label={t("cardBorder")}
             defaultValue={[0.02]}
             max={1}
             step={0.001}
@@ -82,7 +84,7 @@ export default function CardStyles() {
           />
           {link?.card_styles_card_border_width > 0 && (
             <DashboardChromPicker
-              label="card border color"
+              label={t("cardBorderColor")}
               currentColor={link?.card_styles_card_border_color}
               onColorChange={({hex}: {hex: string}) =>
                 handleLinkPropertyValChange(
@@ -93,7 +95,7 @@ export default function CardStyles() {
             />
           )}
           <DashboardSlider
-            label="card shadow"
+            label={t("cardShadow")}
             defaultValue={[0.02]}
             max={1}
             step={0.001}
@@ -102,7 +104,7 @@ export default function CardStyles() {
             }
           />
           <DashboardSlider
-            label="card spacing"
+            label={t("cardSpacing")}
             defaultValue={[0.02]}
             max={1}
             step={0.001}

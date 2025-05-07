@@ -36,6 +36,20 @@
       "profilePictureBorderColor": "لون حدود صورة الملف الشخصي",
       "collapseLongBio": "طي السيرة الذاتية الطويلة",
       "socialIconSize": "حجم الأيقونة الاجتماعية"
+    },
+    "cardStyles": {
+      "title": "أنماط البطاقة",
+      "designGroupTitle": "بطاقات لمسية",
+      "designGrouptooltipContent": "توفر البطاقات اللمسية لبطاقاتك مظهرًا وملمسًا ناعمًا ولمسيًا. عند استخدام البطاقات اللمسية، سيتم استخدام لون خلفية الصفحة كلون للبطاقة. بعض خيارات التصميم غير متاحة عند استخدام البطاقات اللمسية.",
+      "cardTextColor": "لون نص البطاقة",
+      "labelColor": "لون التسمية",
+      "labelTextColor": "لون نص التسمية",
+      "cardCorner": "زاوية البطاقة",
+      "cardColor": "لون البطاقة",
+      "cardBorder": "حدود البطاقة",
+      "cardBorderColor": "لون حدود البطاقة",
+      "cardShadow": "ظل البطاقة",
+      "cardSpacing": "تباعد البطاقة"
     }
   },
   "Settings": {

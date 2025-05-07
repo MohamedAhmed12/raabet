@@ -36,6 +36,20 @@
       "profilePictureBorderColor": "Profile Picture Border Color",
       "collapseLongBio": "Collapse Long Bio",
       "socialIconSize": "Social Icon Size"
+    },
+    "cardStyles": {
+      "title": "Card Styles",
+      "designGroupTitle": "Tactile Cards",
+      "designGrouptooltipContent": "Tactile cards give your cards a soft, tactile, look and feel. When using tactile cards, your page's background color will be used as the card color. Some design options are not available when using tactile cards.",
+      "cardTextColor": "Card text color",
+      "labelColor": "Label color",
+      "labelTextColor": "Label text color",
+      "cardCorner": "Card corner",
+      "cardColor": "Card color",
+      "cardBorder": "Card border",
+      "cardBorderColor": "Card border color",
+      "cardShadow": "Card shadow",
+      "cardSpacing": "Card spacing"
     }
   },
   "Settings": {

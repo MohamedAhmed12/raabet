@@ -1,6 +1,7 @@
-import { Slider } from "@/components/ui/slider";
-import { cn } from "@/lib/utils";
-import { useLocale } from "next-intl";
+import {Slider} from "@/components/ui/slider";
+import {cn} from "@/lib/utils";
+import {useLocale} from "next-intl";
+import {LinksPageFieldLabel} from "./LinksPageFieldLabel";
 
 export const DashboardSlider = ({
   label,
@@ -19,14 +20,7 @@ export const DashboardSlider = ({
 
   return (
     <div className="dashboard-general-style-controller">
-      <div
-        className={cn(
-          "text-[13px] capitalize",
-          locale == "ar" ? "ml-[22px]" : "mr-[22px]"
-        )}
-      >
-        {label}
-      </div>
+      <LinksPageFieldLabel>{label}</LinksPageFieldLabel>
       <Slider
         defaultValue={defaultValue}
         max={max}
