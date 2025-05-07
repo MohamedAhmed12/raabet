@@ -22,7 +22,7 @@ export function LinksHeader() {
             link.title_font && `${link.title_font}`
           )}
         >
-          {link?.userName}
+          {link?.user?.fullname}
         </div>
 
         {/* bio */}

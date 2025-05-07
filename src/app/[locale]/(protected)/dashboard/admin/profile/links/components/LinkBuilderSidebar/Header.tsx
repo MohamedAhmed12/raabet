@@ -1,44 +1,37 @@
 "use client";
 
-import { Link, useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Input } from "@/components/ui/input";
-import { DashboardAccordion } from "../DashboardAccordion";
 import { Textarea } from "@/components/ui/textarea";
-import { updateSingleLink } from "@/app/[locale]/actions/updateSingleLink";
 import Image from "next/image";
+import { useState } from "react";
+import { DashboardAccordion } from "../DashboardAccordion";
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { updateSingleLink } from "@/app/[locale]/actions/updateSingleLink";
+import { updateUserAvatar } from "@/app/[locale]/actions/updateUserAvatar";
 
 export const Header = () => {
   const { link, setLink } = useLinkStore((state) => state);
+  const [uploading, setUploading] = useState(false); 
 
   const handleLinkPropertyValChange = async (
     key: keyof typeof link,
     val: string | boolean | number
   ) => {
     // setLink({ ...link, [key]: val });
-
-    // if (key.startsWith("user.")) {
-    //   const userKey = key.split(".")[1];
-    //   setLink({
-    //     ...link,
-    //     user: {
-    //       ...link.user,
-    //       [userKey]: val,
-    //     },
-    //   });
-    // } else {
-    //   setLink({
-    //     ...link,
-    //     [key]: value,
-    //   });
-    // }
-    // const result = await updateSingleLink(link.id, key, val);
-    // if (!result?.success) {
-      // console.error("Failed to update link:", result?.error);
-    // }
+    if (!link.id) {
+      console.error("Link ID is undefined.");
+      return;
+    }
+    const result = await updateSingleLink(link.id, key, val);
+    if (!result?.success) {
+      console.error("Failed to update link:", result?.error);
+    }
   };
+
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleLinkPropertyValChange("userName", event.target.value);
   };
+
   const handleBioChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     handleLinkPropertyValChange("bio", event.target.value);
   };
@@ -49,14 +42,59 @@ export const Header = () => {
     const file = event.target.files?.[0];
     if (!file || !file.type.startsWith("image/")) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.result) {
-        handleLinkPropertyValChange("user.avatar", reader.result.toString());
+    setUploading(true);
+
+    const fileName = `${link.id}-${Date.now()}-${file.name}`;
+
+    try {
+      const res = await fetch("/api/getPresignedUrl", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fileName, contentType: file.type }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to generate presigned URL: ${res.statusText}`);
       }
-    };
-    reader.readAsDataURL(file);
+
+      const data = await res.json();
+
+      if (!data.presignedUrl) {
+        throw new Error("Presigned URL is missing in the response.");
+      }
+
+      const presignedUrl = data.presignedUrl;
+
+      const uploadRes = await fetch(presignedUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": file.type,
+        },
+        body: file,
+      });
+
+      if (!uploadRes.ok) {
+        throw new Error("Upload to Google Cloud Storage failed.");
+      }
+      const publicUrl = presignedUrl.split("?")[0];
+
+      await updateUserAvatar(link.user.id, "avatar", publicUrl);
+      setLink({
+        ...link,
+        user: {
+          ...link.user,
+          avatar: publicUrl,
+        },
+      });
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    } finally {
+      setUploading(false);
+    }
   };
+
   return (
     <DashboardAccordion
       mainLabel="Header"
@@ -79,7 +117,9 @@ export const Header = () => {
           className="w-full"
           onChange={handlePhotoChange}
           capture="user"
+          disabled={uploading} // Disable input while uploading
         />
+        {uploading && <span>Uploading...</span>}
       </div>
       <Input
         id="name"
@@ -91,7 +131,7 @@ export const Header = () => {
       />
       <Textarea
         id="textarea"
-        placeholder="Name"
+        placeholder="Bio"
         value={link.bio}
         className="mb-[14px]"
         onChange={handleBioChange}
