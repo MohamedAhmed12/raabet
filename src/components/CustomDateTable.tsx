@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,18 +12,14 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import * as React from "react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuContent, DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
@@ -35,6 +30,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/cn";
+import { useLocale, useTranslations } from "next-intl";
 
 interface TableProps {
   data: any[];
@@ -51,6 +48,8 @@ export function CustomDateTable({
   enableColumnDropdown = false,
   showFooter = true,
 }: TableProps) {
+  const locale = useLocale();
+  const t = useTranslations("Datatable");
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -126,13 +125,18 @@ export function CustomDateTable({
           </div>
         ))}
       <div className="rounded-md border">
-        <Table>
-          <TableHeader>
+        <Table className={cn(locale === "ar" ? "text-right" : "text-left")}>
+          <TableHeader dir="rtl">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      className={cn(
+                        locale === "ar" ? "text-right" : "text-left"
+                      )}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -177,9 +181,10 @@ export function CustomDateTable({
       </div>
       {showFooter && (
         <div className="flex items-center justify-end space-x-2 py-4">
-          <div className="flex-1 text-sm text-muted-foreground">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
+          <div className="flex-1 text-sm text-muted-foreground text-right">
+            {table.getFilteredSelectedRowModel().rows.length} {t("of")}{" "}
+            {table.getFilteredRowModel().rows.length} {t("row(s)")}{" "}
+            {t("selected")}.
           </div>
           <div className="space-x-2">
             <Button
@@ -188,7 +193,7 @@ export function CustomDateTable({
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
             >
-              Previous
+              {t("previous")}
             </Button>
             <Button
               variant="outline"
@@ -196,7 +201,7 @@ export function CustomDateTable({
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
             >
-              Next
+              {t("next")}
             </Button>
           </div>
         </div>

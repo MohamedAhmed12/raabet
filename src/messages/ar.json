@@ -19,7 +19,8 @@
     "subscribe": "الاشتراك",
     "username": "اسم المستخدم",
     "confirmed": "تم التأكيد",
-    "needConfirmation": "في انتظار التأكيد"
+    "needConfirmation": "في انتظار التأكيد",
+    "export": "تصدير"
   },
   "Settings": {
     "title": "ال",
@@ -29,6 +30,46 @@
       "placeholder": "اسمك",
       "submitText": "تحديث الاسم"
     }
+  },
+  "Analytics": {
+    "Metrics": {
+      "title": "مقاييس الملف الشخصي",
+      "subTitle": "اكتشف كيف يشاهد الزوار ملفك الشخصي ويتفاعلون معه.",
+      "dateDropdown": {
+        "lastWeek": "الأسبوع الماضي",
+        "lastMonth": "الشهر الماضي",
+        "lastYear": "العام الماضي",
+        "allTime": "كل الوقت"
+      },
+      "profile": {
+        "title": "مشاهدات ونقراتالملف الشخصي",
+        "profileViews": "مشاهدات الملف الشخصي",
+        "blockClicks": "نقرات الكتل",
+        "socialClicks": "نقرات التواصل الاجتماعي"
+      },
+      "socialClicks": {
+        "title": "نقرات التواصل الاجتماعي",
+        "clicks": "النقرات",
+        "url": "الرابط",
+        "type": "النوع",
+        "icon": "الأيقونة"
+      },
+      "blockInteractions": {
+        "title": "تفاعلات الكتل",
+        "showHidden": "إظهار المخفي",
+        "clicks": "النقرات",
+        "type": "النوع",
+        "name": "الاسم",
+        "views": "مشاهدات"
+      }
+    }
+  },
+  "Datatable": {
+    "row(s)": "صفوف",
+    "selected": "محدد",
+    "of": "من",
+    "previous": "السابق",
+    "next": "التالى"
   },
   "Sidebar": {
     "tabs": {

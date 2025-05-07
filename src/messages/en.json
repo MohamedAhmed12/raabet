@@ -19,7 +19,8 @@
     "subscribe": "subscribe",
     "username": "Username",
     "confirmed": "Confirmed",
-    "needConfirmation": "Pending Confirmation"
+    "needConfirmation": "Pending Confirmation",
+    "export": "export"
   },
   "Settings": {
     "title": "Settings",
@@ -29,6 +30,46 @@
       "placeholder": "Your name",
       "submitText": "update your name"
     }
+  },
+  "Analytics": {
+    "Metrics": {
+      "title": "profile metrics",
+      "subTitle": "Discover how visitors are viewing and interacting with your profile.",
+      "dateDropdown": {
+        "lastWeek": "last week",
+        "lastMonth": "last month",
+        "lastYear": "last year",
+        "allTime": "all time"
+      },
+      "profile": {
+        "title": "Profile Views & Clicks",
+        "profileViews": "Profile Views",
+        "blockClicks": "Block Clicks",
+        "socialClicks": "Social Clicks"
+      },
+      "socialClicks": {
+        "title": "Social Clicks",
+        "clicks": "Clicks",
+        "url": "URL",
+        "type": "Type",
+        "icon": "Icon"
+      },
+      "blockInteractions": {
+        "title": "block interactions",
+        "showHidden": "Show Hidden",
+        "clicks": "Clicks",
+        "type": "Type",
+        "name": "Name",
+        "views": "Views"
+      }
+    }
+  },
+  "Datatable": {
+    "row(s)": "row(s)",
+    "selected": "selected",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next"
   },
   "Sidebar": {
     "tabs": {

@@ -97,7 +97,7 @@ export default function CustomSidebar() {
             >
               <Link href={"logout"} className="flex gap-2 p-[5.5px] rounded-sm">
                 <Icon name={"log-out"} size={20} />
-                <span>{t("tabs.logout")}</span>
+                <span>{t('tabs.logout')}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -109,10 +109,9 @@ export default function CustomSidebar() {
           className="flex cursor-pointer flex-col h-auto w- p-[11px] items-center text-center text-white bg-[linear-gradient(45deg,_#dd76ff,_#097cd4)] rounded-md"
         >
           <Icon name="lock" className="text-white" size={19} />
-          <span className="text-sm font-normal">{t("activateProfile")}</span>
-          <span className="text-sm font-medium mt-2">
-            {t("tryFree")}
-            <br /> {t("14days")}
+          <span className="text-sm font-normal">{t('activateProfile')}</span>
+          <span className="text-sm font-medium">
+          {t('tryFree')}<br /> {t('14days')}
           </span>
         </Link>
       </SidebarFooter>
