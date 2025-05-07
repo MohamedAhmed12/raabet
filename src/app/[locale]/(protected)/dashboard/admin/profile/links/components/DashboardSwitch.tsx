@@ -31,6 +31,11 @@ export const DashboardSwitch = ({
       <Switch
         id="show-deleted"
         checked={checked}
+        thumbClassName={
+          locale == "ar"
+            ? "data-[state=checked]:translate-x-[calc(-100%+2px)] data-[state=unchecked]:translate-x-0"
+            : ""
+        }
         onCheckedChange={onCheckedChange}
         className="cursor-pointer"
       />

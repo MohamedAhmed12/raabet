@@ -1,18 +1,20 @@
+import { useTranslations } from "next-intl";
 import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
 
 export default function HeaderStyles() {
+    const t = useTranslations("LinksPage.headerStyles");
   const { link, handleLinkPropertyValChange } = useUpdateLink();
 
   return (
     <div className="section">
       <div className="section-title text-[.82rem] font-bold mb-[22px]">
-        Header Styles
+        {t('title')}
       </div>
       <DashboardSlider
-        label="Profile Picture Shadow"
+        label={t("profilePictureShadow")}
         defaultValue={[link?.header_styles_profile_shadow || 0]}
         max={1}
         step={0.001}
@@ -21,7 +23,7 @@ export default function HeaderStyles() {
         }
       />
       <DashboardSlider
-        label="Profile Picture border"
+        label={t("profilePictureBorder")}
         defaultValue={[link?.header_styles_profile_border_width || 0]}
         max={1}
         step={0.001}
@@ -36,7 +38,7 @@ export default function HeaderStyles() {
       {link?.header_styles_profile_border_width &&
         link?.header_styles_profile_border_width > 0 && (
           <DashboardChromPicker
-            label="profile picture border color"
+            label={t("profilePictureBorderColor")}
             currentColor={link?.header_styles_profile_border_color}
             onColorChange={({hex}: {hex: string}) =>
               handleLinkPropertyValChange(
@@ -48,7 +50,7 @@ export default function HeaderStyles() {
         )}
 
       <DashboardSwitch
-        label="Collapse Long Bio"
+        label={t("collapseLongBio")}
         tooltipContent="aaa"
         checked={link?.header_styles_collapse_long_bio}
         onCheckedChange={(checked) =>
@@ -59,7 +61,7 @@ export default function HeaderStyles() {
         }
       />
       <DashboardSlider
-        label="Social Icon Size"
+        label={t("socialIconSize")}
         defaultValue={[link?.header_styles_social_icons_size || 0]}
         max={1}
         step={0.001}

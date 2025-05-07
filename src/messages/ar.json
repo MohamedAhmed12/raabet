@@ -28,7 +28,15 @@
     "primaryBgColor": "لون الخلفية الأساسي",
     "secondaryBgColor": "لون الخلفية الثانوية",
     "secondaryPrimaryBgColor": "لون الخلفية الثانوية الأساسية",
-    "desktopBgColor": "لون الخلفية على سطح المكتب"
+    "desktopBgColor": "لون الخلفية على سطح المكتب",
+    "headerStyles": {
+      "title": "أنماط الرأس",
+      "profilePictureShadow": "ظل صورة الملف الشخصي",
+      "profilePictureBorder": "حدود صورة الملف الشخصي",
+      "profilePictureBorderColor": "لون حدود صورة الملف الشخصي",
+      "collapseLongBio": "طي السيرة الذاتية الطويلة",
+      "socialIconSize": "حجم الأيقونة الاجتماعية"
+    }
   },
   "Settings": {
     "title": "ال",

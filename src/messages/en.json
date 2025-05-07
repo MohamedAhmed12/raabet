@@ -28,7 +28,15 @@
     "primaryBgColor": "Primary background color",
     "secondaryBgColor": "Secondary background color",
     "secondaryPrimaryBgColor": "Secondary primary background color",
-    "desktopBgColor": "Desktop background color"
+    "desktopBgColor": "Desktop background color",
+    "headerStyles": {
+      "title": "Header Styles",
+      "profilePictureShadow": "Profile Picture Shadow",
+      "profilePictureBorder": "Profile Picture Border",
+      "profilePictureBorderColor": "Profile Picture Border Color",
+      "collapseLongBio": "Collapse Long Bio",
+      "socialIconSize": "Social Icon Size"
+    }
   },
   "Settings": {
     "title": "Settings",
