@@ -1,18 +1,19 @@
-"use client";
+'use client';
 
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import Image from "next/image";
-import { useState } from "react";
-import { DashboardAccordion } from "../DashboardAccordion";
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
-import { updateSingleLink } from "@/app/[locale]/actions/updateSingleLink";
-import { updateUserAvatar } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUserAvatar";
-import { getPresignedUrl } from "../../actions/getPresignedUrl";
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import Image from 'next/image';
+import { useState } from 'react';
+import { DashboardAccordion } from '../DashboardAccordion';
+import { useLinkStore } from '@/app/[locale]/store/use-link-store';
+import { updateSingleLink } from '@/app/[locale]/actions/updateSingleLink';
+import { updateUserAvatar } from '@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUserAvatar';
+import { GCSFileHandler } from '../../actions/GCSFileHandler';
+import { uploadToGCS } from './uploadToGCS';
 
 export const Header = () => {
   const { link, setLink } = useLinkStore((state) => state);
-  const [uploading, setUploading] = useState(false); 
+  const [uploading, setUploading] = useState(false);
 
   const handleLinkPropertyValChange = async (
     key: keyof typeof link,
@@ -20,63 +21,46 @@ export const Header = () => {
   ) => {
     // setLink({ ...link, [key]: val });
     if (!link.id) {
-      console.error("Link ID is undefined.");
+      console.error('Link ID is undefined.');
       return;
     }
     const result = await updateSingleLink(link.id, key, val);
     if (!result?.success) {
-      console.error("Failed to update link:", result?.error);
+      console.error('Failed to update link:', result?.error);
     }
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleLinkPropertyValChange("userName", event.target.value);
+    handleLinkPropertyValChange('userName', event.target.value);
   };
 
   const handleBioChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    handleLinkPropertyValChange("bio", event.target.value);
+    handleLinkPropertyValChange('bio', event.target.value);
   };
 
   const handlePhotoChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-  if (!file || !file.type.startsWith("image/")) return;
 
-  setUploading(true);
+    setUploading(true);
 
-  const fileName = `${link.id}-${Date.now()}-${file.name}`;
+    try {
+      const publicUrl = await uploadToGCS(link.id, file);
 
-  try {
-    const presignedUrl = await getPresignedUrl(fileName, file.type);
-
-    const uploadRes = await fetch(presignedUrl, {
-      method: "PUT",
-      headers: {
-        "Content-Type": file.type,
-      },
-      body: file,
-    });
-
-    if (!uploadRes.ok) {
-      throw new Error("Upload to Google Cloud Storage failed.");
+      await updateUserAvatar(link.user.id, 'avatar', publicUrl);
+      setLink((prev) => ({
+        ...prev,
+        user: {
+          ...prev.user,
+          avatar: publicUrl,
+        },
+      }));
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    } finally {
+      setUploading(false);
     }
-
-    const publicUrl = presignedUrl.split("?")[0];
-
-    await updateUserAvatar(link.user.id, "avatar", publicUrl);
-    setLink((prev) => ({
-      ...prev,
-      user: {
-        ...prev.user,
-        avatar: publicUrl,
-      },
-    }));
-  } catch (error) {
-    console.error("Error uploading file:", error);
-  } finally {
-    setUploading(false);
-  }
   };
 
   return (
@@ -90,8 +74,8 @@ export const Header = () => {
             src={link.user.avatar}
             alt="Profile"
             className="w-12 h-12 rounded-full object-cover border mb-1"
-            width={64} // Set the width
-            height={64} // Set the height
+            width={64}
+            height={64}
           />
         )}
         <Input
@@ -101,7 +85,7 @@ export const Header = () => {
           className="w-full"
           onChange={handlePhotoChange}
           capture="user"
-          disabled={uploading} // Disable input while uploading
+          disabled={uploading}
         />
         {uploading && <span>Uploading...</span>}
       </div>

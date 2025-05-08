@@ -1,4 +1,3 @@
-// app/actions/getPresignedUrl.ts
 "use server";
 
 import { Storage } from "@google-cloud/storage";
@@ -13,7 +12,7 @@ const storage = new Storage({
 
 const bucket = storage.bucket(process.env.GCS_BUCKET_NAME!);
 
-export async function getPresignedUrl(fileName: string, contentType: string) {
+export async function GCSFileHandler(fileName: string, contentType: string) {
   if (!fileName || !contentType) {
     throw new Error("Missing parameters");
   }
