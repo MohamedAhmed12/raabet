@@ -1,5 +1,8 @@
-import { Switch } from "@/components/ui/switch";
-import { HelperTooltip } from "../../../components/HelperTooltip";
+import {Switch} from "@/components/ui/switch";
+import {HelperTooltip} from "../../../components/HelperTooltip";
+import {cn} from "@/lib/utils";
+import {useLocale} from "next-intl";
+import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
 
 export const DashboardSwitch = ({
   label,
@@ -11,17 +14,25 @@ export const DashboardSwitch = ({
   checked: boolean | undefined;
   tooltipContent?: string;
   onCheckedChange: (checked: boolean) => void;
-}>) => (
-  <div className="dashboard-general-style-controller">
-    <span className="flex gap-2 justify-center items-center">
-      {tooltipContent && <HelperTooltip content={tooltipContent} />}
-      <div className="text-[13px] mr-[22px] capitalize">{label}</div>
-    </span>
-    <Switch
-      id="show-deleted"
-      checked={checked}
-      onCheckedChange={onCheckedChange}
-      className="cursor-pointer"
-    />
-  </div>
-);
+}>) => {
+  const locale = useLocale();
+  return (
+    <div className="dashboard-general-style-controller">
+      <span className="flex gap-2 justify-center items-center">
+        {tooltipContent && <HelperTooltip content={tooltipContent} />}
+        <LinksPageFieldLabel>{label}</LinksPageFieldLabel>
+      </span>
+      <Switch
+        id="show-deleted"
+        checked={checked}
+        thumbClassName={
+          locale == "ar"
+            ? "data-[state=checked]:translate-x-[calc(-100%+2px)] data-[state=unchecked]:translate-x-0"
+            : ""
+        }
+        onCheckedChange={onCheckedChange}
+        className="cursor-pointer"
+      />
+    </div>
+  );
+};

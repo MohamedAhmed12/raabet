@@ -19,7 +19,38 @@
     "subscribe": "subscribe",
     "username": "Username",
     "confirmed": "Confirmed",
-    "needConfirmation": "Pending Confirmation"
+    "needConfirmation": "Pending Confirmation",
+    "export": "export"
+  },
+  "LinksPage": {
+    "title": "General Styles",
+    "primaryTextColor": "Primary text color",
+    "primaryBgColor": "Primary background color",
+    "secondaryBgColor": "Secondary background color",
+    "secondaryPrimaryBgColor": "Secondary primary background color",
+    "desktopBgColor": "Desktop background color",
+    "headerStyles": {
+      "title": "Header Styles",
+      "profilePictureShadow": "Profile Picture Shadow",
+      "profilePictureBorder": "Profile Picture Border",
+      "profilePictureBorderColor": "Profile Picture Border Color",
+      "collapseLongBio": "Collapse Long Bio",
+      "socialIconSize": "Social Icon Size"
+    },
+    "cardStyles": {
+      "title": "Card Styles",
+      "designGroupTitle": "Tactile Cards",
+      "designGrouptooltipContent": "Tactile cards give your cards a soft, tactile, look and feel. When using tactile cards, your page's background color will be used as the card color. Some design options are not available when using tactile cards.",
+      "cardTextColor": "Card text color",
+      "labelColor": "Label color",
+      "labelTextColor": "Label text color",
+      "cardCorner": "Card corner",
+      "cardColor": "Card color",
+      "cardBorder": "Card border",
+      "cardBorderColor": "Card border color",
+      "cardShadow": "Card shadow",
+      "cardSpacing": "Card spacing"
+    }
   },
   "Settings": {
     "title": "Settings",
@@ -29,6 +60,46 @@
       "placeholder": "Your name",
       "submitText": "update your name"
     }
+  },
+  "Analytics": {
+    "Metrics": {
+      "title": "profile metrics",
+      "subTitle": "Discover how visitors are viewing and interacting with your profile.",
+      "dateDropdown": {
+        "lastWeek": "last week",
+        "lastMonth": "last month",
+        "lastYear": "last year",
+        "allTime": "all time"
+      },
+      "profile": {
+        "title": "Profile Views & Clicks",
+        "profileViews": "Profile Views",
+        "blockClicks": "Block Clicks",
+        "socialClicks": "Social Clicks"
+      },
+      "socialClicks": {
+        "title": "Social Clicks",
+        "clicks": "Clicks",
+        "url": "URL",
+        "type": "Type",
+        "icon": "Icon"
+      },
+      "blockInteractions": {
+        "title": "block interactions",
+        "showHidden": "Show Hidden",
+        "clicks": "Clicks",
+        "type": "Type",
+        "name": "Name",
+        "views": "Views"
+      }
+    }
+  },
+  "Datatable": {
+    "row(s)": "row(s)",
+    "selected": "selected",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next"
   },
   "Sidebar": {
     "tabs": {
@@ -41,5 +112,10 @@
     "activateProfile": "Activate profile",
     "tryFree": "Try free",
     "14days": "for 14 days"
+  },
+  "ShareBtn": {
+    "add": "add",
+    "addContact": "add contact",
+    "asContact": "as a contact."
   }
 }

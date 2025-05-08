@@ -3,6 +3,7 @@ import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 import {cn} from "@/lib/cn";
 import {useState} from "react";
 import {HelperTooltip} from "../../../components/HelperTooltip";
+import {LinksPageFieldLabel} from "./LinksPageFieldLabel";
 
 export const CardDesignToggleGroup = ({
   initialVal,
@@ -41,7 +42,7 @@ export const CardDesignToggleGroup = ({
         }}
       >
         {hasTooltip && <HelperTooltip content={tooltipContent} />}
-        <div className="text-[13px] mr-[22px] capitalize">{title}</div>
+        <LinksPageFieldLabel>{title}</LinksPageFieldLabel>
       </div>
       <ToggleGroup
         type="single"

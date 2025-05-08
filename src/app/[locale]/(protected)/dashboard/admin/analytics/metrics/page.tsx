@@ -1,27 +1,25 @@
 "use client";
 
 import CustomDropdown from "@/components/CustomDropdown";
+import { useTranslations } from "next-intl";
 import { MainTitle } from "../../profile/settings/components/MainTitle";
 import { BlockInteractions } from "./components/BlockInteractions";
-import {
-  ProfileAnalytics
-} from "./components/ProfileAnalytics/page";
+import { ProfileAnalytics } from "./components/ProfileAnalytics/page";
 import { SocialClicks } from "./components/SocialClicks";
 
-const dateDropdown = ["last week", "last month", "last year", "all time"];
+const dateDropdown = ["lastWeek", "lastMonth", "lastYear", "allTime"];
 
 export default function Analyticsmetrics() {
+  const t = useTranslations("Analytics.Metrics");
   const onSelect = (e: number) => {
     console.log(e);
   };
+
   return (
     <div className="w-full max-w-[1000px]">
-      <MainTitle
-        title="profile metrics"
-        subTitle="Discover how visitors are viewing and interacting with your profile."
-      ></MainTitle>
+      <MainTitle title={t("title")} subTitle={t("subTitle")}></MainTitle>
 
-      <CustomDropdown onSelect={onSelect} items={dateDropdown} />
+      <CustomDropdown onSelect={() => onSelect()} items={dateDropdown} />
       <ProfileAnalytics />
       <SocialClicks />
       <BlockInteractions />

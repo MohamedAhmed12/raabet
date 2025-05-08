@@ -9,6 +9,7 @@ import {
 import {Icon} from "./Icon";
 import {useState} from "react";
 import {cn} from "@/lib/utils";
+import {useTranslations} from "next-intl";
 
 interface CustomDropdownProps {
   items: string[];
@@ -20,6 +21,7 @@ export function CustomDropdown({
   className,
   onSelect,
 }: CustomDropdownProps) {
+  const t = useTranslations("Analytics.Metrics.dateDropdown");
   const [selected, setSelected] = useState(0);
   const handleOnSelect = (index: number) => {
     setSelected(index);
@@ -27,14 +29,14 @@ export function CustomDropdown({
   };
 
   return (
-    <DropdownMenu>
+    <DropdownMenu dir="inherit">
       <DropdownMenuTrigger
         className={cn(
           "flex justify-between items-center bg-white px-2 py-1 min-w-[175px] min-h-[38px] cursor-pointer border rounded-sm",
           className
         )}
       >
-        <span>{items[selected]}</span>
+        <span>{t(items[selected])}</span>
         <Icon name="chevronDown" sizeClass="sm" />
       </DropdownMenuTrigger>
       <DropdownMenuContent defaultValue={0} className="min-w-[175px]">
@@ -44,7 +46,7 @@ export function CustomDropdown({
             className="cursor-pointer"
             onSelect={() => handleOnSelect(index)}
           >
-            {item}
+            {t(item)}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

@@ -19,7 +19,38 @@
     "subscribe": "الاشتراك",
     "username": "اسم المستخدم",
     "confirmed": "تم التأكيد",
-    "needConfirmation": "في انتظار التأكيد"
+    "needConfirmation": "في انتظار التأكيد",
+    "export": "تصدير"
+  },
+  "LinksPage": {
+    "title": "الأنماط العامة",
+    "primaryTextColor": "لون النص الأساسي",
+    "primaryBgColor": "لون الخلفية الأساسي",
+    "secondaryBgColor": "لون الخلفية الثانوية",
+    "secondaryPrimaryBgColor": "لون الخلفية الثانوية الأساسية",
+    "desktopBgColor": "لون الخلفية على سطح المكتب",
+    "headerStyles": {
+      "title": "أنماط الرأس",
+      "profilePictureShadow": "ظل صورة الملف الشخصي",
+      "profilePictureBorder": "حدود صورة الملف الشخصي",
+      "profilePictureBorderColor": "لون حدود صورة الملف الشخصي",
+      "collapseLongBio": "طي السيرة الذاتية الطويلة",
+      "socialIconSize": "حجم الأيقونة الاجتماعية"
+    },
+    "cardStyles": {
+      "title": "أنماط البطاقة",
+      "designGroupTitle": "بطاقات لمسية",
+      "designGrouptooltipContent": "توفر البطاقات اللمسية لبطاقاتك مظهرًا وملمسًا ناعمًا ولمسيًا. عند استخدام البطاقات اللمسية، سيتم استخدام لون خلفية الصفحة كلون للبطاقة. بعض خيارات التصميم غير متاحة عند استخدام البطاقات اللمسية.",
+      "cardTextColor": "لون نص البطاقة",
+      "labelColor": "لون التسمية",
+      "labelTextColor": "لون نص التسمية",
+      "cardCorner": "زاوية البطاقة",
+      "cardColor": "لون البطاقة",
+      "cardBorder": "حدود البطاقة",
+      "cardBorderColor": "لون حدود البطاقة",
+      "cardShadow": "ظل البطاقة",
+      "cardSpacing": "تباعد البطاقة"
+    }
   },
   "Settings": {
     "title": "ال",
@@ -29,6 +60,46 @@
       "placeholder": "اسمك",
       "submitText": "تحديث الاسم"
     }
+  },
+  "Analytics": {
+    "Metrics": {
+      "title": "مقاييس الملف الشخصي",
+      "subTitle": "اكتشف كيف يشاهد الزوار ملفك الشخصي ويتفاعلون معه.",
+      "dateDropdown": {
+        "lastWeek": "الأسبوع الماضي",
+        "lastMonth": "الشهر الماضي",
+        "lastYear": "العام الماضي",
+        "allTime": "كل الوقت"
+      },
+      "profile": {
+        "title": "مشاهدات ونقراتالملف الشخصي",
+        "profileViews": "مشاهدات الملف الشخصي",
+        "blockClicks": "نقرات الكتل",
+        "socialClicks": "نقرات التواصل الاجتماعي"
+      },
+      "socialClicks": {
+        "title": "نقرات التواصل الاجتماعي",
+        "clicks": "النقرات",
+        "url": "الرابط",
+        "type": "النوع",
+        "icon": "الأيقونة"
+      },
+      "blockInteractions": {
+        "title": "تفاعلات الكتل",
+        "showHidden": "إظهار المخفي",
+        "clicks": "النقرات",
+        "type": "النوع",
+        "name": "الاسم",
+        "views": "مشاهدات"
+      }
+    }
+  },
+  "Datatable": {
+    "row(s)": "صفوف",
+    "selected": "محدد",
+    "of": "من",
+    "previous": "السابق",
+    "next": "التالى"
   },
   "Sidebar": {
     "tabs": {
@@ -41,5 +112,10 @@
     "activateProfile": "تفعيل الملف الشخصي",
     "tryFree": "جرّب مجانًا",
     "14days": "لمدة 14 يومًا"
+  },
+  "ShareBtn": {
+    "add": "إضافة",
+    "addContact": "إضافة جهة اتصال",
+    "asContact": "كجهة اتصال"
   }
 }
