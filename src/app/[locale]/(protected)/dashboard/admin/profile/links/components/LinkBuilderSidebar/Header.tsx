@@ -7,7 +7,8 @@ import { useState } from "react";
 import { DashboardAccordion } from "../DashboardAccordion";
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { updateSingleLink } from "@/app/[locale]/actions/updateSingleLink";
-import { updateUserAvatar } from "@/app/[locale]/actions/updateUserAvatar";
+import { updateUserAvatar } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUserAvatar";
+import { getPresignedUrl } from "../../actions/getPresignedUrl";
 
 export const Header = () => {
   const { link, setLink } = useLinkStore((state) => state);
@@ -40,59 +41,42 @@ export const Header = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-    if (!file || !file.type.startsWith("image/")) return;
+  if (!file || !file.type.startsWith("image/")) return;
 
-    setUploading(true);
+  setUploading(true);
 
-    const fileName = `${link.id}-${Date.now()}-${file.name}`;
+  const fileName = `${link.id}-${Date.now()}-${file.name}`;
 
-    try {
-      const res = await fetch("/api/getPresignedUrl", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ fileName, contentType: file.type }),
-      });
+  try {
+    const presignedUrl = await getPresignedUrl(fileName, file.type);
 
-      if (!res.ok) {
-        throw new Error(`Failed to generate presigned URL: ${res.statusText}`);
-      }
+    const uploadRes = await fetch(presignedUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": file.type,
+      },
+      body: file,
+    });
 
-      const data = await res.json();
-
-      if (!data.presignedUrl) {
-        throw new Error("Presigned URL is missing in the response.");
-      }
-
-      const presignedUrl = data.presignedUrl;
-
-      const uploadRes = await fetch(presignedUrl, {
-        method: "PUT",
-        headers: {
-          "Content-Type": file.type,
-        },
-        body: file,
-      });
-
-      if (!uploadRes.ok) {
-        throw new Error("Upload to Google Cloud Storage failed.");
-      }
-      const publicUrl = presignedUrl.split("?")[0];
-
-      await updateUserAvatar(link.user.id, "avatar", publicUrl);
-      setLink({
-        ...link,
-        user: {
-          ...link.user,
-          avatar: publicUrl,
-        },
-      });
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    } finally {
-      setUploading(false);
+    if (!uploadRes.ok) {
+      throw new Error("Upload to Google Cloud Storage failed.");
     }
+
+    const publicUrl = presignedUrl.split("?")[0];
+
+    await updateUserAvatar(link.user.id, "avatar", publicUrl);
+    setLink((prev) => ({
+      ...prev,
+      user: {
+        ...prev.user,
+        avatar: publicUrl,
+      },
+    }));
+  } catch (error) {
+    console.error("Error uploading file:", error);
+  } finally {
+    setUploading(false);
+  }
   };
 
   return (
