@@ -3,39 +3,47 @@
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { DashboardAccordion } from '../DashboardAccordion';
 import { useLinkStore } from '@/app/[locale]/store/use-link-store';
 import { updateSingleLink } from '@/app/[locale]/actions/updateSingleLink';
 import { updateUserAvatar } from '@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUserAvatar';
-import { GCSFileHandler } from '../../actions/GCSFileHandler';
 import { uploadToGCS } from './uploadToGCS';
 
 export const Header = () => {
   const { link, setLink } = useLinkStore((state) => state);
   const [uploading, setUploading] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [inputValue, setInputValue] = useState(link.displayname);
+  const [bioValue, setBioValue] = useState(link.bio);
 
   const handleLinkPropertyValChange = async (
     key: keyof typeof link,
     val: string | boolean | number
   ) => {
-    // setLink({ ...link, [key]: val });
-    if (!link.id) {
-      console.error('Link ID is undefined.');
-      return;
-    }
-    const result = await updateSingleLink(link.id, key, val);
-    if (!result?.success) {
-      console.error('Failed to update link:', result?.error);
-    }
+    await updateSingleLink(link.id, key, val);
+    setLink({ ...link, [key]: val });
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleLinkPropertyValChange('userName', event.target.value);
+    setInputValue(event.target.value); // Update local state immediately for a responsive UI
   };
 
   const handleBioChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    handleLinkPropertyValChange('bio', event.target.value);
+    setBioValue(event.target.value); // Update local state immediately for a responsive UI
+  };
+
+  const handleNameBlur = () => {
+    startTransition(() => {
+      handleLinkPropertyValChange('displayname', inputValue || ""); // Update the server when the input loses focus
+    });
+  };
+
+  const handleBioBlur = () => {
+    startTransition(() => {
+      handleLinkPropertyValChange('bio', bioValue||""); // Update the server when the textarea loses focus
+    });
   };
 
   const handlePhotoChange = async (
@@ -47,7 +55,6 @@ export const Header = () => {
 
     try {
       const publicUrl = await uploadToGCS(link.id, file);
-
       await updateUserAvatar(link.user.id, 'avatar', publicUrl);
       setLink((prev) => ({
         ...prev,
@@ -93,17 +100,22 @@ export const Header = () => {
         id="name"
         type="name"
         placeholder="Name"
-        value={link.userName}
+        value={inputValue}
         className="mb-[14px]"
         onChange={handleNameChange}
+        onBlur={handleNameBlur} // Trigger update when the input loses focus
+        onFocus={() => setIsFocused(true)}
       />
       <Textarea
         id="textarea"
         placeholder="Bio"
-        value={link.bio}
+        value={bioValue}
         className="mb-[14px]"
         onChange={handleBioChange}
+        onBlur={handleBioBlur} // Trigger update when the textarea loses focus
+        onFocus={() => setIsFocused(true)}
       />
+      {isPending && !isFocused && <span>Updating...</span>}
     </DashboardAccordion>
   );
 };

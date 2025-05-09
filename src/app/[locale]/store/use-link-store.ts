@@ -19,6 +19,7 @@ export interface Link {
   website?: string;
   instagram?: string;
   twitter?: string;
+  displayname?: string;
   bio?: string;
   userName?: string;
   general_styles_desktop_bgcolor?: string;

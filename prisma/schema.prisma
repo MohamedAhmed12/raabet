@@ -54,6 +54,7 @@ model Link {
   website      String
   instagram    String
   twitter      String
+  displayname  String
   bio          String
 
   // Relationship 
