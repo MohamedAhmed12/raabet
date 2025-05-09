@@ -43,23 +43,24 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale: string = await customGetLocale();
+  const currentLocalMessages = messages[locale];
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages[locale]}>
-      <html lang={locale} dir={locale == "ar" ? "rtl" : "ltr"}>
-        <Head>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@400;700&display=swap"
-            rel="stylesheet"
-          />
-        </Head>
-        <body
-          className={`${notoSans.variable} ${geistSans.variable} ${geistMono.variable} antialiased text-deep-blue-gray`}
-        >
+    <html lang={locale} dir={locale == "ar" ? "rtl" : "ltr"}>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
+      <body
+        className={`${notoSans.variable} ${geistSans.variable} ${geistMono.variable} antialiased text-deep-blue-gray`}
+      >
+        <NextIntlClientProvider locale={locale} messages={currentLocalMessages}>
           <Toaster />
           {children}
-        </body>
-      </html>
-    </NextIntlClientProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }
