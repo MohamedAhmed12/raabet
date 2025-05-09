@@ -4,6 +4,7 @@ import { DashboardCard } from "@/app/[locale]/(protected)/dashboard/admin/compon
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Icon } from "@/components/Icon";
 import { Block } from "@prisma/client";
+import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { createBlock as createBlockAction } from "../../../actions/createBlocks";
@@ -18,6 +19,7 @@ export const Blocks = () => {
   const [createNewBlockType, setCreateNewBlockType] =
     useState<BlockType | null>(null);
 
+  const t = useTranslations("LinksPage.generalStyles");
   const blocks = useLinkStore((state) => state.link.blocks);
   const setLink = useLinkStore((state) => state.setLink);
 
@@ -94,7 +96,7 @@ export const Blocks = () => {
       <DashboardCard
         hasHelperTooltip
         HelperTooltipContent={HelperTooltipContent}
-        title="blocks"
+        title={t("blocks")}
         headerContent={
           //  add block button & dialog
           <BlocksDialog onCreateNewBlock={handleOnCreateNewBlock} />

@@ -11,6 +11,7 @@ import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 import {cn} from "@/lib/utils";
 import {Block} from "@prisma/client";
 import {DashboardChromPicker} from "../../../../../../DashboardChromPicker";
+import {useTranslations} from "next-intl";
 
 const textAlign: {value: BlockTextAlign; icon: iconNameType}[] = [
   {
@@ -38,13 +39,15 @@ export const BtnBlockStyling = ({
     block?.text_align || textAlign[0].value
   );
 
+  const t = useTranslations("");
+
   const handleOnChange = (value: string) => {
     setSelectedTextAlign(value);
     onChange("text_align", value);
   };
 
   return (
-    <DashboardCard title="styling" className="gap-0">
+    <DashboardCard title={t("Shared.styling")} className="gap-0">
       <ToggleGroup
         type="single"
         value={selectedTextAlign}
@@ -65,19 +68,15 @@ export const BtnBlockStyling = ({
 
       <CustomDropdown
         onSelect={(index) =>
-          onChange(
-            "animation",
-            BlockAnimation[
-              Object.keys(BlockAnimation)[index] as keyof typeof BlockAnimation
-            ]
-          )
+          onChange("animation", Object.values(BlockAnimation)[index])
         }
+        prefix="animaiton"
         className="my-3 w-full"
-        items={Object.keys(BlockAnimation)}
+        items={Object.values(BlockAnimation)}
       />
 
       <DashboardChromPicker
-        label="custom block text color"
+        label={t("LinksPage.generalStyles.customBlockTextColor")}
         currentColor={block?.custom_text_color || undefined}
         onColorChange={({hex}: {hex: string}) =>
           onChange("custom_text_color", hex)

@@ -1,44 +1,48 @@
-'use client';
+"use client";
 
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { iconNameType, socialIcons } from "@/assets/icons";
+import { Icon } from "@/components/Icon";
 import {
-    Dialog,
-    DialogTrigger,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
-import { Icon } from '@/components/Icon';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { useLinkStore } from '@/app/[locale]/store/use-link-store';
-import { iconNameType, socialIcons } from '@/assets/icons';
-import { createSocial } from '../../actions/createSocial';
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { toast } from "sonner";
+import { createSocial } from "../../actions/createSocial";
 
 type IconNameType = keyof typeof socialIcons;
 
-const iconList: { iconName: IconNameType; title: string }[] = Object.keys(socialIcons).map((key) => ({
-    iconName: key as IconNameType,
-    title: key.charAt(0).toUpperCase() + key.slice(1),
-  }));
+const iconList: {iconName: IconNameType; title: string}[] = Object.keys(
+  socialIcons
+).map((key) => ({
+  iconName: key as IconNameType,
+  title: key.charAt(0).toUpperCase() + key.slice(1),
+}));
 
 export const AddSocialDialog = () => {
+  const t = useTranslations("LinksPage.generalStyles");
   const [open, setOpen] = useState(false);
   const setLink = useLinkStore((state) => state.setLink);
 
   const handleAddSocial = async (icon: iconNameType) => {
     const linkId = useLinkStore.getState().link?.id;
     if (!linkId) {
-      toast.error('Missing link ID');
+      toast.error("Missing link ID");
       return;
     }
 
-    const result = await createSocial({ linkId, icon });
+    const result = await createSocial({linkId, icon});
 
     if (result.success && result.socials) {
       const currentLink = useLinkStore.getState().link;
-      setLink({ ...currentLink, socials: result.socials });
+      setLink({...currentLink, socials: result.socials});
     } else {
-      toast.error(result.error || 'Failed to add social item');
+      toast.error(result.error || "Failed to add social item");
     }
   };
 
@@ -46,7 +50,7 @@ export const AddSocialDialog = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button className="dashboard-general-style-controller w-full !justify-center !m-0 capitalize text-ms text-center !font-medium cursor-pointer">
-          add social
+          {t("addSocial")}
           <Icon name="link" size={13} className="ml-2" strokeWidth="3" />
         </button>
       </DialogTrigger>
@@ -55,7 +59,7 @@ export const AddSocialDialog = () => {
           <DialogTitle></DialogTitle>
         </DialogHeader>
         <div className="grid grid-cols-3 gap-2 mt-4">
-          {iconList.map(({ iconName, title }) => (
+          {iconList.map(({iconName, title}) => (
             <button
               key={iconName}
               onClick={() => {

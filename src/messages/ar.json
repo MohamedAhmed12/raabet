@@ -20,7 +20,13 @@
     "username": "اسم المستخدم",
     "confirmed": "تم التأكيد",
     "needConfirmation": "في انتظار التأكيد",
-    "export": "تصدير"
+    "export": "تصدير",
+    "separator": "فاصل",
+    "image": "صورة",
+    "title": "عنوان",
+    "text": "نص",
+    "description": "وصف",
+    "styling": "styling"
   },
   "LinksPage": {
     "title": "الأنماط العامة",
@@ -50,10 +56,47 @@
       "cardBorderColor": "لون حدود البطاقة",
       "cardShadow": "ظل البطاقة",
       "cardSpacing": "تباعد البطاقة"
+    },
+    "generalStyles": {
+      "addSocial": "إضافة وسيلة تواصل اجتماعي",
+      "addSeparator": "إضافة فاصل",
+      "socials": "وسائل التواصل الاجتماعي",
+      "addBlocks": "إضافة كتل",
+      "blocks": "كتل",
+      "urlButton": "زر الرابط",
+      "emailButton": "زر البريد الإلكتروني",
+      "fileButton": "زر الملف",
+      "imageButton": "زر الصورة",
+      "divider": "فاصل",
+      "text": "نص",
+      "audio": "صوت",
+      "video": "فيديو",
+      "customBlockTextColor": "custom block text color",
+      "blockForm": {
+        "title": {
+          "text": "كتلة نص",
+          "url": "زر جديد",
+          "email": "زر جديد",
+          "file": "زر جديد",
+          "image": "زر جديد",
+          "separator": "كتلة فاصل",
+          "audio": "كتلة صوت",
+          "video": "كتلة فيديو"
+        },
+        "btnType": {
+          "btnTypes": "أنواع الأزرار",
+          "link": "رابط",
+          "email": "بريد إلكتروني",
+          "image": "صورة",
+          "file": "ملف"
+        },
+        "layout": "التخطيط",
+        "uploadedFile": "الملف المرفوع: "
+      }
     }
   },
   "Settings": {
-    "title": "ال",
+    "title": "الإعدادات",
     "subTitle": "قم بإعداد تفاصيل حسابك والتكاملات.",
     "usernameForm": {
       "title": "اسم المستخدم",
@@ -65,14 +108,8 @@
     "Metrics": {
       "title": "مقاييس الملف الشخصي",
       "subTitle": "اكتشف كيف يشاهد الزوار ملفك الشخصي ويتفاعلون معه.",
-      "dateDropdown": {
-        "lastWeek": "الأسبوع الماضي",
-        "lastMonth": "الشهر الماضي",
-        "lastYear": "العام الماضي",
-        "allTime": "كل الوقت"
-      },
       "profile": {
-        "title": "مشاهدات ونقراتالملف الشخصي",
+        "title": "مشاهدات ونقرات الملف الشخصي",
         "profileViews": "مشاهدات الملف الشخصي",
         "blockClicks": "نقرات الكتل",
         "socialClicks": "نقرات التواصل الاجتماعي"
@@ -99,7 +136,7 @@
     "selected": "محدد",
     "of": "من",
     "previous": "السابق",
-    "next": "التالى"
+    "next": "التالي"
   },
   "Sidebar": {
     "tabs": {
@@ -117,5 +154,20 @@
     "add": "إضافة",
     "addContact": "إضافة جهة اتصال",
     "asContact": "كجهة اتصال"
+  },
+  "Dropdowns": {
+    "lastWeek": "الأسبوع الماضي",
+    "lastMonth": "الشهر الماضي",
+    "lastYear": "السنة الماضية",
+    "allTime": "طوال الوقت",
+    "none": "لا شيء",
+    "shake": "اهتز",
+    "tada": "تادا",
+    "pulse": "نبض",
+    "jump": "قفز",
+    "swing": "تأرجح",
+    "jello": "جيلو",
+    "rubberBand": "رباط مطاطي",
+    "animaiton": "Animaiton"
   }
 }

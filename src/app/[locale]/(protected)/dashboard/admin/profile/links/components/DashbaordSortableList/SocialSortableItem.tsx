@@ -1,29 +1,31 @@
-'use client';
+"use client";
 
-import { LinkSocial, useLinkStore } from '@/app/[locale]/store/use-link-store';
-import { Icon } from '@/components/Icon';
-import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState, useTransition } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { deleteSocial } from '../../actions/deleteSocial';
-import { updateLinkUrl } from '../../actions/updateLinkUrl';
-import { updateSocialLabel } from '../../actions/updateSocialLabel';
-import { EditSocialLabelDialog } from './EditSocialLabelDialog';
+import { LinkSocial, useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Icon } from "@/components/Icon";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { deleteSocial } from "../../actions/deleteSocial";
+import { updateLinkUrl } from "../../actions/updateLinkUrl";
+import { updateSocialLabel } from "../../actions/updateSocialLabel";
+import { EditSocialLabelDialog } from "./EditSocialLabelDialog";
 
 const schema = z.object({
-  website: z.string().url('Please enter a valid URL'),
+  website: z.string().url("Please enter a valid URL"),
 });
 
-export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
+export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
   const isSeparator = !item?.icon;
   const [isFocused, setIsFocused] = useState(false);
   const [isPending, startTransition] = useTransition();
   const setLink = useLinkStore((state) => state.setLink);
+  const t = useTranslations("Shared");
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -35,15 +37,15 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      website: item.url || '',
+      website: item.url || "",
     },
   });
 
-  const { setNodeRef, attributes, listeners, transform, transition } =
+  const {setNodeRef, attributes, listeners, transform, transition} =
     useSortable({
       id: item.id,
       disabled: isFocused,
@@ -52,15 +54,15 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    willChange: 'transform',
+    willChange: "transform",
   };
 
-  const onSubmit = async (data: { website: string }) => {
+  const onSubmit = async (data: {website: string}) => {
     await updateLinkUrl(item.id, data.website);
   };
 
   const handleDelete = async () => {
-    const linkId = useLinkStore.getState().link.id ?? '';
+    const linkId = useLinkStore.getState().link.id ?? "";
     startTransition(async () => {
       const result = await deleteSocial(item.id, linkId);
       if (result.success && result.socials) {
@@ -70,7 +72,7 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
           socials: result.socials,
         });
       } else {
-        console.error('Failed to delete item:', result.error);
+        console.error("Failed to delete item:", result.error);
       }
     });
   };
@@ -78,9 +80,9 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
   const handleDialogSubmit = async (value: string) => {
     const currentLink = useLinkStore.getState().link;
     const updatedSocials = currentLink.socials.map((social) =>
-      social.id === item.id ? { ...social, label: value } : social
+      social.id === item.id ? {...social, label: value} : social
     );
-  
+
     useLinkStore.getState().setLink({
       ...currentLink,
       socials: updatedSocials,
@@ -88,11 +90,11 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
     const response = await updateSocialLabel(item.id, value);
 
     if (response.success) {
-      console.log('Label updated:', response.updatedSocial);
+      console.log("Label updated:", response.updatedSocial);
       // Optionally refresh or update the local state to reflect changes
     } else {
-      console.error('Failed to update label:', response.error);
-    }    // your logic here
+      console.error("Failed to update label:", response.error);
+    } // your logic here
   };
 
   return (
@@ -115,7 +117,7 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
           <div>
             <Input
               id="website"
-              {...register('website')}
+              {...register("website")}
               placeholder="Enter website URL"
               icon={<Icon name={item?.icon} sizeClass="sm" />}
               onFocus={handleFocus}
@@ -130,7 +132,7 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
       ) : (
         <div className="flex flex-1 justify-center items-center overflow-hidden mx-2">
           <Separator />
-          <span className="mx-3 text-zinc-600">Separator</span>
+          <span className="mx-3 text-zinc-600">{t('separator')}</span>
           <Separator />
         </div>
       )}

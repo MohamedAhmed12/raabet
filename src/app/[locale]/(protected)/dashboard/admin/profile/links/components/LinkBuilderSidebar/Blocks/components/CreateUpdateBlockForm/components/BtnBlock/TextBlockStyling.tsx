@@ -2,6 +2,7 @@ import {DashboardCard} from "@/app/[locale]/(protected)/dashboard/admin/componen
 import {Label} from "@/components/ui/label";
 import {Textarea} from "@/components/ui/textarea";
 import {Block} from "@prisma/client";
+import {useTranslations} from "next-intl";
 
 export const TextBlockStyling = ({
   block,
@@ -9,28 +10,32 @@ export const TextBlockStyling = ({
 }: {
   block: Block;
   onChange: (key: keyof Block, val: string) => void;
-}) => (
-  <DashboardCard title="text" className="gap-0">
-    <Label htmlFor="title" className="mb-2 pl-1">
-      Title
-    </Label>
-    <Textarea
-      id="description"
-      placeholder="description"
-      value={block.title}
-      className="mb-[14px]"
-      onChange={(e) => onChange("title", e.currentTarget.value)}
-    />
+}) => {
+  const t = useTranslations("Shared");
 
-    <Label htmlFor="description" className="mb-2 pl-1">
-      Description
-    </Label>
-    <Textarea
-      id="description"
-      placeholder="description"
-      value={block.description}
-      className="mb-[14px]"
-      onChange={(e) => onChange("description", e.currentTarget.value)}
-    />
-  </DashboardCard>
-);
+  return (
+    <DashboardCard title={t("text")} className="gap-0">
+      <Label htmlFor="title" className="mb-2 pl-1 capitalize">
+        {t("title")}
+      </Label>
+      <Textarea
+        id="description"
+        placeholder={t("title")}
+        value={block.title}
+        className="mb-[14px]"
+        onChange={(e) => onChange("title", e.currentTarget.value)}
+      />
+
+      <Label htmlFor="description" className="mb-2 pl-1 capitalize">
+        {t('description')}
+      </Label>
+      <Textarea
+        id="description"
+        placeholder={t("description")}
+        value={block.description}
+        className="mb-[14px]"
+        onChange={(e) => onChange("description", e.currentTarget.value)}
+      />
+    </DashboardCard>
+  );
+};

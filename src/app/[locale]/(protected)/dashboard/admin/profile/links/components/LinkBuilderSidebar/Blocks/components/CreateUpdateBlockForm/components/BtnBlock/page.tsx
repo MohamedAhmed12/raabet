@@ -1,12 +1,13 @@
 import {DashboardCard} from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
 import {Input} from "@/components/ui/input";
+import {cn} from "@/lib/utils";
 import {Block} from "@prisma/client";
+import {useTranslations} from "next-intl";
 import {CardDesignToggleGroup} from "../../../../../../CardDesignToggleGroup";
 import {buttonBlockLayouts} from "../../constants";
 import {BtnBlockStyling} from "./BtnBlockStyling";
 import {ButtonTypeDropdown} from "./ButtonTypeDropdown";
 import {TextBlockStyling} from "./TextBlockStyling";
-import {cn} from "@/lib/utils";
 
 export const BtnBlock = ({
   block,
@@ -15,6 +16,8 @@ export const BtnBlock = ({
   block: Block;
   onUpdateBlockProperty: (key: keyof Block, val: string) => void;
 }) => {
+  const t = useTranslations();
+
   return (
     <div className="flex flex-col p-[22px] gap-3 pb-8">
       <ButtonTypeDropdown block={block} onChange={onUpdateBlockProperty} />
@@ -22,7 +25,7 @@ export const BtnBlock = ({
       {/* layout  */}
       <CardDesignToggleGroup
         initialVal={block?.layout || "1"}
-        title="layout"
+        title={t("LinksPage.generalStyles.blockForm.layout")}
         titleBg="#fafafa"
         toggleItems={buttonBlockLayouts}
         onValueChange={(value: string) =>
@@ -31,10 +34,17 @@ export const BtnBlock = ({
       />
 
       {["2", "3"].includes(block.layout.toString()) && (
-        <DashboardCard title="image" className={cn(block.bg_image && "gap-0")}>
+        <DashboardCard
+          title={t("Shared.image")}
+          className={cn(block.bg_image && "gap-0")}
+        >
           {block.bg_image && (
-            <label htmlFor="sad" className="file-upload-label text-sm mb-3 flex">
-              Uploaded file: {block.bg_image}
+            <label
+              htmlFor="sad"
+              className="file-upload-label text-sm mb-3 flex"
+            >
+              {t("LinksPage.generalStyles.blockForm.uploadedFile")}{" "}
+              {block.bg_image}
             </label>
           )}
 
@@ -42,9 +52,6 @@ export const BtnBlock = ({
             id="sad"
             type="file"
             className="mb-[14px]"
-            aria-label="s"
-            placeholder="dsdsds"
-            prefix="dfadsf"
             onChange={(e) => onUpdateBlockProperty("bg_image", "aaaaaaaaaaa")}
           />
         </DashboardCard>

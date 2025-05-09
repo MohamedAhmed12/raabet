@@ -16,14 +16,3 @@ export const blocks = {
 };
 
 export type BlockType = keyof typeof blocks;
-
-export const blockTitle = {
-  text: "TextBlock",
-  url: "new button",
-  email: "new button",
-  file: "new button",
-  image: "new button",
-  separator: "SeparatorBlock",
-  audio: "AudioBlock",
-  video: "VideoBlock",
-};

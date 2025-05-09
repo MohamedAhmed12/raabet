@@ -2,9 +2,10 @@ import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { BlockAnimation, BlockTextAlign } from "@/app/[locale]/types/block";
 import { Block, BlockType } from "@prisma/client";
 import React, { useState } from "react";
-import { blocks, blockTitle } from "../../../../../types/block";
+import { blocks } from "../../../../../types/block";
 import { CreateUpdateBlockFormFooter } from "./components/Footer";
 import { CreateUpdateBlockFormHeader } from "./components/Header";
+import { useTranslations } from "next-intl";
 
 interface CreateUpdateBlockFormProps {
   type: BlockType;
@@ -19,10 +20,21 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
   onSubmit,
   onClose,
 }) => {
+  const t = useTranslations("LinksPage.generalStyles.blockForm");
   const linkId = useLinkStore((state) => state.link.id);
   const blocksLength = useLinkStore((state) => state.link.blocks?.length);
 
   const BlockComponent = blocks[type];
+  const blocksTitles = {
+    text: t("title.text"),
+    url: t("title.url"),
+    email: t("title.email"),
+    file: t("title.file"),
+    image: t("title.image"),
+    separator: t("title.separator"),
+    audio: t("title.audio"),
+    video: t("title.video"),
+  };
 
   const initialBlock: Block = {
     id: "1",
@@ -51,7 +63,7 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
 
   return (
     <div className="flex flex-col flex-1 justify-between absolute top-0 left-0 w-[520px] z-[9] h-screen font-noto-sans font-medium !bg-white w-[370px] border-1 border-r-[#d3d3d3] overflow-y-auto">
-      <CreateUpdateBlockFormHeader title={blockTitle[type]} />
+      <CreateUpdateBlockFormHeader title={blocksTitles[type]} />
 
       <BlockComponent
         block={formData}

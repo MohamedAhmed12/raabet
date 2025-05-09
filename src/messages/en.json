@@ -1,34 +1,40 @@
 {
   "NotFoundPage": {
     "title": "Page Not Found",
-    "description": "No user was found for this URL. The URL may be incorrect, the user may have deleted their account, or it may have been suspended.",
-    "returnHome": "Return Home",
-    "somethingWentWrong": "Something went wrong. Please try again later."
+    "description": "No user was found for this URL. The URL may be incorrect, or the user may have deleted their account or been suspended.",
+    "returnHome": "Return to Home Page",
+    "something_went_wrong": "Something went wrong!"
   },
   "Errors": {
-    "username": "Username must be at least 2 characters long."
+    "username": "Username must be at least two characters."
   },
   "ActivationBanner": {
-    "firstHalf": "To activate your profile, you must",
-    "secondHalf": "to a plan.",
+    "firstHalf": "To activate your profile, you need to",
+    "secondHalf": "in a plan.",
     "confirmed": "Confirmed",
-    "needConfirmation": "Pending Confirmation"
+    "needConfirmation": "Pending confirmation"
   },
   "Shared": {
     "email": "Email",
-    "subscribe": "subscribe",
+    "subscribe": "Subscribe",
     "username": "Username",
     "confirmed": "Confirmed",
-    "needConfirmation": "Pending Confirmation",
-    "export": "export"
+    "needConfirmation": "Pending confirmation",
+    "export": "Export",
+    "separator": "Separator",
+    "image": "Image",
+    "title": "Title",
+    "text": "Text",
+    "description": "Description",
+    "styling": "Styling"
   },
   "LinksPage": {
     "title": "General Styles",
-    "primaryTextColor": "Primary text color",
-    "primaryBgColor": "Primary background color",
-    "secondaryBgColor": "Secondary background color",
-    "secondaryPrimaryBgColor": "Secondary primary background color",
-    "desktopBgColor": "Desktop background color",
+    "primaryTextColor": "Primary Text Color",
+    "primaryBgColor": "Primary Background Color",
+    "secondaryBgColor": "Secondary Background Color",
+    "secondaryPrimaryBgColor": "Secondary Primary Background Color",
+    "desktopBgColor": "Desktop Background Color",
     "headerStyles": {
       "title": "Header Styles",
       "profilePictureShadow": "Profile Picture Shadow",
@@ -39,40 +45,71 @@
     },
     "cardStyles": {
       "title": "Card Styles",
-      "designGroupTitle": "Tactile Cards",
-      "designGrouptooltipContent": "Tactile cards give your cards a soft, tactile, look and feel. When using tactile cards, your page's background color will be used as the card color. Some design options are not available when using tactile cards.",
-      "cardTextColor": "Card text color",
-      "labelColor": "Label color",
-      "labelTextColor": "Label text color",
-      "cardCorner": "Card corner",
-      "cardColor": "Card color",
-      "cardBorder": "Card border",
-      "cardBorderColor": "Card border color",
-      "cardShadow": "Card shadow",
-      "cardSpacing": "Card spacing"
+      "designGroupTitle": "Touch Cards",
+      "designGrouptooltipContent": "Touch cards provide a smooth, tactile appearance to your cards. When using touch cards, the background color of the page will be used for the card. Some design options are not available when using touch cards.",
+      "cardTextColor": "Card Text Color",
+      "labelColor": "Label Color",
+      "labelTextColor": "Label Text Color",
+      "cardCorner": "Card Corner",
+      "cardColor": "Card Color",
+      "cardBorder": "Card Border",
+      "cardBorderColor": "Card Border Color",
+      "cardShadow": "Card Shadow",
+      "cardSpacing": "Card Spacing"
+    },
+    "generalStyles": {
+      "addSocial": "Add Social Media",
+      "addSeparator": "Add Separator",
+      "socials": "Social Media",
+      "addBlocks": "Add Blocks",
+      "blocks": "Blocks",
+      "urlButton": "URL Button",
+      "emailButton": "Email Button",
+      "fileButton": "File Button",
+      "imageButton": "Image Button",
+      "divider": "Divider",
+      "text": "Text",
+      "audio": "Audio",
+      "video": "Video",
+      "customBlockTextColor": "Custom Block Text Color",
+      "blockForm": {
+        "title": {
+          "text": "Text Block",
+          "url": "New Button",
+          "email": "New Button",
+          "file": "New Button",
+          "image": "New Button",
+          "separator": "Separator Block",
+          "audio": "Audio Block",
+          "video": "Video Block"
+        },
+        "btnType": {
+          "btnTypes": "Button Types",
+          "link": "Link",
+          "email": "Email",
+          "image": "Image",
+          "file": "File"
+        },
+        "layout": "Layout",
+        "uploadedFile": "Uploaded file: "
+      }
     }
   },
   "Settings": {
     "title": "Settings",
-    "subTitle": "Configure your account details and integrations.",
+    "subTitle": "Set up your account details and integrations.",
     "usernameForm": {
-      "title": "username",
+      "title": "Username",
       "placeholder": "Your name",
-      "submitText": "update your name"
+      "submitText": "Update Name"
     }
   },
   "Analytics": {
     "Metrics": {
-      "title": "profile metrics",
-      "subTitle": "Discover how visitors are viewing and interacting with your profile.",
-      "dateDropdown": {
-        "lastWeek": "last week",
-        "lastMonth": "last month",
-        "lastYear": "last year",
-        "allTime": "all time"
-      },
+      "title": "Profile Metrics",
+      "subTitle": "See how visitors view and interact with your profile.",
       "profile": {
-        "title": "Profile Views & Clicks",
+        "title": "Profile Views and Clicks",
         "profileViews": "Profile Views",
         "blockClicks": "Block Clicks",
         "socialClicks": "Social Clicks"
@@ -85,7 +122,7 @@
         "icon": "Icon"
       },
       "blockInteractions": {
-        "title": "block interactions",
+        "title": "Block Interactions",
         "showHidden": "Show Hidden",
         "clicks": "Clicks",
         "type": "Type",
@@ -95,27 +132,42 @@
     }
   },
   "Datatable": {
-    "row(s)": "row(s)",
-    "selected": "selected",
+    "row(s)": "Row(s)",
+    "selected": "Selected",
     "of": "of",
     "previous": "Previous",
     "next": "Next"
   },
   "Sidebar": {
     "tabs": {
-      "design": "design",
-      "settings": "settings",
-      "analytics": "analytics",
-      "subscribe": "subscribe",
-      "logout": "logout"
+      "design": "Design",
+      "settings": "Settings",
+      "analytics": "Analytics",
+      "subscribe": "Subscribe",
+      "logout": "Logout"
     },
-    "activateProfile": "Activate profile",
-    "tryFree": "Try free",
-    "14days": "for 14 days"
+    "activateProfile": "Activate Profile",
+    "tryFree": "Try Free",
+    "14days": "For 14 Days"
   },
   "ShareBtn": {
-    "add": "add",
-    "addContact": "add contact",
-    "asContact": "as a contact."
+    "add": "Add",
+    "addContact": "Add Contact",
+    "asContact": "As Contact"
+  },
+  "Dropdowns": {
+    "lastWeek": "Last Week",
+    "lastMonth": "Last Month",
+    "lastYear": "Last Year",
+    "allTime": "All Time",
+    "none": "None",
+    "shake": "Shake",
+    "tada": "Tada",
+    "pulse": "Pulse",
+    "jump": "Jump",
+    "swing": "Swing",
+    "jello": "Jello",
+    "rubberBand": "Rubber Band",
+    "animation": "Animation"
   }
 }

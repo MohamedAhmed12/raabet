@@ -15,7 +15,7 @@ export enum BlockAnimation {
   Jump = "jump",
   Swing = "swing",
   Jello = "jello",
-  RubberBand = "rubber band",
+  RubberBand = "rubberBand",
 }
 
 // export interface Block {
