@@ -19,7 +19,7 @@ export default function PublicNotFound() {
         <CardContent className="flex flex-col justify-center items-center">
           <p>{t("description")} </p>
           <Link href="/" className="flex mt-5 font-semibold">
-            {t("return_home")}
+            {t("returnHome")}
             <span className="ml-4">
               <Icon name="home" className="text-dashboard-primary" />
             </span>
