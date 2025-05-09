@@ -28,7 +28,7 @@ export function LinkViewerTabs({
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-[66px]">
+    <div className="hidden md:flex justify-center items-center w-full h-[66px]">
       <div className="grid w-fit py-[5px] px-[6px] mx-[6px] grid-cols-2 rounded-full border-1 border-[#d3d3d3]  bg-white">
         {tabs.map((tab, i) => (
           <Icon
