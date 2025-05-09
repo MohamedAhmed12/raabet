@@ -1,23 +1,22 @@
-"use client";
-
 import { Separator } from "@/components/ui/separator";
-import { useIsScreenWidthLessThan } from "@/hooks/use-is-screen-width-less-than.ts";
+import { cn } from "@/lib/utils";
 import CardStyles from "./components/CardStyles";
 import GeneralStyles from "./components/GeneralStyles";
 import HeaderStyles from "./components/HeaderStyles";
 
 export default function GeneralStylesSidebar() {
-  const showSidebar = !useIsScreenWidthLessThan(1200);
-
   return (
-    showSidebar && (
-      <div className="font-noto-sans font-medium !bg-white w-[360px] hidden lg:block border-1 border-l-[#d3d3d3] p-[22px] pb-15 max-h-[100vh] overflow-y-auto">
-        <GeneralStyles />
-        <Separator className="my-[22px]" />
-        <HeaderStyles />
-        <Separator className="my-[22px]" />
-        <CardStyles />
-      </div>
-    )
+    <div
+      className={cn(
+        "font-noto-sans font-medium !bg-white w-full border-1 border-l-[#d3d3d3] p-[22px] pb-15 max-h-max",
+        "md:overflow-y-auto md:w-[360px] md:max-h-[100vh]"
+      )}
+    >
+      <GeneralStyles />
+      <Separator className="my-[22px]" />
+      <HeaderStyles />
+      <Separator className="my-[22px]" />
+      <CardStyles />
+    </div>
   );
 }

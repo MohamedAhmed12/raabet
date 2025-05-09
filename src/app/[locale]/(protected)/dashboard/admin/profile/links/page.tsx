@@ -2,16 +2,31 @@
 
 import useFetchLink from "@/app/[locale]/[username]/useFetchLink";
 import Loading from "@/app/loading";
-import { useSession } from "next-auth/react";
+import {useSession} from "next-auth/react";
 import DashboardNotFound from "../../not-found";
-import GeneralStylesSidebar from "./components/GeneralStylesSidebar/page";
-import LinkBuilderSidebar from "./components/LinkBuilderSidebar/page";
-import { LinkViewer } from "./components/LinkViewer/page";
-import { useUpdateLink } from "./hooks/useUpdateLink";
+import {useIsScreenWidthLessThan} from "@/hooks/use-is-screen-width-less-than.ts";
+import {cn} from "@/lib/utils";
+import dynamic from "next/dynamic";
+import {LinkViewer} from "./components/LinkViewer/page";
+import {useUpdateLink} from "./hooks/useUpdateLink";
+const LinkBuilderSidebar = dynamic(
+  () => import("./components/LinkBuilderSidebar/page"),
+  {ssr: false}
+);
+const GeneralStylesSidebar = dynamic(
+  () => import("./components/GeneralStylesSidebar/page"),
+  {ssr: false}
+);
+const SmallScreenTabs = dynamic(() => import("./components/SmallScreenTabs"), {
+  ssr: false,
+});
 
 export default function ProfileLinks() {
   const session = useSession();
   const { link } = useUpdateLink();
+  const hideGeneralStylesSidebar = useIsScreenWidthLessThan(1200) ?? true;
+  const hideLinkBuilderSidebar = useIsScreenWidthLessThan(800) ?? true;
+  const smallScreen = useIsScreenWidthLessThan(800) ?? false;
   const userId = session?.data?.user?.id?.id as string;
   const { isLoading, data, error } = useFetchLink({ userId });
 
@@ -20,11 +35,21 @@ export default function ProfileLinks() {
   if (error) return <DashboardNotFound />;
 
   return (
+    !isLoading &&
     data && (
-      <div className={"flex w-full justify-between h-screen max-h-full overflow-hidden"}>
-        <LinkBuilderSidebar />
+      <div
+        className={cn(
+          "flex flex-col w-full justify-between h-screen max-h-full overflow-scroll",
+          "md:flex-row md:overflow-hidden"
+        )}
+      >
+        {/* large screen UI (sidebars) */}
+        {!hideLinkBuilderSidebar && <LinkBuilderSidebar />}
         <LinkViewer link={link} />
-        <GeneralStylesSidebar />
+        {!hideGeneralStylesSidebar && <GeneralStylesSidebar />}
+
+        {/* small screen (tabs)  */}
+        {smallScreen && <SmallScreenTabs />}
       </div>
     )
   );

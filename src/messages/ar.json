@@ -58,6 +58,8 @@
       "cardSpacing": "تباعد البطاقة"
     },
     "generalStyles": {
+      "linkBuilder": "المحتوى",
+      "styles": "التصميم",
       "addSocial": "إضافة وسيلة تواصل اجتماعي",
       "addSeparator": "إضافة فاصل",
       "socials": "وسائل التواصل الاجتماعي",

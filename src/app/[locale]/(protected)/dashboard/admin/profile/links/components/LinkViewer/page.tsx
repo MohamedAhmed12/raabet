@@ -6,6 +6,7 @@ import {useEffect, useRef, useState} from "react";
 import {LinkViewerTabs} from "./LinkViewerTabs";
 
 import "./style.css"; // TO DO: conditionally import it only in links page
+import {cn} from "@/lib/utils";
 
 export function LinkViewer({link}: {link: Link}) {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -25,16 +26,22 @@ export function LinkViewer({link}: {link: Link}) {
 
   return (
     link.id && (
-      <div className="flex flex-col flex-1 items-center lg:px-[22px] lg:pb-[35px]">
+      <div
+        className={cn(
+          "flex flex-col flex-1 items-center h-[35%] p-[22px] overflow-scroll",
+          "md:px-[22px] md:pb-[35px] md:h-full md:overflow-hidden"
+        )}
+      >
         <LinkViewerTabs selectedTab={selectedTab} onclick={handleOnClick} />
 
         <iframe
           ref={iframeRef}
           src={`/${link.userName}`}
-          width="100%"
-          height="100%"
           title="Embedded Content"
-          className="link-viewer rounded-3xl flex h-[85%] w-[64%] max-w-[350px] shadow-lg bg-white rounded-3xl border-3 border-[#333] rounded-[35px]"
+          className={cn(
+            "link-viewer rounded-3xl flex h-[600px] min-h-[600px] shadow-lg bg-white rounded-3xl border-3 border-[#333] rounded-[35px] w-full",
+            "md:w-[64%] md:max-w-[350px]"
+          )}
         ></iframe>
       </div>
     )

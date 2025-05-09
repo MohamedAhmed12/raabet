@@ -58,6 +58,8 @@
       "cardSpacing": "Card Spacing"
     },
     "generalStyles": {
+      "linkBuilder": "Link Builder",
+      "styles": "styles",
       "addSocial": "Add Social Media",
       "addSeparator": "Add Separator",
       "socials": "Social Media",
