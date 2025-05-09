@@ -9,77 +9,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BlockType } from "../../../../types/block";
-
-export const blocksStaticData: {
-  icon: iconNameType;
-  type: BlockType;
-  title: string;
-  description: string;
-}[] = [
-  {
-    icon: "link",
-    type: "url",
-    title: "URL Button",
-    description: "Opens a web page to the specified URL.",
-  },
-  {
-    icon: "mail",
-    type: "email",
-    title: "Email Button",
-    description: "Opens an email to the specified address.",
-  },
-  {
-    icon: "file",
-    type: "file",
-    title: "File Button",
-    description: "Opens an uploaded file (PDF, image, audio, etc.)",
-  },
-  {
-    icon: "image",
-    type: "image",
-    title: "Image Button",
-    description: "Opens an uploaded image in a lightbox.",
-  },
-
-  {
-    icon: "minus",
-    type: "separator",
-    title: "Divider",
-    description: "Organize your content with dividers.",
-  },
-  {
-    icon: "type",
-    type: "text",
-    title: "text",
-    description: "Tell your story with a text block",
-  },
-  {
-    icon: "audio-lines",
-    type: "audio",
-    title: "Audio",
-    description: "Embed Spotify, Apple Music, and more...",
-  },
-  {
-    icon: "monitor-play",
-    type: "video",
-    title: "Video",
-    description: "Embed YouTube, Vimeo, and more...",
-  },
-  // implement next itteration
-  // {
-  //   icon: "subscribers",
-  //   title: "Subscribers",
-  //   description: "Collect email addresses on your profile.",
-  // },
-  // {
-  //   icon: "folder",
-  //   type: "group",
-  //   title: "Group",
-  //   description: "Group blocks for better organization.",
-  // },
-];
 
 export const BlocksDialog = ({
   onCreateNewBlock,
@@ -87,6 +19,63 @@ export const BlocksDialog = ({
   onCreateNewBlock: (type: BlockType) => void;
 }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const t = useTranslations("LinksPage.generalStyles");
+  const blocksStaticData: {
+    icon: iconNameType;
+    type: BlockType;
+    title: string;
+    description: string;
+  }[] = [
+    {
+      icon: "link",
+      type: "url",
+      title: t("urlButton"),
+      description: "Opens a web page to the specified URL.",
+    },
+    {
+      icon: "mail",
+      type: "email",
+      title: t("emailButton"),
+      description: "Opens an email to the specified address.",
+    },
+    {
+      icon: "file",
+      type: "file",
+      title: t("fileButton"),
+      description: "Opens an uploaded file (PDF, image, audio, etc.)",
+    },
+    {
+      icon: "image",
+      type: "image",
+      title: t("imageButton"),
+      description: "Opens an uploaded image in a lightbox.",
+    },
+    {
+      icon: "minus",
+      type: "separator",
+      title: t("divider"),
+      description: "Organize your content with dividers.",
+    },
+    {
+      icon: "type",
+      type: "text",
+      title: t("text"),
+      description: "Tell your story with a text block",
+    },
+    {
+      icon: "audio-lines",
+      type: "audio",
+      title: t("audio"),
+      description: "Embed Spotify, Apple Music, and more...",
+    },
+    {
+      icon: "monitor-play",
+      type: "video",
+      title: t("video"),
+      description: "Embed YouTube, Vimeo, and more...",
+    },
+  ];
 
   const closeDialog = () => setIsDialogOpen(false);
 
@@ -97,11 +86,13 @@ export const BlocksDialog = ({
         className="cursor-pointer h-[27px] px-2 capitalize"
         onClick={() => setIsDialogOpen(true)}
       >
-        add block +
+        {t("addBlocks")} +
       </Button>
       <DialogContent className="font-noto-sans !max-w-[600px]">
         <DialogHeader className="flex items-center">
-          <DialogTitle className="capitalize mb-3">add block </DialogTitle>
+          <DialogTitle className="capitalize mb-3">
+            {t("addBlocks")}
+          </DialogTitle>
         </DialogHeader>
 
         {/* body */}

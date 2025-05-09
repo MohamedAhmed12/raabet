@@ -16,28 +16,7 @@ import {
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Block} from "@prisma/client";
-
-const linkOptions: {
-  label: string;
-  value: string;
-  inputType: "text" | "file";
-  placeholder?: string | undefined;
-}[] = [
-  {
-    label: "link",
-    value: "url",
-    inputType: "text",
-    placeholder: "https://example.com/",
-  },
-  {
-    label: "email",
-    value: "email",
-    inputType: "text",
-    placeholder: "hello@example.com",
-  },
-  {label: "image", value: "image", inputType: "file"},
-  {label: "file", value: "file", inputType: "file"},
-];
+import {useTranslations} from "next-intl";
 
 export const ButtonTypeDropdown = ({
   block,
@@ -47,6 +26,30 @@ export const ButtonTypeDropdown = ({
   onChange: (key: keyof Block, val: string) => void;
 }) => {
   const [btnType, setBtnType] = React.useState(block.type);
+
+  const t = useTranslations("LinksPage.generalStyles.blockForm");
+
+  const linkOptions: {
+    label: string;
+    value: string;
+    inputType: "text" | "file";
+    placeholder?: string | undefined;
+  }[] = [
+    {
+      label: t("btnType.link"),
+      value: "url",
+      inputType: "text",
+      placeholder: "https://example.com/",
+    },
+    {
+      label: t("btnType.email"),
+      value: "email",
+      inputType: "text",
+      placeholder: "hello@example.com",
+    },
+    {label: t("btnType.image"), value: "image", inputType: "file"},
+    {label: t("btnType.file"), value: "file", inputType: "file"},
+  ];
   const selectedType = React.useMemo(
     () => linkOptions.find((opt) => opt.value === btnType) || linkOptions[0],
     [btnType]
@@ -62,14 +65,14 @@ export const ButtonTypeDropdown = ({
       <div className="w-1/3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">Button Type</Button>
+            <Button variant="outline">{t("btnType.btnTypes")}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-56 font-noto-sans"
             align="start"
             alignOffset={3}
           >
-            <DropdownMenuLabel>Button Type</DropdownMenuLabel>
+            <DropdownMenuLabel>{t("btnType.btnTypes")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuRadioGroup
               value={btnType}
@@ -95,7 +98,7 @@ export const ButtonTypeDropdown = ({
 
           <Input
             id={btnType}
-            type='text'
+            type="text"
             placeholder={selectedType.placeholder}
             value={block.url}
             className="mb-[14px]"

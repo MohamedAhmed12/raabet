@@ -1,16 +1,5 @@
 "use client";
 
-import React from "react";
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 import {FieldController} from "../../../../components/FieldController";
 import {Button} from "@/components/ui/button";
 import {CustomDateTable} from "@/components/CustomDateTable";
