@@ -1,12 +1,12 @@
 "use server";
 
-import { Block } from "@/app/types/block";
+import { Block } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
 export async function createBlock(data: Block) {
   if (!data) throw new Error("No data provided");
 
-  const {linkId, ...payload} = data;
+const { linkId, id, ...payload } = data;
 console.log('aaaaaa',linkId);
 
   try {

@@ -49,6 +49,8 @@ import {
   AlignRight,
   AlignCenter,
   Clock,
+  Upload,
+  StickyNote ,
 } from "lucide-react";
 
 import {
@@ -194,6 +196,8 @@ const icons = {
   alignLeft: AlignLeft,
   alignRight: AlignRight,
   alignCenter: AlignCenter,
+  upload:Upload,
+  stickyNote: StickyNote,
   ...socialIcons,
 };
 
