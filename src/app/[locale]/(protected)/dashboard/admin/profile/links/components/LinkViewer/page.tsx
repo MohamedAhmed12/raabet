@@ -28,8 +28,8 @@ export function LinkViewer({link}: {link: Link}) {
     link.id && (
       <div
         className={cn(
-          "flex flex-col flex-1 items-center max-h-[35vh] p-[22px] overflow-scroll",
-          "md:px-[22px] md:pb-[35px] md:max-h-[100vh] md:"
+          "flex flex-col flex-1 items-center h-[35%] p-[22px] overflow-scroll",
+          "md:px-[22px] md:pb-[35px] md:h-full md:overflow-hidden"
         )}
       >
         <LinkViewerTabs selectedTab={selectedTab} onclick={handleOnClick} />
