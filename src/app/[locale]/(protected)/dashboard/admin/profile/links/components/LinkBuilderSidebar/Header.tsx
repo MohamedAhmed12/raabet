@@ -8,7 +8,7 @@ import { DashboardAccordion } from '../DashboardAccordion';
 import { useLinkStore } from '@/app/[locale]/store/use-link-store';
 import { updateSingleLink } from '@/app/[locale]/actions/updateSingleLink';
 import { updateUserAvatar } from '@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUserAvatar';
-import { uploadToGCS } from './uploadToGCS';
+import { GCSFileLoader } from './GCSFileLoader';
 
 export const Header = () => {
   const { link, setLink } = useLinkStore((state) => state);
@@ -54,7 +54,7 @@ export const Header = () => {
     setUploading(true);
 
     try {
-      const publicUrl = await uploadToGCS(link.id, file);
+      const publicUrl = await GCSFileLoader(link.id, file);
       await updateUserAvatar(link.user.id, 'avatar', publicUrl);
       setLink((prev) => ({
         ...prev,
