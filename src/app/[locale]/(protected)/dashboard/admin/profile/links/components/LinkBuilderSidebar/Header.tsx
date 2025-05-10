@@ -27,22 +27,22 @@ export const Header = () => {
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value); // Update local state immediately for a responsive UI
+    setInputValue(event.target.value);
   };
 
   const handleBioChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setBioValue(event.target.value); // Update local state immediately for a responsive UI
+    setBioValue(event.target.value); 
   };
 
   const handleNameBlur = () => {
     startTransition(() => {
-      handleLinkPropertyValChange('displayname', inputValue || ""); // Update the server when the input loses focus
+      handleLinkPropertyValChange('displayname', inputValue || "");
     });
   };
 
   const handleBioBlur = () => {
     startTransition(() => {
-      handleLinkPropertyValChange('bio', bioValue||""); // Update the server when the textarea loses focus
+      handleLinkPropertyValChange('bio', bioValue||"");
     });
   };
 
@@ -103,7 +103,7 @@ export const Header = () => {
         value={inputValue}
         className="mb-[14px]"
         onChange={handleNameChange}
-        onBlur={handleNameBlur} // Trigger update when the input loses focus
+        onBlur={handleNameBlur} 
         onFocus={() => setIsFocused(true)}
       />
       <Textarea
@@ -112,7 +112,7 @@ export const Header = () => {
         value={bioValue}
         className="mb-[14px]"
         onChange={handleBioChange}
-        onBlur={handleBioBlur} // Trigger update when the textarea loses focus
+        onBlur={handleBioBlur} 
         onFocus={() => setIsFocused(true)}
       />
       {isPending && !isFocused && <span>Updating...</span>}

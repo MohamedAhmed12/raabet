@@ -19,5 +19,5 @@ export async function GCSFileLoader(linkId: string, file: File): Promise<string>
   if (!uploadRes.ok) {
     throw new Error("Upload to Google Cloud Storage failed.");
   }
-  return presignedUrl.split("?")[0]; // public URL
+  return presignedUrl.split("?")[0]; 
 }

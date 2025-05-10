@@ -18,6 +18,7 @@ import { Label } from '@/components/ui/label';
 import { Block } from '@prisma/client';
 import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/Icon';
+import { GCSFileLoader } from '../../../../../GCSFileLoader';
 
 export const ButtonTypeDropdown = ({
   block,
@@ -61,6 +62,22 @@ export const ButtonTypeDropdown = ({
     onChange('type', value);
   };
 
+  const handleFileUploader = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    linkId: string,
+  ) => {
+    const file = e.currentTarget.files?.[0];
+
+    if (file) {
+      try {
+        const publicUrl = await GCSFileLoader(linkId, file);
+        onChange('bg_image', file.name);
+        onChange('url', publicUrl);
+      } catch (error) {
+        console.error('Upload failed:', error);
+      }
+    }
+  };
   return (
     <div className="flex flex-col font-inherit gap-5">
       <div className="w-1/3">
@@ -93,63 +110,6 @@ export const ButtonTypeDropdown = ({
         </DropdownMenu>
       </div>
 
-      {/* {btnType && (
-        <div className="flex flex-col gap-2">
-          <Label>{selectedType.label}</Label>
-
-          <Input
-            id={btnType}
-            type="text"
-            placeholder={selectedType.placeholder}
-            value={block.url}
-            className="mb-[14px]"
-            onChange={(e) => onChange("url", e.currentTarget.value)}
-          />
-        </div>
-      )} */}
-      {/* {selectedType.inputType === 'text' ? (
-        <div className="flex flex-col gap-2">
-          <Label>{selectedType.label}</Label>
-          <Input
-            id={btnType}
-            type="text"
-            placeholder={selectedType.placeholder}
-            value={block.url}
-            className="mb-[14px]"
-            onChange={(e) => onChange('url', e.currentTarget.value)}
-          />
-        </div>
-      ) : (
-        block.bg_image && (
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between gap-2 mb-2 px-4 p-5 relative border rounded-lg bg-white shadow-sm">
-              <div className="flex items-center gap-2">
-                <Icon name="circle-help" />
-                <label
-                  htmlFor="bg_upload"
-                  className="file-upload-label text-sm flex"
-                >
-                  {t('uploadedFile')}
-                </label>
-              </div>
-              <Icon name="upload" />
-            </div>
-
-            <Input
-              id="bg_upload"
-              type="file"
-              className="mb-[14px] hidden"
-              onChange={(e) => {
-                const file = e.currentTarget.files?.[0];
-                if (file) {
-                  onChange('bg_image', file.name); // Replace with actual upload logic
-                }
-              }}
-            />
-          </div>
-        )
-      )} */}
-
       {btnType &&
         (selectedType.inputType === 'text' ? (
           <div className="flex flex-col gap-2">
@@ -163,33 +123,6 @@ export const ButtonTypeDropdown = ({
               onChange={(e) => onChange('url', e.currentTarget.value)}
             />
           </div>
-        ) : !block.bg_image ? (
-          <div className="flex flex-col gap-2">
-            <label
-              htmlFor="bg_upload"
-              className="file-upload-label text-sm flex items-center justify-between gap-2 mb-2 px-4 p-3 relative border rounded-lg bg-white shadow-sm"
-            >
-              <div className="flex items-center gap-2">
-                <Icon name="circle-help" className="text-blue-500 !w-4 !h-4" />
-                {t('uploadedFile')}
-              </div>
-              <div className="border rounded-4xl p-2">
-                <Icon name="upload" />
-              </div>
-            </label>
-
-            <Input
-              id="bg_upload"
-              type="file"
-              className="mb-[14px] hidden"
-              onChange={(e) => {
-                const file = e.currentTarget.files?.[0];
-                if (file) {
-                  onChange('bg_image', file.name);
-                }
-              }}
-            />
-          </div>
         ) : (
           <div className="flex flex-col gap-2">
             <label
@@ -198,7 +131,7 @@ export const ButtonTypeDropdown = ({
             >
               <div className="flex items-center gap-2">
                 <Icon name="circle-help" className="text-blue-500 !w-4 !h-4" />
-                {block.bg_image}
+                {!block.bg_image ? t('uploadedFile') : block.bg_image}
               </div>
               <div className="border rounded-4xl p-2">
                 <Icon name="upload" />
@@ -209,12 +142,7 @@ export const ButtonTypeDropdown = ({
               id="bg_upload"
               type="file"
               className="mb-[14px] hidden"
-              onChange={(e) => {
-                const file = e.currentTarget.files?.[0];
-                if (file) {
-                  onChange('bg_image', file.name); // Replace with actual upload logic
-                }
-              }}
+              onChange={(e) => handleFileUploader(e, block.id)}
             />
           </div>
         ))}
