@@ -12,7 +12,7 @@ export default function LinksSocialIcons() {
           return !social?.icon ? (
             <div key={social.id} className="w-full"></div>
           ) : (
-            <a key={social.id}>
+            <a key={social.id} href={social.url} target="_blank" rel="noopener noreferrer">
               {!social.label ? (
                 <Icon
                   name={social.icon}
