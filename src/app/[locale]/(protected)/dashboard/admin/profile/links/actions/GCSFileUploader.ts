@@ -12,7 +12,7 @@ const storage = new Storage({
 
 const bucket = storage.bucket(process.env.GCS_BUCKET_NAME!);
 
-export async function GCSFileHandler(fileName: string, contentType: string) {
+export async function GCSFileUploader(fileName: string, contentType: string) {
   if (!fileName || !contentType) {
     throw new Error("Missing parameters");
   }

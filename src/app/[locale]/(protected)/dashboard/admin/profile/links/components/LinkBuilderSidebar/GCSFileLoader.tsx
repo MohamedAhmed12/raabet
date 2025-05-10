@@ -1,12 +1,12 @@
-import { GCSFileHandler } from "../../actions/GCSFileHandler";
+import { GCSFileUploader } from "../../actions/GCSFileUploader";
 
-export async function uploadToGCS(linkId: string, file: File): Promise<string> {
+export async function GCSFileLoader(linkId: string, file: File): Promise<string> {
   if (!file || !file.type.startsWith("image/")) {
     throw new Error("Invalid file type.");
   }
 
   const fileName = `${linkId}-${Date.now()}-${file.name}`;
-  const presignedUrl = await GCSFileHandler(fileName, file.type);
+  const presignedUrl = await GCSFileUploader(fileName, file.type);
 
   const uploadRes = await fetch(presignedUrl, {
     method: "PUT",
