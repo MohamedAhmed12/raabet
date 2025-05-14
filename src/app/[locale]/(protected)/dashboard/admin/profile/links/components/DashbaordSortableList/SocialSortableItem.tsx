@@ -23,8 +23,8 @@ const schema = z.object({
 export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
   const isSeparator = !item?.icon;
   const [isFocused, setIsFocused] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isPending, startTransition] = useTransition();
-  const setLink = useLinkStore((state) => state.setLink);
   const t = useTranslations("Shared");
 
   const handleFocus = () => {
@@ -69,6 +69,8 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
         const currentLink = useLinkStore.getState().link;
         useLinkStore.getState().setLink({
           ...currentLink,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           socials: result.socials,
         });
       } else {
@@ -79,6 +81,8 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
 
   const handleDialogSubmit = async (value: string) => {
     const currentLink = useLinkStore.getState().link;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const updatedSocials = currentLink.socials.map((social) =>
       social.id === item.id ? {...social, label: value} : social
     );
@@ -121,7 +125,7 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
               placeholder="Enter website URL"
               icon={<Icon name={item?.icon} sizeClass="sm" />}
               onFocus={handleFocus}
-              onBlur={(e) => {
+              onBlur={() => {
                 handleBlur();
                 handleSubmit(onSubmit)();
               }}
@@ -132,7 +136,7 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
       ) : (
         <div className="flex flex-1 justify-center items-center overflow-hidden mx-2">
           <Separator />
-          <span className="mx-3 text-zinc-600">{t('separator')}</span>
+          <span className="mx-3 text-zinc-600">{t("separator")}</span>
           <Separator />
         </div>
       )}

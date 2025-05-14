@@ -15,25 +15,12 @@ export type SummaryData = [
   }
 ];
 
-const chartData = [
-  {date: "03/01/2025", profileViews: 1, blockClicks: 0, socialClicks: 0},
-  {date: "03/02/2025", profileViews: 2, blockClicks: 1, socialClicks: 0},
-  {date: "03/03/2025", profileViews: 3, blockClicks: 0, socialClicks: 1},
-  {date: "03/04/2025", profileViews: 4, blockClicks: 1, socialClicks: 2},
-];
 const summaryData: SummaryData = [
   {profile_views: 18, block_clicks: 1, social_clicks: 0},
 ];
 
-const calculateTotal = (chartData, key) =>
-  chartData.reduce((total, item) => total + item[key], 0);
-
-export const ProfileAnalytics = () => {
+export default function ProfileAnalytics() {
   const t = useTranslations();
-
-  const profileViewsTotal = calculateTotal(chartData, "profileViews");
-  const blockClicksTotal = calculateTotal(chartData, "blockClicks");
-  const socialClicksTotal = calculateTotal(chartData, "socialClicks");
 
   const columns: ColumnDef<SummaryData>[] = [
     {
@@ -76,4 +63,4 @@ export const ProfileAnalytics = () => {
       />
     </FieldController>
   );
-};
+}

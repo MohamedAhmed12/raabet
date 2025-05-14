@@ -31,6 +31,7 @@ export function CustomDropdown({
   };
 
   return (
+    // @ts-expect-error: [inerit is working though]
     <DropdownMenu dir="inherit">
       <DropdownMenuTrigger
         className={cn(

@@ -1,3 +1,6 @@
+"use client";
+
+import {iconNameType} from "@/assets/icons";
 import {Icon} from "@/components/Icon";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 import {cn} from "@/lib/cn";
@@ -19,7 +22,7 @@ export const CardDesignToggleGroup = ({
   hasTooltip?: boolean;
   tooltipContent?: string;
   titleBg?: string;
-  toggleItems: {icon: string; value: string}[];
+  toggleItems: {icon: iconNameType; value: string}[];
   onValueChange: (value: string) => void;
 }>) => {
   const [selectedValue, setSelectedValue] = useState<string>(
@@ -50,7 +53,7 @@ export const CardDesignToggleGroup = ({
         onValueChange={handleOnChange}
         className="flex w-full h-10"
       >
-        {toggleItems.map((item, i) => (
+        {toggleItems.map((item) => (
           <ToggleGroupItem
             key={`card-${item.value}`}
             value={item.value}

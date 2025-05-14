@@ -7,7 +7,7 @@ import DashboardNotFound from "../../not-found";
 import {useIsScreenWidthLessThan} from "@/hooks/use-is-screen-width-less-than.ts";
 import {cn} from "@/lib/utils";
 import dynamic from "next/dynamic";
-import {LinkViewer} from "./components/LinkViewer/page";
+import {LinkViewer} from "./components/LinkViewer";
 import {useUpdateLink} from "./hooks/useUpdateLink";
 const LinkBuilderSidebar = dynamic(
   () => import("./components/LinkBuilderSidebar/page"),
@@ -23,12 +23,13 @@ const SmallScreenTabs = dynamic(() => import("./components/SmallScreenTabs"), {
 
 export default function ProfileLinks() {
   const session = useSession();
-  const { link } = useUpdateLink();
+  const {link} = useUpdateLink();
   const hideGeneralStylesSidebar = useIsScreenWidthLessThan(1200) ?? true;
   const hideLinkBuilderSidebar = useIsScreenWidthLessThan(800) ?? true;
   const smallScreen = useIsScreenWidthLessThan(800) ?? false;
+  // @ts-expect-error: [to access user data in session it exists in id]
   const userId = session?.data?.user?.id?.id as string;
-  const { isLoading, data, error } = useFetchLink({ userId });
+  const {isLoading, data, error} = useFetchLink({userId});
 
   if (isLoading) return <Loading />;
 

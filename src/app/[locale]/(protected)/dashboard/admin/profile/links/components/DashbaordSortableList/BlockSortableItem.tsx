@@ -9,15 +9,10 @@ import { CSS } from "@dnd-kit/utilities";
 import { Block } from "@prisma/client";
 import { memo, useState } from "react";
 import { toast } from "sonner";
-import { z } from "zod";
 import { copyBlock } from "../../actions/copyBlocks";
 import { deleteBlock } from "../../actions/deleteBlocks";
 import { updateBlock as updateBlockAction } from "../../actions/updateBlock";
-import { CreateUpdateBlockForm } from "../LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/page";
-
-const schema = z.object({
-  website: z.string().url("Please enter a valid URL"),
-});
+import { CreateUpdateBlockForm } from "../LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm";
 
 export const BlockSortableItem = ({block}: {block: Block}) => {
   const [isDialogVisible, setIsDialogVisible] = useState(false);
@@ -60,6 +55,7 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
       />
     )
   );
+  MemoizedActionBtn.displayName = "MemoizedActionBtn";
 
   const handleCopyBlock = async () => {
     setIsCopying(true);
@@ -75,6 +71,7 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
         };
       });
     } catch (error) {
+      console.error(error);
       toast.error("Something went wrong while creating new block!");
     }
     setIsCopying(false);
@@ -101,6 +98,7 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
         };
       });
     } catch (error) {
+      console.error(error);
       toast.error("Something went wrong while creating new block!");
     }
     setIsDeleting(false);
@@ -124,6 +122,7 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
       });
       setIsDialogVisible(false);
     } catch (error) {
+      console.error(error);
       toast.error("Something went wrong while updating the block!");
     }
   };

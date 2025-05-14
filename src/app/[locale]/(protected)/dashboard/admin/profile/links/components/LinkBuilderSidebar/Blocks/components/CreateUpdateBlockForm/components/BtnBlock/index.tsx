@@ -52,7 +52,7 @@ export const BtnBlock = ({
             id="sad"
             type="file"
             className="mb-[14px]"
-            onChange={(e) => onUpdateBlockProperty("bg_image", "aaaaaaaaaaa")}
+            onChange={() => onUpdateBlockProperty("bg_image", "aaaaaaaaaaa")}
           />
         </DashboardCard>
       )}

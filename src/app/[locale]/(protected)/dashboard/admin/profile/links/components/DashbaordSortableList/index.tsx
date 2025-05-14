@@ -1,19 +1,19 @@
 "use client";
 
-import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import {DndContext, DragEndEvent, closestCenter} from "@dnd-kit/core";
+import {SortableContext, verticalListSortingStrategy} from "@dnd-kit/sortable";
 
-interface SortableListProps<T> {
-  items: T[];
-  onDragEnd: (sortedItems: T) => void;
+interface SortableListProps {
+  items: any[];
+  onDragEnd: (sortedItems: any[]) => void;
   children: React.ReactNode;
 }
 
-export const DashbaordSortableList = ({
+export default function DashboardSortableList({
   items,
   onDragEnd,
   children,
-}: SortableListProps<T>) => {
+}: SortableListProps) {
   const handleDragEnd = async (event: DragEndEvent) => {
     const {active, over} = event;
 
@@ -49,4 +49,4 @@ export const DashbaordSortableList = ({
       </SortableContext>
     </DndContext>
   );
-};
+}

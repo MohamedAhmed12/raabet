@@ -21,13 +21,11 @@ export function ForgetPasswordForm({
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
 
     const res = await fetch("/api/forgotPassword", {
       method: "POST",
@@ -35,8 +33,6 @@ export function ForgetPasswordForm({
       body: JSON.stringify({ identifier: email }),
     });
 
-    const data = await res.json();
-    setMessage(data.message);
     setLoading(false);
 
     if (res.ok) {

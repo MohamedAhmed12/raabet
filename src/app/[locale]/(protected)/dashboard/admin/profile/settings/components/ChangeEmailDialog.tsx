@@ -6,8 +6,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
 export async function ChangeEmailDialog({title}: Readonly<{title?: string}>) {
-  const t = await getTranslations('Shared');
+  const t = await getTranslations("Shared");
   const session = await getServerSession(authOptions);
+  // @ts-expect-error: [to access user data in session it exists in id]
   const user = session?.user?.id;
   const isConfirmed = !!user?.is_confirmed;
   const email = user?.email || "";

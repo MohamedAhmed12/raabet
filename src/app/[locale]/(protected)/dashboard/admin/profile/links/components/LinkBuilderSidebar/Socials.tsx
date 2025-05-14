@@ -1,14 +1,14 @@
 "use client";
 
 import {LinkSocial, useLinkStore} from "@/app/[locale]/store/use-link-store";
+import {useTranslations} from "next-intl";
 import {toast} from "sonner";
 import {createSeparator} from "../../actions/createSeparator";
 import {updateSocials} from "../../actions/updateSocials";
+import DashbaordSortableList from "../DashbaordSortableList";
 import {AddSocialDialog} from "../DashbaordSortableList/AddSocialDialog";
-import {DashbaordSortableList} from "../DashbaordSortableList/page";
 import {SocialSortableItem} from "../DashbaordSortableList/SocialSortableItem";
 import {DashboardAccordion} from "../DashboardAccordion";
-import {useTranslations} from "next-intl";
 
 export const Socials = () => {
   const t = useTranslations("LinksPage.generalStyles");
@@ -26,6 +26,7 @@ export const Socials = () => {
 
     if (result.success && result.socials) {
       const currentLink = useLinkStore.getState().link;
+      // @ts-expect-error: [will unify social type in store and prisma schem]
       setLink({...currentLink, socials: result.socials});
     } else {
       toast.error(result.error || "Failed to add separator");
@@ -41,6 +42,7 @@ export const Socials = () => {
     try {
       await updateSocials(data);
     } catch (error) {
+      console.error(error);
       toast.error("Something went wrong while sorting socials!");
       setLink({
         socials: oldSocials,

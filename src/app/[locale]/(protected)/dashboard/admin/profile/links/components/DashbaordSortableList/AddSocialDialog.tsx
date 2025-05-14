@@ -40,7 +40,8 @@ export const AddSocialDialog = () => {
 
     if (result.success && result.socials) {
       const currentLink = useLinkStore.getState().link;
-      setLink({...currentLink, socials: result.socials});
+      // @ts-expect-error: [will unify social type in store and prisma schem]
+      setLink({...currentLink, socials: result?.socials});
     } else {
       toast.error(result.error || "Failed to add social item");
     }

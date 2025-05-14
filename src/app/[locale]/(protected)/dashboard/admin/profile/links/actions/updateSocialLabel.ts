@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+import {prisma} from "@/lib/prisma";
 
 export async function updateSocialLabel(id: string, label: string) {
   try {
@@ -10,8 +10,11 @@ export async function updateSocialLabel(id: string, label: string) {
     });
 
     return {success: true, updatedSocial};
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error updating social label:", error);
-    return {success: false, error: error.message || "Unknown error"};
+    return {
+      success: false,
+      error: (error?.message as string) || "Unknown error",
+    };
   }
 }

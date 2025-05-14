@@ -1,8 +1,9 @@
+"use client";
+
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {cn} from "@/lib/cn";
-import {useLocale} from "next-intl";
 import dynamic from "next/dynamic";
-import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
+import {LinksPageFieldLabel} from "./LinksPageFieldLabel";
 
 // Dynamically import ChromePicker with ssr: false to disable SSR
 const ChromePicker = dynamic(
@@ -21,8 +22,6 @@ export const DashboardChromPicker = ({
   currentColor?: string | undefined;
   onColorChange?: ({hex}: {hex: string}) => void;
 }>) => {
-  const locale = useLocale();
-
   return (
     <Popover>
       <PopoverTrigger asChild>

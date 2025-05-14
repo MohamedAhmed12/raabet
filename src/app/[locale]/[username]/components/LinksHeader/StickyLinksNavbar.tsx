@@ -1,10 +1,10 @@
 import { iconNameType } from "@/assets/icons";
 import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/cn";
-import React, { MouseEventHandler, ReactNode } from "react";
+import React, { MouseEventHandler } from "react";
 
 interface LinksNavbarIconProps {
-  isSticky: Boolean;
+  isSticky: boolean;
   iconName: iconNameType;
   className?: string;
   onClick?: MouseEventHandler<HTMLDivElement>;

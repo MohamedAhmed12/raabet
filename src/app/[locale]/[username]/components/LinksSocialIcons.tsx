@@ -17,6 +17,7 @@ export default function LinksSocialIcons() {
                 <Icon
                   name={social.icon}
                   size={socialIconSize + 24}
+                  // @ts-expect-error: [props distruct in Icon component]
                   style={{margin: "calc(4.2px + .21em)"}}
                 />
               ) : (
@@ -32,6 +33,7 @@ export default function LinksSocialIcons() {
                   <Icon
                     name={social.icon}
                     size={socialIconSize + 24}
+                    // @ts-expect-error: [props distruct in Icon component]
                     style={{margin: "calc(4.2px + .21em)"}}
                   />
                   <span className="text-xs text-center font-semibold mr-2">

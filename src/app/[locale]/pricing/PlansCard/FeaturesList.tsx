@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Plan } from "../../../../public/data/plans";
+import { Plan } from "../../../../../public/data/plans";
 import { TrueFalseIcon } from "./TrueFalseIcon";
 
 export const FeaturesList = ({
@@ -16,7 +16,7 @@ export const FeaturesList = ({
     >
       <div className="h-[80px] border-y-1 border-deep-blue-gray"></div>
 
-      {section.features.map(({ text, value }, i) => (
+      {section.features.map(({value}, i) => (
         <div
           key={i}
           className={cn(

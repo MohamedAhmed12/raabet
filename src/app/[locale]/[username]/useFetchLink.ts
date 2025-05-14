@@ -47,7 +47,7 @@ const useFetchLink = ({
     };
 
     fetchLink();
-  }, [userId, username]);
+  }, [userId, username, setLink]);
 
   return {isLoading, data, error};
 };

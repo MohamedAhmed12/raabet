@@ -1,5 +1,3 @@
-import { Icon } from "@/components/Icon";
-
 export default function LinksFooter() {
   return (
     <div className="flex w-full items-center justify-center text-[#6B5B71] font-bold h-[100px]">

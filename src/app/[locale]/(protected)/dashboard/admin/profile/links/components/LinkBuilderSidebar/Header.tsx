@@ -1,21 +1,20 @@
+/* eslint-disable */
 "use client";
 
-import { Link, useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Input } from "@/components/ui/input";
-import { DashboardAccordion } from "../DashboardAccordion";
 import { Textarea } from "@/components/ui/textarea";
-import { updateSingleLink } from "@/app/[locale]/actions/updateSingleLink";
 import Image from "next/image";
+import { DashboardAccordion } from "../DashboardAccordion";
 
 export const Header = () => {
-  const { link, setLink } = useLinkStore((state) => state);
+  const {link, setLink} = useLinkStore((state) => state);
 
   const handleLinkPropertyValChange = async (
-    key: keyof typeof link,
+    key: string,
     val: string | boolean | number
   ) => {
     // setLink({ ...link, [key]: val });
-
     // if (key.startsWith("user.")) {
     //   const userKey = key.split(".")[1];
     //   setLink({
@@ -33,7 +32,7 @@ export const Header = () => {
     // }
     // const result = await updateSingleLink(link.id, key, val);
     // if (!result?.success) {
-      // console.error("Failed to update link:", result?.error);
+    // console.error("Failed to update link:", result?.error);
     // }
   };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {

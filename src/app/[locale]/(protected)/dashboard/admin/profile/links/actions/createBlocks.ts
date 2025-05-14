@@ -1,7 +1,7 @@
 "use server";
 
-import { Block } from "@/app/types/block";
 import { prisma } from "@/lib/prisma";
+import { Block } from "@prisma/client";
 
 export async function createBlock(data: Block) {
   if (!data) throw new Error("No data provided");

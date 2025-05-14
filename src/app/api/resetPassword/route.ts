@@ -79,7 +79,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Error in password reset:", error);
     return NextResponse.json(
-      { message: "Something went wrong", error: error.message },
+      { message: "Something went wrong", error: error },
       { status: 500 }
     );
   }
