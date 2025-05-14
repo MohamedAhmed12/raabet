@@ -1,16 +1,16 @@
 /* eslint-disable */
 import "./globals.css";
 
-import type {Metadata} from "next";
-import {NextIntlClientProvider} from "next-intl";
-import {Geist, Geist_Mono, Noto_Sans_Display} from "next/font/google";
+import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { Geist, Geist_Mono, Noto_Sans_Display } from "next/font/google";
 import Head from "next/head";
-import {Toaster} from "sonner";
+import { Toaster } from "sonner";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
-import {customGetLocale} from "@/lib/customGetLocale";
+import { customGetLocale } from "@/lib/customGetLocale";
 import arMessages from "../messages/ar.json";
 import enMessages from "../messages/en.json";
-import {languageMeta} from "@/constants";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,6 +62,9 @@ export default async function RootLayout({
           {children}
         </NextIntlClientProvider>
       </body>
+      {process.env.NEXT_PUBLIC_GA_ID && process.env.NODE_ENV === 'production' && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
     </html>
   );
 }
