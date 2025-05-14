@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import Image from "next/image";
 
 export const FeatureCard = ({
   src,
@@ -20,7 +21,7 @@ export const FeatureCard = ({
           className
         )}
       >
-        <img src={src} alt={alt} className="w-16 h-16 mb-4" />
+        <Image src={src} alt={alt} className="w-16 h-16 mb-4" />
         <p className="text-[24px] font-bold">{Title}</p>
         <p className="text-[16px]">{label}</p>
       </div>    

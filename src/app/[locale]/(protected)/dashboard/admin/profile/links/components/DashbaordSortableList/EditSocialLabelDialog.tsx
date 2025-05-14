@@ -1,26 +1,29 @@
-'use client';
+"use client";
 
-import { Icon } from '@/components/Icon';
-import { Button } from '@/components/ui/button';
+import { iconNameType } from "@/assets/icons";
+import { Icon } from "@/components/Icon";
+import { Button } from "@/components/ui/button";
 import {
-    Dialog, DialogContent,
-    DialogFooter, DialogTitle,
-    DialogTrigger
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { useState } from 'react';
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 interface EditSocialLabelDialogProps {
-  iconName?: string;
+  iconName?: iconNameType;
   placeholder?: string;
   initialValue?: string;
   onSubmit: (value: string) => void;
 }
 
 export const EditSocialLabelDialog = ({
-  iconName = 'pencil',
-  placeholder = 'Edit Label',
-  initialValue = '',
+  iconName = "pencil",
+  placeholder = "Edit Label",
+  initialValue = "",
   onSubmit,
 }: EditSocialLabelDialogProps) => {
   const [value, setValue] = useState(initialValue);
@@ -51,7 +54,7 @@ export const EditSocialLabelDialog = ({
         <DialogFooter className="mt-4 w-full">
           <Button
             className="w-full cursor-pointer bg-black hover:bg-black"
-            onClick={()=>setIsDialogOpen(false)}
+            onClick={() => setIsDialogOpen(false)}
           >
             Submit
           </Button>

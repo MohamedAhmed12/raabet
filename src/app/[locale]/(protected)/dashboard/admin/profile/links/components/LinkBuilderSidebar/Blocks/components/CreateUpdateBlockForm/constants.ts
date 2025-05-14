@@ -1,4 +1,6 @@
-export const buttonBlockLayouts = [
+import {iconNameType} from "@/assets/icons";
+
+export const buttonBlockLayouts: {value: string; icon: iconNameType}[] = [
   {
     value: "1",
     icon: "btn-block-style-1",

@@ -2,7 +2,7 @@
 
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { Blocks } from "./Blocks/page";
+import { Blocks } from "./Blocks";
 import { Header } from "./Header";
 import { MainHeaderSection } from "./MainHeaderSection";
 import { Socials } from "./Socials";

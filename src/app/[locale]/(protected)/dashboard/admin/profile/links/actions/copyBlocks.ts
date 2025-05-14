@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { Block } from "@prisma/client";
 
 export async function copyBlock(data: Block) {
-  const {id, linkId, ...dataToCopy} = data;
+  const {linkId, ...dataToCopy} = data;
 
   if (!data) throw new Error("No data provided");
 
@@ -20,7 +20,6 @@ export async function copyBlock(data: Block) {
         },
       },
     });
-
   } catch (error) {
     console.error("Error copying block:", error);
     throw error;

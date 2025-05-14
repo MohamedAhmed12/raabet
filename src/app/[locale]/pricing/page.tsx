@@ -1,5 +1,5 @@
 import { FeaturesCard } from "./FeaturesCard";
-import { PlansCard } from "./PlansCard/page";
+import { PlansCard } from "./PlansCard";
 
 export default async function Pricing() {
   return (

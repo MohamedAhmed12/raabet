@@ -41,7 +41,7 @@ const MenuBar = () => {
             : "0"
         }
         onChange={(e) => {
-          const level = parseInt(e.target.value);
+          const level = parseInt(e.target.value) as any;
           if (level === 0) {
             editor.chain().focus().setParagraph().run();
           } else {

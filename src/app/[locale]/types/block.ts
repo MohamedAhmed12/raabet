@@ -1,6 +1,3 @@
-import {Link} from "@prisma/client";
-import {BlockType} from "../(protected)/dashboard/admin/profile/links/types/block";
-
 export enum BlockTextAlign {
   Left = "left",
   Right = "right",
@@ -17,22 +14,3 @@ export enum BlockAnimation {
   Jello = "jello",
   RubberBand = "rubberBand",
 }
-
-// export interface Block {
-//   id?: string;
-//   style: number;
-//   type: BlockType;
-//   title: string;
-//   order: number;
-//   description: string;
-//   text: string;
-//   text_align: BlockTextAlign;
-//   text_color: string;
-//   animation: BlockAnimation;
-//   bg_image?: string;
-//   custom_text_color?: string;
-//   url: string;
-//   corner: number;
-//   layout: string;
-//   linkId?: string;
-// }

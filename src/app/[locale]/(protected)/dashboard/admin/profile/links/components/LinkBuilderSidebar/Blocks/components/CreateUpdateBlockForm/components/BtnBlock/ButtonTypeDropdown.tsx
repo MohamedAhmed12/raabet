@@ -36,25 +36,28 @@ export const ButtonTypeDropdown = ({
     value: string;
     inputType: 'text' | 'file';
     placeholder?: string | undefined;
-  }[] = [
-    {
-      label: t('btnType.link'),
-      value: 'url',
-      inputType: 'text',
-      placeholder: 'https://example.com/',
-    },
-    {
-      label: t('btnType.email'),
-      value: 'email',
-      inputType: 'text',
-      placeholder: 'hello@example.com',
-    },
-    { label: t('btnType.image'), value: 'image', inputType: 'file' },
-    { label: t('btnType.file'), value: 'file', inputType: 'file' },
-  ];
+  }[] = React.useMemo(
+    () => [
+      {
+        label: t("btnType.link"),
+        value: "url",
+        inputType: "text",
+        placeholder: "https://example.com/",
+      },
+      {
+        label: t("btnType.email"),
+        value: "email",
+        inputType: "text",
+        placeholder: "hello@example.com",
+      },
+      {label: t("btnType.image"), value: "image", inputType: "file"},
+      {label: t("btnType.file"), value: "file", inputType: "file"},
+    ],
+    [t]
+  );
   const selectedType = React.useMemo(
     () => linkOptions.find((opt) => opt.value === btnType) || linkOptions[0],
-    [btnType]
+    [btnType, linkOptions]
   );
 
   const handleTypeSelected = (value: string) => {

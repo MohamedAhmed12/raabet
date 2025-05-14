@@ -7,8 +7,8 @@ import Loading from "../../loading";
 import { useLinkStore } from "../store/use-link-store";
 import LinksBlocks from "./components/LinksBlocks";
 import LinksFooter from "./components/LinksFooter";
+import { LinksHeader } from "./components/LinksHeader";
 import LinksNavbar from "./components/LinksHeader/LinksNavbar";
-import { LinksHeader } from "./components/LinksHeader/page";
 import LinksSocialIcons from "./components/LinksSocialIcons";
 import useFetchLink from "./useFetchLink";
 
@@ -19,16 +19,8 @@ export default function UserName() {
   // useFetchLink is setting link data from DB in linkStore internally
   const {isLoading, error} = useFetchLink({username});
 
-  /*
-   * propsLink exists when using profile link viewer
-   * store link
-   */
-  if ((!username && !link) || error) return notFound();
-
-  if (isLoading) return <Loading />;
-
   useEffect(() => {
-    const handleMessage = (event) => {
+    const handleMessage = (event: MessageEvent<any>) => {
       // Access the data sent from the parent
       const receivedData = event.data;
 
@@ -43,7 +35,15 @@ export default function UserName() {
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-  }, []);
+  }, [setLink]);
+
+  /*
+   * propsLink exists when using profile link viewer
+   * store link
+   */
+  if ((!username && !link) || error) return notFound();
+
+  if (isLoading) return <Loading />;
 
   return (
     link.id && (

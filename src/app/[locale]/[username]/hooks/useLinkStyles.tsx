@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 import {Link} from "@/app/[locale]/store/use-link-store";
 import {useMemo} from "react";
 

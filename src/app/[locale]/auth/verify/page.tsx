@@ -2,12 +2,14 @@
 
 import {GalleryVerticalEnd} from "lucide-react";
 import {useSession} from "next-auth/react";
+import Image from "next/image";
 import {useRouter} from "next/navigation";
 import VerifyForm from "./verifyForm";
 
 export default function VerifyPage() {
   const session = useSession();
   const router = useRouter();
+  // @ts-expect-error: [to access user data in session it exists in id]
   const authUser = session?.data?.user?.id;
 
   if (
@@ -19,6 +21,7 @@ export default function VerifyPage() {
 
   const onVerify = () => {
     const currentData = session;
+    // @ts-expect-error: [to access user data in session it exists in id]
     const authUser = currentData?.data?.user?.id;
 
     if ("is_confirmed" in authUser) {
@@ -52,7 +55,7 @@ export default function VerifyPage() {
           </div>
         </div>
         <div className="flex-1 relative hidden bg-muted lg:block">
-          <img
+          <Image
             src="https://d1ym67wyom4bkd.cloudfront.net/assets/bundles/db9264c8bc4385992e0f73e2eb736dbc6cb1dfaf/graphics/signup-graphic.png"
             alt="verify"
             className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"

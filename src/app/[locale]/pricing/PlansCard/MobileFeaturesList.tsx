@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
-import { Plan } from "../../../../public/data/plans";
+import { Plan } from "../../../../../public/data/plans";
 import { TrueFalseIcon } from "./TrueFalseIcon";
 
 export const MobileFeaturesList = ({ plan }: { plan: Plan }) => (

@@ -58,10 +58,6 @@ export type Interactions = {
   created_at: string;
 };
 
-const handleShowDeletedChange = (value: boolean) => {
-  console.log(value);
-};
-
 const handleShowHiddenChange = (value: boolean) => {
   console.log(value);
 };
@@ -182,10 +178,7 @@ export function BlockInteractions() {
         </Button>
       }
     >
-      <ToggleSwitches
-        onShowDeletedChange={handleShowDeletedChange}
-        onShowHiddenChange={handleShowHiddenChange}
-      />
+      <ToggleSwitches onShowHiddenChange={handleShowHiddenChange} />
       <CustomDateTable data={parseDate(data)} columns={columns} enableSearch />
     </FieldController>
   );

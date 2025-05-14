@@ -1,8 +1,7 @@
 import {Switch} from "@/components/ui/switch";
-import {HelperTooltip} from "../../../components/HelperTooltip";
-import {cn} from "@/lib/utils";
 import {useLocale} from "next-intl";
-import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
+import {HelperTooltip} from "../../../components/HelperTooltip";
+import {LinksPageFieldLabel} from "./LinksPageFieldLabel";
 
 export const DashboardSwitch = ({
   label,

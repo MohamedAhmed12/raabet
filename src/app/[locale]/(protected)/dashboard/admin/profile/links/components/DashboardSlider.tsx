@@ -1,6 +1,4 @@
 import {Slider} from "@/components/ui/slider";
-import {cn} from "@/lib/utils";
-import {useLocale} from "next-intl";
 import {LinksPageFieldLabel} from "./LinksPageFieldLabel";
 
 export const DashboardSlider = ({
@@ -16,8 +14,6 @@ export const DashboardSlider = ({
   step?: number | undefined;
   onValueChange: (value: number) => void;
 }>) => {
-  const locale = useLocale();
-
   return (
     <div className="dashboard-general-style-controller">
       <LinksPageFieldLabel>{label}</LinksPageFieldLabel>

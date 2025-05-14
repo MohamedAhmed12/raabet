@@ -1,5 +1,6 @@
 "use client";
 
+import { generateVCardAction } from "@/app/[locale]/[username]/actions/generateVCardAction";
 import {useLinkStore} from "@/app/[locale]/store/use-link-store";
 import {Icon} from "@/components/Icon";
 import {Button} from "@/components/ui/button";
@@ -12,23 +13,24 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {useTranslations} from "next-intl";
+import { toast } from "sonner";
 
-export function ShareBtn({isSticky}: {isSticky?: boolean}) {
+export function ShareBtn() {
   const t = useTranslations("ShareBtn");
   const user = useLinkStore((state) => state.link.user);
   if (!user) return;
 
-  //   const handleAddContact = async () => {
-  //     const responseBlob = await generateVCardAction(user.fullname);
+    const handleAddContact = async () => {
+      const responseBlob = await generateVCardAction(user.fullname);
 
-  //     if (!responseBlob) return toast.error("Something wrong happened!");
+      if (!responseBlob) return toast.error("Something wrong happened!");
 
-  //     // Create a download link for the Blob
-  //     const link = document.createElement("a");
-  //     link.href = URL.createObjectURL(responseBlob);
-  //     link.download = `${user.fullname}_contact.vcf`;
-  //     link.click(); // Programmatically trigger the download
-  //   };
+      // Create a download link for the Blob
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(responseBlob);
+      link.download = `${user.fullname}_contact.vcf`;
+      link.click(); // Programmatically trigger the download
+    };
 
   return (
     <Dialog>

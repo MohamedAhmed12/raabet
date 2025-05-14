@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 export function withVerification(req: NextRequestWithAuth) {
   const currentUrl = req.url;
+  // @ts-expect-error: [to access user data in session it exists in id]
   const isUserConfirmed: string = req?.nextauth?.token?.id?.is_confirmed;
 
   if (!isUserConfirmed) {

@@ -1,3 +1,5 @@
+"use client"
+
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { BlockAnimation, BlockTextAlign } from "@/app/[locale]/types/block";
 import { Block, BlockType } from "@prisma/client";

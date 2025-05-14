@@ -1,19 +1,19 @@
 "use client";
 
-import { DashboardCard } from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
-import { Icon } from "@/components/Icon";
-import { Block } from "@prisma/client";
-import { useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
-import { toast } from "sonner";
-import { createBlock as createBlockAction } from "../../../actions/createBlocks";
-import { orderBlocks } from "../../../actions/orderBlocks";
-import { BlockType } from "../../../types/block";
-import { BlockSortableItem } from "../../DashbaordSortableList/BlockSortableItem";
-import { DashbaordSortableList } from "../../DashbaordSortableList/page";
-import { BlocksDialog } from "./components/BlocksDialog";
-import { CreateUpdateBlockForm } from "./components/CreateUpdateBlockForm/page";
+import {DashboardCard} from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
+import {useLinkStore} from "@/app/[locale]/store/use-link-store";
+import {Icon} from "@/components/Icon";
+import {Block} from "@prisma/client";
+import {useTranslations} from "next-intl";
+import {useMemo, useState} from "react";
+import {toast} from "sonner";
+import {createBlock as createBlockAction} from "../../../actions/createBlocks";
+// import {orderBlocks} from "../../../actions/orderBlocks";
+import {BlockType} from "../../../types/block";
+// import {BlockSortableItem} from "../../DashbaordSortableList/BlockSortableItem";
+// import DashbaordSortableList from "../../DashbaordSortableList/page";
+import {BlocksDialog} from "./components/BlocksDialog";
+import {CreateUpdateBlockForm} from "./components/CreateUpdateBlockForm";
 
 export const Blocks = () => {
   const [createNewBlockType, setCreateNewBlockType] =
@@ -41,13 +41,14 @@ export const Blocks = () => {
     if (!blocks) return null;
 
     return (
-      <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
-        <ul className="list w-full">
-          {blocks?.map((block, index) => (
-            <BlockSortableItem key={index} block={block} />
-          ))}
-        </ul>
-      </DashbaordSortableList>
+      <p>f</p>
+      // <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
+      //   <ul className="list w-full">
+      //     {blocks?.map((block, index) => (
+      //       <BlockSortableItem key={index} block={block} />
+      //     ))}
+      //   </ul>
+      // </DashbaordSortableList>
     );
   };
 
@@ -55,27 +56,28 @@ export const Blocks = () => {
     setCreateNewBlockType(blockType);
   };
 
-  const onDragEnd = async (newBlocksOrder: Block[]) => {
-    const oldBlocksOrder = [...blocks!];
+  // const onDragEnd = async (newBlocksOrder: Block[]) => {
+  //   const oldBlocksOrder = [...blocks!];
 
-    setLink({
-      blocks: newBlocksOrder,
-    });
+  //   setLink({
+  //     blocks: newBlocksOrder,
+  //   });
 
-    try {
-      const data = newBlocksOrder.map(({id, order}) => ({
-        id,
-        order,
-      }));
+  //   try {
+  //     const data = newBlocksOrder.map(({id, order}) => ({
+  //       id,
+  //       order,
+  //     }));
 
-      await orderBlocks(data);
-    } catch (error) {
-      toast.error("Something went wrong while sorting socials!");
-      setLink({
-        blocks: oldBlocksOrder,
-      });
-    }
-  };
+  //     await orderBlocks(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Something went wrong while sorting socials!");
+  //     setLink({
+  //       blocks: oldBlocksOrder,
+  //     });
+  //   }
+  // };
 
   const createBlock = async (block: Block) => {
     try {
@@ -87,6 +89,7 @@ export const Blocks = () => {
       });
       setCreateNewBlockType(null);
     } catch (error) {
+      console.error(error);
       toast.error("Something went wrong while creating new block!");
     }
   };
@@ -101,9 +104,10 @@ export const Blocks = () => {
           //  add block button & dialog
           <BlocksDialog onCreateNewBlock={handleOnCreateNewBlock} />
         }
-        children={renderBlockCards()}
         className="gap-0"
-      />
+      >
+        {renderBlockCards()}
+      </DashboardCard>
 
       {/* overlay create block form  */}
       {createNewBlockType && (

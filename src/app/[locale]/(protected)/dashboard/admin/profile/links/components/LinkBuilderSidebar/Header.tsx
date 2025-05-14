@@ -19,7 +19,7 @@ export const Header = () => {
   const [bioValue, setBioValue] = useState(link.bio);
 
   const handleLinkPropertyValChange = async (
-    key: keyof typeof link,
+    key: string,
     val: string | boolean | number
   ) => {
     await updateSingleLink(link.id, key, val);
