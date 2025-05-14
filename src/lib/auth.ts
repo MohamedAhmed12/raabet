@@ -1,19 +1,79 @@
 import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+import {PrismaAdapter} from "@next-auth/prisma-adapter";
+import {prisma} from "./prisma";
 
-const prisma = new PrismaClient();
+import type {AuthOptions} from "next-auth";
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: {label: "Email", type: "text"}, // Expecting email field
+        password: {label: "Password", type: "password"}, // Expecting password field
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          return null; // If email or password is missing, return null
+        }
+
+        // Fetch user from the Prisma database by email
+        const user = await prisma.user.findUnique({
+          where: {email: credentials.email},
+        });
+
+        if (
+          user &&
+          (await bcrypt.compare(credentials.password, user.password))
+        ) {
+          // If user exists and password matches, return user data
+          return user;
+        } else {
+          return null; // If authentication fails, return null
+        }
+      },
     }),
   ],
+  session: {
+    strategy: "jwt", // Using JWT for session management
+  },
+  callbacks: {
+    async jwt({token, user, trigger, session}) {
+      if (user) {
+        token.id = user;
+      }
+
+      // update session's user
+      if (trigger === "update" && session) {
+        const newUserData = {
+          ...token,
+          id: {
+            ...session,
+          },
+        };
+
+        // Update the token with the new user data
+        Object.assign(token, newUserData);
+      }
+
+      return token;
+    },
+    async session({session, token}) {
+      if (token) {
+        session.user = token;
+      }
+      return session;
+    },
+  },
   secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/auth/login", // Custom login page
+    error: "/auth/login", // Custom error page
+  },
 };
 
-export const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export {handler as GET, handler as POST};

@@ -1,0 +1,175 @@
+{
+  "NotFoundPage": {
+    "title": "الصفحة غير موجودة",
+    "description": "لم يتم العثور على مستخدم لهذا الرابط. قد يكون الرابط غير صحيح، أو ربما قام المستخدم بحذف حسابه أو تم تعليقه.",
+    "returnHome": "العودة الى الصفحة الرئيسية",
+    "something_went_wrong": "! حدث خطأ ما"
+  },
+  "Errors": {
+    "username": "يجب أن يكون اسم المستخدم مكونًا من حرفين على الأقل."
+  },
+  "ActivationBanner": {
+    "firstHalf": "لتفعيل ملفك الشخصي يجب عليك",
+    "secondHalf": "في خطة.",
+    "confirmed": "تم التأكيد",
+    "needConfirmation": "في انتظار التأكيد"
+  },
+  "Shared": {
+    "email": "البريد الإلكتروني",
+    "subscribe": "الاشتراك",
+    "username": "اسم المستخدم",
+    "confirmed": "تم التأكيد",
+    "needConfirmation": "في انتظار التأكيد",
+    "export": "تصدير",
+    "separator": "فاصل",
+    "image": "صورة",
+    "title": "عنوان",
+    "text": "نص",
+    "description": "وصف",
+    "styling": "styling"
+  },
+  "LinksPage": {
+    "title": "الأنماط العامة",
+    "primaryTextColor": "لون النص الأساسي",
+    "primaryBgColor": "لون الخلفية الأساسي",
+    "secondaryBgColor": "لون الخلفية الثانوية",
+    "secondaryPrimaryBgColor": "لون الخلفية الثانوية الأساسية",
+    "desktopBgColor": "لون الخلفية على سطح المكتب",
+    "headerStyles": {
+      "title": "أنماط الرأس",
+      "profilePictureShadow": "ظل صورة الملف الشخصي",
+      "profilePictureBorder": "حدود صورة الملف الشخصي",
+      "profilePictureBorderColor": "لون حدود صورة الملف الشخصي",
+      "collapseLongBio": "طي السيرة الذاتية الطويلة",
+      "socialIconSize": "حجم الأيقونة الاجتماعية"
+    },
+    "cardStyles": {
+      "title": "أنماط البطاقة",
+      "designGroupTitle": "بطاقات لمسية",
+      "designGrouptooltipContent": "توفر البطاقات اللمسية لبطاقاتك مظهرًا وملمسًا ناعمًا ولمسيًا. عند استخدام البطاقات اللمسية، سيتم استخدام لون خلفية الصفحة كلون للبطاقة. بعض خيارات التصميم غير متاحة عند استخدام البطاقات اللمسية.",
+      "cardTextColor": "لون نص البطاقة",
+      "labelColor": "لون التسمية",
+      "labelTextColor": "لون نص التسمية",
+      "cardCorner": "زاوية البطاقة",
+      "cardColor": "لون البطاقة",
+      "cardBorder": "حدود البطاقة",
+      "cardBorderColor": "لون حدود البطاقة",
+      "cardShadow": "ظل البطاقة",
+      "cardSpacing": "تباعد البطاقة"
+    },
+    "generalStyles": {
+      "linkBuilder": "المحتوى",
+      "styles": "التصميم",
+      "addSocial": "إضافة وسيلة تواصل اجتماعي",
+      "addSeparator": "إضافة فاصل",
+      "socials": "وسائل التواصل الاجتماعي",
+      "addBlocks": "إضافة كتل",
+      "blocks": "كتل",
+      "urlButton": "زر الرابط",
+      "emailButton": "زر البريد الإلكتروني",
+      "fileButton": "زر الملف",
+      "imageButton": "زر الصورة",
+      "divider": "فاصل",
+      "text": "نص",
+      "audio": "صوت",
+      "video": "فيديو",
+      "customBlockTextColor": "custom block text color",
+      "blockForm": {
+        "title": {
+          "text": "كتلة نص",
+          "url": "زر جديد",
+          "email": "زر جديد",
+          "file": "زر جديد",
+          "image": "زر جديد",
+          "separator": "كتلة فاصل",
+          "audio": "كتلة صوت",
+          "video": "كتلة فيديو"
+        },
+        "btnType": {
+          "btnTypes": "أنواع الأزرار",
+          "link": "رابط",
+          "email": "بريد إلكتروني",
+          "image": "صورة",
+          "file": "ملف"
+        },
+        "layout": "التخطيط",
+        "uploadedFile": "الملف المرفوع: "
+      }
+    }
+  },
+  "Settings": {
+    "title": "الإعدادات",
+    "subTitle": "قم بإعداد تفاصيل حسابك والتكاملات.",
+    "usernameForm": {
+      "title": "اسم المستخدم",
+      "placeholder": "اسمك",
+      "submitText": "تحديث الاسم"
+    }
+  },
+  "Analytics": {
+    "Metrics": {
+      "title": "مقاييس الملف الشخصي",
+      "subTitle": "اكتشف كيف يشاهد الزوار ملفك الشخصي ويتفاعلون معه.",
+      "profile": {
+        "title": "مشاهدات ونقرات الملف الشخصي",
+        "profileViews": "مشاهدات الملف الشخصي",
+        "blockClicks": "نقرات الكتل",
+        "socialClicks": "نقرات التواصل الاجتماعي"
+      },
+      "socialClicks": {
+        "title": "نقرات التواصل الاجتماعي",
+        "clicks": "النقرات",
+        "url": "الرابط",
+        "type": "النوع",
+        "icon": "الأيقونة"
+      },
+      "blockInteractions": {
+        "title": "تفاعلات الكتل",
+        "showHidden": "إظهار المخفي",
+        "clicks": "النقرات",
+        "type": "النوع",
+        "name": "الاسم",
+        "views": "مشاهدات"
+      }
+    }
+  },
+  "Datatable": {
+    "row(s)": "صفوف",
+    "selected": "محدد",
+    "of": "من",
+    "previous": "السابق",
+    "next": "التالي"
+  },
+  "Sidebar": {
+    "tabs": {
+      "design": "التصميم",
+      "settings": "الإعدادات",
+      "analytics": "التحليلات",
+      "subscribe": "الاشتراك",
+      "logout": "تسجيل الخروج"
+    },
+    "activateProfile": "تفعيل الملف الشخصي",
+    "tryFree": "جرّب مجانًا",
+    "14days": "لمدة 14 يومًا"
+  },
+  "ShareBtn": {
+    "add": "إضافة",
+    "addContact": "إضافة جهة اتصال",
+    "asContact": "كجهة اتصال"
+  },
+  "Dropdowns": {
+    "lastWeek": "الأسبوع الماضي",
+    "lastMonth": "الشهر الماضي",
+    "lastYear": "السنة الماضية",
+    "allTime": "طوال الوقت",
+    "none": "لا شيء",
+    "shake": "اهتز",
+    "tada": "تادا",
+    "pulse": "نبض",
+    "jump": "قفز",
+    "swing": "تأرجح",
+    "jello": "جيلو",
+    "rubberBand": "رباط مطاطي",
+    "animaiton": "Animaiton"
+  }
+}
