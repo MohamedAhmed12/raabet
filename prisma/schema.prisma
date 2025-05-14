@@ -92,6 +92,7 @@ model Link {
   social_enable_share_btn          Boolean
   social_enable_search             Boolean
   social_enable_qr_code            Boolean
+  profile_views                    Int      @default(0)
 }
 
 // Define the enum
@@ -122,9 +123,14 @@ model Block {
   order                  Int
   corner                 Int     @default(0) // Corner value (e.g., rounded corners) max value is 28px
   layout                 String  @default("0") // it has to be string although it only have strings as value
+  clicks                 Int      @default(0)
+  views                  Int      @default(0)
   
   linkId                 String
   link                   Link    @relation(fields: [linkId], references: [id]) // Linking Block to Link
+
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
 }
 
 model Social {
@@ -133,6 +139,7 @@ model Social {
   url     String
   order   Int
   label   String?
+  clicks  Int      @default(0)
   
   linkId  String
   link    Link   @relation(fields: [linkId], references: [id])
