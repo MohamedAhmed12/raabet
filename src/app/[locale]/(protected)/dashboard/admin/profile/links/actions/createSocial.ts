@@ -1,7 +1,7 @@
 "use server";
 
 import {iconNameType} from "@/assets/icons";
-import {prisma} from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export async function createSocial({
   linkId,
