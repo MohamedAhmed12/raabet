@@ -8,9 +8,10 @@ export const FeaturesCard = () => {
         className="h-[400.9px] w-full bg-[#7ed0ff] bg-center bg-contain bg-no-repeat border-deep-blue-gray"
         style={{
           backgroundImage:
-            'url("https://d1ym67wyom4bkd.cloudfront.net/assets/bundles/db9264c8bc4385992e0f73e2eb736dbc6cb1dfaf/graphics/pricing-graphic.png")',
+            'url("/images/plan-features-card.png")',
         }}
-        src="https://d1ym67wyom4bkd.cloudfront.net/assets/bundles/db9264c8bc4385992e0f73e2eb736dbc6cb1dfaf/graphics/pricing-graphic.png"
+        src="/images/plan-features-card.png"
+        fill
         alt="pricing_bg"
       />
 

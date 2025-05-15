@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { generateActivationCode } from "../auth/verify/generateActivationCode";
 import { EmailTemplate } from "../auth/components/EmailTemplate";

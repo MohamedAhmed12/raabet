@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { generateVCard } from "../helpers/generateVCard";
 
 export async function generateVCardAction(fullname: string) {

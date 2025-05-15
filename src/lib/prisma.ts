@@ -1,14 +1,13 @@
-import {PrismaPg} from "@prisma/adapter-pg";
-import {PrismaClient} from "@prisma/client";
-import {Pool} from "pg";
+import {PrismaClient} from "@/generated/prisma";
+import {withAccelerate} from "@prisma/extension-accelerate";
 
-const globalForPrisma = global as unknown as {prisma?: PrismaClient};
-const connectionString = process.env.DATABASE_URL!;
+const globalForPrisma = global as unknown as {
+  prisma: PrismaClient;
+};
 
-const pool = new Pool({connectionString});
-const adapter = new PrismaPg(pool);
-
-// @ts-expect-error: [working fine]
-export const prisma = globalForPrisma.prisma || new PrismaClient({adapter});
+const prisma =
+  globalForPrisma.prisma || new PrismaClient().$extends(withAccelerate());
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+
+export default prisma;

@@ -1,6 +1,6 @@
 import { sendEmail } from "@/app/[locale]/auth/components/emailService";
 import { ForgetPasswordTemplate } from "@/app/[locale]/auth/components/ForgetPasswordTemplate";
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import jwt from "jsonwebtoken";

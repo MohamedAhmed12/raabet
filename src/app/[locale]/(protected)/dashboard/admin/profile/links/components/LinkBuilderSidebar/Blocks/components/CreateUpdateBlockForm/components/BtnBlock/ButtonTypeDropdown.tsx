@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Block } from '@prisma/client';
+import {Block} from "@/generated/prisma";
 import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/Icon';
 import { GCSFileLoader } from '../../../../../GCSFileLoader';
