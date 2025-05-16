@@ -26,6 +26,7 @@ async function main() {
       website: "",
       instagram: "",
       twitter: "",
+      displayname: "John Doe",
       bio: "Write you Bio here...",
       userName: user.fullname, // Link it to the user
       userId: user.id, // Link it to the user

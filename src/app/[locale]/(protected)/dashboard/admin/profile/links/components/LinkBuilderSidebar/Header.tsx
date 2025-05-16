@@ -1,61 +1,80 @@
-/* eslint-disable */
 "use client";
 
+import { updateUserAvatar } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUserAvatar";
+import { updateSingleLink } from "@/app/[locale]/actions/updateSingleLink";
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
+import { useState, useTransition } from "react";
 import { DashboardAccordion } from "../DashboardAccordion";
+import { GCSFileLoader } from "./GCSFileLoader";
 
 export const Header = () => {
-  const {link, setLink} = useLinkStore((state) => state);
+  const { link, setLink, replaceLink } = useLinkStore((state) => state);
+  const [uploading, setUploading] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [inputValue, setInputValue] = useState(link.displayname);
+  const [bioValue, setBioValue] = useState(link.bio);
 
   const handleLinkPropertyValChange = async (
     key: string,
     val: string | boolean | number
   ) => {
-    // setLink({ ...link, [key]: val });
-    // if (key.startsWith("user.")) {
-    //   const userKey = key.split(".")[1];
-    //   setLink({
-    //     ...link,
-    //     user: {
-    //       ...link.user,
-    //       [userKey]: val,
-    //     },
-    //   });
-    // } else {
-    //   setLink({
-    //     ...link,
-    //     [key]: value,
-    //   });
-    // }
-    // const result = await updateSingleLink(link.id, key, val);
-    // if (!result?.success) {
-    // console.error("Failed to update link:", result?.error);
-    // }
+    await updateSingleLink(link.id, key, val);
+    setLink({ ...link, [key]: val });
   };
+
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleLinkPropertyValChange("userName", event.target.value);
+    setInputValue(event.target.value);
   };
+
   const handleBioChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    handleLinkPropertyValChange("bio", event.target.value);
+    setBioValue(event.target.value);
+  };
+
+  const handleNameBlur = () => {
+    startTransition(() => {
+      handleLinkPropertyValChange("displayname", inputValue || "");
+    });
+  };
+
+  const handleBioBlur = () => {
+    startTransition(() => {
+      handleLinkPropertyValChange("bio", bioValue || "");
+    });
   };
 
   const handlePhotoChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-    if (!file || !file.type.startsWith("image/")) return;
+    if (!file) return;
+    setUploading(true);
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.result) {
-        handleLinkPropertyValChange("user.avatar", reader.result.toString());
-      }
-    };
-    reader.readAsDataURL(file);
+    try {
+      const publicUrl = await GCSFileLoader(link.id, file);
+      await updateUserAvatar(link?.user?.id as string, "avatar", publicUrl);
+      replaceLink((prev) => {
+        const preUser = prev?.user;
+        if (!preUser) return prev;
+
+        return {
+          ...prev,
+          user: {
+            ...preUser,
+            avatar: publicUrl,
+          },
+        };
+      });
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    } finally {
+      setUploading(false);
+    }
   };
+
   return (
     <DashboardAccordion
       mainLabel="Header"
@@ -67,8 +86,8 @@ export const Header = () => {
             src={link.user.avatar}
             alt="Profile"
             className="w-12 h-12 rounded-full object-cover border mb-1"
-            width={64} // Set the width
-            height={64} // Set the height
+            width={64}
+            height={64}
           />
         )}
         <Input
@@ -78,23 +97,30 @@ export const Header = () => {
           className="w-full"
           onChange={handlePhotoChange}
           capture="user"
+          disabled={uploading}
         />
+        {uploading && <span>Uploading...</span>}
       </div>
       <Input
         id="name"
         type="name"
         placeholder="Name"
-        value={link.userName}
+        value={inputValue}
         className="mb-[14px]"
         onChange={handleNameChange}
+        onBlur={handleNameBlur}
+        onFocus={() => setIsFocused(true)}
       />
       <Textarea
         id="textarea"
-        placeholder="Name"
-        value={link.bio}
+        placeholder="Bio"
+        value={bioValue}
         className="mb-[14px]"
         onChange={handleBioChange}
+        onBlur={handleBioBlur}
+        onFocus={() => setIsFocused(true)}
       />
+      {isPending && !isFocused && <span>Updating...</span>}
     </DashboardAccordion>
   );
 };
