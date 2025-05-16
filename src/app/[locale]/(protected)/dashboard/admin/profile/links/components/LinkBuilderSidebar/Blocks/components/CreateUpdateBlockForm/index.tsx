@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { BlockAnimation, BlockTextAlign } from "@/app/[locale]/types/block";
@@ -55,12 +55,16 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
     corner: 0,
     layout: "1",
     linkId: linkId || "",
+    clicks: 0,
+    views: 0,
+    created_at:new Date(),
+    updated_at:new Date(),
   };
 
   const [formData, setFormData] = useState<Block>(block || initialBlock);
 
   const updateBlockProperty = (key: keyof Block, value: string) => {
-    setFormData((prev) => ({...prev, [key]: value}));
+    setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
