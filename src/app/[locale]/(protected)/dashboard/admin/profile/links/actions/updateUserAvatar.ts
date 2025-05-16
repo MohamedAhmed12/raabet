@@ -1,6 +1,6 @@
 'use server';
 
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const updateUserAvatar = async (
   userId: string,
@@ -18,6 +18,6 @@ export const updateUserAvatar = async (
     return { success: true, updatedUser };
   } catch (error) {
     console.error("Failed to update user field:", error);
-    return { success: false};
+    return { success: false, error: error.message || "Unknown error" };
   }
 };
