@@ -6,8 +6,7 @@ import { Block } from "@/generated/prisma";
 export async function createBlock(data: Block) {
   if (!data) throw new Error("No data provided");
 
-const { linkId, id, ...payload } = data;
-console.log('aaaaaa',linkId);
+const { linkId, ...payload } = data;
 
   try {
     return await prisma.block.create({

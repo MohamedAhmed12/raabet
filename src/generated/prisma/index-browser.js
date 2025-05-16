@@ -155,6 +155,7 @@ exports.Prisma.LinkScalarFieldEnum = {
   website: 'website',
   instagram: 'instagram',
   twitter: 'twitter',
+  displayname: 'displayname',
   bio: 'bio',
   userName: 'userName',
   userId: 'userId',

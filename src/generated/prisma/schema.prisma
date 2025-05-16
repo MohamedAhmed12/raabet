@@ -50,12 +50,13 @@ model PasswordResetToken {
 }
 
 model Link {
-  id        String @id @default(uuid())
-  phone     String
-  website   String
-  instagram String
-  twitter   String
-  bio       String
+  id          String @id @default(uuid())
+  phone       String
+  website     String
+  instagram   String
+  twitter     String
+  displayname String
+  bio         String
 
   // Relationship 
   blocks   Block[] // One-to-many relationship with Block

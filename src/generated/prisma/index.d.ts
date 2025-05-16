@@ -4774,6 +4774,7 @@ export namespace Prisma {
     website: string | null
     instagram: string | null
     twitter: string | null
+    displayname: string | null
     bio: string | null
     userName: string | null
     userId: string | null
@@ -4814,6 +4815,7 @@ export namespace Prisma {
     website: string | null
     instagram: string | null
     twitter: string | null
+    displayname: string | null
     bio: string | null
     userName: string | null
     userId: string | null
@@ -4854,6 +4856,7 @@ export namespace Prisma {
     website: number
     instagram: number
     twitter: number
+    displayname: number
     bio: number
     userName: number
     userId: number
@@ -4920,6 +4923,7 @@ export namespace Prisma {
     website?: true
     instagram?: true
     twitter?: true
+    displayname?: true
     bio?: true
     userName?: true
     userId?: true
@@ -4960,6 +4964,7 @@ export namespace Prisma {
     website?: true
     instagram?: true
     twitter?: true
+    displayname?: true
     bio?: true
     userName?: true
     userId?: true
@@ -5000,6 +5005,7 @@ export namespace Prisma {
     website?: true
     instagram?: true
     twitter?: true
+    displayname?: true
     bio?: true
     userName?: true
     userId?: true
@@ -5127,6 +5133,7 @@ export namespace Prisma {
     website: string
     instagram: string
     twitter: string
+    displayname: string
     bio: string
     userName: string
     userId: string
@@ -5186,6 +5193,7 @@ export namespace Prisma {
     website?: boolean
     instagram?: boolean
     twitter?: boolean
+    displayname?: boolean
     bio?: boolean
     userName?: boolean
     userId?: boolean
@@ -5230,6 +5238,7 @@ export namespace Prisma {
     website?: boolean
     instagram?: boolean
     twitter?: boolean
+    displayname?: boolean
     bio?: boolean
     userName?: boolean
     userId?: boolean
@@ -5271,6 +5280,7 @@ export namespace Prisma {
     website?: boolean
     instagram?: boolean
     twitter?: boolean
+    displayname?: boolean
     bio?: boolean
     userName?: boolean
     userId?: boolean
@@ -5312,6 +5322,7 @@ export namespace Prisma {
     website?: boolean
     instagram?: boolean
     twitter?: boolean
+    displayname?: boolean
     bio?: boolean
     userName?: boolean
     userId?: boolean
@@ -5346,7 +5357,7 @@ export namespace Prisma {
     profile_views?: boolean
   }
 
-  export type LinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone" | "website" | "instagram" | "twitter" | "bio" | "userName" | "userId" | "general_styles_desktop_bgcolor" | "general_styles_primary_text_color" | "general_styles_primary_bgcolor" | "general_styles_is_secondary_bgcolor" | "general_styles_is_label_exist" | "general_styles_secondary_bgcolor" | "general_styles_soft_shadow" | "header_styles_profile_shadow" | "header_styles_profile_border_width" | "header_styles_profile_border_color" | "header_styles_collapse_long_bio" | "header_styles_social_icons_size" | "card_styles_design" | "card_styles_card_color" | "card_styles_text_color" | "card_styles_label_color" | "card_styles_label_text_color" | "card_styles_card_corner" | "card_styles_card_border_width" | "card_styles_card_border_color" | "card_styles_card_shadow" | "card_styles_card_spacing" | "title_font" | "text_font" | "social_enable_add_contacts" | "social_enable_share_btn" | "social_enable_search" | "social_enable_qr_code" | "profile_views", ExtArgs["result"]["link"]>
+  export type LinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone" | "website" | "instagram" | "twitter" | "displayname" | "bio" | "userName" | "userId" | "general_styles_desktop_bgcolor" | "general_styles_primary_text_color" | "general_styles_primary_bgcolor" | "general_styles_is_secondary_bgcolor" | "general_styles_is_label_exist" | "general_styles_secondary_bgcolor" | "general_styles_soft_shadow" | "header_styles_profile_shadow" | "header_styles_profile_border_width" | "header_styles_profile_border_color" | "header_styles_collapse_long_bio" | "header_styles_social_icons_size" | "card_styles_design" | "card_styles_card_color" | "card_styles_text_color" | "card_styles_label_color" | "card_styles_label_text_color" | "card_styles_card_corner" | "card_styles_card_border_width" | "card_styles_card_border_color" | "card_styles_card_shadow" | "card_styles_card_spacing" | "title_font" | "text_font" | "social_enable_add_contacts" | "social_enable_share_btn" | "social_enable_search" | "social_enable_qr_code" | "profile_views", ExtArgs["result"]["link"]>
   export type LinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     blocks?: boolean | Link$blocksArgs<ExtArgs>
     socials?: boolean | Link$socialsArgs<ExtArgs>
@@ -5373,6 +5384,7 @@ export namespace Prisma {
       website: string
       instagram: string
       twitter: string
+      displayname: string
       bio: string
       userName: string
       userId: string
@@ -5836,6 +5848,7 @@ export namespace Prisma {
     readonly website: FieldRef<"Link", 'String'>
     readonly instagram: FieldRef<"Link", 'String'>
     readonly twitter: FieldRef<"Link", 'String'>
+    readonly displayname: FieldRef<"Link", 'String'>
     readonly bio: FieldRef<"Link", 'String'>
     readonly userName: FieldRef<"Link", 'String'>
     readonly userId: FieldRef<"Link", 'String'>
@@ -8813,6 +8826,7 @@ export namespace Prisma {
     website: 'website',
     instagram: 'instagram',
     twitter: 'twitter',
+    displayname: 'displayname',
     bio: 'bio',
     userName: 'userName',
     userId: 'userId',
@@ -9203,6 +9217,7 @@ export namespace Prisma {
     website?: StringFilter<"Link"> | string
     instagram?: StringFilter<"Link"> | string
     twitter?: StringFilter<"Link"> | string
+    displayname?: StringFilter<"Link"> | string
     bio?: StringFilter<"Link"> | string
     userName?: StringFilter<"Link"> | string
     userId?: StringFilter<"Link"> | string
@@ -9246,6 +9261,7 @@ export namespace Prisma {
     website?: SortOrder
     instagram?: SortOrder
     twitter?: SortOrder
+    displayname?: SortOrder
     bio?: SortOrder
     userName?: SortOrder
     userId?: SortOrder
@@ -9292,6 +9308,7 @@ export namespace Prisma {
     website?: StringFilter<"Link"> | string
     instagram?: StringFilter<"Link"> | string
     twitter?: StringFilter<"Link"> | string
+    displayname?: StringFilter<"Link"> | string
     bio?: StringFilter<"Link"> | string
     userName?: StringFilter<"Link"> | string
     userId?: StringFilter<"Link"> | string
@@ -9335,6 +9352,7 @@ export namespace Prisma {
     website?: SortOrder
     instagram?: SortOrder
     twitter?: SortOrder
+    displayname?: SortOrder
     bio?: SortOrder
     userName?: SortOrder
     userId?: SortOrder
@@ -9383,6 +9401,7 @@ export namespace Prisma {
     website?: StringWithAggregatesFilter<"Link"> | string
     instagram?: StringWithAggregatesFilter<"Link"> | string
     twitter?: StringWithAggregatesFilter<"Link"> | string
+    displayname?: StringWithAggregatesFilter<"Link"> | string
     bio?: StringWithAggregatesFilter<"Link"> | string
     userName?: StringWithAggregatesFilter<"Link"> | string
     userId?: StringWithAggregatesFilter<"Link"> | string
@@ -9835,6 +9854,7 @@ export namespace Prisma {
     website: string
     instagram: string
     twitter: string
+    displayname: string
     bio: string
     userName: string
     general_styles_desktop_bgcolor: string
@@ -9877,6 +9897,7 @@ export namespace Prisma {
     website: string
     instagram: string
     twitter: string
+    displayname: string
     bio: string
     userName: string
     userId: string
@@ -9919,6 +9940,7 @@ export namespace Prisma {
     website?: StringFieldUpdateOperationsInput | string
     instagram?: StringFieldUpdateOperationsInput | string
     twitter?: StringFieldUpdateOperationsInput | string
+    displayname?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     userName?: StringFieldUpdateOperationsInput | string
     general_styles_desktop_bgcolor?: StringFieldUpdateOperationsInput | string
@@ -9961,6 +9983,7 @@ export namespace Prisma {
     website?: StringFieldUpdateOperationsInput | string
     instagram?: StringFieldUpdateOperationsInput | string
     twitter?: StringFieldUpdateOperationsInput | string
+    displayname?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     userName?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -10003,6 +10026,7 @@ export namespace Prisma {
     website: string
     instagram: string
     twitter: string
+    displayname: string
     bio: string
     userName: string
     userId: string
@@ -10043,6 +10067,7 @@ export namespace Prisma {
     website?: StringFieldUpdateOperationsInput | string
     instagram?: StringFieldUpdateOperationsInput | string
     twitter?: StringFieldUpdateOperationsInput | string
+    displayname?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     userName?: StringFieldUpdateOperationsInput | string
     general_styles_desktop_bgcolor?: StringFieldUpdateOperationsInput | string
@@ -10082,6 +10107,7 @@ export namespace Prisma {
     website?: StringFieldUpdateOperationsInput | string
     instagram?: StringFieldUpdateOperationsInput | string
     twitter?: StringFieldUpdateOperationsInput | string
+    displayname?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     userName?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -10644,6 +10670,7 @@ export namespace Prisma {
     website?: SortOrder
     instagram?: SortOrder
     twitter?: SortOrder
+    displayname?: SortOrder
     bio?: SortOrder
     userName?: SortOrder
     userId?: SortOrder
@@ -10696,6 +10723,7 @@ export namespace Prisma {
     website?: SortOrder
     instagram?: SortOrder
     twitter?: SortOrder
+    displayname?: SortOrder
     bio?: SortOrder
     userName?: SortOrder
     userId?: SortOrder
@@ -10736,6 +10764,7 @@ export namespace Prisma {
     website?: SortOrder
     instagram?: SortOrder
     twitter?: SortOrder
+    displayname?: SortOrder
     bio?: SortOrder
     userName?: SortOrder
     userId?: SortOrder
@@ -11484,6 +11513,7 @@ export namespace Prisma {
     website: string
     instagram: string
     twitter: string
+    displayname: string
     bio: string
     userName: string
     general_styles_desktop_bgcolor: string
@@ -11525,6 +11555,7 @@ export namespace Prisma {
     website: string
     instagram: string
     twitter: string
+    displayname: string
     bio: string
     userName: string
     general_styles_desktop_bgcolor: string
@@ -11640,6 +11671,7 @@ export namespace Prisma {
     website?: StringFilter<"Link"> | string
     instagram?: StringFilter<"Link"> | string
     twitter?: StringFilter<"Link"> | string
+    displayname?: StringFilter<"Link"> | string
     bio?: StringFilter<"Link"> | string
     userName?: StringFilter<"Link"> | string
     userId?: StringFilter<"Link"> | string
@@ -12102,6 +12134,7 @@ export namespace Prisma {
     website: string
     instagram: string
     twitter: string
+    displayname: string
     bio: string
     userName: string
     general_styles_desktop_bgcolor: string
@@ -12143,6 +12176,7 @@ export namespace Prisma {
     website: string
     instagram: string
     twitter: string
+    displayname: string
     bio: string
     userName: string
     userId: string
@@ -12200,6 +12234,7 @@ export namespace Prisma {
     website?: StringFieldUpdateOperationsInput | string
     instagram?: StringFieldUpdateOperationsInput | string
     twitter?: StringFieldUpdateOperationsInput | string
+    displayname?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     userName?: StringFieldUpdateOperationsInput | string
     general_styles_desktop_bgcolor?: StringFieldUpdateOperationsInput | string
@@ -12241,6 +12276,7 @@ export namespace Prisma {
     website?: StringFieldUpdateOperationsInput | string
     instagram?: StringFieldUpdateOperationsInput | string
     twitter?: StringFieldUpdateOperationsInput | string
+    displayname?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     userName?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -12282,6 +12318,7 @@ export namespace Prisma {
     website: string
     instagram: string
     twitter: string
+    displayname: string
     bio: string
     userName: string
     general_styles_desktop_bgcolor: string
@@ -12323,6 +12360,7 @@ export namespace Prisma {
     website: string
     instagram: string
     twitter: string
+    displayname: string
     bio: string
     userName: string
     userId: string
@@ -12380,6 +12418,7 @@ export namespace Prisma {
     website?: StringFieldUpdateOperationsInput | string
     instagram?: StringFieldUpdateOperationsInput | string
     twitter?: StringFieldUpdateOperationsInput | string
+    displayname?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     userName?: StringFieldUpdateOperationsInput | string
     general_styles_desktop_bgcolor?: StringFieldUpdateOperationsInput | string
@@ -12421,6 +12460,7 @@ export namespace Prisma {
     website?: StringFieldUpdateOperationsInput | string
     instagram?: StringFieldUpdateOperationsInput | string
     twitter?: StringFieldUpdateOperationsInput | string
+    displayname?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     userName?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -12462,6 +12502,7 @@ export namespace Prisma {
     website: string
     instagram: string
     twitter: string
+    displayname: string
     bio: string
     userName: string
     general_styles_desktop_bgcolor: string
@@ -12509,6 +12550,7 @@ export namespace Prisma {
     website?: StringFieldUpdateOperationsInput | string
     instagram?: StringFieldUpdateOperationsInput | string
     twitter?: StringFieldUpdateOperationsInput | string
+    displayname?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     userName?: StringFieldUpdateOperationsInput | string
     general_styles_desktop_bgcolor?: StringFieldUpdateOperationsInput | string
@@ -12550,6 +12592,7 @@ export namespace Prisma {
     website?: StringFieldUpdateOperationsInput | string
     instagram?: StringFieldUpdateOperationsInput | string
     twitter?: StringFieldUpdateOperationsInput | string
+    displayname?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     userName?: StringFieldUpdateOperationsInput | string
     general_styles_desktop_bgcolor?: StringFieldUpdateOperationsInput | string
@@ -12591,6 +12634,7 @@ export namespace Prisma {
     website?: StringFieldUpdateOperationsInput | string
     instagram?: StringFieldUpdateOperationsInput | string
     twitter?: StringFieldUpdateOperationsInput | string
+    displayname?: StringFieldUpdateOperationsInput | string
     bio?: StringFieldUpdateOperationsInput | string
     userName?: StringFieldUpdateOperationsInput | string
     general_styles_desktop_bgcolor?: StringFieldUpdateOperationsInput | string

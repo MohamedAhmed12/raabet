@@ -25,7 +25,7 @@ export async function GCSFileUploader(fileName: string, contentType: string) {
       contentType,
     });
     return url;
-  } catch (error) {
+  } catch {
     throw new Error("Failed to generate presigned URL");
   }
 }
