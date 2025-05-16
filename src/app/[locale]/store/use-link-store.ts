@@ -1,5 +1,5 @@
 import {iconNameType} from "@/assets/icons";
-import {Block} from "@prisma/client";
+import {Block} from "@/generated/prisma";
 import {User} from "next-auth";
 import type {StateCreator} from "zustand";
 import {create} from "zustand";

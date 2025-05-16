@@ -1,7 +1,7 @@
 import {DashboardCard} from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
 import {Label} from "@/components/ui/label";
 import {Textarea} from "@/components/ui/textarea";
-import {Block} from "@prisma/client";
+import {Block} from "@/generated/prisma";
 import {useTranslations} from "next-intl";
 
 export const TextBlockStyling = ({

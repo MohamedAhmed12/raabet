@@ -1,6 +1,6 @@
 import Image from "next/image";
 import SignUpForm from "../components/SignupForm";
-import { GalleryVerticalEnd } from "lucide-react";
+import {GalleryVerticalEnd} from "lucide-react";
 
 export default function SignUp() {
   return (
@@ -22,8 +22,9 @@ export default function SignUp() {
       </div>
       <div className="flex-1 relative hidden bg-muted lg:block">
         <Image
-          src="https://d1ym67wyom4bkd.cloudfront.net/assets/bundles/db9264c8bc4385992e0f73e2eb736dbc6cb1dfaf/graphics/signup-graphic.png"
+          src="/images/login-bg.png"
           alt="Sign-up"
+          fill
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>

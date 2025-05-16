@@ -1,4 +1,4 @@
-import { cn } from "@/lib/cn";
+import {cn} from "@/lib/cn";
 import Image from "next/image";
 
 export const FeatureCard = ({
@@ -15,15 +15,17 @@ export const FeatureCard = ({
   Title: string;
 }) => {
   return (
-      <div
-        className={cn(
-          "flex flex-col items-center justify-center text-center p-[3.5vw] h-[460px] w-1/2",
-          className
-        )}
-      >
-        <Image src={src} alt={alt} className="w-16 h-16 mb-4" />
-        <p className="text-[24px] font-bold">{Title}</p>
-        <p className="text-[16px]">{label}</p>
-      </div>    
+    <div
+      className={cn(
+        "flex flex-col items-center justify-center text-center p-[3.5vw] h-[460px] w-1/2",
+        className
+      )}
+    >
+      <div className="relative !w-16 !h-16">
+        <Image src={src} fill alt={alt} className="mb-4" />
+      </div>
+      <p className="text-[24px] font-bold">{Title}</p>
+      <p className="text-[16px]">{label}</p>
+    </div>
   );
 };

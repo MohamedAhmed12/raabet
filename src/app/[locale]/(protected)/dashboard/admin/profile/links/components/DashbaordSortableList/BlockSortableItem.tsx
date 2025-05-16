@@ -6,7 +6,7 @@ import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/utils";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Block } from "@prisma/client";
+import { Block } from "@/generated/prisma";
 import { memo, useState } from "react";
 import { toast } from "sonner";
 import { copyBlock } from "../../actions/copyBlocks";
