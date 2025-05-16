@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import Image from 'next/image';
-import { useState, useTransition } from 'react';
-import { DashboardAccordion } from '../DashboardAccordion';
-import { useLinkStore } from '@/app/[locale]/store/use-link-store';
-import { updateSingleLink } from '@/app/[locale]/actions/updateSingleLink';
-import { updateUserAvatar } from '@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUserAvatar';
-import { GCSFileLoader } from './GCSFileLoader';
+import { updateUserAvatar } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUserAvatar";
+import { updateSingleLink } from "@/app/[locale]/actions/updateSingleLink";
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
+import { useState, useTransition } from "react";
+import { DashboardAccordion } from "../DashboardAccordion";
+import { GCSFileLoader } from "./GCSFileLoader";
 
 export const Header = () => {
-  const { link, setLink } = useLinkStore((state) => state);
+  const { link, setLink, replaceLink } = useLinkStore((state) => state);
   const [uploading, setUploading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -31,18 +31,18 @@ export const Header = () => {
   };
 
   const handleBioChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setBioValue(event.target.value); 
+    setBioValue(event.target.value);
   };
 
   const handleNameBlur = () => {
     startTransition(() => {
-      handleLinkPropertyValChange('displayname', inputValue || "");
+      handleLinkPropertyValChange("displayname", inputValue || "");
     });
   };
 
   const handleBioBlur = () => {
     startTransition(() => {
-      handleLinkPropertyValChange('bio', bioValue||"");
+      handleLinkPropertyValChange("bio", bioValue || "");
     });
   };
 
@@ -50,21 +50,26 @@ export const Header = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-
+    if (!file) return;
     setUploading(true);
 
     try {
       const publicUrl = await GCSFileLoader(link.id, file);
-      await updateUserAvatar(link.user.id, 'avatar', publicUrl);
-      setLink((prev) => ({
-        ...prev,
-        user: {
-          ...prev.user,
-          avatar: publicUrl,
-        },
-      }));
+      await updateUserAvatar(link?.user?.id as string, "avatar", publicUrl);
+      replaceLink((prev) => {
+        const preUser = prev?.user;
+        if (!preUser) return prev;
+
+        return {
+          ...prev,
+          user: {
+            ...preUser,
+            avatar: publicUrl,
+          },
+        };
+      });
     } catch (error) {
-      console.error('Error uploading file:', error);
+      console.error("Error uploading file:", error);
     } finally {
       setUploading(false);
     }
@@ -103,7 +108,7 @@ export const Header = () => {
         value={inputValue}
         className="mb-[14px]"
         onChange={handleNameChange}
-        onBlur={handleNameBlur} 
+        onBlur={handleNameBlur}
         onFocus={() => setIsFocused(true)}
       />
       <Textarea
@@ -112,7 +117,7 @@ export const Header = () => {
         value={bioValue}
         className="mb-[14px]"
         onChange={handleBioChange}
-        onBlur={handleBioBlur} 
+        onBlur={handleBioBlur}
         onFocus={() => setIsFocused(true)}
       />
       {isPending && !isFocused && <span>Updating...</span>}

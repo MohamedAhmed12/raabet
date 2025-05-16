@@ -83,7 +83,6 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.0.13",
-    "@types/google-cloud__storage": "^2.3.1",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20",
     "@types/pg": "^8.11.11",

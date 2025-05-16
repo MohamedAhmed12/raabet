@@ -1,9 +1,9 @@
-import {iconNameType} from "@/assets/icons";
-import {Block} from "@/generated/prisma";
-import {User} from "next-auth";
-import type {StateCreator} from "zustand";
-import {create} from "zustand";
-import {devtools} from "zustand/middleware";
+import { iconNameType } from "@/assets/icons";
+import { Block } from "@/generated/prisma";
+import { User } from "next-auth";
+import type { StateCreator } from "zustand";
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 export interface LinkSocial {
   id: string;
@@ -14,7 +14,7 @@ export interface LinkSocial {
 }
 
 export interface Link {
-  id?: string;
+  id: string;
   phone?: string;
   website?: string;
   instagram?: string;
@@ -63,7 +63,9 @@ interface LinkState {
 }
 
 const createLinkSlice: StateCreator<LinkState> = (set) => ({
-  link: {},
+  link: {
+    id: "",
+  },
 
   setLink: (data: Partial<Link>) => {
     set((state) => ({
@@ -81,5 +83,5 @@ const createLinkSlice: StateCreator<LinkState> = (set) => ({
 });
 
 export const useLinkStore = create<LinkState>()(
-  devtools(createLinkSlice, {name: "user-context-store"})
+  devtools(createLinkSlice, { name: "user-context-store" })
 );

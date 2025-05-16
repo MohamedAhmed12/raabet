@@ -21,11 +21,12 @@ export async function GCSFileUploader(fileName: string, contentType: string) {
     const [url] = await bucket.file(fileName).getSignedUrl({
       version: "v4",
       action: "write",
-      expires: Date.now() + 15 * 60 * 1000, 
+      expires: Date.now() + 15 * 60 * 1000,
       contentType,
     });
     return url;
   } catch (error) {
-    throw new Error("Failed to generate presigned URL");
+    console.error("Failed to generate presigned URL:", error);
+    throw error;
   }
 }
