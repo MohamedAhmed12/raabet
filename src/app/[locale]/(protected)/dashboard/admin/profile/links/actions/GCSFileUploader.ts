@@ -9,8 +9,13 @@ const storage = new Storage({
     private_key: process.env.GCP_PRIVATE_KEY?.replace(/\\n/g, "\n"),
   },
 });
+const bucketName = process.env.GCS_BUCKET_NAME;
 
-const bucket = storage.bucket(process.env.GCS_BUCKET_NAME!);
+if (!bucketName) {
+  throw new Error("Google Cloud Storage bucket name is required.");
+}
+
+const bucket = storage.bucket(bucketName);
 
 export async function GCSFileUploader(fileName: string, contentType: string) {
   if (!fileName || !contentType) {
@@ -18,7 +23,7 @@ export async function GCSFileUploader(fileName: string, contentType: string) {
   }
 
   try {
-    const [url] = await bucket.file(fileName).getSignedUrl({
+    const [url] = await bucket?.file(fileName).getSignedUrl({
       version: "v4",
       action: "write",
       expires: Date.now() + 15 * 60 * 1000,

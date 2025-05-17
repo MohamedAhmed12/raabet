@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 
 import {cn} from "@/lib/utils";
-import {Block} from "@/generated/prisma";
+import {Block} from "@prisma/client";
 
 const MenuBar = () => {
   const {editor} = useCurrentEditor();

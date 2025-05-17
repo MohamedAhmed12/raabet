@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { Block } from "@/generated/prisma";
+import { Block } from "@prisma/client";
 
 export async function copyBlock(data: Block) {
   const {linkId, ...dataToCopy} = data;

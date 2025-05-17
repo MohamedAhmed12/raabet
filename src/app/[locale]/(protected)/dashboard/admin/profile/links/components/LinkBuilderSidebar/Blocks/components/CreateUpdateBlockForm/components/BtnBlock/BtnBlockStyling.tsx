@@ -9,7 +9,7 @@ import CustomDropdown from "@/components/CustomDropdown";
 import {Icon} from "@/components/Icon";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 import {cn} from "@/lib/utils";
-import {Block} from "@/generated/prisma";
+import {Block} from "@prisma/client";
 import {DashboardChromPicker} from "../../../../../../DashboardChromPicker";
 import {useTranslations} from "next-intl";
 

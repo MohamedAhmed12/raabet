@@ -3,7 +3,7 @@
 import {DashboardCard} from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
 import {useLinkStore} from "@/app/[locale]/store/use-link-store";
 import {Icon} from "@/components/Icon";
-import {Block} from "@/generated/prisma";
+import {Block} from "@prisma/client";
 import {useTranslations} from "next-intl";
 import {useMemo, useState} from "react";
 import {toast} from "sonner";

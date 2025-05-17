@@ -2,7 +2,7 @@
 
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { BlockAnimation, BlockTextAlign } from "@/app/[locale]/types/block";
-import { Block, BlockType } from "@/generated/prisma";
+import { Block, BlockType } from "@prisma/client";
 import React, { useState } from "react";
 import { blocks } from "../../../../../types/block";
 import { CreateUpdateBlockFormFooter } from "./components/Footer";
