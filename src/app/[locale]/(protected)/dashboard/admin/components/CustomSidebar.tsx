@@ -41,7 +41,7 @@ export default function CustomSidebar() {
     },
     {
       text: t("tabs.subscribe"),
-      url: "subscribe",
+      url: "/dashboard/admin/subscription",
       icon: "lock-keyhole-open",
     },
   ];
@@ -105,7 +105,7 @@ export default function CustomSidebar() {
       </SidebarContent>
       <SidebarFooter className="p-[11px] font-noto-sans">
         <Link
-          href="/dashboard/admin/subscripe"
+          href="/dashboard/admin/subscription"
           className="flex cursor-pointer flex-col h-auto w- p-[11px] items-center text-center text-white bg-[linear-gradient(45deg,_#dd76ff,_#097cd4)] rounded-md"
         >
           <Icon name="lock" className="text-white" size={19} />

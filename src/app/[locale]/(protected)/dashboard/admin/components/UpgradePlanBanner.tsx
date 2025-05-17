@@ -7,7 +7,7 @@ export const UpgradePlanBanner = () => {
     <div className="fixed z-2 flex items-center justify-center w-full h-[44px] font-semibold text-sm text-deep-blue-gray bg-light-orange border-b-1 border-[#303030] font-noto-sans">
       {t("ActivationBanner.firstHalf")}
       <div className=""></div>
-      <Link href="/profile/upgrade" className="mx-1 underline font-bold">
+      <Link href="/dashboard/admin/subscription" className="mx-1 underline font-bold">
         {t("Shared.subscribe")}
       </Link>
       {t("ActivationBanner.secondHalf")}
