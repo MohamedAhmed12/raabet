@@ -2,8 +2,10 @@ import { Claim } from "../Claim";
 
 export const ContentSection = () => {
   return (
-    <div className="w-full md:w-1/2 flex flex-col font-noto-sans py-8 px-[7vw] text-left">
-      <div className="text-[64px] text-deep-blue-gray font-bold leading-[1.1]">
+    <div className="w-full md:w-1/2 flex flex-col font-noto-sans py-8 px-[7vw]">
+      <div
+        className="text-[64px] text-deep-blue-gray font-bold leading-[1.1] text-center md:text-left"
+      >
         <span className="mr-4">Try Raabet</span>
         <span className="relative">
           <span className="relative inline-block z-[1]">now!</span>

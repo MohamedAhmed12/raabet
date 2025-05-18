@@ -3,7 +3,7 @@ import { WhyUsBlock } from "./components/whyUsBlock";
 
 export const WhyUs = () => {
   return (
-    <div className="flex items-center w-full ">
+    <div className="flex flex-col md:flex-row items-center w-full">
       <ContentSection
         titleLabel="Why choose"
         coloredLabel="Liinks"
@@ -11,7 +11,7 @@ export const WhyUs = () => {
         buttonLabel="Get Started"
         underlineColor="bg-[#7ed0ff]"
         widthClass="w-[600px]"
-        className="w-1/2"
+        className="w-full md:w-1/2 py-8"
         redirectUrl="/Signup"
       />
 

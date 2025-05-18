@@ -2,12 +2,13 @@ import Image from "next/image";
 
 export const ImageSection = () => {
   return (
-    <div className="flex justify-end relative md:w-1/2 pt-[80px]">
+    <div className="relative flex justify-end h-full w-full md:w-1/2 overflow-hidden md:mt-20 md:ml-24">
       <Image
         src="/images/colored-links-page-preview.png"
         alt="Hero Image"
-        fill
-        className="!h-100 !w-[37vw]"
+        width={620}
+        height={700}
+        className="h-[700] w-[620]"
       />
     </div>
   );

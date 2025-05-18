@@ -21,14 +21,14 @@ export const ReviewsSlider = ({
   speed: number;
 }) => {
   return (
-    <Marquee autoFill speed={speed}>
+    <Marquee autoFill speed={speed} className="overflow-hidden">
       {reviews.map((review, index) => (
         <div
           key={index}
-          className="flex space-x-16 text-white font-bold text-2xl uppercase tracking-wide w-max"
+          className="w-[375px] h-[231px] flex space-x-16 text-white font-bold text-2xl uppercase tracking-wide"
         >
-          <Card className="w-80 h-64 p-4 m-2 bg-white shadow-md rounded-xl">
-            <CardContent className="flex flex-col justify-between h-full">
+          <Card className="m-2 bg-white shadow-md rounded-xl border-l-1 border-r-1 border-black">
+            <CardContent className="flex flex-col justify-between w-full h-full">
               {/* Star Rating */}
               <div className="flex items-center text-yellow-500">
                 {Array.from({ length: review.stars }).map((_, i) => (

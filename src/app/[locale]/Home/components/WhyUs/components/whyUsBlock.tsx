@@ -2,7 +2,7 @@ import {FeatureCard} from "./FeatureCard";
 
 export const WhyUsBlock = () => {
   return (
-    <div className="flex flex-col w-1/2">
+    <div className="flex md:flex-col w-full md:w-1/2">
       <div className="flex w-full">
         <FeatureCard
           src="/images/gears.png"

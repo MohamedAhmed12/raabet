@@ -6,7 +6,7 @@ export const TryNow = () => {
   return (
     <>
       <Prosbar bgColorClass="bg-[#d9acfd]" />
-      <div className="flex flex-col md:flex-row items-center justify-center bg-light-orange h-100">
+      <div className="flex flex-col-reverse md:flex-row items-center justify-center bg-light-orange">
         <ImageSection />
         <ContentSection />
       </div>
