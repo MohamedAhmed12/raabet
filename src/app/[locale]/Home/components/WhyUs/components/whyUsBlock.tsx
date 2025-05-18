@@ -1,21 +1,23 @@
+import { useTranslations } from "next-intl";
 import {FeatureCard} from "./FeatureCard";
 
 export const WhyUsBlock = () => {
+    const t = useTranslations("HomePage.WhyUs.block");
   return (
     <div className="flex md:flex-col w-full md:w-1/2">
       <div className="flex w-full">
         <FeatureCard
           src="/images/gears.png"
           alt="Customization"
-          Title="More customizable"
-          label="More options to design your page, and have it match your brand"
+          Title={t("1stCard.title")}
+          label={t("1stCard.label")}
           className="bg-blue-200"
         />
         <FeatureCard
           src="/images/grids-types.png"
           alt="Powerfull"
-          Title="More powerful"
-          label="Greater variety of block layouts and more options for organization"
+          Title={t("2stCard.title")}
+          label={t("2stCard.label")}
           className="bg-yellow-200"
         />
       </div>
@@ -24,15 +26,15 @@ export const WhyUsBlock = () => {
         <FeatureCard
           src="/images/payment-ticket.png"
           alt="affordable"
-          Title="More affordable"
-          label="More affordable than most competing platforms"
+          Title={t("3stCard.title")}
+          label={t("3stCard.label")}
           className="bg-orange-200"
         />
         <FeatureCard
           src="/images/u_ur-team.png"
           alt="multi-Profile"
-          Title="Great for teams"
-          label="Easily manage multiple profiles with the plan"
+          Title={t("4stCard.title")}
+          label={t("4stCard.label")}
           className="bg-red-200"
         />
       </div>

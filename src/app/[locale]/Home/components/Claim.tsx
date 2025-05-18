@@ -1,8 +1,10 @@
 import { Icon } from "@/components/Icon";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 export const Claim = () => {
+  const t = useTranslations("HomePage");
   return (
     <div className="flex items-center rounded-[100px] border border-[#1d1d28] shadow-[3px_3px_0px_#1d1d28] bg-white cursor-text p-2 my-8 font-noto-sans font-semibold">
       <Icon
@@ -29,7 +31,7 @@ export const Claim = () => {
           "bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold"
         )}
       >
-        Claim
+        {t("claim")}
       </button>
     </div>
   );

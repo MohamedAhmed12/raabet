@@ -24,13 +24,13 @@ export const ContentSection = ({
   return (
     <div
       className={cn(
-        'flex justify-center w-full h-full md:w-1/2 font-noto-sans py-[32px] px-[7vw]',
+        'flex justify-center w-full h-full md:w-1/2 font-noto-sans py-[32px] px-[7vw] ',
         className
       )}
     >
       <div className={widthClass}>
-        <div className="flex justify-center md:justify-start text-center md:text-start mb-6">
-          <div className="text-[64px] text-deep-blue-gray font-bold leading-[1.1] ">
+        <div className="flex justify-center md:justify-start text-center md:text-start mb-6 ">
+          <div className="text-[64px] text-deep-blue-gray font-bold leading-[1.1] text-center md:text-start">
             <span className="mr-4">{titleLabel}</span>
             <span className="relative">
               <span className="relative inline-block z-[1]">
