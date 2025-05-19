@@ -51,6 +51,10 @@ export interface Link {
   social_enable_share_btn?: boolean;
   social_enable_search?: boolean;
   social_enable_qr_code?: boolean;
+  social_enable_hide_raabet_branding?: boolean;
+  social_enable_enable_verified_badge?: boolean;
+  social_custom_logo?: string;
+  social_custom_logo_size?:number;
   user?: User;
   socials?: LinkSocial[];
   blocks?: Block[];
