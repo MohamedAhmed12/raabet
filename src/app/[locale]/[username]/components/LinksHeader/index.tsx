@@ -3,7 +3,6 @@
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { cn } from "@/lib/cn";
 import { useState } from "react";
-import { LinksAvatar } from "./LinksAvatar";
 import QRCodeDialog from "./QRCodeDialog";
 
 export function LinksHeader() {
