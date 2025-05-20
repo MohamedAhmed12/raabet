@@ -7,16 +7,14 @@ import { MobileFeaturesList } from "./MobileFeaturesList";
 
 export const PlansCard = () => {
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex flex-col lg:flex-row font-noto-sans">
       {plans.map((plan, i) => (
         <div
           key={plan.name}
           className={cn(
-            "relative border-1 border-deep-blue-gray rounded-b-[20px]",
+            "relative border-1 border-deep-blue-gray rounded-b-[20px] shadow-none lg:shadow-[8px_8px_0px_#1d1d28]",
             "lg:rounded-b-none",
-            i == 0
-              ? "shadow-none lg:shadow-[8px_8px_0px_#1d1d28] z-[2] mb-5 lg:mb-0"
-              : "shadow-none lg:shadow-[8px_8px_0px_#1d1d28] rounded-[20px] lg:rounded-br-[20px]"
+            "z-[2] mb-5 lg:mb-0 lg:rounded-br-[20px]"
           )}
         >
           {/* Most popular banner */}
@@ -47,7 +45,16 @@ export const PlansCard = () => {
               {plan.name}
             </h2>
             <div className="flex flex-col mt-4 mb-8">
-              <span className="text-5xl font-extrabold">${plan.price}</span>
+              <div className="flex items-end">
+                <span className="relative inline-block text-4xl font-normal text-zinc-400">
+                  {plan.originalPrice}
+                  <span className="absolute left-[-10%] top-1/2 w-[130%] h-[2.5px] bg-zinc-400 transform -rotate-[30deg]"></span>
+                </span>
+
+                <span className="text-5xl font-bold mx-4">
+                  {plan.discountPrice}
+                </span>
+              </div>
               <span className="text-base mt-2">USD per month</span>
             </div>
 
