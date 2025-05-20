@@ -28,13 +28,20 @@ export const EditSocialLabelDialog = ({
 }: EditSocialLabelDialogProps) => {
   const [value, setValue] = useState(initialValue);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
 
   const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setValue(newValue);
-    onSubmit(newValue);
   };
-
+  const handleBlur = () => {
+    setIsFocused(false);
+    onSubmit(value);
+  };
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
@@ -49,7 +56,9 @@ export const EditSocialLabelDialog = ({
         <Input
           placeholder={placeholder}
           value={value}
+          onFocus={handleFocus}
           onChange={handleSubmit}
+          onBlur={handleBlur}
         />
         <DialogFooter className="mt-4 w-full">
           <Button
