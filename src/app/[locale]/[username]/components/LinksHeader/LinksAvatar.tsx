@@ -14,7 +14,7 @@ export function LinksAvatar() {
     <Avatar
       className={cn(
         "size-[110px]",
-        link.general_styles_is_secondary_bgcolor && "absolute top-[155px]"
+        link.general_styles_is_secondary_bgcolor && "absolute top-[155px] -translate-x-1/2"
       )}
       style={{
         boxShadow: `rgb(0, 0, 0) ${profilePicShadow * 0.0063}px ${

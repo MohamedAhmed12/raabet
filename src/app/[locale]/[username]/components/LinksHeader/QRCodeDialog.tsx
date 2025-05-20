@@ -20,7 +20,7 @@ export default function QRCodeDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="cursor-pointer">
+        <div className="cursor-pointer mb-5 ">
           <LinksAvatar />
         </div>
       </DialogTrigger>
