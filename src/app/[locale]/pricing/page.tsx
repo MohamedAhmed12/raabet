@@ -4,7 +4,7 @@ import { PlansCard } from "./PlansCard";
 export default async function Pricing() {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col justify-center items-center mt-16">
+      <div className="flex flex-col justify-center items-center mt-16 font-noto-sans">
         <h1 className="text-7xl font-extrabold text-deep-blue-gray text-center mb-8 capitalize">
           <span className="relative">
             <span className="relative inline-block z-[1]">plans</span>
