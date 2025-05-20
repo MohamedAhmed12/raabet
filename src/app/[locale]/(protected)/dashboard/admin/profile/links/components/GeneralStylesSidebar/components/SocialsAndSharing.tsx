@@ -126,7 +126,7 @@ export default function SocialsAndSharing() {
             ) : (
               <Image
                 src={link.social_custom_logo || ""}
-                alt="Dark Souls 3"
+                alt="Custom logo"
                 width={60}
                 height={60}
               />
