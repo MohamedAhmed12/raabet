@@ -4,6 +4,7 @@ import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { cn } from "@/lib/cn";
 import { useState } from "react";
 import { LinksAvatar } from "./LinksAvatar";
+import QRCodeDialog from "./QRCodeDialog";
 
 export function LinksHeader() {
   const [collapseBio, setCollapseBio] = useState<boolean>(true);
@@ -15,7 +16,7 @@ export function LinksHeader() {
   return (
     <div className="flex flex-col items-center mb-[33px] text-current">
       <div className="flex flex-col w-full items-center justify-center">
-        <LinksAvatar />
+        <QRCodeDialog />
         <div
           className={cn(
             "mt-2 text-md capitalize",
@@ -24,7 +25,6 @@ export function LinksHeader() {
         >
           {link?.user?.fullname}
         </div>
-
         {/* bio */}
         <h2
           className={cn(
