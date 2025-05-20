@@ -8,10 +8,10 @@ import {useTranslations} from "next-intl";
 import {useMemo, useState} from "react";
 import {toast} from "sonner";
 import {createBlock as createBlockAction} from "../../../actions/createBlocks";
-// import {orderBlocks} from "../../../actions/orderBlocks";
+import {orderBlocks} from "../../../actions/orderBlocks";
 import {BlockType} from "../../../types/block";
-// import {BlockSortableItem} from "../../DashbaordSortableList/BlockSortableItem";
-// import DashbaordSortableList from "../../DashbaordSortableList/page";
+import {BlockSortableItem} from "../../DashbaordSortableList/BlockSortableItem";
+import DashbaordSortableList from "../../DashbaordSortableList/index";
 import {BlocksDialog} from "./components/BlocksDialog";
 import {CreateUpdateBlockForm} from "./components/CreateUpdateBlockForm";
 
@@ -41,14 +41,14 @@ export const Blocks = () => {
     if (!blocks) return null;
 
     return (
-      <p>f</p>
-      // <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
-      //   <ul className="list w-full">
-      //     {blocks?.map((block, index) => (
-      //       <BlockSortableItem key={index} block={block} />
-      //     ))}
-      //   </ul>
-      // </DashbaordSortableList>
+      // <p>f</p>
+      <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
+        <ul className="list w-full">
+          {blocks?.map((block, index) => (
+            <BlockSortableItem key={index} block={block} />
+          ))}
+        </ul>
+      </DashbaordSortableList>
     );
   };
 
@@ -56,28 +56,28 @@ export const Blocks = () => {
     setCreateNewBlockType(blockType);
   };
 
-  // const onDragEnd = async (newBlocksOrder: Block[]) => {
-  //   const oldBlocksOrder = [...blocks!];
+  const onDragEnd = async (newBlocksOrder: Block[]) => {
+    const oldBlocksOrder = [...blocks!];
 
-  //   setLink({
-  //     blocks: newBlocksOrder,
-  //   });
+    setLink({
+      blocks: newBlocksOrder,
+    });
 
-  //   try {
-  //     const data = newBlocksOrder.map(({id, order}) => ({
-  //       id,
-  //       order,
-  //     }));
+    try {
+      const data = newBlocksOrder.map(({id, order}) => ({
+        id,
+        order,
+      }));
 
-  //     await orderBlocks(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error("Something went wrong while sorting socials!");
-  //     setLink({
-  //       blocks: oldBlocksOrder,
-  //     });
-  //   }
-  // };
+      await orderBlocks(data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong while sorting socials!");
+      setLink({
+        blocks: oldBlocksOrder,
+      });
+    }
+  };
 
   const createBlock = async (block: Block) => {
     try {
