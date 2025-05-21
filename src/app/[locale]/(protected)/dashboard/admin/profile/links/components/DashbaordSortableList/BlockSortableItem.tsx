@@ -14,16 +14,19 @@ import { deleteBlock } from "../../actions/deleteBlocks";
 import { updateBlock as updateBlockAction } from "../../actions/updateBlock";
 import { CreateUpdateBlockForm } from "../LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm";
 
-export const BlockSortableItem = ({block}: {block: Block}) => {
+export const BlockSortableItem = ({ block }: { block: Block }) => {
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [isCopying, setIsCopying] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const replaceLink = useLinkStore((state) => state.replaceLink);
 
-  const {setNodeRef, attributes, transform, transition} = useSortable({
-    id: block?.id || "",
-  });
+  const { setNodeRef, attributes, listeners, transform, transition } =
+    useSortable({
+      id: block?.id || "",
+      disabled: isFocused,
+    });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -132,9 +135,15 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
       ref={setNodeRef}
       style={style}
       className="flex items-center bg-white rounded-lg border border-blue-300 shadow-md hover:shadow-lg font-noto-sans font-light h-[62px] overflow-hidden not-last:mb-3"
-      {...attributes}
     >
-      <div className="flex items-center justify-center px-1 min-h-max cursor-move bg-gray-100 h-full">
+      <div
+        {...attributes}
+        {...listeners}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        tabIndex={-1}
+        className="flex items-center justify-center px-1 min-h-max cursor-move bg-gray-100 h-full"
+      >
         <Icon name="grip-vertical" sizeClass="sm" />
       </div>
 
