@@ -106,6 +106,14 @@
       "submitText": "تحديث الاسم"
     }
   },
+  "Subscription": {
+    "paymentStatus": {
+      "failed": "فشل الدفع",
+      "succeeded": "تم الدفع بنجاح"
+    },
+    "tryAgainMsg": "يرجى المحاولة مرة أخرى لاحقًا.",
+    "restricted": "انتهت صلاحية اشتراكك. يرجى تجديده للوصول إلى هذا المحتوى."
+  },
   "Analytics": {
     "Metrics": {
       "title": "مقاييس الملف الشخصي",
