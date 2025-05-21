@@ -1,6 +1,6 @@
-import {useLinkStore} from "@/app/[locale]/store/use-link-store";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {cn} from "@/lib/cn";
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/cn";
 
 export function LinksAvatar() {
   const user = useLinkStore((state) => state.link.user);
@@ -14,14 +14,15 @@ export function LinksAvatar() {
     <Avatar
       className={cn(
         "size-[110px]",
-        link.general_styles_is_secondary_bgcolor && "absolute top-[155px] -translate-x-1/2"
+        link.general_styles_is_secondary_bgcolor &&
+          "absolute top-[155px] -translate-x-1/2"
       )}
       style={{
-        boxShadow: `rgb(0, 0, 0) ${profilePicShadow * 0.0063}px ${
-          profilePicShadow * 0.007
-        }px 0px 0px`,
-        borderWidth: `${profilePicBorder * 0.016}px`,
-        borderColor: link.card_styles_card_border_color,
+        boxShadow: `0px 0px ${profilePicShadow * 0.01}px ${
+          profilePicShadow * 0.005
+        }px rgba(0, 0, 0,0.3)`,
+        borderWidth: `${profilePicBorder * 0.008}px`,
+        borderColor: link.header_styles_profile_border_color,
       }}
     >
       <AvatarImage
