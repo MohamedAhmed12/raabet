@@ -41,18 +41,24 @@ export const BlockSortableItem = ({ block }: { block: Block }) => {
       className,
     }: {
       icon: iconNameType;
-      onClick: any;
+      onClick: (e: React.MouseEvent) => void;
       content: string;
       className?: string;
     }) => (
       <CustomTooltip
         trigger={
-          <Icon
-            name={icon}
-            sizeClass="sm"
-            className={cn("cursor-pointer hover:bg-gray-100", className)}
-            onClick={onClick}
-          />
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              onClick(e);
+            }}
+          >
+            <Icon
+              name={icon}
+              sizeClass="sm"
+              className={cn("cursor-pointer hover:bg-gray-100", className)}
+            />
+          </div>
         }
         content={content}
       />
@@ -160,7 +166,9 @@ export const BlockSortableItem = ({ block }: { block: Block }) => {
           <div className="flex space-x-1 text-gray-600">
             <MemoizedActionBtn
               icon={!isCopying ? "copy" : "loader-circle"}
-              onClick={() => handleCopyBlock()}
+              onClick={() => {
+                handleCopyBlock();
+              }}
               content={"Copy Block"}
               className={!isCopying ? "" : "animate-spin"}
             />
