@@ -11,7 +11,7 @@ export const DashboardSwitch = ({
 }: Readonly<{
   label?: string;
   checked: boolean | undefined;
-  tooltipContent?: string;
+  tooltipContent?: string |React.ReactNode;
   onCheckedChange: (checked: boolean) => void;
 }>) => {
   const locale = useLocale();

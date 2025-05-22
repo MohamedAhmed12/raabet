@@ -1,13 +1,14 @@
-import {DashboardCard} from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
-import {Input} from "@/components/ui/input";
-import {cn} from "@/lib/utils";
-import {Block} from "@prisma/client";
-import {useTranslations} from "next-intl";
-import {CardDesignToggleGroup} from "../../../../../../CardDesignToggleGroup";
-import {buttonBlockLayouts} from "../../constants";
-import {BtnBlockStyling} from "./BtnBlockStyling";
-import {ButtonTypeDropdown} from "./ButtonTypeDropdown";
-import {TextBlockStyling} from "./TextBlockStyling";
+import { DashboardCard } from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { Block } from "@prisma/client";
+import { useTranslations } from "next-intl";
+import { CardDesignToggleGroup } from "../../../../../../CardDesignToggleGroup";
+import { buttonBlockLayouts } from "../../constants";
+import { BtnBlockStyling } from "./BtnBlockStyling";
+import { ButtonTypeDropdown } from "./ButtonTypeDropdown";
+import { TextBlockStyling } from "./TextBlockStyling";
+import Image from "next/image";
 
 export const BtnBlock = ({
   block,
@@ -41,17 +42,24 @@ export const BtnBlock = ({
           {block.bg_image && (
             <label
               htmlFor="sad"
-              className="file-upload-label text-sm mb-3 flex"
+              className="file-upload-label text-sm mb-3  flex"
             >
               {t("LinksPage.generalStyles.blockForm.uploadedFile")}{" "}
               {block.bg_image}
             </label>
           )}
-
           <Input
             id="sad"
             type="file"
-            className="mb-[14px]"
+            className="h-14 mb-[14px] py-3"
+            icon={
+              <Image
+                src={block.url}
+                width={60}
+                height={60}
+                alt="preview"
+              />
+            }
             onChange={() => onUpdateBlockProperty("bg_image", "aaaaaaaaaaa")}
           />
         </DashboardCard>
