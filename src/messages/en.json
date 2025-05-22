@@ -10,13 +10,15 @@
   },
   "ActivationBanner": {
     "firstHalf": "To activate your profile, you need to",
-    "secondHalf": "in a plan.",
+    "secondHalf": "in a plan",
     "confirmed": "Confirmed",
-    "needConfirmation": "Pending confirmation"
+    "needConfirmation": "Pending confirmation",
+    "pending": "Your subscription is pending",
+    "paymentIssuesFirstHalf": "Your subscription has issues. Please update your"
   },
   "Shared": {
     "email": "Email",
-    "subscribe": "Subscribe",
+    "subscribe": "subscribe",
     "username": "Username",
     "confirmed": "Confirmed",
     "needConfirmation": "Pending confirmation",
@@ -26,7 +28,9 @@
     "title": "Title",
     "text": "Text",
     "description": "Description",
-    "styling": "Styling"
+    "styling": "Styling",
+    "method": "method",
+    "payment": "payment"
   },
   "LinksPage": {
     "title": "General Styles",
