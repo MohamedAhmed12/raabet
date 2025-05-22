@@ -17,7 +17,7 @@ export default function UserName() {
   const { username }: { username: string } = useParams();
   const { setLink, link } = useLinkStore((state) => state);
   const size = link?.social_custom_logo_size ?? 0; // Default to 0 if undefined
-  const width =  25 + (190 - 25) * size;
+  const width = 25 + (190 - 25) * size;
   const height = 16 + (118 - 16) * size;
   // useFetchLink is setting link data from DB in linkStore internally
   const { isLoading, error } = useFetchLink({ username });
@@ -96,12 +96,14 @@ export default function UserName() {
               {!link.social_enable_hide_raabet_branding ? (
                 <LinksFooter />
               ) : (
-                <Image
-                  src={link.social_custom_logo || ""}
-                  alt="Custom logo"
-                  width={width}
-                  height={height}
-                />
+                link.social_custom_logo && (
+                  <Image
+                    src={link.social_custom_logo}
+                    alt="Custom logo"
+                    width={width}
+                    height={height}
+                  />
+                )
               )}
             </div>
           </div>
