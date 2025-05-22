@@ -6,6 +6,9 @@ import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionS
 import { cn } from "@/lib/cn";
 import NoSubsContent from "../components/NoSubsContent";
 import SubscriptionBanner from "../components/SubscriptionBanner";
+import { SubscriptionStatus } from "@prisma/client";
+import { problemStatuses } from "../subscription/types/subscripiton";
+import Loading from "@/app/loading";
 
 export const DashboardContainer = ({
   children,
@@ -14,30 +17,36 @@ export const DashboardContainer = ({
 }) => {
   const pathname = usePathname();
   const session = useSession();
-  const { status } = useSubscriptionStatus({
+  const { status, isLoading } = useSubscriptionStatus({
     email: session?.data?.user?.email || "",
   });
 
   return (
     <div className="flex flex-col w-full">
-      <SubscriptionBanner status={status} />
-
-      {/* Show subscription banner and no subscription content if user is not subscribed */}
-      {status !== "active" &&
-      ![
-        "/dashboard/admin/subscription",
-        "/dashboard/admin/subscription/callback",
-      ].includes(pathname) ? (
-        <NoSubsContent status={status}>{children}</NoSubsContent>
+      {isLoading || !status ? (
+        <Loading />
       ) : (
-        <div
-          className={cn(
-            "flex flex-col items-center font-noto-sans pt-[44px] w-full md:w-[calc(100%+(-66px))] m-0 md:mx-auto",
-            pathname === "/dashboard/admin/profile/links" && "max-h-screen"
+        <>
+          <SubscriptionBanner status={status} />
+
+          {/* Show subscription banner and no subscription content if user is not subscribed */}
+          {problemStatuses.includes(status as SubscriptionStatus) &&
+          ![
+            "/dashboard/admin/subscription",
+            "/dashboard/admin/subscription/callback",
+          ].includes(pathname) ? (
+            <NoSubsContent />
+          ) : (
+            <div
+              className={cn(
+                "flex flex-col items-center font-noto-sans pt-[44px] w-full md:w-[calc(100%+(-66px))] m-0 md:mx-auto",
+                pathname === "/dashboard/admin/profile/links" && "max-h-screen"
+              )}
+            >
+              {children}
+            </div>
           )}
-        >
-          {children}
-        </div>
+        </>
       )}
     </div>
   );

@@ -20,6 +20,7 @@ const SubscriptionBanner: React.FC<SubscriptionBannerProps> = ({ status }) => {
       message = <>{t("ActivationBanner.pending")}</>;
       conditionalStyle = "bg-amber-200 text-yellow-800";
       break;
+    case "none":
     case "trialing":
       message = (
         <>

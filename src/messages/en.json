@@ -116,7 +116,7 @@
       "succeeded": "Payment Succeeded"
     },
     "tryAgainMsg": "Please try again later.",
-    "restricted": "Your subscription has expired. Please renew it to access this content."
+    "restricted": "You need an active subscription to access this content."
   },
   "Analytics": {
     "Metrics": {

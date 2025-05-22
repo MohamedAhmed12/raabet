@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { fetchSubscription } from "../actions/fetchSubscription";
 import { SubscriptionStatus } from "@prisma/client";
 
-
 export function useSubscriptionStatus({
   email,
   pollingInterval = 60000,
@@ -13,7 +12,8 @@ export function useSubscriptionStatus({
   email: string;
   pollingInterval?: number;
 }) {
-  const [status, setStatus] = useState<SubscriptionStatus>(SubscriptionStatus.none);
+  const [status, setStatus] = useState<SubscriptionStatus | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -23,12 +23,14 @@ export function useSubscriptionStatus({
       try {
         const subscription = await fetchSubscription(email);
         if (isMounted) {
-          setStatus(subscription?.status ?? SubscriptionStatus.none);
+          setStatus(subscription?.status || null);
+          setIsLoading(false);
         }
       } catch (error) {
         console.error("Error fetching subscription status:", error);
         if (isMounted) {
-          setStatus(SubscriptionStatus.none);
+          setStatus(null);
+          setIsLoading(false);
         }
       }
     };
@@ -45,5 +47,5 @@ export function useSubscriptionStatus({
     };
   }, [email, pollingInterval]);
 
-  return { status };
+  return { status, isLoading };
 }
