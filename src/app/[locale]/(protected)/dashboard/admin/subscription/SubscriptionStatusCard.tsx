@@ -9,17 +9,10 @@ import {
 } from "@/components/ui/card";
 import {
   CheckCircle2,
-  CircleCheck,
   AlertCircle,
   Clock,
-  Clock12,
   XCircle,
   AlertTriangle,
-  Info,
-  Clock10,
-  Calendar,
-  CalendarArrowDown,
-  CalendarCheck,
   CalendarDays,
 } from "lucide-react";
 
@@ -35,13 +28,15 @@ const statusConfigs: Record<SubscriptionStatus, StatusConfig> = {
     icon: CheckCircle2,
     color: "text-green-600",
     title: "Active Subscription",
-    description: "Your subscription is active. You can continue using all features.",
+    description:
+      "Your subscription is active. You can continue using all features.",
   },
   pending: {
     icon: Clock,
     color: "text-amber-600",
     title: "Subscription Pending",
-    description: "Your subscription is pending. Please complete the payment process.",
+    description:
+      "Your subscription is pending. Please complete the payment process.",
   },
   trialing: {
     icon: CalendarDays,
@@ -76,15 +71,11 @@ export default function SubscriptionStatusCard({
 }): React.ReactElement {
   const config = statusConfigs[status];
   return (
-    <div className="pt-[3rem]">
+    <div className="flex justify-center items-center pt-[3rem]">
       <Card className="flex justify-center items-center w-[300px]">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">
-            {config.title}
-          </CardTitle>
-          <CardDescription>
-            {config.description}
-          </CardDescription>
+          <CardTitle className="text-2xl">{config.title}</CardTitle>
+          <CardDescription>{config.description}</CardDescription>
         </CardHeader>
         <CardContent>
           <config.icon className={config.color} size={40} />

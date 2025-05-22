@@ -40,7 +40,9 @@ export const DashboardContainer = ({
             <div
               className={cn(
                 "flex flex-col items-center font-noto-sans pt-[44px] w-full md:w-[calc(100%+(-66px))] m-0 md:mx-auto",
-                pathname === "/dashboard/admin/profile/links" && "max-h-screen"
+                pathname === "/dashboard/admin/profile/links"
+                  ? "max-h-screen"
+                  : "flex-1 p-0"
               )}
             >
               {children}
