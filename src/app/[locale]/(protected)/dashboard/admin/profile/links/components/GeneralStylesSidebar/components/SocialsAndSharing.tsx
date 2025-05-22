@@ -5,8 +5,6 @@ import { Icon } from "@/components/Icon";
 import { Input } from "@/components/ui/input";
 import { GCSFileLoader } from "../../LinkBuilderSidebar/GCSFileLoader";
 import Image from "next/image";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import Link from "next/link";
 
 export const content = {
   "Enable Add Contact": (
@@ -39,17 +37,17 @@ export const content = {
     "With this enabled, you can click on your profile picture to bring up a QR code which links to your profile. Handy for sharing your profile with people you meet in person!",
   "hide raabet branding":
     "Hide the 'Made with raabet' logo at the bottom of your profile. You can optionally upload your own logo.",
-  "enable verified badge": (
-    <span>
-      Enabling this will display a{" "}
-      <Icon name="badgeCheck" className="inline !w-4 !h-4 text-blue-500" /> icon
-      to the top left of next to your username. In order to activate your
-      verified badge, you&apos;ll need to request verification in the{" "}
-      <Link href="/dashboard/admin/profile/settings" className="underline">
-        Settings tab
-      </Link> .
-    </span>
-  ),
+  // "enable verified badge": (
+  //   <span>
+  //     Enabling this will display a{" "}
+  //     <Icon name="badgeCheck" className="inline !w-4 !h-4 text-blue-500" /> icon
+  //     to the top left of next to your username. In order to activate your
+  //     verified badge, you&apos;ll need to request verification in the{" "}
+  //     <Link href="/dashboard/admin/profile/settings" className="underline">
+  //       Settings tab
+  //     </Link> .
+  //   </span>
+  // ),
 };
 
 export default function SocialsAndSharing() {
@@ -154,7 +152,7 @@ export default function SocialsAndSharing() {
         </div>
       )}
 
-      {link.social_enable_enable_verified_badge && (
+      {/* {link.social_enable_enable_verified_badge && (
         <Alert className="bg-amber-50  border-amber-200 mb-1">
           <AlertDescription className="text-zinc-700 text-xs">
             In order to activate your verified badge, you&apos;ll need to request
@@ -168,9 +166,9 @@ export default function SocialsAndSharing() {
             .
           </AlertDescription>
         </Alert>
-      )}
+      )} */}
 
-      <DashboardSwitch
+      {/* <DashboardSwitch
         label="Enable Verified Badge"
         checked={link.social_enable_enable_verified_badge}
         tooltipContent={content["enable verified badge"]}
@@ -180,7 +178,7 @@ export default function SocialsAndSharing() {
             checked
           )
         }
-      />
+      /> */}
     </div>
   );
 }
