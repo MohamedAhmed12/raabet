@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { CircleCheck } from "lucide-react";
 
-export default function StatusCard({
+export default function CallbackStatusCard({
   title,
   tryAgainMsg,
 }: {

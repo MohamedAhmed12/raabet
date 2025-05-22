@@ -1,6 +1,6 @@
 "use client";
 
-import StatusCard from "./StatusCard";
+import CallbackStatusCard from "./CallbackStatusCard";
 
 export default function ClientStatusCard({
   title,
@@ -9,5 +9,5 @@ export default function ClientStatusCard({
   title: string;
   tryAgainMsg?: string;
 }) {
-  return <StatusCard title={title} tryAgainMsg={tryAgainMsg} />;
+  return <CallbackStatusCard title={title} tryAgainMsg={tryAgainMsg} />;
 }

@@ -58,7 +58,7 @@ const SubscriptionBanner: React.FC<SubscriptionBannerProps> = ({ status }) => {
 
   return (
     <div
-      className={`fixed z-2 flex items-center justify-center w-full p-4 text-center h-[44px] font-semibold text-md border-b-1 font-noto-sans text-deep-blue-gray ${conditionalStyle}`}
+      className={`sticky top-0 z-2 flex items-center justify-center w-full p-4 text-center h-[44px] font-semibold text-md font-noto-sans text-deep-blue-gray ${conditionalStyle}`}
     >
       {message}.
     </div>
