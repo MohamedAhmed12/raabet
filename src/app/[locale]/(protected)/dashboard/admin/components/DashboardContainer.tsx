@@ -9,6 +9,8 @@ import SubscriptionBanner from "../components/SubscriptionBanner";
 import { SubscriptionStatus } from "@prisma/client";
 import { problemStatuses } from "../subscription/types/subscripiton";
 import Loading from "@/app/loading";
+import useFetchLink from "@/app/[locale]/[username]/useFetchLink";
+import DashboardNotFound from "../not-found";
 
 export const DashboardContainer = ({
   children,
@@ -17,13 +19,19 @@ export const DashboardContainer = ({
 }) => {
   const pathname = usePathname();
   const session = useSession();
-  const { status, isLoading } = useSubscriptionStatus({
-    email: session?.data?.user?.email || "",
+
+  // @ts-expect-error: [to access user data in session it exists in id]
+  const userId = session?.data?.user?.id?.id as string;
+  const { isLoading: isLoadingLink, error } = useFetchLink({ userId });
+  const { status, isLoading: isLoadingSubs } = useSubscriptionStatus({
+    email: session?.data?.user?.email as string,
   });
+
+  if (error) return <DashboardNotFound />;
 
   return (
     <div className="flex flex-col w-full">
-      {isLoading || !status ? (
+      {isLoadingSubs || isLoadingLink || !status ? (
         <Loading />
       ) : (
         <>

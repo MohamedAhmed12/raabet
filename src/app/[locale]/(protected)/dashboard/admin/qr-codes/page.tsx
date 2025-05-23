@@ -1,7 +1,6 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
-import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -9,18 +8,16 @@ import { MainTitle } from "../profile/settings/components/MainTitle";
 import { NewQRCodeDialog } from "./components/NewQRCodeDialog";
 import QRCodeCard from "./components/QRCodeCard";
 import { useQRCodeStore } from "./store/qrCodeStore";
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 
 export default function QRCodes() {
   const t = useTranslations("QR");
-  const session = useSession();
-
-  // @ts-expect-error: [to access user data in session it exists in id]
-  const userId = session?.data?.user?.id?.id as string;
+  const linkId = useLinkStore((state) => state.link.id);
   const { qrCodes, isLoading, error, fetchQRCodeList } = useQRCodeStore();
 
   useEffect(() => {
-    fetchQRCodeList(userId);
-  }, [userId, fetchQRCodeList]);
+    fetchQRCodeList(linkId);
+  }, [linkId, fetchQRCodeList]);
 
   return (
     <div className="flex flex-col gap-6 justify-between items-center w-full max-w-[1200px]">
@@ -44,7 +41,7 @@ export default function QRCodes() {
               key={qr.id}
               qr={qr}
               onDelete={() => {
-                fetchQRCodeList(userId);
+                fetchQRCodeList(linkId);
                 toast.success("QR code deleted successfully");
               }}
             />

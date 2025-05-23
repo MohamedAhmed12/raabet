@@ -121,7 +121,6 @@ async function main() {
       {
         linkId: link.id,
         type: QRType.profile,
-        url: `${process.env.NEXT_PUBLIC_NETWORK_BASE_URL}/${user.fullname}`,
       },
       {
         linkId: link.id,

@@ -144,7 +144,7 @@ enum BlockType {
 model QRCode {
   id          String   @id @default(uuid())
   type        QRType   // enum for URL or TEXT
-  url         String  // Only for URL type
+  url         String?  // Only for URL type
   views       Int      @default(0)
   link        Link     @relation(fields: [linkId], references: [id])
   linkId      String

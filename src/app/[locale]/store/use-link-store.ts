@@ -51,6 +51,7 @@ export interface Link {
   social_enable_share_btn?: boolean;
   social_enable_search?: boolean;
   social_enable_qr_code?: boolean;
+  profile_views?: number;
   user?: User;
   socials?: LinkSocial[];
   blocks?: Block[];
@@ -64,7 +65,7 @@ interface LinkState {
 
 const createLinkSlice: StateCreator<LinkState> = (set) => ({
   link: {
-    id: "",
+    id: ""
   },
 
   setLink: (data: Partial<Link>) => {

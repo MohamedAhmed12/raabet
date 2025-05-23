@@ -19,11 +19,11 @@ const createQRCodeStore: StateCreator<QRCodeStore> = (set) => ({
   qrCodes: [],
   isLoading: false,
   error: null,
-  fetchQRCodeList: async (userId: string) => {
+  fetchQRCodeList: async (LinkId: string) => {
     set({ isLoading: true, error: null });
 
     try {
-      const qrCodes = await getQRCodeList({ userId });
+      const qrCodes = await getQRCodeList({ LinkId });
       set({ qrCodes });
     } catch (error) {
       set({

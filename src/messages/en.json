@@ -32,7 +32,8 @@
     "method": "method",
     "payment": "payment",
     "type": "Type",
-    "views": "Views"
+    "views": "Views",
+    "url": "URL"
   },
   "LinksPage": {
     "title": "General Styles",

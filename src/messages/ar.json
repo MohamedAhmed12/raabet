@@ -33,7 +33,8 @@
     "styling": "styling",
     "method": "طريقة",
     "type": "النوع",
-    "views": "المشاهدات"
+    "views": "المشاهدات",
+    "url": "الرابط"
   },
   "LinksPage": {
     "title": "الأنماط العامة",

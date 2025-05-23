@@ -125,7 +125,7 @@ export function BlockInteractions() {
             className="cursor-pointer !p-0"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            {t("Analytics.Metrics.blockInteractions.views")}
+            {t("Shared.views")}
             <ArrowUpDown />
           </Button>
         );
