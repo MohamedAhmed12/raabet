@@ -99,7 +99,6 @@ import btnBlockStyle2 from "../../public/svg/BtnBlockLayout2";
 import btnBlockStyle3 from "../../public/svg/BtnBlockLayout3";
 import ar from "../../public/svg/SaFlag";
 import en from "../../public/svg/UkFlag";
-import LinkPayment from "../../public/svg/LinkPayment";
 
 export const socialIcons = {
   facebook: SiFacebook,
@@ -182,7 +181,6 @@ const icons = {
   "btn-block-style-3": btnBlockStyle3,
   ar,
   en,
-  LinkPayment,
   "grip-vertical": GripVertical,
   pencil: Pencil,
   delete: Trash2,

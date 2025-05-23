@@ -1,4 +1,4 @@
-import { BlockType, PrismaClient } from "@prisma/client";
+import { BlockType, PrismaClient, QRCodeType } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -100,18 +100,36 @@ async function main() {
         label:"",
         order: 4,
       },
-      {
-        linkId: link.id,
-        icon: "instagram",
-        url: "https://instagram.com/username",
-        label:"",
-        order: 5,
-      },
     ],
-    skipDuplicates: true, // Skip 'Bobo'
   });
 
   console.log("Link socials created:");
+
+  // Create sample QR codes for the link
+  await prisma.qrCode.createMany({
+    data: [
+      {
+        linkId: link.id,
+        type: QRCodeType.profile,
+        url: `${process.env.NEXT_PUBLIC_NETWORK_BASE_URL}/${user.fullname}`,
+        views: 0,
+      },
+      {
+        linkId: link.id,
+        type: QRCodeType.url,
+        url: "https://instagram.com/username",
+        views: 0,
+      },
+      {
+        linkId: link.id,
+        type: QRCodeType.url,
+        url: "https://twitter.com/username",
+        views: 0,
+      },
+    ],
+  });
+
+  console.log("QR codes created successfully");
 
   // Create Social records for the created Link
   await prisma.block.createMany({

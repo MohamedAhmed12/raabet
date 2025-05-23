@@ -92,6 +92,7 @@ model Link {
   // Relationship 
   blocks                           Block[]  // One-to-many relationship with Block
   socials                          Social[]  // One-to-many relationship with social
+  qrcodes                          QRCode[]  // One-to-many relationship with QRCode
   userName     String
   userId       String
   user         User   @relation(fields: [userId], references: [id]) // Reference `id` in User
@@ -138,6 +139,24 @@ enum BlockType {
   separator
   audio
   video
+}
+
+model QRCode {
+  id          String   @id @default(uuid())
+  type        QRType   // enum for URL or TEXT
+  url         String?  // Only for URL type
+  content     String   // For TEXT type
+  views       Int      @default(0)
+  qrImage     String   // Base64 encoded QR code image
+  link        Link     @relation(fields: [linkId], references: [id])
+  linkId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum QRType {
+  URL
+  TEXT
 }
 
 model Block {

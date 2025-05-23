@@ -110,6 +110,18 @@
       "submitText": "Update Name"
     }
   },
+  "QR": {
+    "title": "QR Codes",
+    "subTitle": "Create unlimited dynamic QR codes and track their usage.",
+    "newQR": "Create QR Code",
+    "profileQRTitle": "Your profile QR Code",
+    "type": "Type",
+    "views": "Views",
+    "delete": "Delete",
+    "download": "Download",
+    "successDelete": "QR code deleted successfully",
+    "errorDelete": "Failed to delete QR code"
+  },
   "Subscription": {
     "paymentStatus": {
       "failed": "Payment Failed",
@@ -158,6 +170,7 @@
       "settings": "Settings",
       "analytics": "Analytics",
       "subscribe": "Subscribe",
+      "qr": "QR Codes",
       "logout": "Logout"
     },
     "activateProfile": "Activate Profile",
