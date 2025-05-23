@@ -48,7 +48,7 @@ enum SubscriptionStatus {
 model Subscription {
   id                     String          @id @default(uuid())
   userId                 String          @unique
-  status                 SubscriptionStatus @default(pending)
+  status                 SubscriptionStatus @default(trialing)
   paymentMethod          PaymentMethod
   paymentScreenshot     String?         // For manual payments
   amount                Float
@@ -144,10 +144,8 @@ enum BlockType {
 model QRCode {
   id          String   @id @default(uuid())
   type        QRType   // enum for URL or TEXT
-  url         String?  // Only for URL type
-  content     String   // For TEXT type
+  url         String  // Only for URL type
   views       Int      @default(0)
-  qrImage     String   // Base64 encoded QR code image
   link        Link     @relation(fields: [linkId], references: [id])
   linkId      String
   createdAt   DateTime @default(now())
@@ -155,8 +153,8 @@ model QRCode {
 }
 
 enum QRType {
-  URL
-  TEXT
+  url
+  profile
 }
 
 model Block {

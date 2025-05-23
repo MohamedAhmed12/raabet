@@ -10,7 +10,7 @@ interface SubscriptionBannerProps {
 
 const SubscriptionBanner: React.FC<SubscriptionBannerProps> = ({ status }) => {
   const t = useTranslations();
-  if (status === "active" || status === null) return null;
+  if (status === "active") return null;
 
   let message: React.ReactNode = null;
   let conditionalStyle = "";

@@ -1,4 +1,4 @@
-import { BlockType, PrismaClient, QRCodeType } from "@prisma/client";
+import { BlockType, PrismaClient, QRType, PaymentMethod } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
@@ -17,6 +17,16 @@ async function main() {
   });
 
   console.log("User created:", user.id);
+
+  const subscription = await prisma.subscription.create({
+    data: {
+      userId: user.id,
+      paymentMethod: PaymentMethod.stripe,
+      amount: 0,
+    },
+  });
+
+  console.log("subscription created:", subscription.id);
 
   // Create a Link associated with the created user
   const link = await prisma.link.create({
@@ -69,35 +79,35 @@ async function main() {
         linkId: link.id,
         icon: "instagram",
         url: "https://instagram.com/username",
-        label:"",
+        label: "",
         order: 0,
       },
       {
         linkId: link.id, // Make sure this matches the Link's ID
         icon: "facebook",
         url: "https://facebook.com/username",
-        label:"",
+        label: "",
         order: 1,
       },
       {
         linkId: link.id,
         icon: "",
         url: "",
-        label:"",
+        label: "",
         order: 2,
       },
       {
         linkId: link.id,
         icon: "twitter",
         url: "https://twitter.com/username",
-        label:"",
+        label: "",
         order: 3,
       },
       {
         linkId: link.id,
         icon: "",
         url: "",
-        label:"",
+        label: "",
         order: 4,
       },
     ],
@@ -106,25 +116,22 @@ async function main() {
   console.log("Link socials created:");
 
   // Create sample QR codes for the link
-  await prisma.qrCode.createMany({
+  await prisma.qRCode.createMany({
     data: [
       {
         linkId: link.id,
-        type: QRCodeType.profile,
+        type: QRType.profile,
         url: `${process.env.NEXT_PUBLIC_NETWORK_BASE_URL}/${user.fullname}`,
-        views: 0,
       },
       {
         linkId: link.id,
-        type: QRCodeType.url,
+        type: QRType.url,
         url: "https://instagram.com/username",
-        views: 0,
       },
       {
         linkId: link.id,
-        type: QRCodeType.url,
+        type: QRType.url,
         url: "https://twitter.com/username",
-        views: 0,
       },
     ],
   });

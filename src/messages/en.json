@@ -30,7 +30,9 @@
     "description": "Description",
     "styling": "Styling",
     "method": "method",
-    "payment": "payment"
+    "payment": "payment",
+    "type": "Type",
+    "views": "Views"
   },
   "LinksPage": {
     "title": "General Styles",
@@ -115,8 +117,6 @@
     "subTitle": "Create unlimited dynamic QR codes and track their usage.",
     "newQR": "Create QR Code",
     "profileQRTitle": "Your profile QR Code",
-    "type": "Type",
-    "views": "Views",
     "delete": "Delete",
     "download": "Download",
     "successDelete": "QR code deleted successfully",
@@ -144,16 +144,13 @@
         "title": "Social Clicks",
         "clicks": "Clicks",
         "url": "URL",
-        "type": "Type",
         "icon": "Icon"
       },
       "blockInteractions": {
         "title": "Block Interactions",
         "showHidden": "Show Hidden",
         "clicks": "Clicks",
-        "type": "Type",
-        "name": "Name",
-        "views": "Views"
+        "name": "Name"
       }
     }
   },
