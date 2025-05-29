@@ -246,7 +246,7 @@
 
 import { useState } from 'react';
 import {Block} from "@prisma/client";
-import { generateEmbedInfo, EmbedInfo } from './MediaBlock/generateEmbedInfo';
+import { generateEmbedInfo } from './MediaBlock/generateEmbedInfo';
 
 export const AudioBlock = ({
   block,
@@ -255,7 +255,6 @@ export const AudioBlock = ({
   block: Block;
   onUpdateBlockProperty: (key: keyof Block, val: string) => void;
 }) => {
-  const [embedInfo, setEmbedInfo] = useState<EmbedInfo>(null);
   const [error, setError] = useState('');
 
   const handleUrlChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -267,13 +266,11 @@ export const AudioBlock = ({
       console.log("embed info", info);
       
       if (info) {
-        setEmbedInfo(info);
         onUpdateBlockProperty('title', info.title);
         // Keep the original URL in the block
         onUpdateBlockProperty('url', originalUrl);
         setError('');
       } else {
-        setEmbedInfo(null);
         // Still save the original URL even if no embed info found
         onUpdateBlockProperty('url', originalUrl);
         setError('❌ No embeddable media found for this URL.');
@@ -283,7 +280,6 @@ export const AudioBlock = ({
       // Still save the original URL even if there's an error
       onUpdateBlockProperty('url', originalUrl);
       setError('❌ Error processing media URL');
-      setEmbedInfo(null);
     }
   };
 

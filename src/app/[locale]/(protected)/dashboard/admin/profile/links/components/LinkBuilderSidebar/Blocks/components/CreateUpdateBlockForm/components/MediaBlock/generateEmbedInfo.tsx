@@ -112,9 +112,6 @@ export async function generateEmbedInfo(url: string): Promise<EmbedInfo | null> 
 
     // Handle other platforms using oEmbed
     let oembedUrl = "";
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
-
     if (hostname.includes("youtube.com") || hostname.includes("youtu.be")) {
       oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(sanitizedUrl)}&format=json`;
     } else if (hostname.includes("vimeo.com")) {
