@@ -146,7 +146,7 @@ async function main() {
     data: [
       {
         linkId: link.id, // Make sure this matches the Link's ID
-        url: "https://test.com",
+        url: "https://picsum.photos/200/300",
         type: BlockType.text,
         title: "title1",
         text: "",
@@ -157,7 +157,7 @@ async function main() {
       },
       {
         linkId: link.id, // Make sure this matches the Link's ID
-        url: "https://test.com",
+        url: "https://picsum.photos/200/300",
         type: BlockType.url,
         title: "title2",
         text: "text2",
@@ -168,7 +168,7 @@ async function main() {
       },
       {
         linkId: link.id,
-        url: "https://test.com",
+        url: "https://picsum.photos/200/300",
         type: BlockType.email,
         title: "title3",
         text: "text3",
