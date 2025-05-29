@@ -6,7 +6,9 @@ import { Block } from "@prisma/client";
 export async function createBlock(data: Block) {
   if (!data) throw new Error("No data provided");
 
-  const { linkId, ...payload } = data;
+  // we have to extract id from the payload data
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { linkId, id, ...payload } = data;
 
   try {
     return await prisma.block.create({

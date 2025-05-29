@@ -14,16 +14,17 @@ import { deleteBlock } from "../../actions/deleteBlocks";
 import { updateBlock as updateBlockAction } from "../../actions/updateBlock";
 import { CreateUpdateBlockForm } from "../LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm";
 
-export const BlockSortableItem = ({block}: {block: Block}) => {
+export const BlockSortableItem = ({ block }: { block: Block }) => {
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [isCopying, setIsCopying] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const replaceLink = useLinkStore((state) => state.replaceLink);
 
-  const {setNodeRef, attributes, transform, transition} = useSortable({
-    id: block?.id || "",
-  });
+  const { setNodeRef, attributes, listeners, transform, transition } =
+    useSortable({
+      id: block?.id || "",
+    });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -38,18 +39,24 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
       className,
     }: {
       icon: iconNameType;
-      onClick: any;
+      onClick: (e: React.MouseEvent) => void;
       content: string;
       className?: string;
     }) => (
       <CustomTooltip
         trigger={
-          <Icon
-            name={icon}
-            sizeClass="sm"
-            className={cn("cursor-pointer hover:bg-gray-100", className)}
-            onClick={onClick}
-          />
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              onClick(e);
+            }}
+          >
+            <Icon
+              name={icon}
+              sizeClass="sm"
+              className={cn("cursor-pointer hover:bg-gray-100", className)}
+            />
+          </div>
         }
         content={content}
       />
@@ -132,9 +139,13 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
       ref={setNodeRef}
       style={style}
       className="flex items-center bg-white rounded-lg border border-blue-300 shadow-md hover:shadow-lg font-noto-sans font-light h-[62px] overflow-hidden not-last:mb-3"
-      {...attributes}
     >
-      <div className="flex items-center justify-center px-1 min-h-max cursor-move bg-gray-100 h-full">
+      <div
+        {...attributes}
+        {...listeners}
+        tabIndex={-1}
+        className="flex items-center justify-center px-1 min-h-max cursor-move bg-gray-100 h-full"
+      >
         <Icon name="grip-vertical" sizeClass="sm" />
       </div>
 
@@ -151,7 +162,9 @@ export const BlockSortableItem = ({block}: {block: Block}) => {
           <div className="flex space-x-1 text-gray-600">
             <MemoizedActionBtn
               icon={!isCopying ? "copy" : "loader-circle"}
-              onClick={() => handleCopyBlock()}
+              onClick={() => {
+                handleCopyBlock();
+              }}
               content={"Copy Block"}
               className={!isCopying ? "" : "animate-spin"}
             />
