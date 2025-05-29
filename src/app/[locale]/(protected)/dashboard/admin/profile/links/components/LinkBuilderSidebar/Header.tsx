@@ -1,6 +1,6 @@
 "use client";
 
-import { updateUserAvatar } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUserAvatar";
+import { updateUser } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUser";
 import { updateSingleLink } from "@/app/[locale]/actions/updateSingleLink";
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Input } from "@/components/ui/input";
@@ -55,7 +55,7 @@ export const Header = () => {
 
     try {
       const publicUrl = await GCSFileLoader(link.id, file);
-      await updateUserAvatar(link?.user?.id as string, "avatar", publicUrl);
+      await updateUser({ id: link?.user?.id }, { avatar: publicUrl });
       replaceLink((prev) => {
         const preUser = prev?.user;
         if (!preUser) return prev;

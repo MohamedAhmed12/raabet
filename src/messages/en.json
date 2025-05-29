@@ -10,13 +10,15 @@
   },
   "ActivationBanner": {
     "firstHalf": "To activate your profile, you need to",
-    "secondHalf": "in a plan.",
+    "secondHalf": "in a plan",
     "confirmed": "Confirmed",
-    "needConfirmation": "Pending confirmation"
+    "needConfirmation": "Pending confirmation",
+    "pending": "Your subscription is pending",
+    "paymentIssuesFirstHalf": "Your subscription has issues. Please update your"
   },
   "Shared": {
     "email": "Email",
-    "subscribe": "Subscribe",
+    "subscribe": "subscribe",
     "username": "Username",
     "confirmed": "Confirmed",
     "needConfirmation": "Pending confirmation",
@@ -26,7 +28,12 @@
     "title": "Title",
     "text": "Text",
     "description": "Description",
-    "styling": "Styling"
+    "styling": "Styling",
+    "method": "method",
+    "payment": "payment",
+    "type": "Type",
+    "views": "Views",
+    "url": "URL"
   },
   "LinksPage": {
     "title": "General Styles",
@@ -106,6 +113,24 @@
       "submitText": "Update Name"
     }
   },
+  "QR": {
+    "title": "QR Codes",
+    "subTitle": "Create unlimited dynamic QR codes and track their usage.",
+    "newQR": "Create QR Code",
+    "profileQRTitle": "Your profile QR Code",
+    "delete": "Delete",
+    "download": "Download",
+    "successDelete": "QR code deleted successfully",
+    "errorDelete": "Failed to delete QR code"
+  },
+  "Subscription": {
+    "paymentStatus": {
+      "failed": "Payment Failed",
+      "succeeded": "Payment Succeeded"
+    },
+    "tryAgainMsg": "Please try again later.",
+    "restricted": "You need an active subscription to access this content."
+  },
   "Analytics": {
     "Metrics": {
       "title": "Profile Metrics",
@@ -120,16 +145,13 @@
         "title": "Social Clicks",
         "clicks": "Clicks",
         "url": "URL",
-        "type": "Type",
         "icon": "Icon"
       },
       "blockInteractions": {
         "title": "Block Interactions",
         "showHidden": "Show Hidden",
         "clicks": "Clicks",
-        "type": "Type",
-        "name": "Name",
-        "views": "Views"
+        "name": "Name"
       }
     }
   },
@@ -146,6 +168,7 @@
       "settings": "Settings",
       "analytics": "Analytics",
       "subscribe": "Subscribe",
+      "qr": "QR Codes",
       "logout": "Logout"
     },
     "activateProfile": "Activate Profile",

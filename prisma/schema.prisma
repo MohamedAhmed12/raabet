@@ -16,18 +16,49 @@ datasource db {
 }
 
 model User {  
-  id              String  @id @default(uuid())
-  fullname        String  @unique
-  email           String  @unique
-  password        String
-  avatar          String @default("/images/user-placeholder.png")
-  createdAt DateTime @default(now()) @db.Timestamp(3) // Database-specific type
-  links           Link[]
-  is_confirmed    Boolean  @default(false)
-  activationCodes ActivationCode[] // One-to-many relationship
-  passwordResetToken PasswordResetToken?
-  resetToken        String?  @unique
-  resetTokenExpires DateTime?
+  id                  String  @id @default(uuid())
+  fullname            String  @unique
+  email               String  @unique
+  password            String
+  avatar              String @default("/images/user-placeholder.png")
+  links               Link[]
+  is_confirmed        Boolean  @default(false)
+  activationCodes     ActivationCode[] // One-to-many relationship
+  passwordResetToken  PasswordResetToken?
+  resetToken          String?  @unique
+  resetTokenExpires   DateTime?
+  stripeCustomerId    String?  @unique
+  subscriptions  Subscription[]  // One-to-many relationship
+}
+
+enum PaymentMethod {
+  stripe
+  manual
+}
+
+enum SubscriptionStatus {
+  active
+  pending
+  failed
+  canceled
+  trialing
+  none
+}
+
+model Subscription {
+  id                     String          @id @default(uuid())
+  userId                 String          @unique
+  status                 SubscriptionStatus @default(trialing)
+  paymentMethod          PaymentMethod
+  paymentScreenshot     String?         // For manual payments
+  amount                Float
+  expiresAt             DateTime?
+  stripeSessionId       String?         @unique
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+  user                  User            @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model ActivationCode {
@@ -61,6 +92,7 @@ model Link {
   // Relationship 
   blocks                           Block[]  // One-to-many relationship with Block
   socials                          Social[]  // One-to-many relationship with social
+  qrcodes                          QRCode[]  // One-to-many relationship with QRCode
   userName     String
   userId       String
   user         User   @relation(fields: [userId], references: [id]) // Reference `id` in User
@@ -107,6 +139,22 @@ enum BlockType {
   separator
   audio
   video
+}
+
+model QRCode {
+  id          String   @id @default(uuid())
+  type        QRType   // enum for URL or TEXT
+  url         String?  // Only for URL type
+  views       Int      @default(0)
+  link        Link     @relation(fields: [linkId], references: [id])
+  linkId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum QRType {
+  url
+  profile
 }
 
 model Block {
