@@ -1,19 +1,19 @@
 "use client";
 
-import {DashboardCard} from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
-import {useLinkStore} from "@/app/[locale]/store/use-link-store";
-import {Icon} from "@/components/Icon";
-import {Block} from "@prisma/client";
-import {useTranslations} from "next-intl";
-import {useMemo, useState} from "react";
-import {toast} from "sonner";
-import {createBlock as createBlockAction} from "../../../actions/createBlocks";
-import {orderBlocks} from "../../../actions/orderBlocks";
-import {BlockType} from "../../../types/block";
-import {BlockSortableItem} from "../../DashbaordSortableList/BlockSortableItem";
+import { DashboardCard } from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Icon } from "@/components/Icon";
+import { Block } from "@prisma/client";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
+import { toast } from "sonner";
+import { createBlock as createBlockAction } from "../../../actions/createBlocks";
+import { orderBlocks } from "../../../actions/orderBlocks";
+import { BlockType } from "../../../types/block";
+import { BlockSortableItem } from "../../DashbaordSortableList/BlockSortableItem";
 import DashbaordSortableList from "../../DashbaordSortableList/index";
-import {BlocksDialog} from "./components/BlocksDialog";
-import {CreateUpdateBlockForm} from "./components/CreateUpdateBlockForm";
+import { BlocksDialog } from "./components/BlocksDialog";
+import { CreateUpdateBlockForm } from "./components/CreateUpdateBlockForm";
 
 export const Blocks = () => {
   const [createNewBlockType, setCreateNewBlockType] =
@@ -29,7 +29,6 @@ export const Blocks = () => {
         Drag the
         <Icon name="grip-vertical" className="inline-flex" sizeClass="sm" />
         to reorder blocks. Click a block to edit it. Hover the
-        {/* <Icon name="grip-vertical" className="inline-flex" sizeClass="sm" /> */}
         <Icon name="settings" className="inline-flex mx-[2px]" sizeClass="sm" />
         to view all options for a block.
       </div>
@@ -41,7 +40,6 @@ export const Blocks = () => {
     if (!blocks) return null;
 
     return (
-      // <p>f</p>
       <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
         <ul className="list w-full">
           {blocks?.map((block, index) => (
@@ -64,7 +62,7 @@ export const Blocks = () => {
     });
 
     try {
-      const data = newBlocksOrder.map(({id, order}) => ({
+      const data = newBlocksOrder.map(({ id, order }) => ({
         id,
         order,
       }));

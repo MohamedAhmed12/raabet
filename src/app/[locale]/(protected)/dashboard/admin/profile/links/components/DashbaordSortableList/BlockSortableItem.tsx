@@ -18,14 +18,12 @@ export const BlockSortableItem = ({ block }: { block: Block }) => {
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [isCopying, setIsCopying] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
 
   const replaceLink = useLinkStore((state) => state.replaceLink);
 
   const { setNodeRef, attributes, listeners, transform, transition } =
     useSortable({
       id: block?.id || "",
-      disabled: isFocused,
     });
 
   const style = {
@@ -145,8 +143,6 @@ export const BlockSortableItem = ({ block }: { block: Block }) => {
       <div
         {...attributes}
         {...listeners}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
         tabIndex={-1}
         className="flex items-center justify-center px-1 min-h-max cursor-move bg-gray-100 h-full"
       >
