@@ -17,12 +17,12 @@ export const FeatureCard = ({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center text-center p-[3.5vw] h-[460px] w-1/2",
+        "flex flex-col items-center justify-center text-center p-[3.5vw] h-full flex-1 border md:border-l-[#1d1d28] border-t-[#1d1d28]",
         className
       )}
     >
-      <div className="relative !w-16 !h-16">
-        <Image src={src} fill alt={alt} className="mb-4" />
+      <div className="relative w-auto h-[115px]">
+        <Image src={src} height={115} width={105} alt={alt} className="mb-4" />
       </div>
       <p className="text-[24px] font-bold">{Title}</p>
       <p className="text-[16px]">{label}</p>

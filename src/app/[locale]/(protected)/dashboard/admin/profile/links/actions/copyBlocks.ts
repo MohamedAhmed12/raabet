@@ -4,7 +4,9 @@ import prisma from "@/lib/prisma";
 import { Block } from "@prisma/client";
 
 export async function copyBlock(data: Block) {
-  const {linkId, ...dataToCopy} = data;
+  
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { linkId, id, ...dataToCopy } = data;
 
   if (!data) throw new Error("No data provided");
 

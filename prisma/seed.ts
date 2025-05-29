@@ -67,6 +67,10 @@ async function main() {
       social_enable_share_btn: true,
       social_enable_search: true,
       social_enable_qr_code: true,
+      social_enable_hide_raabet_branding: false,
+      // social_enable_enable_verified_badge: false,
+      social_custom_logo: "",
+      social_custom_logo_size:0,
     },
   });
 

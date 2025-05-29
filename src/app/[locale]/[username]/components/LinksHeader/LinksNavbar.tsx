@@ -4,9 +4,11 @@ import { cn } from "@/lib/cn";
 import { useEffect, useState } from "react";
 import { AddContactDialog } from "./AddContactDialog";
 import { LinksNavbarIcon } from "./StickyLinksNavbar";
+import { useUpdateLink } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/hooks/useUpdateLink";
 
 export default function LinksNavbar() {
   const [isSticky, setIsSticky] = useState(false);
+  const { link } = useUpdateLink();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,8 +27,12 @@ export default function LinksNavbar() {
       )}
     >
       <div className="flex items-center gap-4 text-current">
-        <AddContactDialog isSticky={isSticky} />
-        <LinksNavbarIcon isSticky={isSticky} iconName="share" />
+        {link.social_enable_add_contacts && (
+          <AddContactDialog isSticky={isSticky} />
+        )}
+        {link.social_enable_share_btn && (
+          <LinksNavbarIcon isSticky={isSticky} iconName="share" />
+        )}
       </div>
 
       {/* Right section  will be released next itteration */}
