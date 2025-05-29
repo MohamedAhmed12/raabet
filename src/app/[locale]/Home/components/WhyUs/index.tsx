@@ -6,7 +6,7 @@ export const WhyUs = () => {
   const t = useTranslations("HomePage");
 
   return (
-    <div className="flex flex-col md:flex-row items-center w-full">
+    <div className="flex flex-col md:flex-row items-stretch w-full">
       <ContentSection
         titleLabel={t("WhyUs.titleLabel")}
         coloredLabel={t("WhyUs.coloredLabel")}
@@ -14,7 +14,7 @@ export const WhyUs = () => {
         buttonLabel={t("getStarted")}
         underlineColor="bg-[#7ed0ff]"
         widthClass="w-[600px]"
-        className="w-full md:w-1/2 py-8"
+        className="w-full md:w-1/2 py-8 border-t-[#1d1d28]"
         redirectUrl="/Signup"
       />
 

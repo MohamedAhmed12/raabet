@@ -1,11 +1,11 @@
 import { useTranslations } from "next-intl";
-import {FeatureCard} from "./FeatureCard";
+import { FeatureCard } from "./FeatureCard";
 
 export const WhyUsBlock = () => {
-    const t = useTranslations("HomePage.WhyUs.block");
+  const t = useTranslations("HomePage.WhyUs.block");
   return (
-    <div className="flex md:flex-col w-full md:w-1/2">
-      <div className="flex w-full">
+    <div className="flex flex-col md:flex-row flex-wrap w-full md:w-1/2">
+      <div className="w-full md:w-1/2">
         <FeatureCard
           src="/images/gears.png"
           alt="Customization"
@@ -13,6 +13,8 @@ export const WhyUsBlock = () => {
           label={t("1stCard.label")}
           className="bg-blue-200"
         />
+      </div>
+      <div className="w-full md:w-1/2">
         <FeatureCard
           src="/images/grids-types.png"
           alt="Powerfull"
@@ -21,8 +23,7 @@ export const WhyUsBlock = () => {
           className="bg-yellow-200"
         />
       </div>
-
-      <div className="flex w-full">
+      <div className="w-full md:w-1/2">
         <FeatureCard
           src="/images/payment-ticket.png"
           alt="affordable"
@@ -30,6 +31,8 @@ export const WhyUsBlock = () => {
           label={t("3stCard.label")}
           className="bg-orange-200"
         />
+      </div>
+      <div className="w-full md:w-1/2">
         <FeatureCard
           src="/images/u_ur-team.png"
           alt="multi-Profile"
