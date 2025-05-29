@@ -24,7 +24,7 @@ export const ContentSection = ({
   return (
     <div
       className={cn(
-        'flex justify-center w-full h-full md:w-1/2 font-noto-sans py-[32px] px-[7vw] ',
+        'flex justify-center items-center w-full md:w-1/2 font-noto-sans py-[32px] px-[7vw] border border-t-[#1d1d28]',
         className
       )}
     >

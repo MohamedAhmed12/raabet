@@ -27,7 +27,7 @@ export default function AnimatedBar() {
       <Prosbar bgColorClass="bg-light-orange" />
 
       {/* Reviews Section */}
-      <div className="relative flex flex-col justify-center items-center h-screen w-full overflow-hidden py-10 bg-[#D7A9FF] space-3">
+      <div className="relative flex flex-col justify-center items-center w-full overflow-hidden py-10 bg-[#D7A9FF]">
         {/* Heading */}
         <div className="text-[65px] text-deep-blue-gray font-bold leading-[1.1] mb-10">
           <h2 >{t("AnimatedBar.review.people")}</h2>
@@ -37,10 +37,11 @@ export default function AnimatedBar() {
           </span>
           <span className="p-2">{t("AnimatedBar.review.aboutUs")}</span>
         </div>
-        <ReviewsSlider reviews={reviews} speed={15} />
-        <div className="h-4"></div> {/* Spacer */}
-        <ReviewsSlider reviews={reviews} speed={25} />
-        <Button className="text-white px-7 py-6 rounded-4xl font-bold mt-8 bg-deep-blue-gray hover:bg-deep-blue-gray">
+        <div className="flex flex-col gap-2">
+          <ReviewsSlider reviews={reviews} speed={15} />
+          <ReviewsSlider reviews={reviews} speed={25} />
+        </div>
+        <Button className="text-white px-7 py-6 rounded-4xl font-bold mt-10 bg-deep-blue-gray hover:bg-deep-blue-gray">
           {t("getStarted")}
         </Button>
       </div>

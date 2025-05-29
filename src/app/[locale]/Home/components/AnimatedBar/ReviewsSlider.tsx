@@ -21,7 +21,7 @@ export const ReviewsSlider = ({
   speed: number;
 }) => {
   return (
-    <Marquee autoFill speed={speed} className="overflow-hidden">
+    <Marquee autoFill speed={speed} className="overflow-hidden min-h-[200px]">
       {reviews.map((review, index) => (
         <div
           key={index}

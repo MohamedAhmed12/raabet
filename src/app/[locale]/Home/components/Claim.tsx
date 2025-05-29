@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 export const Claim = () => {
   const t = useTranslations("HomePage");
   return (
-    <div className="flex items-center rounded-[100px] border border-[#1d1d28] shadow-[3px_3px_0px_#1d1d28] bg-white cursor-text p-2 my-8 font-noto-sans font-semibold">
+    <div className="flex items-center rounded-[100px] border border-[#1d1d28] shadow-[3px_3px_0px_#1d1d28] bg-white cursor-text p-2 mt-8 font-noto-sans font-semibold">
       <Icon
         name="link"
         size={40}
