@@ -55,6 +55,7 @@ export interface Link {
   // social_enable_enable_verified_badge?: boolean;
   social_custom_logo?: string;
   social_custom_logo_size?:number;
+  profile_views?: number;
   user?: User;
   socials?: LinkSocial[];
   blocks?: Block[];
@@ -68,7 +69,7 @@ interface LinkState {
 
 const createLinkSlice: StateCreator<LinkState> = (set) => ({
   link: {
-    id: "",
+    id: ""
   },
 
   setLink: (data: Partial<Link>) => {

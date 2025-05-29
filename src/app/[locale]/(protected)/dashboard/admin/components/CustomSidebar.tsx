@@ -2,6 +2,7 @@
 
 import { iconNameType } from "@/assets/icons";
 import { Icon } from "@/components/Icon";
+import { QrCode } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -43,6 +44,11 @@ export default function CustomSidebar() {
       text: t("tabs.subscribe"),
       url: "/dashboard/admin/subscription",
       icon: "lock-keyhole-open",
+    },
+    {
+      text: t("tabs.qr"),
+      url: "/dashboard/admin/qr-codes",
+      icon: "qr-code",
     },
   ];
 

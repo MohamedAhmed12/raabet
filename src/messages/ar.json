@@ -3,20 +3,24 @@
     "title": "الصفحة غير موجودة",
     "description": "لم يتم العثور على مستخدم لهذا الرابط. قد يكون الرابط غير صحيح، أو ربما قام المستخدم بحذف حسابه أو تم تعليقه.",
     "returnHome": "العودة الى الصفحة الرئيسية",
-    "something_went_wrong": "! حدث خطأ ما"
+    "something_went_wrong": "حدث خطأ ما!"
   },
   "Errors": {
     "username": "يجب أن يكون اسم المستخدم مكونًا من حرفين على الأقل."
   },
   "ActivationBanner": {
     "firstHalf": "لتفعيل ملفك الشخصي يجب عليك",
-    "secondHalf": "في خطة.",
+    "secondHalf": "في خطة",
     "confirmed": "تم التأكيد",
-    "needConfirmation": "في انتظار التأكيد"
+    "needConfirmation": "في انتظار التأكيد",
+    "pending": "الاشتراك في انتظار التفعيل",
+    "paymentIssues": "يوجد مشكلة في الاشتراك. يرجى تحديث طريقة الدفع",
+    "paymentIssuesFirstHalf": "يوجد مشكلة في الاشتراك. يرجى تحديث طريقة"
   },
   "Shared": {
     "email": "البريد الإلكتروني",
     "subscribe": "الاشتراك",
+    "payment": "الدفع",
     "username": "اسم المستخدم",
     "confirmed": "تم التأكيد",
     "needConfirmation": "في انتظار التأكيد",
@@ -26,7 +30,11 @@
     "title": "عنوان",
     "text": "نص",
     "description": "وصف",
-    "styling": "styling"
+    "styling": "styling",
+    "method": "طريقة",
+    "type": "النوع",
+    "views": "المشاهدات",
+    "url": "الرابط"
   },
   "LinksPage": {
     "title": "الأنماط العامة",
@@ -106,6 +114,24 @@
       "submitText": "تحديث الاسم"
     }
   },
+  "QR": {
+    "title": "الرموز المرجعية",
+    "subTitle": "قم بإنشاء رموز مرجعية ديناميكية غير محدودة وتابع استخدامها.",
+    "newQR": "إنشاء رمز مرجعي جديد",
+    "profileQRTitle": "رمز مرجعي لملفك الشخصي",
+    "delete": "حذف",
+    "download": "تحميل",
+    "successDelete": "تم حذف الرمز المرجعي بنجاح",
+    "errorDelete": "فشل في حذف الرمز المرجعي"
+  },
+  "Subscription": {
+    "paymentStatus": {
+      "failed": "فشل الدفع",
+      "succeeded": "تم الدفع بنجاح"
+    },
+    "tryAgainMsg": "يرجى المحاولة مرة أخرى لاحقًا.",
+    "restricted": "تحتاج إلى اشتراك فعّال لمشاهدة هذا المحتوى"
+  },
   "Analytics": {
     "Metrics": {
       "title": "مقاييس الملف الشخصي",
@@ -120,16 +146,13 @@
         "title": "نقرات التواصل الاجتماعي",
         "clicks": "النقرات",
         "url": "الرابط",
-        "type": "النوع",
         "icon": "الأيقونة"
       },
       "blockInteractions": {
         "title": "تفاعلات الكتل",
         "showHidden": "إظهار المخفي",
         "clicks": "النقرات",
-        "type": "النوع",
-        "name": "الاسم",
-        "views": "مشاهدات"
+        "name": "الاسم"
       }
     }
   },
@@ -146,6 +169,7 @@
       "settings": "الإعدادات",
       "analytics": "التحليلات",
       "subscribe": "الاشتراك",
+      "qr": "QR كود",
       "logout": "تسجيل الخروج"
     },
     "activateProfile": "تفعيل الملف الشخصي",
