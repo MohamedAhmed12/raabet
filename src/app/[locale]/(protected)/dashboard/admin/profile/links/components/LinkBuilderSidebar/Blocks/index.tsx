@@ -41,7 +41,6 @@ export const Blocks = () => {
     if (!blocks) return null;
 
     return (
-      // <p>f</p>
       <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
         <ul className="list w-full">
           {blocks?.map((block, index) => (
