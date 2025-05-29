@@ -28,6 +28,7 @@ export async function generateEmbedInfo(
     "audiomack.com",
     "deezer.com",
     "tunein.com",
+    "music.apple.com",
   ];
 
   // Check if domain is allowed
@@ -53,6 +54,20 @@ export async function generateEmbedInfo(
     } catch (err) {
       throw new Error("Error in Twitch URL:");
     }
+  }
+
+  // Handle Apple Music URLs
+  if (hostname.includes("music.apple.com")) {
+    const embedSrc = `https://embed.music.apple.com/${
+      sanitizedUrl.split("music.apple.com/")[1]
+    }`;
+    const title = embedSrc.split(
+      /music\.apple\.com\/[^/]+\/(song|album|music-video|playlist|artist)\/([^/]+)\/(\d+)/
+    );
+    return {
+      title: title[2],
+      src: embedSrc,
+    };
   }
 
   // Handle other platforms using oEmbed
@@ -111,14 +126,16 @@ export async function generateEmbedInfo(
 
     const data = await res.json();
 
-    // Extract the URL from the HTML response
     const html = data.html || "";
     const srcMatch = html.match(/src="([^"]+)"/);
     const src = srcMatch ? srcMatch[1] : null;
 
     if (!src) throw new Error("Error extracting oEmbed src");
 
-    return { title: data.title, src };
+    return {
+      title: data.title,
+      src,
+    };
   } catch (err) {
     throw new Error("Error fetching oEmbed data");
   }
