@@ -17,7 +17,7 @@ interface UseQRCodeProps {
   url: string;
   width: number;
   height: number;
-  onDownload: (qrId: string) => void;
+  onDownload?: (qrId: string) => void;
 }
 
 export function useQRCode({
@@ -30,9 +30,12 @@ export function useQRCode({
   const QRCodeInstanceRef = useRef<QRCodeStyling | null>(null);
 
   const extension = (svg: SVGElement, options: Options) => {
-    const { width = 160, height = 160 } = options;
+    const { width = 600, height = 600 } = options;
     const size = Math.min(width, height);
-    const borderWidth = 4;
+    const borderWidth = size === 600 ? 10 : 3;
+
+    // Calculate rounded corner radius based on size
+    const roundedCornerRadius = size === 600 ? 600 : 160;
 
     const borderAttributes: BorderAttributes = {
       fill: "none",
@@ -42,7 +45,7 @@ export function useQRCode({
       height: size - borderWidth,
       stroke: "black",
       "stroke-width": borderWidth,
-      rx: 100,
+      rx: roundedCornerRadius,
     };
 
     // "http://www.w3.org/2000/svg" is the official namespace URI for SVG elements.
@@ -86,6 +89,7 @@ export function useQRCode({
   useEffect(() => {
     try {
       if (!url) return;
+console.log(canvasRef.current, url);
 
       // Create QR code instance
       QRCodeInstanceRef.current = new QRCodeStyling(QRStylingOptions);
@@ -108,7 +112,7 @@ export function useQRCode({
       console.error("Failed to create QR code:", error);
       toast.error("Failed to create QR code");
     }
-  }, [url]);
+  }, [url, QRCodeInstanceRef.current]);
 
   const handleDownload = (qrId: string) => {
     if (!canvasRef.current) {
@@ -117,16 +121,15 @@ export function useQRCode({
     }
 
     try {
-      // Create QR code instance
-      const downloadQR = new QRCodeStyling({
-        ...QRStylingOptions,
+      QRCodeInstanceRef.current?.update({
         width: 600,
         height: 600,
       });
-      downloadQR.download({
+      QRCodeInstanceRef.current?.download({
         name: `qr-code-${qrId}`,
         extension: "png",
       });
+      onDownload?.(qrId);
     } catch (error) {
       console.error("Failed to download QR code:", error);
       toast.error("Failed to download QR code");
