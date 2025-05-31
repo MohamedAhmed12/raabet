@@ -7,9 +7,8 @@ export const deleteQRCode = async (id: string) => {
     await prisma.qRCode.delete({
       where: { id },
     });
-    return { success: true };
   } catch (error) {
     console.error("Failed to delete QR code:", error);
-    return { success: false, error: "Failed to delete QR code" };
+    throw error;
   }
 };
