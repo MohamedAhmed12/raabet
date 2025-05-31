@@ -4,23 +4,18 @@ import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { QRCode, QRType } from "@prisma/client";
-import { useQueryClient } from "@tanstack/react-query";
 import { Download, Loader2, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { toast } from "sonner";
-import { deleteQRCode } from "../actions/deleteQRCode";
 import { useQRCode } from "../hooks/useQRCode";
+import { useDeleteQRCode } from "../hooks/useDeleteQRCode";
 
 interface QRCodeCardProps {
   qr: QRCode;
 }
 
 export default function QRCodeCard({ qr }: QRCodeCardProps) {
-  const [isDeleting, setIsDeleting] = useState(false);
-
   const t = useTranslations();
-  const queryClient = useQueryClient();
   const profile_views = useLinkStore((state) => state.link.profile_views);
   const { canvasRef, handleDownload } = useQRCode({
     url: qr.url as string,
@@ -28,16 +23,15 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
     height: 160,
   });
 
+  const { mutateAsync, isPending } = useDeleteQRCode();
+
   const handleDelete = async () => {
+    if (qr.isMain) return;
     try {
-      setIsDeleting(true);
-      await deleteQRCode(qr.id);
-      queryClient.invalidateQueries({ queryKey: ["listQRCodes"] });
+      await mutateAsync({ id: qr.id });
       toast.success("QR code deleted successfully");
     } catch (error) {
       toast.error("Failed to delete QR code");
-    } finally {
-      setIsDeleting(false);
     }
   };
 
@@ -77,18 +71,20 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
             >
               <Download className="w-4 h-4 " />
             </Button>
-            <Button
-              variant="outline"
-              onClick={handleDelete}
-              disabled={isDeleting}
-              className="cursor-pointer"
-            >
-              {isDeleting ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                <Trash2 className="w-4 h-4" color="red" />
-              )}
-            </Button>
+            {!qr.isMain ? (
+              <Button
+                variant="outline"
+                onClick={handleDelete}
+                disabled={isPending}
+                className="cursor-pointer"
+              >
+                {isPending ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Trash2 className="w-4 h-4" color="red" />
+                )}
+              </Button>
+            ) : null}
           </div>
         </div>
 

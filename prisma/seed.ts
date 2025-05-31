@@ -121,6 +121,7 @@ async function main() {
       {
         linkId: link.id,
         type: QRType.profile,
+        isMain: true,
       },
       {
         linkId: link.id,

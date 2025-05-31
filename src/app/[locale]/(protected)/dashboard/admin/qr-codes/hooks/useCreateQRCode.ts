@@ -2,6 +2,7 @@ import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { QRCode } from "@prisma/client";
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { createQRCode } from "../actions/createQRCode";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function useCreateQRCode(
   options?: Omit<
@@ -9,6 +10,7 @@ export function useCreateQRCode(
     "mutationKey" | "mutationFn"
   >
 ) {
+  const queryClient = useQueryClient();
   const linkId = useLinkStore((state) => state.link.id);
 
   return useMutation<QRCode, Error, { url: string }>({
@@ -18,6 +20,9 @@ export function useCreateQRCode(
         throw new Error("Link ID is required");
       }
       return createQRCode(url, linkId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["listQRCodes"] });
     },
     ...options,
   });

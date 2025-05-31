@@ -33,7 +33,6 @@ export const NewQRCodeDialog = () => {
     try {
       await mutateAsync({ url });
       handleOnOpenChange(false);
-      queryClient.invalidateQueries({ queryKey: ["listQRCodes"] });
       toast.success("QR code created successfully");
     } catch (error) {
       console.error("Failed to create QR code:", error);
