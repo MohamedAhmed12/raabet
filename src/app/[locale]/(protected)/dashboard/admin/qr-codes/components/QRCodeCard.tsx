@@ -1,39 +1,39 @@
 "use client";
 
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { QRCode, QRType } from "@prisma/client";
+import { useQueryClient } from "@tanstack/react-query";
 import { Download, Loader2, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { deleteQRCode } from "../actions/deleteQRCode";
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
-import { QRType } from "@prisma/client";
-import QRCodeStyling, { Options } from "qr-code-styling";
 import { useQRCode } from "../hooks/useQRCode";
 
-export default function QRCodeCard({
-  qr,
-  onDelete,
-}: {
-  qr: any;
-  onDelete: (id: string) => void;
-}) {
+interface QRCodeCardProps {
+  qr: QRCode;
+}
+
+export default function QRCodeCard({ qr }: QRCodeCardProps) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const t = useTranslations();
+  const queryClient = useQueryClient();
   const profile_views = useLinkStore((state) => state.link.profile_views);
   const { canvasRef, handleDownload } = useQRCode({
-    url: qr.url,
+    url: qr.url as string,
     width: 160,
     height: 160,
-    onDownload: () => {},
   });
+
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
       await deleteQRCode(qr.id);
-      onDelete(qr.id);
+      queryClient.invalidateQueries({ queryKey: ["listQRCodes"] });
+      toast.success("QR code deleted successfully");
     } catch (error) {
       toast.error("Failed to delete QR code");
     } finally {
