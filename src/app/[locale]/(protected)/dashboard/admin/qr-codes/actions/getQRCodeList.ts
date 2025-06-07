@@ -2,12 +2,12 @@
 
 import prisma from "@/lib/prisma";
 
-export const getQRCodeList = async ({ LinkId }: { LinkId: string }) => {
+export const getQRCodeList = async ({ linkId }: { linkId: string }) => {
   try {
     const qrcodes = await prisma.qRCode.findMany({
       where: {
         link: {
-          id: LinkId,
+          id: linkId,
         },
       },
       orderBy: {

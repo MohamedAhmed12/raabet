@@ -121,7 +121,11 @@
     "delete": "Delete",
     "download": "Download",
     "successDelete": "QR code deleted successfully",
-    "errorDelete": "Failed to delete QR code"
+    "errorDelete": "Failed to delete QR code",
+    "urlLabel": "Website URL",
+    "createQRCode": "Create QR Code",
+    "profile": "Profile",
+    "url": "URL"
   },
   "Subscription": {
     "paymentStatus": {

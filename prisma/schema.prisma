@@ -150,6 +150,7 @@ model QRCode {
   type        QRType   // enum for URL or TEXT
   url         String?  // Only for URL type
   views       Int      @default(0)
+  isMain      Boolean  @default(false)
   link        Link     @relation(fields: [linkId], references: [id])
   linkId      String
   createdAt   DateTime @default(now())

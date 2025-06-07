@@ -122,7 +122,11 @@
     "delete": "حذف",
     "download": "تحميل",
     "successDelete": "تم حذف الرمز المرجعي بنجاح",
-    "errorDelete": "فشل في حذف الرمز المرجعي"
+    "errorDelete": "فشل في حذف الرمز المرجعي",
+    "urlLabel": "رابط الموقع",
+    "createQRCode": "إنشاء رمز مرجعي جديد",
+    "profile": "ملف",
+    "url": "رابط"
   },
   "Subscription": {
     "paymentStatus": {

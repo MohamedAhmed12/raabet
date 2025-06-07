@@ -29,8 +29,12 @@ export default function LinksBlocks() {
             )}
             {!block.url ? (
               <div
-                className=" flex flex-col items-center justify-center w-full py-[16.5px] px-[13.75px] w-full !m-0"
-                style={linkStyles}
+                // className=" flex flex-col items-center justify-center w-full py-[16.5px] px-[13.75px] w-full !m-0"
+                // style={linkStyles}
+                className={cn(
+                  "text-center text-[1em] font-medium leading-[1.3em] mb-1.5 break-words max-w-full ",
+                  link?.title_font
+                )}
               >
                 <div
                   className={cn(
