@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import Marquee from "react-fast-marquee";
 import { Icon } from "./Icon";
 import { useTranslations } from "next-intl";
-import React, { ReactElement } from "react";
+import React from "react";
 
 interface Props {
   colorClass?: string;
@@ -42,7 +42,7 @@ export const Prosbar = ({
   return (
     <div
       className={cn(
-        "bg-light-orange py-4 overflow-hidden font-bold uppercase tracking-wide font-noto-sans border border-y-black",
+        "min-h-[82px] max-w-full py-4 overflow-hidden font-bold uppercase tracking-wide font-noto-sans border border-y-black",
         colorClass,
         bgColorClass
       )}
