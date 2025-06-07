@@ -2,9 +2,9 @@
 
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { cn } from "@/lib/cn";
-import useLinkStyles from "../hooks/useLinkStyles";
+import { useEffect, useState } from 'react';
 import { generateEmbedInfo } from "../../(protected)/dashboard/admin/profile/links/components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/MediaBlock/generateEmbedInfo";
-import { useState, useEffect } from 'react';
+import useLinkStyles from "../hooks/useLinkStyles";
 
 export default function LinksBlocks() {
   const [embedInfoMap, setEmbedInfoMap] = useState<Record<string, { title: string; src: string } | null>>({});

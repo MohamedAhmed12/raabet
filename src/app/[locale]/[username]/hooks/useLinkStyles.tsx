@@ -115,7 +115,7 @@ const useLinkStyles = (link: Link) => {
       styles.borderColor = card_styles_card_border_color; // Using general_styles_primary_bgcolor
       styles.boxShadow = `0 0 ${(card_styles_card_shadow || 0) * 10}px ${
         (card_styles_card_shadow || 0) / 10
-      }px`;
+      }px rgba(0, 0, 0, 0.3)`;
     }
 
     return styles;

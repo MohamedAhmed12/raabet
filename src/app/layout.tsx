@@ -1,16 +1,16 @@
 /* eslint-disable */
 import "./globals.css";
 
-import type {Metadata} from "next";
-import {NextIntlClientProvider} from "next-intl";
-import {Geist, Geist_Mono, Noto_Sans_Display} from "next/font/google";
-import Head from "next/head";
-import {Toaster} from "sonner";
-import {GoogleAnalytics} from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { Geist, Geist_Mono, Noto_Sans_Display } from "next/font/google";
+import { Toaster } from "sonner";
 
-import {customGetLocale} from "@/lib/customGetLocale";
+import { customGetLocale } from "@/lib/customGetLocale";
 import arMessages from "../messages/ar.json";
 import enMessages from "../messages/en.json";
+import { ReactQueryProvider } from "@/components/ReactQueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,21 +45,18 @@ export default async function RootLayout({
 }>) {
   const locale: string = await customGetLocale();
   const currentLocalMessages = messages[locale];
+  const isRTL = locale === "ar";
 
   return (
-    <html lang={locale} dir={locale == "ar" ? "rtl" : "ltr"}>
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
+    <html lang={locale} dir={isRTL ? "rtl" : "ltr"}>
       <body
         className={`${notoSans.variable} ${geistSans.variable} ${geistMono.variable} antialiased text-deep-blue-gray`}
       >
         <NextIntlClientProvider locale={locale} messages={currentLocalMessages}>
-          <Toaster />
-          {children}
+          <ReactQueryProvider>
+            <Toaster />
+            {children}
+          </ReactQueryProvider>
         </NextIntlClientProvider>
       </body>
       {process.env.NEXT_PUBLIC_GA_ID &&

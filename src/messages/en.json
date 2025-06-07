@@ -10,13 +10,15 @@
   },
   "ActivationBanner": {
     "firstHalf": "To activate your profile, you need to",
-    "secondHalf": "in a plan.",
+    "secondHalf": "in a plan",
     "confirmed": "Confirmed",
-    "needConfirmation": "Pending confirmation"
+    "needConfirmation": "Pending confirmation",
+    "pending": "Your subscription is pending",
+    "paymentIssuesFirstHalf": "Your subscription has issues. Please update your"
   },
   "Shared": {
     "email": "Email",
-    "subscribe": "Subscribe",
+    "subscribe": "subscribe",
     "username": "Username",
     "confirmed": "Confirmed",
     "needConfirmation": "Pending confirmation",
@@ -26,7 +28,12 @@
     "title": "Title",
     "text": "Text",
     "description": "Description",
-    "styling": "Styling"
+    "styling": "Styling",
+    "method": "method",
+    "payment": "payment",
+    "type": "Type",
+    "views": "Views",
+    "url": "URL"
   },
   "LinksPage": {
     "title": "General Styles",
@@ -106,6 +113,28 @@
       "submitText": "Update Name"
     }
   },
+  "QR": {
+    "title": "QR Codes",
+    "subTitle": "Create unlimited dynamic QR codes and track their usage.",
+    "newQR": "Create QR Code",
+    "profileQRTitle": "Your profile QR Code",
+    "delete": "Delete",
+    "download": "Download",
+    "successDelete": "QR code deleted successfully",
+    "errorDelete": "Failed to delete QR code",
+    "urlLabel": "Website URL",
+    "createQRCode": "Create QR Code",
+    "profile": "Profile",
+    "url": "URL"
+  },
+  "Subscription": {
+    "paymentStatus": {
+      "failed": "Payment Failed",
+      "succeeded": "Payment Succeeded"
+    },
+    "tryAgainMsg": "Please try again later.",
+    "restricted": "You need an active subscription to access this content."
+  },
   "Analytics": {
     "Metrics": {
       "title": "Profile Metrics",
@@ -120,16 +149,13 @@
         "title": "Social Clicks",
         "clicks": "Clicks",
         "url": "URL",
-        "type": "Type",
         "icon": "Icon"
       },
       "blockInteractions": {
         "title": "Block Interactions",
         "showHidden": "Show Hidden",
         "clicks": "Clicks",
-        "type": "Type",
-        "name": "Name",
-        "views": "Views"
+        "name": "Name"
       }
     }
   },
@@ -146,6 +172,7 @@
       "settings": "Settings",
       "analytics": "Analytics",
       "subscribe": "Subscribe",
+      "qr": "QR Codes",
       "logout": "Logout"
     },
     "activateProfile": "Activate Profile",
@@ -171,5 +198,60 @@
     "jello": "Jello",
     "rubberBand": "Rubber Band",
     "animation": "Animation"
+  },
+  "HomePage":{
+    "CentralizePresence":{
+      "users":"Loved by 10,000+ users",
+      "Centralize":"Centralize your online",
+      "presence":"presence",
+      "Description":"Gather your socials, music, videos, and more on a beautiful link-in-bio page. Claim your name today!"
+    },
+    "AnimatedBar":{
+      "Prosbar":{
+        "block":"Powerful Block Builder",
+        "live":"Go Live in Minutes",
+        "Customizable":"Fully Customizable"
+      },
+      "review":{
+        "people":"What are people",
+        "saying":"saying",
+        "aboutUs":"about us?"
+      }
+    },
+    "WhyUs":{
+      "titleLabel":"Why choose",
+      "coloredLabel":"Raabet",
+      "mainLabel":"With our robust customization options and powerful block types, your profile will stand out from the noise. We're also more affordable than the competition, and a great choice for teams.",
+      "block":{
+        "1stCard":{
+          "title":"More customizable",
+          "label":"More options to design your page, and have it match your brand"
+        },
+        "2stCard":{
+          "title":"More powerful",
+          "label":"Greater variety of block layouts and more options for organization"
+        },
+        "3stCard":{
+          "title":"More affordable",
+          "label":"More affordable than most competing platforms"
+        },
+        "4stCard":{
+          "title":"Great for teams",
+          "label":"Easily manage multiple profiles with the plan"
+        }
+      }
+    },
+    "groubBlock":{
+      "titleLabel":"Group blocks into a",
+      "coloredLabel":"folder",
+      "mainLabel":"Use folders to group relevant blocks and keep your page feeling organized and fresh."
+    },
+    "TryNow":{
+      "tryRabbet":"try Rabbet",
+      "now":"now"
+    },
+    "claim":"claim",
+    "getStarted":"Get Started",
+    "moreFeatures":"More Features"
   }
 }

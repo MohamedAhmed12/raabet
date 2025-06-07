@@ -25,7 +25,6 @@ export const BlockSortableItem = ({ block }: { block: Block }) => {
   const { setNodeRef, attributes, listeners, transform, transition } =
     useSortable({
       id: block?.id || "",
-      disabled: isFocused,
     });
 
   const style = {
@@ -145,8 +144,6 @@ export const BlockSortableItem = ({ block }: { block: Block }) => {
       <div
         {...attributes}
         {...listeners}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
         tabIndex={-1}
         className="flex items-center justify-center px-1 min-h-max cursor-move bg-gray-100 h-full"
       >
