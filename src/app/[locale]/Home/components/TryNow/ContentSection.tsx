@@ -14,7 +14,7 @@ export const ContentSection = () => {
           isArabic ? "lg:text-right" : "lg:text-left",
         )}
       >
-        <span className="min-w-full mr-4 capitalize">{t("tryRabbet")}</span>
+        <span className="min-w-full mr-4 capitalize">{t("tryRabet")}</span>
         <span className="relative">
           <span className="relative inline-block z-[1]">{t("now")}!</span>
           <div className="absolute inset-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%] bg-white"></div>
