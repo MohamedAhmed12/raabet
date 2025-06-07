@@ -1,8 +1,9 @@
 "use client";
 
-import {useLinkStore} from "@/app/[locale]/store/use-link-store";
-import {cn} from "@/lib/cn";
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { cn } from "@/lib/cn";
 import useLinkStyles from "../hooks/useLinkStyles";
+import Image from "next/image";
 
 export default function LinksBlocks() {
   const link = useLinkStore((state) => state.link);
@@ -26,24 +27,38 @@ export default function LinksBlocks() {
                 }}
               ></div>
             )}
-            <div
-              className=" flex flex-col items-center justify-center w-full py-[16.5px] px-[13.75px] w-full !m-0"
-              style={linkStyles}
-            >
+            {!block.url ? (
               <div
+                // className=" flex flex-col items-center justify-center w-full py-[16.5px] px-[13.75px] w-full !m-0"
+                // style={linkStyles}
                 className={cn(
                   "text-center text-[1em] font-medium leading-[1.3em] mb-1.5 break-words max-w-full ",
                   link?.title_font
                 )}
               >
-                {block.title}
+                <div
+                  className={cn(
+                    "text-[1em] font-medium leading-[1.3em] mb-1.5",
+                    link?.title_font
+                  )}
+                >
+                  {block.title}
+                </div>
+                <div
+                  className={`${link?.text_font} text-[12.6px] leading-[1.3em]`}
+                >
+                  {block.text}
+                </div>
               </div>
-              <div
-                className={`${link?.text_font} text-[12.6px] leading-[1.3em]`}
-              >
-                {block.text}
-              </div>
-            </div>
+            ) : (
+              <Image
+                src={block.url}
+                width={60}
+                height={60}
+                alt="preview"
+                className="rounded w-full h-full"
+              />
+            )}
           </a>
         ))}
       </div>

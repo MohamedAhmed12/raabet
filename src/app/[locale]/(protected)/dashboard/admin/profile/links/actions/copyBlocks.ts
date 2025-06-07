@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { Block } from "@prisma/client";
 
 export async function copyBlock(data: Block) {
-  // we have to extract id from the payload data
+  
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { linkId, id, ...dataToCopy } = data;
 

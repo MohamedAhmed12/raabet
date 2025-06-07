@@ -11,7 +11,7 @@ import { createBlock as createBlockAction } from "../../../actions/createBlocks"
 import { orderBlocks } from "../../../actions/orderBlocks";
 import { BlockType } from "../../../types/block";
 import { BlockSortableItem } from "../../DashbaordSortableList/BlockSortableItem";
-import DashbaordSortableList from "../../DashbaordSortableList/index";
+import { default as DashbaordSortableList } from "../../DashbaordSortableList/index";
 import { BlocksDialog } from "./components/BlocksDialog";
 import { CreateUpdateBlockForm } from "./components/CreateUpdateBlockForm";
 

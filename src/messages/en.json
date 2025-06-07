@@ -198,5 +198,60 @@
     "jello": "Jello",
     "rubberBand": "Rubber Band",
     "animation": "Animation"
+  },
+  "HomePage":{
+    "CentralizePresence":{
+      "users":"Loved by 10,000+ users",
+      "Centralize":"Centralize your online",
+      "presence":"presence",
+      "Description":"Gather your socials, music, videos, and more on a beautiful link-in-bio page. Claim your name today!"
+    },
+    "AnimatedBar":{
+      "Prosbar":{
+        "block":"Powerful Block Builder",
+        "live":"Go Live in Minutes",
+        "Customizable":"Fully Customizable"
+      },
+      "review":{
+        "people":"What are people",
+        "saying":"saying",
+        "aboutUs":"about us?"
+      }
+    },
+    "WhyUs":{
+      "titleLabel":"Why choose",
+      "coloredLabel":"Raabet",
+      "mainLabel":"With our robust customization options and powerful block types, your profile will stand out from the noise. We're also more affordable than the competition, and a great choice for teams.",
+      "block":{
+        "1stCard":{
+          "title":"More customizable",
+          "label":"More options to design your page, and have it match your brand"
+        },
+        "2stCard":{
+          "title":"More powerful",
+          "label":"Greater variety of block layouts and more options for organization"
+        },
+        "3stCard":{
+          "title":"More affordable",
+          "label":"More affordable than most competing platforms"
+        },
+        "4stCard":{
+          "title":"Great for teams",
+          "label":"Easily manage multiple profiles with the plan"
+        }
+      }
+    },
+    "groubBlock":{
+      "titleLabel":"Group blocks into a",
+      "coloredLabel":"folder",
+      "mainLabel":"Use folders to group relevant blocks and keep your page feeling organized and fresh."
+    },
+    "TryNow":{
+      "tryRabbet":"try Rabbet",
+      "now":"now"
+    },
+    "claim":"claim",
+    "getStarted":"Get Started",
+    "moreFeatures":"More Features"
   }
 }
