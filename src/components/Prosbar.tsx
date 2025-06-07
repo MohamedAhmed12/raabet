@@ -3,21 +3,42 @@ import { cn } from "@/lib/utils";
 import Marquee from "react-fast-marquee";
 import { Icon } from "./Icon";
 import { useTranslations } from "next-intl";
+import React, { ReactElement } from "react";
 
-const messages: { text: string; icon: iconNameType }[] = [
+interface Props {
+  colorClass?: string;
+  bgColorClass: string;
+}
+interface Message {
+  text: string;
+  icon: iconNameType;
+}
+
+const messages: Message[] = [
   { text: "block", icon: "appWindow" },
   { text: "live", icon: "clock8" },
   { text: "Customizable", icon: "handHelping" },
 ];
 
+const MemoizedIcon = React.memo(Icon);
+
+const MemoizedPros = React.memo(() => (
+  <div className="flex">
+    {[...messages, ...messages].map(({ text, icon }, index) => (
+      <div key={index} className="flex items-center text-2xl">
+        <MemoizedIcon name={icon} size={30} width={48} height="auto" />
+        <p className="px-8">
+          {useTranslations("HomePage.AnimatedBar.Prosbar")(text)}
+        </p>
+      </div>
+    ))}
+  </div>
+));
+
 export const Prosbar = ({
   colorClass = "text-deep-blue-gray",
   bgColorClass,
-}: {
-  colorClass?: string;
-  bgColorClass: string;
-}) => {
-    const t = useTranslations("HomePage.AnimatedBar.Prosbar");
+}: Props) => {
   return (
     <div
       className={cn(
@@ -26,14 +47,8 @@ export const Prosbar = ({
         bgColorClass
       )}
     >
-      <Marquee autoFill speed={10} gradientWidth={300} className="flex">
-        {/* Duplicate messages for an infinite loop */}
-        {messages.map(({ text, icon }, index) => (
-          <div key={index} className="flex items-center text-2xl">
-            <Icon name={icon} size={30} width={48} height={"auto"} />
-            <p className="px-8">{t(text)}</p>
-          </div>
-        ))}
+      <Marquee speed={50} autoFill={false} pauseOnHover={true} gradient={false}>
+        <MemoizedPros />
       </Marquee>
     </div>
   );
