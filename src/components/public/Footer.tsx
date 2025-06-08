@@ -1,15 +1,24 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import NextLink from "next/link";
-import { Link, Mail } from "lucide-react";
-import { useState } from "react";
-import { Icon } from "../Icon";
 import { cn } from "@/lib/utils";
+import { ArrowLeft, ArrowRight, Link, Loader2, Mail } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import NextLink from "next/link";
+import { Icon } from "../Icon";
+import { useNewsletterSubscribe } from "./hooks/useNewsletterSubscribe";
 
 export const Footer = () => {
-  const [subscribed, setSubscribed] = useState(true);
   const t = useTranslations();
+  const locale = useLocale();
+
+  const { mutate: subscribe, isSuccess, isPending } = useNewsletterSubscribe();
+
+  const handleSubscribe = async (formData: FormData) => {
+    const email = formData.get("email") as string;
+    if (!email) return;
+
+    await subscribe({ email });
+  };
 
   return (
     <footer
@@ -93,25 +102,31 @@ export const Footer = () => {
         <div className="text-xl font-semibold text-white">
           {t("Footer.stayUpdated")}
         </div>
-        {!subscribed ? (
-          <form>
-            <div className="_qo_brXIbOZpSxH1dcNd eIh4rDKdwxCp5Fw_UTiO B6cdAyxk9GHZgh4SEt2Y KbCJhzUAWSQdXGsajLOI A5HpOJwBfHgYfw0b84qM">
-              <input
-                className="y4_ZnMQbMH1UqNWvQq6r"
-                placeholder="Email address"
-                type="email"
-                value=""
-              />
-              <div className="cKsO2UkidGJSdggWoR_z">
-                <button
-                  className="_qo_brXIbOZpSxH1dcNd T3z29C3ejLKSiaC6QxjO RyE4RX5QSruO9uKaHMdQ FAwXT6Q1DAwo8f7PgevQ aFMO3KPVWNCFO6opubQE MwJNasBFRJ9VVDqD4w9X dPefoOO4s6kXRyLtxaiA"
-                  type="submit"
-                >
-                  <line x1="7" y1="17" x2="17" y2="7"></line>
-                  <polyline points="7 7 17 7 17 17"></polyline>
-                </button>
-              </div>
-            </div>
+        {!isSuccess ? (
+          <form
+            action={handleSubscribe}
+            className="flex gap-3 bg-white p-2.5 rounded-4xl w-full"
+          >
+            <input
+              name="email"
+              className="w-full !text-muted-foreground placeholder:text-gray-400 focus:outline-none !focus:bg-white"
+              placeholder="Email address"
+              type="email"
+              required
+            />
+            <button
+              className="bg-deep-blue-gray text-white p-2 rounded-4xl font-bold leading-none cursor-pointer"
+              type="submit"
+              disabled={isPending}
+            >
+              {isPending ? (
+                <Loader2 />
+              ) : locale == "ar" ? (
+                <ArrowLeft />
+              ) : (
+                <ArrowRight />
+              )}
+            </button>
           </form>
         ) : (
           <div className="flex flex-col gap-1 text-sm">
