@@ -51,6 +51,7 @@ export default async function RootLayout({
     <html lang={locale} dir={isRTL ? "rtl" : "ltr"}>
       <body
         className={`${notoSans.variable} ${geistSans.variable} ${geistMono.variable} antialiased text-deep-blue-gray`}
+        style={{ marginRight: "0!important" }}
       >
         <NextIntlClientProvider locale={locale} messages={currentLocalMessages}>
           <ReactQueryProvider>

@@ -203,6 +203,7 @@
     "animation": "Animation"
   },
   "Header": {
+    "home": "Home",
     "pricing": "Pricing"
   },
   "HomePage": {

@@ -18,6 +18,15 @@ const messages: Message[] = [
   { text: "block", icon: "appWindow" },
   { text: "live", icon: "clock8" },
   { text: "Customizable", icon: "handHelping" },
+  { text: "block", icon: "appWindow" },
+  { text: "live", icon: "clock8" },
+  { text: "Customizable", icon: "handHelping" },
+  { text: "block", icon: "appWindow" },
+  { text: "live", icon: "clock8" },
+  { text: "Customizable", icon: "handHelping" },
+  { text: "block", icon: "appWindow" },
+  { text: "live", icon: "clock8" },
+  { text: "Customizable", icon: "handHelping" },
 ];
 
 const MemoizedIcon = React.memo(Icon);
@@ -25,8 +34,8 @@ const MemoizedIcon = React.memo(Icon);
 const MemoizedPros = React.memo(() => (
   <div className="flex">
     {[...messages, ...messages].map(({ text, icon }, index) => (
-      <div key={index} className="flex items-center text-2xl">
-        <MemoizedIcon name={icon} size={30} width={48} height="auto" />
+      <div key={index} className="flex items-center text-xl lg:text-2xl">
+        <MemoizedIcon name={icon} size={30} width={48} />
         <p className="px-8">
           {useTranslations("HomePage.AnimatedBar.Prosbar")(text)}
         </p>
@@ -42,12 +51,12 @@ export const Prosbar = ({
   return (
     <div
       className={cn(
-        "min-h-[82px] max-w-full py-4 overflow-hidden font-bold uppercase tracking-wide font-noto-sans border border-y-black",
+        "flex min-h-[60px] lg:min-h-[102px] max-w-full py-4 overflow-hidden font-bold uppercase tracking-wide font-noto-sans border border-y-black",
         colorClass,
         bgColorClass
       )}
     >
-      <Marquee speed={50} autoFill={false} pauseOnHover={true} gradient={false}>
+      <Marquee direction="right" speed={50} autoFill={false} pauseOnHover={true} gradient={false}>
         <MemoizedPros />
       </Marquee>
     </div>

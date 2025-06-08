@@ -40,7 +40,7 @@ const Stars = memo(({ count }: StarsProps) => {
 
 const ReviewCard = memo(({ review }: { review: Review }) => {
   return (
-    <div className="w-[375px] h-[231px] flex space-x-16 text-white font-bold text-2xl uppercase tracking-wide">
+    <div className="w-[375px] h-[231px] flex space-x-16 text-white font-bold text-xl lg:text-2xl uppercase tracking-wide">
       <Card className="m-2 bg-white shadow-md rounded-xl border-l-1 border-r-1 border-black">
         <CardContent className="flex flex-col justify-between w-full h-full">
           {/* Star Rating */}
@@ -49,7 +49,7 @@ const ReviewCard = memo(({ review }: { review: Review }) => {
           </div>
 
           {/* Review Text */}
-          <p className="text-gray-700 text-sm line-clamp-3">{review.review}</p>
+          <p className="text-gray-700 text-xs lg:text-sm line-clamp-3">{review.review}</p>
 
           {/* Reviewer Info */}
           <div className="flex items-center gap-3 mt-3">
@@ -61,8 +61,8 @@ const ReviewCard = memo(({ review }: { review: Review }) => {
               alt={review.name}
             />
             <div>
-              <p className="text-sm font-bold">{review.name}</p>
-              <p className="text-xs text-blue-500">{review.title}</p>
+              <p className="text-xs lg:text-sm font-bold">{review.name}</p>
+              <p className="text-[.7rem] lg:text-xs text-blue-500">{review.title}</p>
             </div>
           </div>
         </CardContent>

@@ -14,9 +14,9 @@ export default function AnimatedBar() {
       <Prosbar bgColorClass="bg-light-orange" />
 
       {/* Reviews Section */}
-      <div className="relative flex flex-col justify-center items-center w-full overflow-hidden py-10 bg-[#D7A9FF]">
+      <div className="relative flex flex-col justify-center items-center w-full overflow-hidden py-10 bg-[#D7A9FF] font-noto-sans">
         {/* Heading */}
-        <div className="text-[65px] text-deep-blue-gray font-bold leading-[1.1] mb-10">
+        <div className="text-[45px] lg:text-[65px] text-deep-blue-gray font-bold leading-[1.1] mb-10">
           <h2>{t("AnimatedBar.review.people")}</h2>
           <span className="relative inline-block">
             <span className="relative z-[2]">
