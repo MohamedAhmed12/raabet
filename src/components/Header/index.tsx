@@ -32,8 +32,13 @@ export const Header = () => {
         </NextLink>
       </div>
 
-      <WebHeader />
-      <MobileHeader />
+      <div className="flex gap-4 items-center">
+        <WebHeader />
+        <button className="bg-deep-blue-gray text-white px-6 py-4 rounded-4xl font-bold leading-none">
+          <NextLink href="/auth/sign-up">{t("Shared.signup")}</NextLink>
+        </button>
+        <MobileHeader />
+      </div>
     </header>
   );
 };

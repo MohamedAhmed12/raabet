@@ -2,7 +2,14 @@
 
 import { useTranslations } from "next-intl";
 import NextLink from "next/link";
-import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { Menu } from "lucide-react";
 import { usePathname } from "@/i18n/navigation";
 
@@ -13,7 +20,7 @@ export const MobileHeader = () => {
   return (
     <Drawer direction="left">
       <DrawerTrigger asChild>
-        <button className="lg:hidden text-gray-600 hover:text-deep-blue-gray focus:outline-none cursor-pointer">
+        <button className="lg:hidden p-2 rounded-full text-white bg-deep-blue-gray focus:outline-none cursor-pointer">
           <Menu className="w-6 h-6" />
         </button>
       </DrawerTrigger>
