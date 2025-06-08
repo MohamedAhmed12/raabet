@@ -26,7 +26,7 @@ export default function AnimatedBar() {
           </span>
           <span className="p-2">{t("AnimatedBar.review.aboutUs")}</span>
         </div>
-        <div className="flex flex-col gap-2 min-h-[475px] max-w-full">
+        <div className="flex flex-col gap-2 min-h-[400px] lg:min-h-[475px] max-w-full">
           <ReviewsSlider reviews={reviews1} speed={15} />
           <ReviewsSlider reviews={reviews2} speed={25} />
         </div>

@@ -30,7 +30,7 @@ export const ContentSection = ({
     >
       <div className={widthClass}>
         <div className="flex justify-center md:justify-start text-center md:text-start mb-6 ">
-          <div className="text-[64px] text-deep-blue-gray font-bold leading-[1.1] text-center md:text-start">
+          <div className="text-[45px] lg:text-[64px] text-deep-blue-gray font-bold leading-[1.1] text-center md:text-start">
             <span className="mr-4">{titleLabel}</span>
             <span className="relative">
               <span className="relative inline-block z-[1]">

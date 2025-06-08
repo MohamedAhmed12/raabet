@@ -40,7 +40,7 @@ const Stars = memo(({ count }: StarsProps) => {
 
 const ReviewCard = memo(({ review }: { review: Review }) => {
   return (
-    <div className="w-[375px] h-[231px] flex space-x-16 text-white font-bold text-xl lg:text-2xl uppercase tracking-wide">
+    <div className="w-[320px] lg:w-[375px] aspect-[375/231] flex space-x-16 text-white font-bold text-xl lg:text-2xl uppercase tracking-wide">
       <Card className="m-2 bg-white shadow-md rounded-xl border-l-1 border-r-1 border-black">
         <CardContent className="flex flex-col justify-between w-full h-full">
           {/* Star Rating */}
@@ -87,7 +87,7 @@ export const ReviewsSlider = ({
   return (
     <Marquee
       speed={speed}
-      className="overflow-hidden min-h-[232px]"
+      className="overflow-hidden min-h-[180px] lg:min-h-[232px]"
       pauseOnHover
       gradient={false}
     >

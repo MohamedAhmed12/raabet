@@ -10,7 +10,7 @@ export const ContentSection = () => {
     <div className="flex flex-col flex-1 md:flex-1/2 font-noto-sans py-8 px-[7vw]">
       <div
         className={cn(
-          "text-[64px] text-deep-blue-gray font-extrabold leading-[1.1] text-center",
+          "text-[45px] lg:text-[64px] text-deep-blue-gray font-extrabold leading-[1.1] text-center",
           isArabic ? "lg:text-right" : "lg:text-left",
         )}
       >
