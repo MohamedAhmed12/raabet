@@ -212,7 +212,11 @@
     "CentralizePresence": "نوفر لك حضوراً مركزاً على الإنترنت منذ عام 2022.",
     "BuiltWith": "مطوّر ب❤️ بواسطة",
     "resources": "الموارد",
-    "stayUpdated": "ابقَ على اطلاع"
+    "stayUpdated": "ابقَ على اطلاع",
+    "subscribed": {
+      "thanks": "شكراً على الاشتراك!",
+      "updates": "تابع صندوق الوارد الخاص بك لمتابعة كل جديد"
+    }
   },
   "HomePage": {
     "CentralizePresence": {

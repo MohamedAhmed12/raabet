@@ -5,14 +5,20 @@ import NextLink from "next/link";
 import { Link, Mail } from "lucide-react";
 import { useState } from "react";
 import { Icon } from "../Icon";
+import { cn } from "@/lib/utils";
 
 export const Footer = () => {
   const [subscribed, setSubscribed] = useState(true);
   const t = useTranslations();
 
   return (
-    <footer className="flex items-start justify-between bg-deep-blue-gray text-gray-300 font-noto-sans text-gray-300 py-[60px] px-[7vw]">
-      <div className="flex gap-21">
+    <footer
+      className={cn(
+        "flex flex-col items-start justify-between bg-deep-blue-gray text-gray-300 font-noto-sans text-gray-300 py-[60px] px-[7vw]",
+        "lg:flex-row gap-8.5 lg:gap-0"
+      )}
+    >
+      <div className="flex flex-col gap-8.5 lg:flex-row lg:gap-21">
         <div className="flex flex-col gap-5">
           <NextLink href="/" className="flex items-center gap-1 text-white">
             <Link
@@ -43,9 +49,7 @@ export const Footer = () => {
             {t("Footer.resources")}
           </div>
           <div className="flex flex-col gap-1 !text-sm">
-            <a className="" href="/contact">
-              {t("Shared.contactUs")}
-            </a>
+            <a href="/contact">{t("Shared.contactUs")}</a>
             {/* implement next  */}
             {/* 
                 <a   
@@ -111,8 +115,8 @@ export const Footer = () => {
           </form>
         ) : (
           <div className="flex flex-col gap-1 text-sm">
-            <div>Thanks for subscribing!</div>
-            <div>Watch your inbox for product updates.</div>
+            <div>{t("Footer.subscribed.thanks")}</div>
+            <div>{t("Footer.subscribed.updates")}</div>
           </div>
         )}
         <div className="flex gap-3 w-full">

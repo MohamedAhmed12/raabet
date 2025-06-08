@@ -211,7 +211,11 @@
     "CentralizePresence": "Centralizing your online presence since 2022.",
     "BuiltWith": "Built with ❤️ by",
     "resources": "Resources",
-    "stayUpdated": "Stay up to date"
+    "stayUpdated": "Stay up to date",
+    "subscribed": {
+      "thanks": "Thanks for subscribing!",
+      "updates": "Watch your inbox for product updates."
+    }
   },
   "HomePage": {
     "CentralizePresence": {
