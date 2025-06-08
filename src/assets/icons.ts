@@ -100,11 +100,12 @@ import btnBlockStyle2 from "../../public/svg/BtnBlockLayout2";
 import btnBlockStyle3 from "../../public/svg/BtnBlockLayout3";
 import ar from "../../public/svg/SaFlag";
 import en from "../../public/svg/UkFlag";
+import LinkedIn from "../../public/svg/LinkedIn";
 
 export const socialIcons = {
   facebook: SiFacebook,
   instagram: SiInstagram,
-  // linkedin: SiLinkedin,
+  linkedin: LinkedIn,
   github: SiGithub,
   reddit: SiReddit,
   twitter: SiX,

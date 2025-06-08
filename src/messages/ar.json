@@ -37,7 +37,8 @@
     "views": "المشاهدات",
     "url": "الرابط",
     "signup": "إنشاء حساب",
-    "login": "تسجيل الدخول"
+    "login": "تسجيل الدخول",
+    "contactUs": "اتصل بنا"
   },
   "LinksPage": {
     "title": "الأنماط العامة",
@@ -206,6 +207,12 @@
   "Header": {
     "home": "الرئيسية",
     "pricing": "الأسعار"
+  },
+  "Footer": {
+    "CentralizePresence": "نوفر لك حضوراً مركزاً على الإنترنت منذ عام 2022.",
+    "BuiltWith": "مطوّر ب❤️ بواسطة",
+    "resources": "الموارد",
+    "stayUpdated": "ابقَ على اطلاع"
   },
   "HomePage": {
     "CentralizePresence": {

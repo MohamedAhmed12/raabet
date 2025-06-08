@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { MobileHeader } from "./MobileHeader";
 import { WebHeader } from "./WebHeader";
 import { useLocale } from "next-intl";
+import { Link } from "lucide-react";
 
 export const Header = () => {
   const t = useTranslations();
@@ -19,7 +20,14 @@ export const Header = () => {
       )}
     >
       <div className="flex items-center">
-        <NextLink href="/" className="flex items-center">
+        <NextLink href="/" className="flex items-center gap-1">
+          <Link
+            size={21}
+            width={21}
+            strokeWidth={3.5}
+            fontWeight={800}
+            className="text-[#1b97f5]"
+          />
           <span className="text-2xl font-bold text-deep-blue-gray capitalize">
             {t("Shared.rabet")}
           </span>

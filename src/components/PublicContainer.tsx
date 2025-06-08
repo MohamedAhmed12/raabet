@@ -1,6 +1,7 @@
 "use client";
 
-import { Header } from "./Header";
+import { Footer } from "./public/Footer";
+import { Header } from "./public/Header";
 
 export const PublicContainer = ({
   children,
@@ -11,6 +12,7 @@ export const PublicContainer = ({
     <div>
       <Header />
       <div className="pt-16">{children}</div>
+      <Footer />
     </div>
   );
 };
