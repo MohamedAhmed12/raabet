@@ -9,7 +9,7 @@ export default function LoginPage() {
     <div className="flex min-h-svh flex-col lg:flex-row">
       <div className="flex flex-1 flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
-          <a href="#" className="flex items-center gap-2 font-medium">
+          <a href="#" className="flex items-center gap-2 font-medium" dir="ltr">
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <GalleryVerticalEnd className="size-4" />
             </div>

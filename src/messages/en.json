@@ -39,6 +39,21 @@
     "login": "Login",
     "contactUs": "Contact Us"
   },
+  "Auth": {
+    "sign": "Sign",
+    "in": "In",
+    "welcomeBack": "Welcome back! Sign in to your Rabet account",
+    "password": "Password",
+    "forgotPassword": "Forgot your password?",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "notYetAMember": "Not yet a member?",
+    "invalidCredentials": "Invalid email or password",
+    "somethingWentWrong": "Something went wrong. Please try again.",
+    "emailInvalid": "Invalid email",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "notMember": "Not yet a member?"
+  },
   "LinksPage": {
     "title": "General Styles",
     "primaryTextColor": "Primary Text Color",

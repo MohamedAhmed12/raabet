@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -23,6 +24,7 @@ export const LoginForm = ({
 }: React.ComponentPropsWithoutRef<"form">) => {
   const [error, setError] = useState<string | null>(null);
 
+  const t = useTranslations();
   const {
     register,
     handleSubmit,
@@ -37,12 +39,12 @@ export const LoginForm = ({
         email: email,
         password: password,
         redirect: true, // Prevent automatic redirection
-        callbackUrl:'/dashboard/admin'
+        callbackUrl: "/dashboard/admin",
       });
 
       if (result?.error) {
         setError("Invalid email or password"); // Show custom error message
-         } 
+      }
     } catch (err) {
       console.error(err);
       setError("Something went wrong. Please try again.");
@@ -52,27 +54,25 @@ export const LoginForm = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={cn("flex flex-col", className)}
+      className={cn("flex flex-col font-noto-sans", className)}
       {...props}
     >
-      <div className="flex flex-col justify-center items-center font-noto-sans">
+      <div className="flex flex-col justify-center items-center">
         <div className="mb-6 text-[40px] text-deep-blue-gray font-bold leading-[1.1] pb-3">
-          <span className="pr-2">sign</span>
+          <span className="mx-3">{t("Auth.sign")}</span>
           <span className="relative">
-            <span className="relative inline-block z-[1]">in</span>
+            <span className="relative inline-block z-[1]">{t("Auth.in")}</span>
             <div className="absolute inset-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%] bg-amber-200"></div>
           </span>
         </div>
-        <div className="mb-6 text-lg">
-          Welcome back! Sign in to your Raabet account
-        </div>
+        <div className="mb-6 text-lg">{t("Auth.welcomeBack")}</div>
       </div>
       <div className="grid gap-3">
         <div className="grid">
           <Input
             id="email"
             type="text"
-            placeholder="Email"
+            placeholder={t("Shared.email")}
             {...register("email")}
             className={errors.email ? "border-red-500" : ""}
           />
@@ -84,7 +84,7 @@ export const LoginForm = ({
           <Input
             id="password"
             type="password"
-            placeholder="Password"
+            placeholder={t("Auth.password")}
             {...register("password")}
             className={errors.password ? "border-red-500" : ""}
           />
@@ -94,18 +94,23 @@ export const LoginForm = ({
         </div>
         {error && <p className="text-red-500 text-sm">{error}</p>}
         <Link href="/auth/forgetPassword">
-        <span className="cursor-pointer text-xs">
-        Forgot your password?
-        </span>
+          <span className="cursor-pointer text-xs">
+            {t("Auth.forgotPassword")}
+          </span>
         </Link>
-        <Button type="submit" className="w-full bg-blue-400 hover:bg-blue-400 cursor-pointer">
-          Sign In
+        <Button
+          type="submit"
+          className="w-full bg-blue-400 hover:bg-blue-400 cursor-pointer"
+        >
+          {t("Auth.signIn")}
         </Button>
       </div>
-      <div className="text-center text-xs">
-        Not yet a member?
+      <div className="text-center text-sm mt-3">
+        {t("Auth.notMember")}
         <Link href="/auth/sign-up">
-          <span className="underline underline-offset-4 px-1">Sign Up.</span>
+          <span className="underline underline-offset-4 px-1">
+            {t("Auth.signUp")}
+          </span>
         </Link>
       </div>
     </form>
