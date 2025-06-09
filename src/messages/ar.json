@@ -40,7 +40,10 @@
     "login": "تسجيل الدخول",
     "contactUs": "اتصل بنا",
     "userNotFound":"المستخدم غير موجود",
-    "processing":"معالجة..."
+    "processing":"معالجة...",
+    "resetting":"يتم إعادة تعيين...",
+    "reset":"إعادة تعيين",
+    "passwordMinLimit": "يجب أن تكون كلمة المرور 6 أحرف على الأقل"
   },
   "Auth": {
     "sign": "تسجيل",
@@ -53,9 +56,9 @@
     "forgotPassword": "هل نسيت كلمة المرور؟",
     "passwordResetRequested":"تم طلب إعادة تعيين كلمة المرور",
     "requestPasswordReset":"طلب إعادة تعيين كلمة المرور",
+    "enterYourNewPassword":"أدخل كلمة المرور الجديدة",
     "signIn": "تسجيل الدخول",
     "signUp": "إنشاء حساب",
-    "reset":"إعادة تعيين",
     "notYetAMember": "لا تمتلك حساباً بعد؟",
     "invalidCredentials": "بريد إلكتروني أو كلمة مرور غير صالحين",
     "somethingWentWrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى",
@@ -69,6 +72,7 @@
     "and": "و",
     "join": "انضم الى",
     "okay": "حسناً",
+    "resetPassword":"إعادة تعيين كلمة المرور",
     "signUpDescription": "أكثر من 10,000 فنان، مبدع، صاحب عمل، وغيرهم يستخدمون Rabet لتجميع وجودهم على الإنترنت",
     "resetPasswordDescription": "ارسل بريد إلكتروني لإعادة تعيين كلمة المرور",
     "passwordResetRequestedDescription": "إذا كان هناك حساب مرتبط بهذا البريد الإلكتروني أو اسم المستخدم، سيتم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور"

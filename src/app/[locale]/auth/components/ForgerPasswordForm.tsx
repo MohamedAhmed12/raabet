@@ -62,7 +62,7 @@ export function ForgetPasswordForm({
       >
         <div className="flex flex-col justify-center items-center">
           <div className="flex gap-5 mb-6 text-[64px] text-deep-blue-gray font-bold leading-[1.1] pb-3">
-            <span>{t("Auth.reset")}</span>
+            <span>{t("Shared.reset")}</span>
             <span className="relative">
               <span className="relative inline-block z-[1] capitalize">
                 {t("Auth.password")}
