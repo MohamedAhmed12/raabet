@@ -6,6 +6,7 @@ import {Separator} from "@/components/ui/separator";
 import {cn} from "@/lib/cn";
 import Link from "next/link";
 import {useState} from "react";
+import { useTranslations } from "next-intl";
 
 export default function VerifyForm({
   email,
@@ -14,6 +15,7 @@ export default function VerifyForm({
   email: string;
   onVerify: () => void;
 }) {
+  const t = useTranslations();
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -42,15 +44,15 @@ export default function VerifyForm({
   return (
     <div className="flex flex-col justify-center items-center h-full mx-auto px-[7vw] py-4">
       <div className="font-noto-sans">
-        <div className="mb-6 text-[40px] text-deep-blue-gray font-bold leading-[1.1] pb-3">
-          <span>Confirm your </span>
+        <div className="flex gap-4 mb-6 text-[40px] text-deep-blue-gray font-bold leading-[1.1] pb-3">
+          <span>{t("Auth.confirmYour")}</span>
           <span className="relative ml-1">
-            <span className="relative inline-block z-[1]">email</span>
-            <div className="absolute inset-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%] bg-sky-300"></div>
+            <span className="relative inline-block z-[1]">{t("Auth.email")}</span>
+            <div className="h-[15px] absolute inset-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%] bg-sky-300"></div>
           </span>
         </div>
         <div className="mb-6 text-lg text-center">
-          We sent a code to{" "}
+          {t("Auth.codeSentTo")}{" "}
           <span className="font-medium text-gray-900">{email}</span>
         </div>
       </div>
@@ -76,7 +78,7 @@ export default function VerifyForm({
         disabled={loading || code.length !== 4}
         className="w-full h-11 bg-blue-600 hover:bg-blue-700 cursor-pointer"
       >
-        {loading ? "Verifying..." : "Confirm"}
+        {loading ? t("Auth.verifyingButton") : t("Auth.confirmButton")}
       </Button>
 
       <Separator className="my-[33px]" />
@@ -96,15 +98,15 @@ export default function VerifyForm({
       {/* Support Links */}
       <div className="text-center text-sm">
         <div className="mb-4">
-          Can&lsquo;t find the email?{" "}
+          {t("Auth.cantFindEmail")}{" "}
           <Link href="" className="underline underline-offset-1">
-            Resend a new confirmation email
+            {t("Auth.resendEmail")}
           </Link>
         </div>
         <div>
-          Entered the wrong email address?{" "}
+          {t("Auth.enteredWrongEmail")}{" "}
           <Link href="#" className="underline underline-offset-1">
-            Change email
+            {t("Auth.changeEmail")}
           </Link>
         </div>
       </div>

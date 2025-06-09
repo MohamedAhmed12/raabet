@@ -35,12 +35,13 @@ export default function VerifyPage() {
 
   return (
     authUser && (
-      <div className="flex min-h-svh flex-col lg:flex-row">
+      <div className="flex min-h-svh flex-col lg:flex-row font-noto-sans">
         <div className="flex flex-1 flex-col">
           <div className="flex justify-center w-full gap-2 md:justify-start">
             <a
               href="#"
-              className="flex items-center h-[70px] w-full pl-8 pr-6 font-medium"
+              className="flex items-center h-[70px] w-full pl-8 gap-2 font-medium"
+              dir="ltr"
             >
               <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
                 <GalleryVerticalEnd className="size-4 " />

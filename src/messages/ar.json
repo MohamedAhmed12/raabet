@@ -75,7 +75,22 @@
     "resetPassword":"إعادة تعيين كلمة المرور",
     "signUpDescription": "أكثر من 10,000 فنان، مبدع، صاحب عمل، وغيرهم يستخدمون Rabet لتجميع وجودهم على الإنترنت",
     "resetPasswordDescription": "ارسل بريد إلكتروني لإعادة تعيين كلمة المرور",
-    "passwordResetRequestedDescription": "إذا كان هناك حساب مرتبط بهذا البريد الإلكتروني أو اسم المستخدم، سيتم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور"
+    "passwordResetRequestedDescription": "إذا كان هناك حساب مرتبط بهذا البريد الإلكتروني أو اسم المستخدم، سيتم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور",
+    "verifyEmail": "تحقق من البريد الإلكتروني",
+    "confirmEmail": "تأكيد البريد الإلكتروني",
+    "codeSentTo": "أرسلنا رمز تأكيد إلى",
+    "confirmYour": "تأكيد",
+    "email": "البريد الإلكتروني", 
+    "verifying": "جاري التحقق...",
+    "confirm": "تأكيد",
+    "verifyingButton": "جاري التحقق...",
+    "confirmButton": "تأكيد", 
+    "activationSuccessful": "✅ تم التفعيل بنجاح!",
+    "errorPrefix": "❌",
+    "resendEmail": "إعادة إرسال بريد التأكيد",
+    "cantFindEmail": "لا تجد البريد؟",
+    "enteredWrongEmail": "هل أدخلت عنوان البريد الإلكتروني الخطأ؟",
+    "changeEmail": "تغيير البريد الإلكتروني"
   },
   "LinksPage": {
     "title": "الأنماط العامة",
