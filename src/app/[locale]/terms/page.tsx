@@ -144,7 +144,7 @@ export default async function terms() {
             <span>
               Our Intellectual Property must not be used in connection with a
               product or service that is not affiliated with us or in any way
-              brings us in disrepute.{" "}
+              brings us in disrepute.
             </span>
             <span>
               You must not modify the physical or digital copies of any Content
@@ -476,7 +476,7 @@ export default async function terms() {
           <div className="text-2xl mb-4">17. Contact Us</div>
           <div className="text-sm flex flex-col gap-4">
             <span>
-              If you have any questions about these Terms, please contact us.
+              If you have any questions about these Terms, please contact us by email at contact@rabet.co
             </span>
           </div>
         </div>
