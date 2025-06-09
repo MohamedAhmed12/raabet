@@ -93,7 +93,7 @@ export const LoginForm = ({
           )}
         </div>
         {error && <p className="text-red-500 text-sm">{error}</p>}
-        <Link href="/auth/forgetPassword">
+        <Link href="/auth/forget-password">
           <span className="cursor-pointer text-xs">
             {t("Auth.forgotPassword")}
           </span>

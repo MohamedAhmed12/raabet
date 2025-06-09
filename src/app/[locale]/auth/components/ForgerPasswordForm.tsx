@@ -13,6 +13,8 @@ import {
   DialogOverlay,
 } from "@radix-ui/react-dialog";
 import { Icon } from "@/components/Icon";
+import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 export function ForgetPasswordForm({
   className,
@@ -22,6 +24,8 @@ export function ForgetPasswordForm({
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  const t = useTranslations();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,8 +42,12 @@ export function ForgetPasswordForm({
     if (res.ok) {
       setShowModal(true);
     }
-  };
 
+    const data = await res.json();
+    if (res.status == 404) {
+      toast.error(t("Shared.userNotFound"));
+    }
+  };
   const handleClose = () => {
     setShowModal(false);
     router.replace("/");
@@ -49,30 +57,32 @@ export function ForgetPasswordForm({
     <>
       <form
         onSubmit={handleSubmit}
-        className={cn("flex flex-col", className)}
+        className={cn("flex flex-col font-noto-sans", className)}
         {...props}
       >
-        <div className="flex flex-col justify-center items-center font-noto-sans">
-          <div className="mb-6 text-[64px] text-deep-blue-gray font-bold leading-[1.1] pb-3">
-            <span className="pr-2">Reset</span>
+        <div className="flex flex-col justify-center items-center">
+          <div className="flex gap-5 mb-6 text-[64px] text-deep-blue-gray font-bold leading-[1.1] pb-3">
+            <span>{t("Auth.reset")}</span>
             <span className="relative">
-              <span className="relative inline-block z-[1]">Password</span>
-              <div className="absolute inset-0 z-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%] bg-purple-300"></div>
+              <span className="relative inline-block z-[1] capitalize">
+                {t("Auth.password")}
+              </span>
+              <div className="h-[22px] absolute inset-0 z-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%] bg-purple-300"></div>
             </span>
           </div>
           <div className="mb-6 text-lg">
-            Request an email to reset your account password
+            {t("Auth.resetPasswordDescription")}
           </div>
         </div>
         <div className="flex flex-col gap-5">
           <div className="flex flex-col w-full max-w-xl gap-1.5">
             <Label htmlFor="email" className="pl-1">
-              Email or Username
+              {t("Auth.emailOrUsername")}
             </Label>
             <Input
               type="text"
               id="email"
-              placeholder="Enter your email or username"
+              placeholder={t("Auth.emailOrUsernamePlaceholder")}
               className="h-12"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -84,34 +94,37 @@ export function ForgetPasswordForm({
             className="w-full h-11 bg-black hover:bg-black cursor-pointer"
             disabled={loading}
           >
-            {loading ? "Processing..." : "Request password reset"}
+            {loading ? t("Shared.processing") : t("Auth.requestPasswordReset")}
           </Button>
         </div>
       </form>
 
-        <Dialog open={showModal} onOpenChange={setShowModal}>
-          {/* ✅ Overlay with blur effect */}
-          <DialogOverlay className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40" />
+      <Dialog open={showModal} onOpenChange={setShowModal}>
+        {/* ✅ Overlay with blur effect */}
+        <DialogOverlay className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40" />
 
-          {/* ✅ Modal content with higher z-index */}
-          <DialogContent className="flex flex-col items-center max-w-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-xl transition-all duration-300 z-50 !border-blue-500 !border-2">
-            <DialogTitle className="flex flex-col items-center text-lg font-semibold mb-2.5">
-             <Icon name="circle-check-big" size={40} className="text-blue-500 mb-4" />
-              <p className="text-2xl">Password Reset Requested</p>
-            </DialogTitle>
-            <p className="text-l text-black">
-              If an account is associated with this email or username, you will
-              receive an email to reset your password.
-            </p>
-            <Button
-              onClick={handleClose}
-              className="mx-2.5 my-4 bg-blue-500 hover:bg-blue-600 text-white"
-              size="lg"
-            >
-              Okay
-            </Button>
-          </DialogContent>
-        </Dialog>
+        {/* ✅ Modal content with higher z-index */}
+        <DialogContent className="flex flex-col items-center max-w-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-xl transition-all duration-300 z-50 !border-blue-500 !border-2">
+          <DialogTitle className="flex flex-col items-center text-lg font-semibold mb-2.5">
+            <Icon
+              name="circle-check-big"
+              size={40}
+              className="text-blue-500 mb-4"
+            />
+            <p className="text-2xl">{t("Auth.passwordResetRequested")}</p>
+          </DialogTitle>
+          <p className="text-l text-black">
+            {t("Auth.passwordResetRequestedDescription")}
+          </p>
+          <Button
+            onClick={handleClose}
+            className="mx-2.5 my-4 bg-blue-500 hover:bg-blue-600 text-white"
+            size="lg"
+          >
+            {t("Auth.okay")}
+          </Button>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

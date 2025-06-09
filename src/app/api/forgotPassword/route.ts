@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
     // Determine if identifier is an email
     const isEmail = identifier.includes("@");
-    
+
     // Find user by email or full name (case insensitive)
     const user = await prisma.user.findFirst({
       where: {
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     });
 
     if (!user) {
-      return NextResponse.json({ message: "User not found" }, { status: 404 });
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
     const token = jwt.sign(
@@ -63,6 +63,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "Reset email sent" }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: error }, { status: 500 });
+    console.error(1123213213, error);
+    return NextResponse.json({ error });
   }
 }
