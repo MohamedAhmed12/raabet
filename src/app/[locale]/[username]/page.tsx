@@ -20,7 +20,7 @@ export default function UserName() {
   const width = 25 + (190 - 25) * size;
   const height = 16 + (118 - 16) * size;
   // useFetchLink is setting link data from DB in linkStore internally
-  const { isLoading, error } = useFetchLink({ username });
+  const { isLoading, error, refetch } = useFetchLink({ username });
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent<any>) => {
@@ -28,7 +28,8 @@ export default function UserName() {
       const receivedData = event.data;
 
       if (receivedData?.type != "linkData") return;
-      if (receivedData?.data) setLink(receivedData.data);
+
+      refetch();
     };
 
     // Add event listener for receiving the message
@@ -59,7 +60,7 @@ export default function UserName() {
       >
         <div
           className={cn(
-            "w-full flex flex-col max-w-[530px] min-h-[calc(100vh+60px)]",
+            "w-full flex flex-col max-w-[530px] min-h-[calc(100vh+60px)] max-w-[530px]",
             "shadow-[0px_7px_29px_0px_rgba(100,100,111,0.15)]"
           )}
           style={{

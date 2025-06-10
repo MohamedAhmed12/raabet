@@ -1,9 +1,13 @@
 "use client";
 
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {cn} from "@/lib/cn";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/cn";
 import dynamic from "next/dynamic";
-import {LinksPageFieldLabel} from "./LinksPageFieldLabel";
+import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
 
 // Dynamically import ChromePicker with ssr: false to disable SSR
 const ChromePicker = dynamic(
@@ -20,7 +24,7 @@ export const DashboardChromPicker = ({
 }: Readonly<{
   label?: string;
   currentColor?: string | undefined;
-  onColorChange?: ({hex}: {hex: string}) => void;
+  onColorChange?: ({ hex }: { hex: string }) => void;
 }>) => {
   return (
     <Popover>
@@ -31,7 +35,10 @@ export const DashboardChromPicker = ({
           </span>
           <div
             className={cn("rounded-full w-5 h-5")}
-            style={{backgroundColor: currentColor}}
+            style={{
+              backgroundColor: currentColor,
+              border: "1px solid oklch(.85 .006 264.531)",
+            }}
           ></div>
         </div>
       </PopoverTrigger>

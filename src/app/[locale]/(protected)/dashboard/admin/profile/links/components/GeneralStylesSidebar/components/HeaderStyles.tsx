@@ -5,13 +5,13 @@ import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
 
 export default function HeaderStyles() {
-    const t = useTranslations("LinksPage.headerStyles");
+  const t = useTranslations("LinksPage.headerStyles");
   const { link, handleLinkPropertyValChange } = useUpdateLink();
 
   return (
     <div className="section">
       <div className="section-title text-[.82rem] font-bold mb-[22px]">
-        {t('title')}
+        {t("title")}
       </div>
       <DashboardSlider
         label={t("profilePictureShadow")}
@@ -36,18 +36,18 @@ export default function HeaderStyles() {
       />
 
       {link?.header_styles_profile_border_width &&
-        link?.header_styles_profile_border_width > 0 && (
-          <DashboardChromPicker
-            label={t("profilePictureBorderColor")}
-            currentColor={link?.header_styles_profile_border_color}
-            onColorChange={({hex}: {hex: string}) =>
-              handleLinkPropertyValChange(
-                "header_styles_profile_border_color",
-                hex
-              )
-            }
-          />
-        )}
+      link?.header_styles_profile_border_width > 0 ? (
+        <DashboardChromPicker
+          label={t("profilePictureBorderColor")}
+          currentColor={link?.header_styles_profile_border_color}
+          onColorChange={({ hex }: { hex: string }) =>
+            handleLinkPropertyValChange(
+              "header_styles_profile_border_color",
+              hex
+            )
+          }
+        />
+      ) : null}
 
       <DashboardSwitch
         label={t("collapseLongBio")}

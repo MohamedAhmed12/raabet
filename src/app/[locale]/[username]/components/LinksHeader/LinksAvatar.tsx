@@ -6,10 +6,10 @@ export function LinksAvatar() {
   const user = useLinkStore((state) => state.link.user);
   const link = useLinkStore((state) => state.link);
 
-  const profilePicShadow = (link?.header_styles_profile_shadow || 0) * 1000;
+  const profilePicShadow = link?.header_styles_profile_shadow || 0;
   const profilePicBorder =
     (link?.header_styles_profile_border_width || 0) * 1000;
-
+  console.log("ddddddddddddd", profilePicShadow);
   return (
     <Avatar
       className={cn(
@@ -18,9 +18,9 @@ export function LinksAvatar() {
           "absolute top-[155px] -translate-x-1/2"
       )}
       style={{
-        boxShadow: `0px 0px ${profilePicShadow * 0.01}px ${
-          profilePicShadow * 0.005
-        }px rgba(0, 0, 0,0.3)`,
+        boxShadow: ` rgba(0, 0, 0) ${profilePicShadow * 6.3}px ${
+          profilePicShadow * 7
+        }px 0px 0px`,
         borderWidth: `${profilePicBorder * 0.008}px`,
         borderColor: link.header_styles_profile_border_color,
       }}
