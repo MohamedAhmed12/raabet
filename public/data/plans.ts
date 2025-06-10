@@ -12,9 +12,9 @@ export interface Plan {
 
 export const plans: Plan[] = [
   {
-    name: "Premium",
-    originalPrice: '$5',
-    discountPrice: '$2.5',
+    name: "premium",
+    originalPrice: "$5",
+    discountPrice: "$2.5",
     description:
       "Supercharge your profile with advanced blocks, styling, analytics, integrations, and more.",
     sections: [
@@ -24,7 +24,7 @@ export const plans: Plan[] = [
           { text: "Unlimited blocks and socials", value: true },
           { text: "Custom Raabet URL", value: false },
           // { text: "liinksAffiliate", value: false }, next release
-          // ticket for both 
+          // ticket for both
           { text: "Verification badge", value: true },
           { text: "Share button with QR code + vCard", value: true },
         ],
@@ -40,7 +40,7 @@ export const plans: Plan[] = [
           // { text: "Temporarily skip directly to a link", value: true },
         ],
       },
-       {
+      {
         title: "Special Blocks",
         features: [
           { text: "Audio, Video and Media embed block", value: false },
@@ -71,7 +71,7 @@ export const plans: Plan[] = [
       // },
     ],
   },
-  // next release 
+  // next release
   // {
   //   name: "Pro+",
   //   price: 10,
@@ -119,4 +119,50 @@ export const plans: Plan[] = [
   //     },
   //   ],
   // },
+];
+
+export const arPlans: Plan[] = [
+  {
+    name: "متميز",
+    originalPrice: "$5",
+    discountPrice: "$2.5",
+    description: "طوّر ملفك الشخصي باستخدام كتل متقدمة، وتنسيق مخصص، وتحليلات، وتكاملات، والمزيد.",
+    sections: [
+      {
+        title: "عام",
+        features: [
+          { "text": "كتل وروابط اجتماعية غير محدودة", "value": true },
+          { "text": "رابط Raabet مخصص", "value": false },
+          { "text": "شارة التحقق", "value": true },
+          { "text": "زر مشاركة مع رمز QR وبطاقة vCard", "value": true }
+        ]
+      },
+      {
+        title: "كتل الروابط",
+        features: [
+          { "text": "رابط إلى URL أو بريد إلكتروني", "value": false },
+          { "text": "صور مصغّرة", "value": true },
+          { "text": "تخصيص الألوان والخطوط والحدود، وغير ذلك...", "value": true },
+          { "text": "تحريك الكتل لجذب الانتباه", "value": false }
+        ]
+      },
+      {
+        title: "كتل خاصة",
+        features: [
+          { "text": "كتل تضمين صوت وفيديو ووسائط", "value": false },
+          { "text": "كتل نص غني", "value": true },
+          { "text": "كتل تحميل ملفات", "value": true }
+        ]
+      },
+      {
+        title: "تحليلات",
+        features: [
+          { "text": "تحليلات إجمالي مشاهدة الصفحة ونقر الروابط", "value": false },
+          { "text": "تحليلات كل رابط على حدة", "value": true },
+          { "text": "تحليلات طوال الوقت أو ضمن نطاق زمني مخصص", "value": false }
+        ]
+      }
+    ]
+  }
+  
 ];

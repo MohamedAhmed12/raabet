@@ -105,7 +105,10 @@ export const Footer = () => {
         {!isSuccess ? (
           <form
             action={handleSubscribe}
-            className="flex gap-3 bg-white p-2.5 rounded-4xl w-full"
+            className={cn(
+              "flex gap-3 bg-white p-2.5 rounded-4xl w-full ml-[-4px]",
+              "lg:m-0"
+            )}
           >
             <input
               name="email"

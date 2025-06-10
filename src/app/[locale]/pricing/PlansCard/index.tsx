@@ -1,26 +1,41 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { plans } from "../../../../../public/data/plans";
+import { plans as enPlans, arPlans } from "../../../../../public/data/plans";
 import { FeaturesList } from "./FeaturesList";
 import { MobileFeaturesList } from "./MobileFeaturesList";
+import { useLocale, useTranslations } from "next-intl";
 
 export const PlansCard = () => {
+  const locale = useLocale();
+  const t = useTranslations();
+  const plans = locale == "ar" ? arPlans : enPlans;
+
   return (
     <div className="flex flex-col lg:flex-row font-noto-sans">
       {plans.map((plan, i) => (
         <div
           key={plan.name}
           className={cn(
-            "relative border-1 border-deep-blue-gray rounded-b-[20px] shadow-none lg:shadow-[8px_8px_0px_#1d1d28]",
+            "relative border-1 border-deep-blue-gray rounded-b-[20px] shadow-none",
             "lg:rounded-b-none",
-            "z-[2] mb-5 lg:mb-0 lg:rounded-br-[20px]"
+            "z-[2] mb-5 lg:mb-0",
+            locale == "ar"
+              ? "lg:rounded-bl-[20px] lg:shadow-[-8px_8px_0px_#1d1d28]"
+              : "lg:rounded-br-[20px] lg:shadow-[8px_8px_0px_#1d1d28]"
           )}
         >
           {/* Most popular banner */}
           {i == 0 && (
-            <div className="flex items-center justify-center h-[50px] bg-light-orange border rounded-t-[20px] border-[#1d1d28] shadow-none lg:shadow-[8px_8px_0px_#1d1d28] absolute top-[-50px] left-[-1px] right-[-1px] font-bold">
-              Most Popular
+            <div
+              className={cn(
+                "flex items-center justify-center h-[50px] bg-light-orange border rounded-t-[20px] border-[#1d1d28] shadow-none absolute top-[-50px] left-[-1px] right-[-1px] font-bold",
+                locale == "ar"
+                  ? "lg:shadow-[-7px_8px_0px_#1d1d28]"
+                  : "lg:shadow-[7px_8px_0px_#1d1d28]"
+              )}
+            >
+              {t("Pricing.bestValue")}
             </div>
           )}
           {/* plan header  */}
@@ -42,7 +57,7 @@ export const PlansCard = () => {
                 textShadow: "3px 3px 0px #1d1d28",
               }}
             >
-              {plan.name}
+              {/* {t(`Pricing.${plan.name}`)} */}
             </h2>
             <div className="flex flex-col mt-4 mb-8">
               <div className="flex items-end">
@@ -55,7 +70,7 @@ export const PlansCard = () => {
                   {plan.discountPrice}
                 </span>
               </div>
-              <span className="text-base mt-2">USD per month</span>
+              <span className="text-base mt-2">{t("Pricing.pricePerMonth")}</span>
             </div>
 
             {/* <Separator /> */}
@@ -69,7 +84,7 @@ export const PlansCard = () => {
                 "bg-deep-blue-gray text-white px-6 py-4 rounded-4xl font-bold leading-none"
               )}
             >
-              Try Free For 14 Days
+              {t("Pricing.freeTrial")}
             </button>
           </div>
 

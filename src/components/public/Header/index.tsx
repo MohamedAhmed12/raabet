@@ -36,7 +36,7 @@ export const Header = () => {
           href="/pricing"
           className={cn("mt-[3px]", locale === "ar" ? "mr-4" : "ml-4")}
         >
-          {t("Header.pricing")}
+          {t("Shared.pricing")}
         </NextLink>
       </div>
 

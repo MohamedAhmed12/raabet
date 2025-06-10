@@ -48,7 +48,7 @@ export const MobileHeader = () => {
                   : ""
               }`}
             >
-              {t("Header.pricing")}
+              {t("Shared.pricing")}
             </NextLink>
 
             <NextLink
