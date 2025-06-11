@@ -51,7 +51,7 @@ export default function HeaderStyles() {
 
       <DashboardSwitch
         label={t("collapseLongBio")}
-        tooltipContent="aaa"
+        tooltipContent={t("collapseLongBioTooltip")}
         checked={link?.header_styles_collapse_long_bio}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange(

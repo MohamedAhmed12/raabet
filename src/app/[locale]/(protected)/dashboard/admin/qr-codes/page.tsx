@@ -32,7 +32,7 @@ export default function QRCodes() {
       )}
 
       {qrCodes && (
-        <div className="flex flex-col gap-4 flex-wrap w-150">
+        <div className="flex flex-col gap-4 w-150">
           {qrCodes.map((qr) => (
             <QRCodeCard
               key={qr.id}

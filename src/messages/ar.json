@@ -17,6 +17,13 @@
     "paymentIssues": "يوجد مشكلة في الاشتراك. يرجى تحديث طريقة الدفع",
     "paymentIssuesFirstHalf": "يوجد مشكلة في الاشتراك. يرجى تحديث طريقة"
   },
+  "ShareBtn": {
+    "add": "إضافة",
+    "addContact": "إضافة جهة اتصال",
+    "asContact": "كجهة اتصال",
+    "copyURL": "نسخ رابط الملف الشخصي",
+    "copiedToClipboard": "تم نسخ الرابط"
+  },
   "Shared": {
     "pricing": "الأسعار",
     "rabet": "رابط",
@@ -135,6 +142,7 @@
       "profilePictureBorder": "حدود صورة الملف الشخصي",
       "profilePictureBorderColor": "لون حدود صورة الملف الشخصي",
       "collapseLongBio": "طي السيرة الذاتية الطويلة",
+      "collapseLongBioTooltip": "طي السيرة الذاتية الطويلة عند تحميل الصفحة لأول مرة. النقر على السيرة الذاتية الطويلة المطيت سينشأ.",
       "socialIconSize": "حجم الأيقونة الاجتماعية"
     },
     "cardStyles": {
@@ -265,11 +273,6 @@
     "activateProfile": "تفعيل الملف الشخصي",
     "tryFree": "جرّب مجانًا",
     "14days": "لمدة 14 يومًا"
-  },
-  "ShareBtn": {
-    "add": "إضافة",
-    "addContact": "إضافة جهة اتصال",
-    "asContact": "كجهة اتصال"
   },
   "Dropdowns": {
     "lastWeek": "الأسبوع الماضي",

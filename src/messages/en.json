@@ -16,6 +16,13 @@
     "pending": "Your subscription is pending",
     "paymentIssuesFirstHalf": "Your subscription has issues. Please update your"
   },
+  "ShareBtn": {
+    "add": "Add",
+    "addContact": "Add contact",
+    "asContact": "as a contact",
+    "copyURL": "Copy Profile URL",
+    "copiedToClipboard": "Copied to Clipboard"
+  },
   "Shared": {
     "pricing": "Pricing",
     "rabet": "Rabet",
@@ -135,6 +142,7 @@
       "profilePictureBorder": "Profile Picture Border",
       "profilePictureBorderColor": "Profile Picture Border Color",
       "collapseLongBio": "Collapse Long Bio",
+      "collapseLongBioTooltip": "Collapse a long bio down to 3 lines when your profile is first loaded. Clicking on a collapsed bio will expand it.",
       "socialIconSize": "Social Icon Size"
     },
     "cardStyles": {
@@ -265,11 +273,6 @@
     "activateProfile": "Activate Profile",
     "tryFree": "Try Free",
     "14days": "For 14 Days"
-  },
-  "ShareBtn": {
-    "add": "Add",
-    "addContact": "Add Contact",
-    "asContact": "As Contact"
   },
   "Dropdowns": {
     "lastWeek": "Last Week",
