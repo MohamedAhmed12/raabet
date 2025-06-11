@@ -9,7 +9,7 @@ export function LinksAvatar() {
   const profilePicShadow = link?.header_styles_profile_shadow || 0;
   const profilePicBorder =
     (link?.header_styles_profile_border_width || 0) * 1000;
-  console.log("ddddddddddddd", profilePicShadow);
+
   return (
     <Avatar
       className={cn(

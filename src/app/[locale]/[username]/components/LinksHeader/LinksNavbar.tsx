@@ -1,23 +1,12 @@
 "use client";
 
 import { cn } from "@/lib/cn";
-import { useEffect, useState } from "react";
 import { AddContactDialog } from "./AddContactDialog";
-import { LinksNavbarIcon } from "./StickyLinksNavbar";
 import { useUpdateLink } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/hooks/useUpdateLink";
+import { ShareBtn } from "@/components/ShareBtn";
 
-export default function LinksNavbar() {
-  const [isSticky, setIsSticky] = useState(false);
+export default function LinksNavbar({ isSticky }: { isSticky: boolean }) {
   const { link } = useUpdateLink();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 10); // adjust 10 to whatever threshold you want
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <header
@@ -26,12 +15,22 @@ export default function LinksNavbar() {
         isSticky && "pt-[11px] mr-[-20px] ml-[-20px]"
       )}
     >
-      <div className="flex items-center gap-4 text-current">
+      <div
+        className={cn(
+          "flex items-center text-current",
+
+          !isSticky ? "gap-4" : "gap-2"
+        )}
+      >
         {link.social_enable_add_contacts && (
           <AddContactDialog isSticky={isSticky} />
         )}
         {link.social_enable_share_btn && (
-          <LinksNavbarIcon isSticky={isSticky} iconName="share" />
+          <ShareBtn
+            isSticky={isSticky}
+            className="border-none hover:bg-unset !p-0"
+            iconSize={21}
+          />
         )}
       </div>
 
