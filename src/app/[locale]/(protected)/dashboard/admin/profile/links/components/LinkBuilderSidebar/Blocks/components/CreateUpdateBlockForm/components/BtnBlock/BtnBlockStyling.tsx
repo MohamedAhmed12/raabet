@@ -70,7 +70,7 @@ export const BtnBlockStyling = ({
         onSelect={(index) =>
           onChange("animation", Object.values(BlockAnimation)[index])
         }
-        prefix="animaiton"
+        prefix="animation"
         className="my-3 w-full"
         items={Object.values(BlockAnimation)}
       />

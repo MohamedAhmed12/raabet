@@ -1,9 +1,9 @@
 "use client";
 
-import { cn } from "@/lib/cn";
-import { AddContactDialog } from "./AddContactDialog";
 import { useUpdateLink } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/hooks/useUpdateLink";
 import { ShareBtn } from "@/components/ShareBtn";
+import { cn } from "@/lib/cn";
+import { AddContactDialog } from "./AddContactDialog";
 
 export default function LinksNavbar({ isSticky }: { isSticky: boolean }) {
   const { link } = useUpdateLink();
@@ -18,7 +18,6 @@ export default function LinksNavbar({ isSticky }: { isSticky: boolean }) {
       <div
         className={cn(
           "flex items-center text-current",
-
           !isSticky ? "gap-4" : "gap-2"
         )}
       >
@@ -28,7 +27,7 @@ export default function LinksNavbar({ isSticky }: { isSticky: boolean }) {
         {link.social_enable_share_btn && (
           <ShareBtn
             isSticky={isSticky}
-            className="border-none hover:bg-unset !p-0"
+            className="border-none hover:bg-unset !p-0 bg-transparent text-unset"
             iconSize={21}
           />
         )}

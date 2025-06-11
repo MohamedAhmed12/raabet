@@ -62,9 +62,9 @@ export function ShareBtn({
         <div
           className={cn(
             "text-black border-1 border-gray-300 rounded-sm !p-2 cursor-pointer bg-white hover:bg-gray-200",
+            className,
             isSticky &&
               `pointer-events-auto backdrop-blur-md shadow-[0px_0px_20px_2px_rgba(0,0,0,0.1)] rounded-[22.5px] h-[40px] w-[40px] bg-[rgba(0,0,0,0.25)] flex items-center justify-center`,
-            className
           )}
         >
           <Icon
