@@ -20,7 +20,7 @@ const schema = z.object({
   website: z.string().url("Please enter a valid URL"),
 });
 
-export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
+export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
   const isSeparator = !item?.icon;
   const [isFocused, setIsFocused] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -37,7 +37,7 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -45,7 +45,7 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
     },
   });
 
-  const {setNodeRef, attributes, listeners, transform, transition} =
+  const { setNodeRef, attributes, listeners, transform, transition } =
     useSortable({
       id: item.id,
       disabled: isFocused,
@@ -57,7 +57,7 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
     willChange: "transform",
   };
 
-  const onSubmit = async (data: {website: string}) => {
+  const onSubmit = async (data: { website: string }) => {
     await updateLinkUrl(item.id, data.website);
   };
 
@@ -84,7 +84,7 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const updatedSocials = currentLink.socials.map((social) =>
-      social.id === item.id ? {...social, label: value} : social
+      social.id === item.id ? { ...social, label: value } : social
     );
 
     useLinkStore.getState().setLink({
@@ -129,6 +129,7 @@ export const SocialSortableItem = ({item}: {item: LinkSocial}) => {
                 handleBlur();
                 handleSubmit(onSubmit)();
               }}
+              className="pr-9"
             />
             {errors.website && <p>{errors.website.message}</p>}
           </div>

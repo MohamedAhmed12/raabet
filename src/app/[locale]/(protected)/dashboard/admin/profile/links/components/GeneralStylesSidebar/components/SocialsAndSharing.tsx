@@ -19,7 +19,7 @@ export const content = {
         className="underline"
       >
         vCard
-      </a>{" "}
+      </a>
       format. We will automatically generate your vCard using your profile
       picture, display name, email, phone number and any other links provided in
       the Socials field.
