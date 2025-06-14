@@ -1,9 +1,10 @@
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/cn";
+import { useShallow } from "zustand/react/shallow";
 
 export default function LinksSocialIcons() {
-  const link = useLinkStore((state) => state.link);
+  const link = useLinkStore(useShallow((state) => state.link));
   const socialIconSize = (link?.header_styles_social_icons_size || 0) * 24;
   return (
     link?.socials && (
