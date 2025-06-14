@@ -5,38 +5,47 @@ import { Icon } from "@/components/Icon";
 import { Input } from "@/components/ui/input";
 import { GCSFileLoader } from "../../LinkBuilderSidebar/GCSFileLoader";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { Share2, User } from "lucide-react";
 
-export const content = {
-  "Enable Add Contact": (
+type ContentProps = {
+  t: (key: string) => string;
+};
+
+type ContentFunction = (props: ContentProps) => React.ReactNode;
+
+export const content: Record<string, ContentFunction> = {
+  "Enable Add Contact": (props) => (
     <span>
-      Enabling this will add a <Icon name="user" className="inline !w-4 !h-4" />{" "}
-      icon to the top right of your page which will allow users to easily save
-      your contact info via the{" "}
+      {props.t("enableAddContactTooltip")}
+      <User className="inline !w-4 !h-4 mx-[2px] mb-[5px]" />
+      {props.t("enableAddContactTooltipAfter")}
       <a
         href="https://en.wikipedia.org/wiki/VCard"
         target="_blank"
         rel="noopener noreferrer"
-        className="underline"
+        className="underline mx-1"
       >
         vCard
       </a>
-      format. We will automatically generate your vCard using your profile
-      picture, display name, email, phone number and any other links provided in
-      the Socials field.
+      {props.t("enableAddContactTooltipAfter2")}
     </span>
   ),
-  "Enable Share Button": (
-    <span>
-      Enabling this will add a{" "}
-      <Icon name="share" className="inline !w-4 !h-4" /> icon to the top left of
-      your page which will allow users to easily copy the link to your page
-      and/or share it.
-    </span>
+  "Enable Share Button": (props) => (
+    <>
+      <span>{props.t("enableShareButtonTooltip")}</span>
+      <span>
+        <Share2 className="inline !w-3.5 !h-3.5 mx-1 mb-[3px]" />
+      </span>
+      <span>{props.t("enableShareButtonTooltipAfter")}</span>
+    </>
   ),
-  "Click For QR Code":
-    "With this enabled, you can click on your profile picture to bring up a QR code which links to your profile. Handy for sharing your profile with people you meet in person!",
-  "hide raabet branding":
-    "Hide the 'Made with raabet' logo at the bottom of your profile. You can optionally upload your own logo.",
+  "Click For QR Code": (props) => (
+    <span>{props.t("clickForQRCodeTooltip")}</span>
+  ),
+  "hide raabet branding": (props) => (
+    <span>{props.t("hideRaabetBrandingTooltip")}</span>
+  ),
   // "enable verified badge": (
   //   <span>
   //     Enabling this will display a{" "}
@@ -51,7 +60,13 @@ export const content = {
 };
 
 export default function SocialsAndSharing() {
+  const t = useTranslations("SocialsAndSharing");
   const { link, handleLinkPropertyValChange } = useUpdateLink();
+
+  const getTooltipContent = (key: string) => {
+    const contentFunction = content[key];
+    return contentFunction ? contentFunction({ t }) : null;
+  };
 
   const handleFileUploader = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -72,37 +87,37 @@ export default function SocialsAndSharing() {
   return (
     <div className="section">
       <div className="section-title text-[.82rem] font-bold mb-[22px]">
-        Social & Sharing
+        {t("sectionTitle")}
       </div>
       <DashboardSwitch
-        label="Enable Add Contact"
+        label={t("enableAddContact")}
         checked={link.social_enable_add_contacts}
-        tooltipContent={content["Enable Add Contact"]}
+        tooltipContent={getTooltipContent("Enable Add Contact")}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange("social_enable_add_contacts", checked)
         }
       />
 
       <DashboardSwitch
-        label="Enable Share Button"
+        label={t("enableShareButton")}
         checked={link.social_enable_share_btn}
-        tooltipContent={content["Enable Share Button"]}
+        tooltipContent={getTooltipContent("Enable Share Button")}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange("social_enable_share_btn", checked)
         }
       />
       <DashboardSwitch
-        label="Click For QR Code"
+        label={t("clickForQRCode")}
         checked={link.social_enable_qr_code}
-        tooltipContent={content["Click For QR Code"]}
+        tooltipContent={getTooltipContent("Click For QR Code")}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange("social_enable_qr_code", checked)
         }
       />
       <DashboardSwitch
-        label="Hide raabet Branding"
+        label={t("hideRaabetBranding")}
         checked={link.social_enable_hide_raabet_branding}
-        tooltipContent={content["hide raabet branding"]}
+        tooltipContent={getTooltipContent("hide raabet branding")}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange(
             "social_enable_hide_raabet_branding",
@@ -145,6 +160,13 @@ export default function SocialsAndSharing() {
               max={1}
               step={0.001}
               onValueChange={(value) =>
+                handleLinkPropertyValChange(
+                  "social_custom_logo_size",
+                  value,
+                  false
+                )
+              }
+              onValueCommit={(value) =>
                 handleLinkPropertyValChange("social_custom_logo_size", value)
               }
             />

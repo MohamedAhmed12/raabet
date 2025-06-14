@@ -166,6 +166,7 @@
       "addSeparator": "Add Separator",
       "socials": "Social Media",
       "addBlocks": "Add Blocks",
+      "header": "Header",
       "blocks": "Blocks",
       "urlButton": "URL Button",
       "emailButton": "Email Button",
@@ -229,6 +230,21 @@
     },
     "tryAgainMsg": "Please try again later.",
     "restricted": "You need an active subscription to access this content."
+  },
+  "SocialsAndSharing": {
+    "sectionTitle": "Socials & Sharing",
+    "enableAddContact": "Enable Add Contact",
+    "enableShareButton": "Enable Share Button",
+    "clickForQRCode": "Click for QR Code",
+    "hideRaabetBranding": "Hide Raabet Branding",
+    "enableAddContactTooltip": "Enabling this will add a",
+    "enableAddContactTooltipAfter": "icon to the top right of your page which will allow users to easily save your contact info via the ",
+    "enableAddContactTooltipAfter2": " format. We will automatically generate your vCard using your profile picture, display name, email, phone number and any other links provided in the Socials field.",
+    "enableShareButtonTooltip": "Enabling this will add a",
+    "enableShareButtonTooltipAfter": "icon to the top left of your page which will allow users to easily share your profile via the vCard format.",
+    "clickForQRCodeTooltip": "With this enabled, you can click on your profile picture to bring up a QR code which links to your profile. Handy for sharing your profile with people you meet in person!",
+    "hideRaabetBrandingTooltip": "Hide the \"Made with raabet\" logo at the bottom of your profile. You can optionally upload your own logo.",
+    "settingsTab": "Settings tab"
   },
   "Analytics": {
     "Metrics": {
