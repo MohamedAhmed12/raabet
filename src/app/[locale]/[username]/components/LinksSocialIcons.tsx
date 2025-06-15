@@ -30,6 +30,7 @@ export default function LinksSocialIcons() {
                     color: link?.general_styles_primary_text_color,
                     borderColor: link?.general_styles_primary_text_color,
                   }}
+                  dir="ltr"
                 >
                   <Icon
                     name={social.icon}
