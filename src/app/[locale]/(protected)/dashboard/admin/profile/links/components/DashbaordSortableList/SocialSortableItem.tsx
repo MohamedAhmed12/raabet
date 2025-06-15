@@ -7,23 +7,28 @@ import { Separator } from "@/components/ui/separator";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { GripVertical, Loader2, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState, useTransition } from "react";
+import { memo, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useShallow } from "zustand/react/shallow";
 import { deleteSocial } from "../../actions/deleteSocial";
 import { updateLinkUrl } from "../../actions/updateLinkUrl";
 import { updateSocialLabel } from "../../actions/updateSocialLabel";
 import { EditSocialLabelDialog } from "./EditSocialLabelDialog";
-import { GripVertical, Trash2 } from "lucide-react";
-import { useShallow } from "zustand/react/shallow";
 
 const schema = z.object({
   website: z.string().url("Please enter a valid URL"),
 });
 
-export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
+interface SocialSortableItemProps {
+  item: LinkSocial;
+}
+
+const SocialSortableItemComponent = ({ item }: SocialSortableItemProps) => {
   const isSeparator = !item?.icon;
+  const [isDeleting, setIsDeleting] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isPending, startTransition] = useTransition();
@@ -69,6 +74,8 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
   };
 
   const handleDelete = async () => {
+    setIsDeleting(true);
+
     startTransition(async () => {
       const result = await deleteSocial(item.id, linkId);
       if (result.success && result.socials) {
@@ -76,6 +83,7 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
       } else {
         console.error("Failed to delete item:", result.error);
       }
+      setIsDeleting(false);
     });
   };
 
@@ -155,14 +163,22 @@ export const SocialSortableItem = ({ item }: { item: LinkSocial }) => {
             onSubmit={handleUpdateLabel}
           />
         )}
-        <Trash2
-          size={16}
-          className="cursor-pointer text-red-600"
-          onClick={() => {
-            handleDelete();
-          }}
-        />
+        {!isDeleting ? (
+          <Trash2
+            size={16}
+            className="cursor-pointer text-red-600"
+            onClick={() => {
+              handleDelete();
+            }}
+          />
+        ) : (
+          <Loader2 size={16} className="animate-spin" />
+        )}
       </div>
     </li>
   );
 };
+
+SocialSortableItemComponent.displayName = "SocialSortableItem";
+
+export const SocialSortableItem = memo(SocialSortableItemComponent);
