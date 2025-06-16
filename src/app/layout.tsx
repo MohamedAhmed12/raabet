@@ -11,6 +11,7 @@ import { customGetLocale } from "@/lib/customGetLocale";
 import arMessages from "../messages/ar.json";
 import enMessages from "../messages/en.json";
 import { ReactQueryProvider } from "@/components/ReactQueryProvider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,8 +56,10 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider locale={locale} messages={currentLocalMessages}>
           <ReactQueryProvider>
-            <Toaster />
-            {children}
+            <TooltipProvider>
+              <Toaster />
+              {children}
+            </TooltipProvider>
           </ReactQueryProvider>
         </NextIntlClientProvider>
       </body>
