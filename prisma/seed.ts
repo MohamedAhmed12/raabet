@@ -1,3 +1,4 @@
+import { createTrackedQRcodeURL } from "../src/lib/createTrackedQRcodeURL";
 import { BlockType, PrismaClient, QRType, PaymentMethod } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
@@ -9,9 +10,9 @@ async function main() {
 
   const user = await prisma.user.create({
     data: {
-      email: "user@raabet.com",
+      email: "admin@rabet.com",
       password: hashedPassword, // Use hashed password in real applications
-      fullname: "johndoe",
+      fullname: "admin",
       is_confirmed: true,
     },
   });
@@ -125,17 +126,21 @@ async function main() {
       {
         linkId: link.id,
         type: QRType.profile,
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/${user.fullname}`,
+        display_url: createTrackedQRcodeURL(`${process.env.NEXT_PUBLIC_BASE_URL}/${user.fullname}`),
         isMain: true,
       },
       {
         linkId: link.id,
         type: QRType.url,
         url: "https://instagram.com/username",
+        display_url: createTrackedQRcodeURL('https://instagram.com/username'),
       },
       {
         linkId: link.id,
         type: QRType.url,
         url: "https://twitter.com/username",
+        display_url: createTrackedQRcodeURL('https://twitter.com/username'),
       },
     ],
   });
