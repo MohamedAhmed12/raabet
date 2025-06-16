@@ -24,7 +24,7 @@ export const ImageSection = () => {
       {/* Background Section */}
       <div
         className={cn(
-          "w-full md:w-1/2 border-[#1d1d28] bg-[#7ed0ff] hidden lg:block",
+          "w-full md:w-1/2 bg-[#7ed0ff] hidden lg:block",
           locale === "ar" ? "border-l" : "border-r"
         )}
       />

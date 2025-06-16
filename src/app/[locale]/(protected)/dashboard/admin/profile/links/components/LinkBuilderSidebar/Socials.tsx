@@ -3,6 +3,7 @@
 import { LinkSocial, useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
 import { createSeparator } from "../../actions/createSeparator";
 import { updateSocials } from "../../actions/updateSocials";
 import DashbaordSortableList from "../DashbaordSortableList";
@@ -12,9 +13,13 @@ import { DashboardAccordion } from "../DashboardAccordion";
 
 export const Socials = () => {
   const t = useTranslations("LinksPage.generalStyles");
-  const linkId = useLinkStore((state) => state.link.id);
-  const socials = useLinkStore((state) => state.link.socials);
-  const setLink = useLinkStore((state) => state.setLink);
+  const { socials, linkId, setLink } = useLinkStore(
+    useShallow((state) => ({
+      socials: state.link.socials,
+      linkId: state.link.id,
+      setLink: state.setLink,
+    }))
+  );
 
   const handleAddSeparator = async () => {
     const result = await createSeparator(linkId);

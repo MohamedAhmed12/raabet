@@ -2,16 +2,26 @@
 
 import { updateUser } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUser";
 import { updateSingleLink } from "@/app/[locale]/actions/updateSingleLink";
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Link, useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState, useTransition } from "react";
+import { useShallow } from "zustand/react/shallow";
 import { DashboardAccordion } from "../DashboardAccordion";
 import { GCSFileLoader } from "./GCSFileLoader";
 
 export const Header = () => {
-  const { link, setLink, replaceLink } = useLinkStore((state) => state);
+  const t = useTranslations("LinksPage.generalStyles");
+  const { link, setLink, replaceLink } = useLinkStore(
+    useShallow((state) => ({
+      link: state.link,
+      setLink: state.setLink,
+      replaceLink: state.replaceLink,
+    }))
+  );
+
   const [uploading, setUploading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -23,7 +33,7 @@ export const Header = () => {
     val: string | boolean | number
   ) => {
     await updateSingleLink(link.id, key, val);
-    setLink({ ...link, [key]: val });
+    setLink({ key: key as keyof Link, value: val });
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +87,7 @@ export const Header = () => {
 
   return (
     <DashboardAccordion
-      mainLabel="Header"
+      mainLabel={t("header")}
       content="Configure your Profile Picture, Name and Bio. These settings will also be used as the image, title and description when your share your profile"
     >
       <div className="flex items-center gap-2">

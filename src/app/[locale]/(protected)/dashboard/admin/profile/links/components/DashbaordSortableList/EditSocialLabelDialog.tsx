@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { iconNameType } from "@/assets/icons";
 import { Icon } from "@/components/Icon";
 import { Button } from "@/components/ui/button";
@@ -12,6 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { memo, useCallback, useState } from "react";
 
 interface EditSocialLabelDialogProps {
   iconName?: iconNameType;
@@ -20,29 +20,34 @@ interface EditSocialLabelDialogProps {
   onSubmit: (value: string) => void;
 }
 
-export const EditSocialLabelDialog = ({
+export const EditSocialLabelDialog = memo(function EditSocialLabelDialog({
   iconName = "pencil",
   placeholder = "Edit Label",
   initialValue = "",
   onSubmit,
-}: EditSocialLabelDialogProps) => {
+}: EditSocialLabelDialogProps) {
   const [value, setValue] = useState(initialValue);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-  };
+  }, []);
 
-  const handleBlur = () => {
+  const handleDialogClose = useCallback(() => {
     onSubmit(value);
-  };
-
-  const handleDialogClose = () => {
     setIsDialogOpen(false);
-  };
+  }, [onSubmit, value]);
+
+  const handleOpenChange = useCallback(
+    (open: boolean) => {
+      onSubmit(value);
+      setIsDialogOpen(open);
+    },
+    [value]
+  );
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+    <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Icon
           name={iconName}
@@ -52,15 +57,12 @@ export const EditSocialLabelDialog = ({
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[400px]">
-        <DialogTitle></DialogTitle>
-
+        <DialogTitle />
         <Input
           placeholder={placeholder}
           value={value}
           onChange={handleChange}
-          onBlur={handleBlur}
         />
-
         <DialogFooter className="mt-4 w-full">
           <Button
             className="w-full bg-black text-white hover:bg-gray-900"
@@ -72,4 +74,4 @@ export const EditSocialLabelDialog = ({
       </DialogContent>
     </Dialog>
   );
-};
+});

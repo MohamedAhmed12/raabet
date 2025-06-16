@@ -18,6 +18,7 @@ import { Check, Copy } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
+import {useShallow} from 'zustand/react/shallow';
 
 export function ShareBtn({
   isSticky = false,
@@ -31,7 +32,7 @@ export function ShareBtn({
   const [isCopied, setIsCopied] = useState(false);
 
   const t = useTranslations("ShareBtn");
-  const user = useLinkStore((state) => state.link.user);
+  const user = useLinkStore(useShallow((state) => state.link.user));
   const profileurl = `${process.env.NEXT_PUBLIC_BASE_URL}/${user?.fullname}`;
 
   if (!user) return;

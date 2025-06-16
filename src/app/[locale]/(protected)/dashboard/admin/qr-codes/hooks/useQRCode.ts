@@ -89,7 +89,6 @@ export function useQRCode({
   useEffect(() => {
     try {
       if (!url) return;
-console.log(canvasRef.current, url);
 
       // Create QR code instance
       QRCodeInstanceRef.current = new QRCodeStyling(QRStylingOptions);
