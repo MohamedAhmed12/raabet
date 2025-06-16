@@ -13,11 +13,12 @@ import {
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
 import { createSocial } from "../../actions/createSocial";
 
 type IconNameType = keyof typeof socialIcons;
 
-const iconList: {iconName: IconNameType; title: string}[] = Object.keys(
+const iconList: { iconName: IconNameType; title: string }[] = Object.keys(
   socialIcons
 ).map((key) => ({
   iconName: key as IconNameType,
@@ -27,21 +28,23 @@ const iconList: {iconName: IconNameType; title: string}[] = Object.keys(
 export const AddSocialDialog = () => {
   const t = useTranslations("LinksPage.generalStyles");
   const [open, setOpen] = useState(false);
-  const setLink = useLinkStore((state) => state.setLink);
+  const { setLink, linkId } = useLinkStore(
+    useShallow((state) => ({
+      setLink: state.setLink,
+      linkId: state.link.id,
+    }))
+  );
 
   const handleAddSocial = async (icon: iconNameType) => {
-    const linkId = useLinkStore.getState().link?.id;
     if (!linkId) {
       toast.error("Missing link ID");
       return;
     }
 
-    const result = await createSocial({linkId, icon});
+    const result = await createSocial({ linkId, icon });
 
     if (result.success && result.socials) {
-      const currentLink = useLinkStore.getState().link;
-      // @ts-expect-error: [will unify social type in store and prisma schem]
-      setLink({...currentLink, socials: result?.socials});
+      setLink({ key: "socials", value: result?.socials });
     } else {
       toast.error(result.error || "Failed to add social item");
     }
@@ -60,7 +63,7 @@ export const AddSocialDialog = () => {
           <DialogTitle></DialogTitle>
         </DialogHeader>
         <div className="grid grid-cols-3 gap-2 mt-4">
-          {iconList.map(({iconName, title}) => (
+          {iconList.map(({ iconName, title }) => (
             <button
               key={iconName}
               onClick={() => {

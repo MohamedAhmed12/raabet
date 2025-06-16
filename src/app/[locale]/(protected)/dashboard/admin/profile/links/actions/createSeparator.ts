@@ -1,10 +1,10 @@
-'use server';
+"use server";
 
-import prisma from '@/lib/prisma';
+import prisma from "@/lib/prisma";
 
 export async function createSeparator(linkId: string) {
   try {
-    if (!linkId) throw new Error('Missing link ID');
+    if (!linkId) throw new Error("Missing link ID");
 
     const maxOrder = await prisma.social.aggregate({
       where: { linkId },
@@ -13,25 +13,19 @@ export async function createSeparator(linkId: string) {
 
     const newOrder = (maxOrder._max.order ?? 0) + 1;
 
-    await prisma.social.create({
+    const separator = await prisma.social.create({
       data: {
         linkId,
-        icon: '',
-        url: '',
+        icon: "",
+        url: "",
         order: newOrder,
-        label: '',
+        label: "",
       },
     });
 
-    // Fetch updated socials
-    const updatedSocials = await prisma.social.findMany({
-      where: { linkId },
-      orderBy: { order: 'asc' },
-    });
-
-    return { success: true, socials: updatedSocials };
+    return { success: true, separator };
   } catch (error: any) {
-    console.error('createSeparator error:', error.message || error);
-    return { success: false, error: error.message || 'Unknown error' };
+    console.error("createSeparator error:", error.message || error);
+    return { success: false, error: error.message || "Unknown error" };
   }
 }
