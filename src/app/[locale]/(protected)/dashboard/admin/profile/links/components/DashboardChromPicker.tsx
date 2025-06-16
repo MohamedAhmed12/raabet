@@ -22,7 +22,8 @@ const ChromePicker = dynamic(
 
 interface DashboardChromPickerProps {
   label?: string;
-  currentColor: string;
+  currentColorLabel?: keyof Link;
+  currentColor?: string;
   onChangeComplete?: ({ hex }: { hex: string }) => void;
   onColorChange?: ({ hex }: { hex: string }) => void;
 }
@@ -45,16 +46,17 @@ const MemoizedChromePicker = memo(
 );
 
 const DashboardChromPickerContent = ({
-  currentColor: currentColorLabel,
+  currentColor,
+  currentColorLabel,
   label,
   onColorChange,
   onChangeComplete,
 }: DashboardChromPickerProps) => {
   // Type assertion to ensure currentColorLabel is a valid key of Link type
-  const typedLabel = currentColorLabel as keyof Link;
-  const initialColor = useLinkStore(
-    useShallow((state) => state.link[typedLabel])
-  );
+  const initialColor = currentColorLabel
+    ? useLinkStore(useShallow((state) => state.link[currentColorLabel]))
+    : currentColor;
+
   const [localColor, setLocalColor] = useState<string>(String(initialColor));
 
   // Memoize the color change handler

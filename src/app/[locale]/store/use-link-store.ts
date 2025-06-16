@@ -5,6 +5,10 @@ import type { StateCreator } from "zustand";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
+type SetLinkProps = {
+  key: keyof Link;
+  value: string | boolean | number | User | Block[] | LinkSocial[] | any;
+};
 export interface LinkSocial {
   id: string;
   icon: iconNameType;
@@ -54,7 +58,7 @@ export interface Link {
   social_enable_hide_raabet_branding?: boolean;
   // social_enable_enable_verified_badge?: boolean;
   social_custom_logo?: string;
-  social_custom_logo_size?:number;
+  social_custom_logo_size?: number;
   profile_views?: number;
   user?: User;
   socials?: LinkSocial[];
@@ -63,20 +67,20 @@ export interface Link {
 
 interface LinkState {
   link: Link;
-  setLink: (link: Partial<Link>) => void;
+  setLink: (props: SetLinkProps) => void;
   replaceLink: (link: Link | ((prev: Link) => Link)) => void;
 }
 
 const createLinkSlice: StateCreator<LinkState> = (set) => ({
   link: {
-    id: ""
+    id: "",
   },
 
-  setLink: (data: Partial<Link>) => {
+  setLink: ({ key, value }: SetLinkProps) => {
     set((state) => ({
       link: {
         ...state.link,
-        ...data,
+        [key]: typeof value === "function" ? value(state.link) : value,
       },
     }));
   },

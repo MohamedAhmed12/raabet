@@ -1,5 +1,5 @@
 import { stripHtmlTags } from "@/app/[locale]/[username]/helpers/stripHtmlTags";
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Link, useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Block } from "@prisma/client";
@@ -13,7 +13,7 @@ import { BlockActions } from "./BlockActions";
 export const BlockSortableItem = ({ block }: { block: Block }) => {
   const [isDialogVisible, setIsDialogVisible] = useState(false);
 
-  const replaceLink = useLinkStore((state) => state.replaceLink);
+  const setLink = useLinkStore((state) => state.setLink);
 
   const { setNodeRef, attributes, listeners, transform, transition } =
     useSortable({
@@ -29,18 +29,13 @@ export const BlockSortableItem = ({ block }: { block: Block }) => {
     try {
       const updatedBlock = await updateBlockAction(block);
 
-      replaceLink((prev) => {
+      setLink({key:'blocks',value:(prev:Link) => {
         const prevBlocks = prev?.blocks || [];
 
-        const updatedBlocks = prevBlocks.map((block) =>
+        return prevBlocks.map((block) =>
           block.id === updatedBlock.id ? updatedBlock : block
         );
-
-        return {
-          ...prev,
-          blocks: updatedBlocks,
-        };
-      });
+      }});
       setIsDialogVisible(false);
     } catch (error) {
       console.error(error);

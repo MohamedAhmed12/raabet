@@ -3,23 +3,30 @@
 import { useIsScreenWidthLessThan } from "@/hooks/use-is-screen-width-less-than.ts";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
+import { memo } from "react";
 import { LinkViewer } from "./components/LinkViewer";
-const LinkBuilderSidebar = dynamic(
-  () => import("./components/LinkBuilderSidebar/page"),
-  { ssr: false }
+
+// Memoize the dynamic imports
+const LinkBuilderSidebar = memo(
+  dynamic(() => import("./components/LinkBuilderSidebar/page"), { ssr: false })
 );
-const GeneralStylesSidebar = dynamic(
-  () => import("./components/GeneralStylesSidebar/page"),
-  { ssr: false }
+
+const GeneralStylesSidebar = memo(
+  dynamic(() => import("./components/GeneralStylesSidebar/page"), {
+    ssr: false,
+  })
 );
-const SmallScreenTabs = dynamic(() => import("./components/SmallScreenTabs"), {
-  ssr: false,
-});
+
+const SmallScreenTabs = memo(
+  dynamic(() => import("./components/SmallScreenTabs"), {
+    ssr: false,
+  })
+);
 
 export default function ProfileLinks() {
-  const hideGeneralStylesSidebar = useIsScreenWidthLessThan(1200) ?? true;
-  const hideLinkBuilderSidebar = useIsScreenWidthLessThan(800) ?? true;
-  const smallScreen = useIsScreenWidthLessThan(800) ?? false;
+  const hideGeneralStylesSidebar = useIsScreenWidthLessThan(1200, true);
+  const hideLinkBuilderSidebar = useIsScreenWidthLessThan(800, true);
+  const smallScreen = useIsScreenWidthLessThan(800, false);
 
   return (
     <div
