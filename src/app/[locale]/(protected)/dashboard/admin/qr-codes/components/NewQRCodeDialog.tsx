@@ -14,7 +14,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useCreateQRCode } from "../hooks/useCreateQRCode";
-import { useQueryClient } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 export const NewQRCodeDialog = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -23,9 +23,8 @@ export const NewQRCodeDialog = () => {
   const [url, setUrl] = useState("");
 
   const t = useTranslations("QR");
-  const queryClient = useQueryClient();
-  const user = useLinkStore((state) => state.link.user);
-  const profileurl = `${process.env.NEXT_PUBLIC_NETWORK_BASE_URL}/${user?.fullname}`;
+  const user = useLinkStore(useShallow((state) => state.link.user));
+  const profileurl = `${process.env.NEXT_PUBLIC_BASE_URL}/${user?.fullname}`;
 
   const { mutateAsync, isPending } = useCreateQRCode();
 
@@ -34,9 +33,26 @@ export const NewQRCodeDialog = () => {
       await mutateAsync({ url });
       handleOnOpenChange(false);
       toast.success("QR code created successfully");
-    } catch (error) {
-      console.error("Failed to create QR code:", error);
-      toast.error("Failed to create QR code");
+    } catch (error: unknown) {
+      console.error("Error caught:", error);
+
+      let errorMessage = "Failed to create QR code";
+
+      try {
+        // Check if the error is a native Error object
+        const message = error instanceof Error ? error.message : String(error);
+
+        const errorData = JSON.parse(message);
+
+        if (typeof errorData === "object" && errorData?.type === "duplicate") {
+          errorMessage = errorData.message || "This QR code already exists.";
+        }
+      } catch (parseError) {
+        // JSON.parse failed, keep default errorMessage
+        console.error("Failed to parse error message as JSON:", parseError);
+      }
+
+      toast.error(errorMessage);
     }
   };
 

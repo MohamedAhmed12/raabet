@@ -9,16 +9,19 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useQRCode } from "../hooks/useQRCode";
 import { useDeleteQRCode } from "../hooks/useDeleteQRCode";
+import { cn } from "@/lib/utils";
+import { useLocale } from "next-intl";
 
 interface QRCodeCardProps {
   qr: QRCode;
 }
 
 export default function QRCodeCard({ qr }: QRCodeCardProps) {
+  const locale = useLocale();
   const t = useTranslations();
   const profile_views = useLinkStore((state) => state.link.profile_views);
   const { canvasRef, handleDownload } = useQRCode({
-    url: qr.url as string,
+    url: qr.display_url,
     width: 160,
     height: 160,
   });
@@ -38,7 +41,7 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
   return (
     <Card>
       <CardContent className="flex justify-between w-full font-noto-sans">
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3  max-w-[65%]">
           <div className="flex flex-col gap-1 justify-center items-start">
             <div className="flex justify-center items-center gap-2">
               <p className="text-xs text-dark-foreground font-semibold ">
@@ -55,11 +58,16 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
               </p>
             </div>
             {qr.type === QRType.url && (
-              <div className="flex justify-center items-center gap-2">
+              <div
+                className={cn(
+                  "flex justify-center items-center gap-2 max-w-full",
+                  locale === "ar" ? "ml-2" : "mr-2"
+                )}
+              >
                 <p className="text-xs text-dark-foreground font-semibold">
                   {t("Shared.url")}:
                 </p>
-                <p className="text-sm">{qr.url}</p>
+                <p className="text-sm truncate">{qr.url}</p>
               </div>
             )}
           </div>
