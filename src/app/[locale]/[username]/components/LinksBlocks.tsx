@@ -2,26 +2,33 @@
 
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { cn } from "@/lib/cn";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 import { generateEmbedInfo } from "../../(protected)/dashboard/admin/profile/links/components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/MediaBlock/generateEmbedInfo";
 import useLinkStyles from "../hooks/useLinkStyles";
 
 export default function LinksBlocks() {
-  const [embedInfoMap, setEmbedInfoMap] = useState<Record<string, { title: string; src: string } | null>>({});
-  const link = useLinkStore((state) => state.link);
+  const [embedInfoMap, setEmbedInfoMap] = useState<
+    Record<string, { title: string; src: string } | null>
+  >({});
+  const link = useLinkStore(useShallow((state) => state.link));
   const linkStyles = useLinkStyles(link);
 
   useEffect(() => {
     const fetchEmbedInfo = async () => {
-      const updatedMap: Record<string, { title: string; src: string } | null> = {};
-      
+      const updatedMap: Record<string, { title: string; src: string } | null> =
+        {};
+
       for (const block of link?.blocks || []) {
-        if (block.type === 'audio' || block.type === 'video') {
+        if (block.type === "audio" || block.type === "video") {
           try {
             const info = await generateEmbedInfo(block.url);
             updatedMap[block.id] = info || null;
           } catch (error) {
-            console.error(`Error fetching embed info for block ${block.id}:`, error);
+            console.error(
+              `Error fetching embed info for block ${block.id}:`,
+              error
+            );
             updatedMap[block.id] = null;
           }
         }
@@ -52,8 +59,14 @@ export default function LinksBlocks() {
           ) : (
             <a
               key={block.id}
-              className="flex flex-col items-center justify-center w-full cursor-pointer mb-6.5 relative"
+              className="flex flex-col items-center justify-center w-full cursor-pointer relative"
+              // mb-6.5
               target="_blank"
+              style={{
+                marginBottom: `${
+                  11 + 33 * (link.card_styles_card_spacing || 0)
+                }px`,
+              }}
             >
               {link.card_styles_design == 4 && (
                 <div
@@ -61,11 +74,12 @@ export default function LinksBlocks() {
                   style={{
                     boxShadow:
                       "rgba(0, 0, 0, 0.04) -5px -5px 13px inset, rgba(0, 0, 0, 0.15) 5px 5px 13px inset",
+                    borderRadius: linkStyles.borderRadius,
                   }}
                 ></div>
               )}
               <div
-                className=" flex flex-col items-center justify-center w-full py-[16.5px] px-[13.75px] w-full !m-0"
+                className=" flex flex-col items-center justify-center w-full py-[16.5px] px-[13.75px] w-full"
                 style={linkStyles}
               >
                 <div

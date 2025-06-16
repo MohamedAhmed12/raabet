@@ -13,7 +13,7 @@ const useFetchLink = ({
   const [data, setData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const setLink = useLinkStore((state) => state.setLink);
+  const replaceLink = useLinkStore((state) => state.replaceLink);
 
   // Use ref to track if the data has been fetched already
   const hasFetchedRef = useRef<boolean>(false);
@@ -27,7 +27,8 @@ const useFetchLink = ({
 
       if (response) {
         setData(response);
-        setLink(response);
+        // @ts-ignore - We're ignoring this line because we trust the response matches the Link type
+        replaceLink(response);
 
         hasFetchedRef.current = true; // Mark as fetched
       } else {
@@ -51,7 +52,7 @@ const useFetchLink = ({
     if (!userId && !username) return; // Don't fetch if userId is missing or data already fetched
 
     fetchLink();
-  }, [userId, username, setLink]);
+  }, [userId, username, replaceLink]);
 
   return { isLoading, data, error, refetch };
 };

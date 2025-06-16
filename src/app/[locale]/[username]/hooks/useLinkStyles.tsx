@@ -86,7 +86,6 @@ const useLinkStyles = (link: Link) => {
       card_styles_card_border_width,
       card_styles_card_border_color,
       card_styles_card_shadow,
-      card_styles_card_spacing,
       general_styles_primary_bgcolor,
     } = link || {}; // Destructure link properties
 
@@ -95,7 +94,6 @@ const useLinkStyles = (link: Link) => {
       borderRadius: card_styles_card_corner ? card_styles_card_corner * 28 : 0,
       borderWidth:
         card_styles_design === 0 ? card_styles_card_border_width * 6 : 0,
-      margin: `${11 + 2 * (card_styles_card_spacing || 0)}px 0px`,
     };
 
     // Check if the card design is 1
@@ -127,7 +125,6 @@ const useLinkStyles = (link: Link) => {
     link?.card_styles_card_border_width,
     link?.card_styles_card_border_color,
     link?.card_styles_card_shadow,
-    link?.card_styles_card_spacing,
     link?.card_styles_design,
     link?.general_styles_primary_bgcolor, // Added general_styles_primary_bgcolor as dependency
   ]);

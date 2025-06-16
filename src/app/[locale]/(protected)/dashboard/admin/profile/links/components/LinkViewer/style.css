@@ -1,28 +1,30 @@
-.link-viewer::-webkit-scrollbar {
-  display: none;
-  width: 8px; /* Set the width of the scrollbar */
+.link-viewer-container::-webkit-scrollbar {
+  width: 7px;
 }
 
-.link-viewer::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Set the background of the scrollbar track */
+.link-viewer-container::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.link-viewer::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 6px; /* Round the corners of the thumb */
+.link-viewer-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
 }
 
-.link-viewer::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Darken the thumb color on hover */
+.link-viewer-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* Hide scrollbar in WebKit (Chrome, Safari) */
-.link-viewer::-webkit-scrollbar {
+/* Remove scrollbar buttons */
+.link-viewer-container::-webkit-scrollbar-button {
   display: none;
 }
 
 /* Optional: for Firefox */
-.link-viewer {
-  scrollbar-width: none !important; /* Firefox */
-  -ms-overflow-style: none !important;  /* IE and Edge */
+.link-viewer-container {
+  scrollbar-width: 7px;
+}
+
+.link-viewer-container {
+  overflow-y: scroll;
 }

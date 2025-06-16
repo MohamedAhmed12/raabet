@@ -1,30 +1,38 @@
 "use client";
 
-import { Link } from "@/app/[locale]/store/use-link-store";
-import { useEffect, useRef, useState } from "react";
+import "./style.css"; // TO DO: conditionally import it only in links page
 
+import { useScroll } from "@reactuses/core";
+import { useCallback, useRef, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
+
+import { MainLinkComponent } from "@/app/[locale]/[username]/components/MainLinkComponent";
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { cn } from "@/lib/utils";
 import { LinkViewerTabs } from "./LinkViewerTabs";
 
-import "./style.css"; // TO DO: conditionally import it only in links page
-import { cn } from "@/lib/utils";
-
-export function LinkViewer({ link }: { link: Link }) {
+export function LinkViewer() {
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  // it does not work after removing x
+  const [x, y] = useScroll(containerRef);
+  const link = useLinkStore(
+    useShallow((state) => ({
+      social_custom_logo_size: state.link.social_custom_logo_size,
+      general_styles_desktop_bgcolor: state.link.general_styles_desktop_bgcolor,
+      general_styles_primary_text_color:
+        state.link.general_styles_primary_text_color,
+      general_styles_primary_bgcolor: state.link.general_styles_primary_bgcolor,
+      general_styles_is_secondary_bgcolor:
+        state.link.general_styles_is_secondary_bgcolor,
+      general_styles_secondary_bgcolor:
+        state.link.general_styles_secondary_bgcolor,
+      id: state.link.id,
+    }))
+  );
 
-  useEffect(() => {
-    // Check if iframeRef.current is not null
-    if (iframeRef.current) {
-      // Send the data to the iframe when it is loaded
-      const iframeWindow = iframeRef.current.contentWindow;
-      iframeWindow?.postMessage({ type: "linkData" }, "*"); // '*' allows any domain to receive the message
-      // iframeWindow?.postMessage({type: "linkData", data: link}, "*"); // '*' allows any domain to receive the message
-    }
-  }, [link]);
-
-  const handleOnClick = (i: number) => setSelectedTab(i);
-  console.log(selectedTab == 1, "aaaaa");
+  const handleOnClick = useCallback((i: number) => setSelectedTab(i), []);
 
   return (
     link.id && (
@@ -37,16 +45,17 @@ export function LinkViewer({ link }: { link: Link }) {
         <LinkViewerTabs selectedTab={selectedTab} onclick={handleOnClick} />
 
         <div className="flex justify-center items-center h-full w-full">
-          <iframe
-            ref={iframeRef}
-            src={`/${link.userName}`}
-            title="Embedded Content"
+          <div
             className={cn(
-              "link-viewer rounded-3xl flex h-[565px] min-h-[600px] shadow-lg bg-white rounded-3xl border-3 border-[#333] rounded-[35px] w-full",
+              "rounded-3xl flex h-[565px] min-h-[600px] shadow-lg bg-white rounded-3xl border-3 border-[#333] rounded-[35px] overflow-hidden",
               "md:w-[100%]",
               selectedTab == 0 && "md:w-[64%] md:max-w-[350px] h-[600px]"
             )}
-          ></iframe>
+          >
+            <div ref={containerRef} className="link-viewer-container w-full">
+              <MainLinkComponent link={link} isSticky={y > 20} />
+            </div>
+          </div>
         </div>
       </div>
     )
