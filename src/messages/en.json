@@ -160,14 +160,34 @@
       "cardSpacing": "Card Spacing"
     },
     "generalStyles": {
+      "header": {
+        "title": "Header",
+        "description": "Configure your Profile Picture, Name and Bio. These settings will also be used as the image, title and description when you share your profile",
+        "uploading": "Uploading...",
+        "fields": {
+          "name": "Name",
+          "bio": "Bio"
+        }
+      },
       "linkBuilder": "Link Builder",
       "styles": "styles",
       "addSocial": "Add Social Media",
-      "addSeparator": "Add Separator",
-      "socials": "Social Media",
+      "socials": {
+        "title": "Social Media",
+        "description": "Link out to your various online profiles. Please paste the full URLs to your profiles.",
+        "addSeparator": "Add Separator"
+      },
       "addBlocks": "Add Blocks",
-      "header": "Header",
-      "blocks": "Blocks",
+      "blocks": {
+        "title": "Blocks",
+        "helperTooltip": {
+          "drag": "Drag the",
+          "toReorder": "to reorder blocks. Click a block to edit it."
+        },
+        "errors": {
+          "sortingBlocks": "Something went wrong while sorting blocks!"
+        }
+      },
       "urlButton": "URL Button",
       "emailButton": "Email Button",
       "fileButton": "File Button",
