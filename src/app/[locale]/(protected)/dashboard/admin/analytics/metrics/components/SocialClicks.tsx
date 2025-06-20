@@ -79,7 +79,7 @@ export function SocialClicks() {
             className="cursor-pointer !p-0"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            {t("Analytics.Metrics.socialClicks.type")}
+            {t("Shared.type")}
             <ArrowUpDown />
           </Button>
         );

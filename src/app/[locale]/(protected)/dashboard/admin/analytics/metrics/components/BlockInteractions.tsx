@@ -1,16 +1,15 @@
 "use client";
 
-import {ColumnDef} from "@tanstack/react-table";
-import {ArrowUpDown} from "lucide-react";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown } from "lucide-react";
 import * as React from "react";
 
-import {CustomDateTable} from "@/components/CustomDateTable";
-import {Icon} from "@/components/Icon";
-import {Button} from "@/components/ui/button";
-import {format} from "date-fns";
-import {FieldController} from "../../../components/FieldController";
-import {ToggleSwitches} from "./ToggleSwitches";
-import {useTranslations} from "next-intl";
+import { CustomDateTable } from "@/components/CustomDateTable";
+import { Icon } from "@/components/Icon";
+import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
+import { useTranslations } from "next-intl";
+import { FieldController } from "../../../components/FieldController";
 
 const data: Interactions[] = [
   {
@@ -67,24 +66,26 @@ export function BlockInteractions() {
   const columns: ColumnDef<Interactions>[] = [
     {
       accessorKey: "type",
-      header: ({column}) => {
+      header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             className="cursor-pointer !p-0"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            {t("Analytics.Metrics.blockInteractions.type")}
+            {t("Shared.type")}
 
             <ArrowUpDown />
           </Button>
         );
       },
-      cell: ({row}) => <div className="capitalize">{row.getValue("type")}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("type")}</div>
+      ),
     },
     {
       accessorKey: "name",
-      header: ({column}) => {
+      header: ({ column }) => {
         return (
           <Button
             variant="ghost"
@@ -96,11 +97,13 @@ export function BlockInteractions() {
           </Button>
         );
       },
-      cell: ({row}) => <div className="capitalize">{row.getValue("name")}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("name")}</div>
+      ),
     },
     {
       accessorKey: "clicks",
-      header: ({column}) => {
+      header: ({ column }) => {
         return (
           <Button
             variant="ghost"
@@ -112,13 +115,13 @@ export function BlockInteractions() {
           </Button>
         );
       },
-      cell: ({row}) => (
+      cell: ({ row }) => (
         <div className="capitalize">{row.getValue("clicks")}</div>
       ),
     },
     {
       accessorKey: "views",
-      header: ({column}) => {
+      header: ({ column }) => {
         return (
           <Button
             variant="ghost"
@@ -130,13 +133,13 @@ export function BlockInteractions() {
           </Button>
         );
       },
-      cell: ({row}) => (
+      cell: ({ row }) => (
         <div className="capitalize">{row.getValue("views")}</div>
       ),
     },
     {
       accessorKey: "created_at",
-      header: ({column}) => {
+      header: ({ column }) => {
         return (
           <Button
             variant="ghost"
@@ -148,7 +151,7 @@ export function BlockInteractions() {
           </Button>
         );
       },
-      cell: ({row}) => (
+      cell: ({ row }) => (
         <div className="capitalize">{row.getValue("created_at")}</div>
       ),
     },
@@ -178,7 +181,8 @@ export function BlockInteractions() {
         </Button>
       }
     >
-      <ToggleSwitches onShowHiddenChange={handleShowHiddenChange} />
+      {/* implement next release */}
+      {/* <ToggleSwitches onShowHiddenChange={handleShowHiddenChange} /> */}
       <CustomDateTable data={parseDate(data)} columns={columns} enableSearch />
     </FieldController>
   );
