@@ -8,6 +8,8 @@ import { blocks } from "../../../../../types/block";
 import { CreateUpdateBlockFormFooter } from "./components/Footer";
 import { CreateUpdateBlockFormHeader } from "./components/Header";
 import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import { cn } from "@/lib/utils";
 
 interface CreateUpdateBlockFormProps {
   type: BlockType;
@@ -22,6 +24,7 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
   onSubmit,
   onClose,
 }) => {
+  const locale = useLocale();
   const t = useTranslations("LinksPage.generalStyles.blockForm");
   const linkId = useLinkStore((state) => state.link.id);
   const blocksLength = useLinkStore((state) => state.link.blocks?.length);
@@ -57,8 +60,8 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
     linkId: linkId || "",
     clicks: 0,
     views: 0,
-    created_at:new Date(),
-    updated_at:new Date(),
+    created_at: new Date(),
+    updated_at: new Date(),
   };
 
   const [formData, setFormData] = useState<Block>(block || initialBlock);
@@ -68,7 +71,12 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
   };
 
   return (
-    <div className="flex flex-col flex-1 justify-between absolute top-0 left-0 w-[520px] z-[9] h-screen font-noto-sans font-medium !bg-white w-[370px] border-1 border-r-[#d3d3d3] overflow-y-auto">
+    <div
+      className={cn(
+        "flex flex-col flex-1 justify-between absolute top-0 min-w-[520px] z-[9] h-screen font-noto-sans font-medium !bg-white w-[370px] border-1 border-r-[#d3d3d3] overflow-y-auto",
+        locale === "ar" ? "right-0" : "left-0"
+      )}
+    >
       <CreateUpdateBlockFormHeader title={blocksTitles[type]} />
 
       <BlockComponent
