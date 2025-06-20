@@ -19,7 +19,7 @@ export function LinkViewer() {
   const [x, y] = useScroll(containerRef);
   const link = useLinkStore(
     useShallow((state) => ({
-      social_custom_logo_size: state.link.social_custom_logo_size,
+      id: state.link.id,
       general_styles_desktop_bgcolor: state.link.general_styles_desktop_bgcolor,
       general_styles_primary_text_color:
         state.link.general_styles_primary_text_color,
@@ -28,7 +28,10 @@ export function LinkViewer() {
         state.link.general_styles_is_secondary_bgcolor,
       general_styles_secondary_bgcolor:
         state.link.general_styles_secondary_bgcolor,
-      id: state.link.id,
+      social_enable_hide_raabet_branding:
+        state.link.social_enable_hide_raabet_branding,
+      social_custom_logo: state.link.social_custom_logo,
+      social_custom_logo_size: state.link.social_custom_logo_size,
     }))
   );
 

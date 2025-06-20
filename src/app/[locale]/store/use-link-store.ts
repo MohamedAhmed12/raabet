@@ -25,6 +25,7 @@ export interface Link {
   twitter?: string;
   displayname?: string;
   bio?: string;
+  // used as forgein key
   userName?: string;
   general_styles_desktop_bgcolor?: string;
   general_styles_primary_text_color?: string;
@@ -32,6 +33,7 @@ export interface Link {
   general_styles_is_secondary_bgcolor?: boolean;
   general_styles_is_label_exist?: boolean;
   general_styles_secondary_bgcolor?: string;
+  // implement in link viewer
   general_styles_soft_shadow?: boolean;
   header_styles_profile_shadow?: number;
   header_styles_profile_border_width?: number;

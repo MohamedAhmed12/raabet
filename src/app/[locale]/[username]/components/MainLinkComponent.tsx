@@ -81,6 +81,7 @@ export const MainLinkComponent = memo(
                   link.social_custom_logo && (
                     <Image
                       src={link.social_custom_logo}
+                      className="mt-7.5"
                       alt="Custom logo"
                       width={width}
                       height={height}
