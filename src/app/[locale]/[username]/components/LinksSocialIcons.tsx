@@ -2,10 +2,17 @@ import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/cn";
 import { useShallow } from "zustand/react/shallow";
+import { useIncrementSocialClicks } from "../hooks/useIncrementSocialClicks";
 
 export default function LinksSocialIcons() {
   const link = useLinkStore(useShallow((state) => state.link));
   const socialIconSize = (link?.header_styles_social_icons_size || 0) * 24;
+
+  const { mutateAsync: incrementSocialClicks } = useIncrementSocialClicks();
+
+  const handleSocialClick = (id: string) => {
+    incrementSocialClicks(id);
+  };
 
   return (
     link?.socials && (
@@ -20,6 +27,7 @@ export default function LinksSocialIcons() {
               target="_blank"
               rel="noopener noreferrer"
               className="mb-3"
+              onClick={() => handleSocialClick(social.id)}
             >
               <div
                 className={cn(

@@ -1,14 +1,8 @@
-import { Link } from "@prisma/client";
-import { useMutation, UseMutationOptions } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { incrementViews } from "../actions/incrementViews";
 
-export function useIncrementViews(
-  options?: Omit<
-    UseMutationOptions<Link, Error, string>,
-    "mutationKey" | "mutationFn"
-  >
-) {
-  return useMutation<Link, Error, string>({
+export function useIncrementViews() {
+  return useMutation({
     mutationKey: ["incrementViews"],
     mutationFn: async (id: string) => {
       if (!id) {
@@ -16,6 +10,5 @@ export function useIncrementViews(
       }
       return incrementViews(id);
     },
-    ...options,
   });
 }

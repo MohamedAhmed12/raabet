@@ -24,7 +24,6 @@ export const AudioBlock = ({
     try {
       // Try to generate embed info
       const info = await generateEmbedInfo(url);
-      console.log("embed info", info);
 
       // Only update block properties if we have valid embed info
       if (info) {
@@ -51,7 +50,7 @@ export const AudioBlock = ({
           />
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
-        <div>
+        {/* <div>
           <label className="block text-sm font-medium mb-1">Tag</label>
           <input
             type="text"
@@ -59,7 +58,7 @@ export const AudioBlock = ({
             placeholder="Tag"
             className="w-full p-2 border rounded"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
