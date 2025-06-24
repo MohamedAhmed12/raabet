@@ -10,8 +10,8 @@ export default function LinksSocialIcons() {
 
   const { mutateAsync: incrementSocialClicks } = useIncrementSocialClicks();
 
-  const handleSocialClick = (id: string) => {
-    incrementSocialClicks(id);
+  const handleSocialClick = (entityId: string) => {
+    incrementSocialClicks({ entityId, linkId: link.id });
   };
 
   return (

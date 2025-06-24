@@ -24,8 +24,8 @@ export default function LinksBlocks() {
 
   const { mutateAsync: incrementBlockClicks } = useIncrementBlockClicks();
 
-  const handleBlockClick = (id: string) => {
-    const block = blocksWithEmbedInfo.find((b) => b.id === id);
+  const handleBlockClick = (entityId: string) => {
+    const block = blocksWithEmbedInfo.find((b) => b.id === entityId);
 
     // make click analytics per block only once per mount/refresh
     if (!block || block.clicked) return;
@@ -33,7 +33,8 @@ export default function LinksBlocks() {
     setBlocksWithEmbedInfo((prevBlocks) =>
       prevBlocks.map((b) => (b.id === block.id ? { ...b, clicked: true } : b))
     );
-    incrementBlockClicks(id);
+    incrementBlockClicks({ entityId, linkId: link.id });
+
   };
 
   useIframeClickTracker(handleBlockClick);

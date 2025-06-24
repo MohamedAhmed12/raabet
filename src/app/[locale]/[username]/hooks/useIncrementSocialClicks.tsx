@@ -4,11 +4,17 @@ import { incrementSocialClicks } from "../actions/incrementSocialClicks";
 export function useIncrementSocialClicks() {
   return useMutation({
     mutationKey: ["incrementSocialClicks"],
-    mutationFn: async (id: string) => {
-      if (!id) {
-        throw new Error("Social ID is required");
+    mutationFn: async ({
+      entityId,
+      linkId,
+    }: {
+      entityId: string;
+      linkId: string;
+    }) => {
+      if (!entityId || !linkId) {
+        throw new Error("Entity ID and Link ID are required");
       }
-      return incrementSocialClicks(id);
+      return incrementSocialClicks(entityId, linkId);
     },
   });
 }

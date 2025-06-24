@@ -2,12 +2,13 @@
 
 import prisma from "@/lib/prisma";
 
-export async function incrementSocialClicks(id: string) {
+export async function incrementSocialClicks(entityId: string, linkId: string) {
   try {
-    await prisma.social.update({
-      where: { id },
+    await prisma.analytics.create({
       data: {
-        clicks: { increment: 1 },
+        entityType: "Social",
+        entityId,
+        linkId,
       },
     });
   } catch (error) {

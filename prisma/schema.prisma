@@ -29,6 +29,7 @@ model User {
   resetTokenExpires   DateTime?
   stripeCustomerId    String?  @unique
   subscriptions  Subscription[]  // One-to-many relationship
+  newsletterSubscribers NewsletterSubscriber[]    // One-to-many relationship with NewsletterSubscriber
 }
 
 enum PaymentMethod {
@@ -81,7 +82,7 @@ model PasswordResetToken {
 }
 
 model Link {
-  id                               String  @id @default(uuid())
+  id             String  @id @default(uuid())
   phone        String
   website      String
   instagram    String
@@ -89,10 +90,11 @@ model Link {
   displayname  String
   bio          String
 
-  // Relationship 
-  blocks                           Block[]  // One-to-many relationship with Block
-  socials                          Social[]  // One-to-many relationship with social
-  qrcodes                          QRCode[]  // One-to-many relationship with QRCode
+  // Relationships
+  blocks                           Block[]    // One-to-many relationship with Block
+  socials                          Social[]    // One-to-many relationship with social
+  qrcodes                          QRCode[]    // One-to-many relationship with QRCode
+  analytics                        Analytics[] // One-to-many relationship with Analytics
   userName     String
   userId       String
   user         User   @relation(fields: [userId], references: [id]) // Reference `id` in User
@@ -148,7 +150,8 @@ enum BlockType {
 model QRCode {
   id          String   @id @default(uuid())
   type        QRType   // enum for URL or TEXT
-  url         String?  // Only for URL type
+  url         String   @unique // Only for URL type
+  display_url String   @unique
   views       Int      @default(0)
   isMain      Boolean  @default(false)
   link        Link     @relation(fields: [linkId], references: [id])
@@ -163,39 +166,74 @@ enum QRType {
 }
 
 model Block {
-  id                     String  @id @default(uuid())
-  style                  Int     @default(0)
+  id                     String      @id @default(uuid())
+  style                  Int         @default(0)
   type                   BlockType
-  title                  String  @default("")
-  description            String  @default("")
-  text                   String  @default("")
-  text_align             String  @default("left")
-  text_color             String  @default("")
-  animation              String  @default("none")
-  bg_image               String  @default("")
-  custom_text_color      String  @default("")             
+  title                  String      @default("")
+  description            String      @default("")
+  text                   String      @default("")
+  text_align             String      @default("left")
+  text_color             String      @default("")
+  animation              String      @default("none")
+  bg_image               String      @default("")
+  custom_text_color      String      @default("")             
   url                    String
   order                  Int
-  corner                 Int     @default(0) // Corner value (e.g., rounded corners) max value is 28px
-  layout                 String  @default("0") // it has to be string although it only have strings as value
-  clicks                 Int      @default(0)
+  corner                 Int         @default(0) // Corner value (e.g., rounded corners) max value is 28px
+  layout                 String      @default("0") // it has to be string although it only have strings as value
   views                  Int      @default(0)
-  
-  linkId                 String
-  link                   Link    @relation(fields: [linkId], references: [id]) // Linking Block to Link
 
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
+  linkId                String
+  link                  Link        @relation(fields: [linkId], references: [id])
+  
+  created_at            DateTime    @default(now())
+  updated_at            DateTime    @updatedAt
+  
+  @@index([linkId])
 }
 
 model Social {
-  id      String @id @default(uuid())
-  icon    String
-  url     String
-  order   Int
-  label   String?
-  clicks  Int      @default(0)
+  id        String      @id @default(uuid())
+  icon      String
+  url       String
+  order     Int
+  label     String?
   
-  linkId  String
-  link    Link   @relation(fields: [linkId], references: [id])
+  linkId    String
+  link      Link        @relation(fields: [linkId], references: [id])
+  
+  @@index([linkId])
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  subscribedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@index([email])
+}
+
+enum AnalyticsEntityType {
+  Block
+  Social
+}
+
+model Analytics {
+  id          String   @id @default(uuid())
+  
+  // Polymorphic relation
+  entityType  AnalyticsEntityType
+  entityId    String   // ID of the block or social
+  
+  linkId      String
+  link        Link     @relation(fields: [linkId], references: [id])
+
+  created_at  DateTime @default(now())
+  
+  // Indexes for better query performance
+  @@index([entityType, entityId])
+  @@index([created_at])
+  @@index([linkId])
 }

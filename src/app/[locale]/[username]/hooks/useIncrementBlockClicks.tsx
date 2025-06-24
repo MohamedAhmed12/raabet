@@ -4,11 +4,17 @@ import { incrementBlockClicks } from "../actions/incrementBlockClicks";
 export function useIncrementBlockClicks() {
   return useMutation({
     mutationKey: ["incrementBlockClicks"],
-    mutationFn: async (id: string) => {
-      if (!id) {
-        throw new Error("Block ID is required");
+    mutationFn: async ({
+      entityId,
+      linkId,
+    }: {
+      entityId: string;
+      linkId: string;
+    }) => {
+      if (!entityId || !linkId) {
+        throw new Error("Entity ID and Link ID are required");
       }
-      return incrementBlockClicks(id);
+      return incrementBlockClicks(entityId, linkId);
     },
   });
 }
