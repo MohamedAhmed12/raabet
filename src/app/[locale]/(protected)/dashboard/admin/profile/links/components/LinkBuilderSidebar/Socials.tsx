@@ -12,7 +12,7 @@ import { SocialSortableItem } from "../DashbaordSortableList/SocialSortableItem"
 import { DashboardAccordion } from "../DashboardAccordion";
 
 export const Socials = () => {
-  const t = useTranslations("LinksPage.generalStyles");
+  const t = useTranslations("LinksPage.generalStyles.socials");
   const { socials, linkId, setLink } = useLinkStore(
     useShallow((state) => ({
       socials: state.link.socials,
@@ -47,8 +47,8 @@ export const Socials = () => {
   return (
     socials && (
       <DashboardAccordion
-        mainLabel={t("socials")}
-        content="Link out to your various online profiles. Please paste the full urls to your profiles."
+        mainLabel={t("title")}
+        content={t("description")}
       >
         {socials && (
           <DashbaordSortableList items={socials} onDragEnd={onDragEnd}>

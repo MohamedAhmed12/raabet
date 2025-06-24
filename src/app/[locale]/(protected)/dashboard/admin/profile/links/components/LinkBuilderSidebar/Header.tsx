@@ -13,7 +13,7 @@ import { DashboardAccordion } from "../DashboardAccordion";
 import { GCSFileLoader } from "./GCSFileLoader";
 
 export const Header = () => {
-  const t = useTranslations("LinksPage.generalStyles");
+  const t = useTranslations("LinksPage.generalStyles.header");
   const { link, setLink, replaceLink } = useLinkStore(
     useShallow((state) => ({
       link: state.link,
@@ -87,8 +87,8 @@ export const Header = () => {
 
   return (
     <DashboardAccordion
-      mainLabel={t("header")}
-      content="Configure your Profile Picture, Name and Bio. These settings will also be used as the image, title and description when your share your profile"
+    mainLabel={t("title")}
+    content={t("description")}
     >
       <div className="flex items-center gap-2">
         {link.user?.avatar && (
@@ -109,12 +109,12 @@ export const Header = () => {
           capture="user"
           disabled={uploading}
         />
-        {uploading && <span>Uploading...</span>}
+        {uploading && <span>{t("uploading")}</span>}
       </div>
       <Input
         id="name"
         type="name"
-        placeholder="Name"
+        placeholder={t("fields.name")}
         value={inputValue}
         className="mb-[14px]"
         onChange={handleNameChange}
@@ -123,7 +123,7 @@ export const Header = () => {
       />
       <Textarea
         id="textarea"
-        placeholder="Bio"
+        placeholder={t("fields.bio")}
         value={bioValue}
         className="mb-[14px]"
         onChange={handleBioChange}
