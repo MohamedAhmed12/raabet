@@ -1,14 +1,14 @@
 "use client";
 
+import { Link } from "@/app/[locale]/store/use-link-store";
 import { cn } from "@/lib/cn";
+import Image from "next/image";
 import { memo, useMemo } from "react";
 import LinksBlocks from "./LinksBlocks";
 import LinksFooter from "./LinksFooter";
 import { LinksHeader } from "./LinksHeader";
 import LinksNavbar from "./LinksHeader/LinksNavbar";
 import LinksSocialIcons from "./LinksSocialIcons";
-import Image from "next/image";
-import { Link } from "@/app/[locale]/store/use-link-store";
 
 interface MainLinkComponentProps {
   link: Link;

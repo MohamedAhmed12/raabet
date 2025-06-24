@@ -1,7 +1,9 @@
 export type EmbedInfo = {
+  id?: string;
+  clicked?: boolean;
   title: string;
   src: string;
-} | null;
+};
 
 export async function generateEmbedInfo(
   url: string

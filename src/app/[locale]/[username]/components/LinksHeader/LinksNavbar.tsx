@@ -11,7 +11,7 @@ export default function LinksNavbar({ isSticky }: { isSticky: boolean }) {
   return (
     <header
       className={cn(
-        "sticky flex items-center justify-between top-0 z-50 text-current",
+        "sticky flex items-center justify-between top-0 z-5 text-current",
         isSticky && "pt-[11px] mr-[-20px] ml-[-20px]"
       )}
     >
