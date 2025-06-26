@@ -1,47 +1,45 @@
 "use client";
 
-import {FieldController} from "../../../../components/FieldController";
-import {Button} from "@/components/ui/button";
-import {CustomDateTable} from "@/components/CustomDateTable";
-import {ColumnDef} from "@tanstack/react-table";
-import {ProfileAnalyticsChart} from "./ProfileAnalyticsChart";
-import {useTranslations} from "next-intl";
+import { CustomDateTable } from "@/components/CustomDateTable";
+import { Button } from "@/components/ui/button";
+import { ColumnDef } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
+import { FieldController } from "../../../../components/FieldController";
+import { ProfileAnalyticsChart } from "./ProfileAnalyticsChart";
 
-export type SummaryData = [
-  {
-    profile_views: number;
-    block_clicks: number;
-    social_clicks: number;
-  }
-];
+export type SummaryData = {
+  profileViews: number;
+  blockClicks: number;
+  socialClicks: number;
+};
 
-const summaryData: SummaryData = [
-  {profile_views: 18, block_clicks: 1, social_clicks: 0},
-];
-
-export default function ProfileAnalytics() {
+export default function ProfileAnalytics({
+  profileViews = 0,
+  blockClicks = 0,
+  socialClicks = 0,
+}: SummaryData) {
   const t = useTranslations();
 
   const columns: ColumnDef<SummaryData>[] = [
     {
-      accessorKey: "profile_views",
+      accessorKey: "profileViews",
       header: () => t("Analytics.Metrics.profile.profileViews"),
-      cell: ({row}) => (
-        <div className="capitalize">{row.getValue("profile_views")}</div>
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("profileViews")}</div>
       ),
     },
     {
-      accessorKey: "block_clicks",
+      accessorKey: "blockClicks",
       header: () => t("Analytics.Metrics.profile.blockClicks"),
-      cell: ({row}) => (
-        <div className="capitalize">{row.getValue("block_clicks")}</div>
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("blockClicks")}</div>
       ),
     },
     {
-      accessorKey: "social_clicks",
+      accessorKey: "socialClicks",
       header: () => t("Analytics.Metrics.profile.socialClicks"),
-      cell: ({row}) => (
-        <div className="capitalize">{row.getValue("social_clicks")}</div>
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("socialClicks")}</div>
       ),
     },
   ];
@@ -57,7 +55,13 @@ export default function ProfileAnalytics() {
     >
       <ProfileAnalyticsChart />
       <CustomDateTable
-        data={summaryData}
+        data={[
+          {
+            profileViews,
+            blockClicks,
+            socialClicks,
+          },
+        ]}
         columns={columns}
         showFooter={false}
       />

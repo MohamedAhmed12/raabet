@@ -286,7 +286,8 @@
         "title": "Block Interactions",
         "showHidden": "Show Hidden",
         "clicks": "Clicks",
-        "name": "Name"
+        "name": "Name",
+        "added": "Added"
       }
     }
   },

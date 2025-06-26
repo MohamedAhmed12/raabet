@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  previewFeatures = ["driverAdapters", "filteredRelationCount"]
   output   = "../node_modules/.prisma/client"
 }
 
@@ -182,6 +182,7 @@ model Block {
   corner                 Int         @default(0) // Corner value (e.g., rounded corners) max value is 28px
   layout                 String      @default("0") // it has to be string although it only have strings as value
   views                  Int      @default(0)
+  analytics Analytics[] @relation("BlockAnalytics", fields: [], references: [])
 
   linkId                String
   link                  Link        @relation(fields: [linkId], references: [id])
@@ -202,6 +203,8 @@ model Social {
   linkId    String
   link      Link        @relation(fields: [linkId], references: [id])
   
+  analytics Analytics[] @relation("SocialAnalytics", fields: [], references: [])
+
   @@index([linkId])
 }
 
@@ -215,25 +218,26 @@ model NewsletterSubscriber {
   @@index([email])
 }
 
-enum AnalyticsEntityType {
-  Block
-  Social
-}
-
 model Analytics {
   id          String   @id @default(uuid())
   
-  // Polymorphic relation
-  entityType  AnalyticsEntityType
-  entityId    String   // ID of the block or social
+  // Relations to Block or Social
+  blockId     String?
+  block       Block?   @relation("BlockAnalytics", fields: [blockId], references: [id])
   
+  socialId    String?
+  social      Social?  @relation("SocialAnalytics", fields: [socialId], references: [id])
+  
+  // Link reference
   linkId      String
   link        Link     @relation(fields: [linkId], references: [id])
 
-  created_at  DateTime @default(now())
   
+  created_at  DateTime @default(now())
+
   // Indexes for better query performance
-  @@index([entityType, entityId])
+  @@index([blockId])
+  @@index([socialId])
   @@index([created_at])
   @@index([linkId])
 }
