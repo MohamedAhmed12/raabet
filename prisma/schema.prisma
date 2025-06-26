@@ -95,6 +95,7 @@ model Link {
   socials                          Social[]    // One-to-many relationship with social
   qrcodes                          QRCode[]    // One-to-many relationship with QRCode
   analytics                        Analytics[] // One-to-many relationship with Analytics
+  profileViews                     ProfileView[] // One-to-many relationship with ProfileView
   userName     String
   userId       String
   user         User   @relation(fields: [userId], references: [id]) // Reference `id` in User
@@ -132,7 +133,6 @@ model Link {
   // social_enable_enable_verified_badge Boolean @default(false)
   social_custom_logo               String   @default("")
   social_custom_logo_size          Float   @default(0)
-  profile_views                    Int      @default(0)
 }
 
 // Define the enum
@@ -239,5 +239,15 @@ model Analytics {
   @@index([blockId])
   @@index([socialId])
   @@index([created_at])
+  @@index([linkId])
+}
+
+model ProfileView {
+  id        String   @id @default(uuid())
+  linkId    String
+  link      Link     @relation(fields: [linkId], references: [id])
+
+  created_at DateTime @default(now())
+
   @@index([linkId])
 }

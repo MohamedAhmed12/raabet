@@ -5,13 +5,11 @@ import prisma from "@/lib/prisma";
 type ListAnalyticsParams = {
   linkId: string;
   dateRange: number;
-  profile_views: number;
 };
 
 export async function listAnalytics({
   linkId,
   dateRange = 0,
-  profile_views = 0,
 }: ListAnalyticsParams) {
   try {
     // Calculate date range
@@ -77,7 +75,13 @@ export async function listAnalytics({
       orderBy: { order: "asc" },
     });
 
-    return { blocks, socials, profile_views };
+    const profileViews = await prisma.profileView.findMany({
+      where: {
+        linkId,
+      },
+    });
+
+    return { blocks, socials, profileViews };
   } catch (error) {
     console.error("Error fetching analytics:", error);
     throw error;

@@ -1,16 +1,15 @@
 "use client";
 
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { QRCode, QRType } from "@prisma/client";
 import { Download, Loader2, Trash2 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { useQRCode } from "../hooks/useQRCode";
+import { useProfileViewsList } from "../../analytics/metrics/hooks/useProfileViewsList";
 import { useDeleteQRCode } from "../hooks/useDeleteQRCode";
-import { cn } from "@/lib/utils";
-import { useLocale } from "next-intl";
+import { useQRCode } from "../hooks/useQRCode";
 
 interface QRCodeCardProps {
   qr: QRCode;
@@ -19,7 +18,8 @@ interface QRCodeCardProps {
 export default function QRCodeCard({ qr }: QRCodeCardProps) {
   const locale = useLocale();
   const t = useTranslations();
-  const profile_views = useLinkStore((state) => state.link.profile_views);
+
+  const { data: profileViews } = useProfileViewsList()
   const { canvasRef, handleDownload } = useQRCode({
     url: qr.display_url,
     width: 160,
@@ -54,7 +54,7 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
                 {t("Shared.views")}:
               </p>
               <p className="text-sm">
-                {qr.type === QRType.profile ? profile_views : qr.views}
+                {qr.type === QRType.profile ? profileViews?.length : qr.views}
               </p>
             </div>
             {qr.type === QRType.url && (

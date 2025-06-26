@@ -6,11 +6,10 @@ import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { useShallow } from "zustand/react/shallow";
 
 export function useAnalyticsList(dateRange: number = 0) {
-  // Get blocks and socials from link store
-  const { linkId, profile_views } = useLinkStore(
+  // Get linkId from link store
+  const { linkId } = useLinkStore(
     useShallow((state) => ({
       linkId: state.link.id,
-      profile_views: state.link.profile_views,
     }))
   );
 
@@ -22,7 +21,6 @@ export function useAnalyticsList(dateRange: number = 0) {
       return listAnalytics({
         linkId,
         dateRange,
-        profile_views: profile_views || 0,
       });
     },
     enabled: !!linkId,

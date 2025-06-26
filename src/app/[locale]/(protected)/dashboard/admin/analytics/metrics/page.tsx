@@ -48,7 +48,7 @@ export default function Analyticsmetrics() {
         items={dateDropdown}
       />
       <ProfileAnalytics
-        profileViews={data?.profile_views || 0}
+        profileViews={data?.profileViews?.length || 0}
         blockClicks={totalBlockClicks}
         socialClicks={totalSocialClicks}
       />

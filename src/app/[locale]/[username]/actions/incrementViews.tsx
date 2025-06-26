@@ -2,22 +2,22 @@
 
 import prisma from "@/lib/prisma";
 
-export async function incrementViews(id: string) {
+export async function incrementViews(linkId: string) {
   try {
-    await prisma.link.update({
-      where: { id },
+    // Create a new profile view record
+    await prisma.ProfileView.create({
       data: {
-        profile_views: { increment: 1 },
-        blocks: {
-          updateMany: {
-            where: { linkId: id },
-            data: { views: { increment: 1 } },
-          },
-        },
+        linkId,
       },
     });
+
+    // Still update block views as before
+    await prisma.block.updateMany({
+      where: { linkId },
+      data: { views: { increment: 1 } },
+    });
   } catch (error) {
-    console.error("Failed to increment views:", error);
+    console.error("Failed to record profile view:", error);
     throw error;
   }
 }
