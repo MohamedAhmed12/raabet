@@ -2,12 +2,11 @@
 
 import prisma from "@/lib/prisma";
 
-export async function incrementBlockClicks(entityId: string, linkId: string) {
+export async function incrementBlockClicks(id: string, linkId: string) {  
   try {
     await prisma.analytics.create({
       data: {
-        entityType: "Block",
-        entityId,
+        blockId: id,
         linkId,
       },
     });

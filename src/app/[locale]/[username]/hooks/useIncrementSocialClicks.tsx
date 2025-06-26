@@ -5,16 +5,16 @@ export function useIncrementSocialClicks() {
   return useMutation({
     mutationKey: ["incrementSocialClicks"],
     mutationFn: async ({
-      entityId,
+      socialId,
       linkId,
     }: {
-      entityId: string;
+      socialId: string;
       linkId: string;
     }) => {
-      if (!entityId || !linkId) {
+      if (!socialId || !linkId) {
         throw new Error("Entity ID and Link ID are required");
       }
-      return incrementSocialClicks(entityId, linkId);
+      return incrementSocialClicks(socialId, linkId);
     },
   });
 }

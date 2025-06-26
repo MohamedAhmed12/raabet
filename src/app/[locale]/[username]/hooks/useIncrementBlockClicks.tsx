@@ -5,16 +5,16 @@ export function useIncrementBlockClicks() {
   return useMutation({
     mutationKey: ["incrementBlockClicks"],
     mutationFn: async ({
-      entityId,
+      id,
       linkId,
     }: {
-      entityId: string;
+      id: string;
       linkId: string;
     }) => {
-      if (!entityId || !linkId) {
+      if (!id || !linkId) {
         throw new Error("Entity ID and Link ID are required");
       }
-      return incrementBlockClicks(entityId, linkId);
+      return incrementBlockClicks(id, linkId);
     },
   });
 }
