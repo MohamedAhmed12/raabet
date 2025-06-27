@@ -1,9 +1,11 @@
 "use client";
 
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { animationVariants } from "@/constants/animations";
 import { cn } from "@/lib/cn";
 import { Block } from "@prisma/client";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useCallback, useEffect, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 import {
   EmbedInfo,
@@ -37,6 +39,37 @@ export default function LinksBlocks() {
   };
 
   useIframeClickTracker(handleBlockClick);
+  console.log("blocksWithEmbedInfo", blocksWithEmbedInfo);
+
+  const fetchEmbedInfo = useCallback(
+    async (cancelled: boolean) => {
+      const blocksWithEmbedInfo = await Promise.all<EmbedBlock>(
+        (link.blocks || [])
+          .sort((a, b) => a.order - b.order)
+          .map(async (rawBlock): Promise<EmbedBlock> => {
+            const block = { ...rawBlock, clicked: false };
+
+            // Only process audio/video blocks
+            if (block.type !== "audio" && block.type !== "video") {
+              return block;
+            }
+
+            try {
+              const embedInfo = await generateEmbedInfo(block.url);
+              return { ...block, ...embedInfo };
+            } catch (error) {
+              console.error("Error generating embed info:", error);
+              return block;
+            }
+          })
+      );
+
+      if (!cancelled) {
+        setBlocksWithEmbedInfo(blocksWithEmbedInfo);
+      }
+    },
+    [link?.blocks]
+  );
 
   useEffect(() => {
     if (!link?.blocks?.length) {
@@ -46,32 +79,7 @@ export default function LinksBlocks() {
 
     let cancelled = false;
 
-    const fetchEmbedInfo = async () => {
-      const blocksWithEmbedInfo = await Promise.all<EmbedBlock>(
-        (link.blocks || []).map(async (rawBlock): Promise<EmbedBlock> => {
-          const block = { ...rawBlock, clicked: false };
-
-          // Only process audio/video blocks
-          if (block.type !== "audio" && block.type !== "video") {
-            return block;
-          }
-
-          try {
-            const embedInfo = await generateEmbedInfo(block.url);
-            return { ...block, ...embedInfo };
-          } catch (error) {
-            console.error("Error generating embed info:", error);
-            return block;
-          }
-        })
-      );
-
-      if (!cancelled) {
-        setBlocksWithEmbedInfo(blocksWithEmbedInfo);
-      }
-    };
-
-    fetchEmbedInfo();
+    fetchEmbedInfo(cancelled);
 
     return () => {
       cancelled = true;
@@ -96,10 +104,13 @@ export default function LinksBlocks() {
             );
           }
 
-          const BlockWrapper = block?.url ? "a" : "div";
+          const isLink = !!block?.url;
+          const BlockComponent = isLink ? motion.a : motion.div;
+          const animation = block.animation || "none";
+          const shouldAnimate = animation !== "none";
 
           return (
-            <BlockWrapper
+            <BlockComponent
               key={block.id}
               className="flex flex-col items-center justify-center w-full relative"
               style={{
@@ -108,12 +119,17 @@ export default function LinksBlocks() {
                 }px`,
                 textDecoration: "none",
                 color: "inherit",
-                cursor: block?.url ? "pointer" : "default",
+                cursor: isLink ? "pointer" : "default",
+                transformOrigin: "center",
               }}
-              href={block?.url || undefined}
-              target={block?.url ? "_blank" : undefined}
-              rel={block?.url ? "noopener noreferrer" : undefined}
+              href={isLink ? block.url : undefined}
+              target={isLink ? "_blank" : undefined}
+              rel={isLink ? "noopener noreferrer" : undefined}
               onClick={() => handleBlockClick(block.id)}
+              animate={shouldAnimate ? animation : {}}
+              variants={animationVariants as any}
+              whileHover={shouldAnimate ? { scale: 1.02 } : {}}
+              whileTap={shouldAnimate ? { scale: 0.98 } : {}}
             >
               {link.card_styles_design == 4 && (
                 <div
@@ -143,7 +159,7 @@ export default function LinksBlocks() {
                   {block.text}
                 </div>
               </div>
-            </BlockWrapper>
+            </BlockComponent>
           );
         })}
       </div>
