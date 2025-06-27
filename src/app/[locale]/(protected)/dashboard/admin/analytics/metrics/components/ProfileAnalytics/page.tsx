@@ -7,16 +7,25 @@ import { useTranslations } from "next-intl";
 import { FieldController } from "../../../../components/FieldController";
 import { ProfileAnalyticsChart } from "./ProfileAnalyticsChart";
 
-export type SummaryData = {
+export type ChartData = {
+  date: string;
   profileViews: number;
   blockClicks: number;
   socialClicks: number;
+};
+
+type SummaryData = {
+  profileViews: number;
+  blockClicks: number;
+  socialClicks: number;
+  chartData?: ChartData[];
 };
 
 export default function ProfileAnalytics({
   profileViews = 0,
   blockClicks = 0,
   socialClicks = 0,
+  chartData = [],
 }: SummaryData) {
   const t = useTranslations();
 
@@ -53,7 +62,7 @@ export default function ProfileAnalytics({
         </Button>
       }
     >
-      <ProfileAnalyticsChart />
+      <ProfileAnalyticsChart data={chartData} />
       <CustomDateTable
         data={[
           {

@@ -3,7 +3,7 @@
 import CustomDropdown from "@/components/CustomDropdown";
 import { LoaderCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { MainTitle } from "../../profile/settings/components/MainTitle";
 import { BlockInteractions } from "./components/BlockInteractions";
 import ProfileAnalytics from "./components/ProfileAnalytics/page";
@@ -23,16 +23,18 @@ export default function Analyticsmetrics() {
   };
 
   // Calculate total analytics for blocks
-  const totalBlockClicks =
-    data?.blocks?.reduce((sum, block) => {
+  const totalBlockClicks = useMemo(() => {
+    return data?.blocks?.reduce((sum, block) => {
       return sum + (block._count?.analytics || 0);
     }, 0) || 0;
+  }, [data]);
 
   // Calculate total analytics for socials
-  const totalSocialClicks =
-    data?.socials?.reduce((sum, social) => {
+  const totalSocialClicks = useMemo(() => {
+    return data?.socials?.reduce((sum, social) => {
       return sum + (social._count?.analytics || 0);
     }, 0) || 0;
+  }, [data]);
 
   return isLoading ? (
     <div className="flex h-screen justify-center items-center">
@@ -51,6 +53,7 @@ export default function Analyticsmetrics() {
         profileViews={data?.profileViews?.length || 0}
         blockClicks={totalBlockClicks}
         socialClicks={totalSocialClicks}
+        chartData={data?.dateStats}
       />
       <SocialClicks data={data?.socials} />
       <BlockInteractions data={data?.blocks || []} />

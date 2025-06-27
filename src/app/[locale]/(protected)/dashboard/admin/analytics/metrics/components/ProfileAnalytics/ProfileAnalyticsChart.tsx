@@ -1,7 +1,7 @@
 "use client";
 
-import {cn} from "@/lib/cn";
-import {useLocale, useTranslations} from "next-intl";
+import { cn } from "@/lib/cn";
+import { useLocale, useTranslations } from "next-intl";
 import {
   CartesianGrid,
   Legend,
@@ -13,40 +13,24 @@ import {
   YAxis,
 } from "recharts";
 
-export const ProfileAnalyticsChart = () => {
+interface ProfileAnalyticsChartProps {
+  data: Array<{
+    date: string;
+    profileViews: number;
+    blockClicks: number;
+    socialClicks: number;
+  }>;
+}
+
+export const ProfileAnalyticsChart = ({
+  data = [],
+}: ProfileAnalyticsChartProps) => {
   const locale = useLocale();
   const t = useTranslations("Analytics.Metrics.profile");
 
-  const chartData = [
-    {
-      date: "03/01/2025",
-      [t("profileViews")]: 1,
-      [t("blockClicks")]: 0,
-      [t("socialClicks")]: 0,
-    },
-    {
-      date: "03/02/2025",
-      [t("profileViews")]: 2,
-      [t("blockClicks")]: 1,
-      [t("socialClicks")]: 0,
-    },
-    {
-      date: "03/03/2025",
-      [t("profileViews")]: 3,
-      [t("blockClicks")]: 0,
-      [t("socialClicks")]: 1,
-    },
-    {
-      date: "03/04/2025",
-      [t("profileViews")]: 4,
-      [t("blockClicks")]: 1,
-      [t("socialClicks")]: 2,
-    },
-  ];
-
   return (
     <ResponsiveContainer width="100%" height={300} className="mb-5 space-y-3">
-      <LineChart data={chartData} style={{padding: 5}} className="dsfa">
+      <LineChart data={data} style={{ padding: 5 }} className="dsfa">
         <CartesianGrid strokeDasharray="3 3" className="ffff" />
         <XAxis dataKey="date" />
         <YAxis width={10} tickMargin={10} />
@@ -66,24 +50,27 @@ export const ProfileAnalyticsChart = () => {
 
         <Line
           type="monotone"
-          dataKey={t("profileViews")}
+          name={t("profileViews")}
+          dataKey="profileViews"
           stroke="#50bd81"
-          activeDot={{r: 8}}
-          dot={{fill: "#50bd81"}}
+          activeDot={{ r: 8 }}
+          dot={{ fill: "#50bd81" }}
         />
         <Line
           type="monotone"
-          dataKey={t("blockClicks")}
+          name={t("blockClicks")}
+          dataKey="blockClicks"
           stroke="#ebb46c"
-          activeDot={{r: 8}}
-          dot={{fill: "#ebb46c"}}
+          activeDot={{ r: 8 }}
+          dot={{ fill: "#ebb46c" }}
         />
         <Line
           type="monotone"
-          dataKey={t("socialClicks")}
+          name={t("socialClicks")}
+          dataKey="socialClicks"
           stroke="#097cd4"
-          activeDot={{r: 8}}
-          dot={{fill: "#097cd4"}}
+          activeDot={{ r: 8 }}
+          dot={{ fill: "#097cd4" }}
         />
       </LineChart>
     </ResponsiveContainer>
