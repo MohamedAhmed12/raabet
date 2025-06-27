@@ -141,7 +141,11 @@ export default function LinksBlocks() {
               )}
               <div
                 className="flex flex-col items-center justify-center w-full py-[16.5px] px-[13.75px] w-full"
-                style={{ ...linkStyles, color: block.custom_text_color }}
+                style={{
+                  ...linkStyles,
+                  color:
+                    block?.custom_text_color || link?.card_styles_text_color,
+                }}
               >
                 <div
                   className={cn(

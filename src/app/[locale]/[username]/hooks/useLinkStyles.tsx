@@ -80,7 +80,6 @@ const useLinkStyles = (link: Link) => {
   return useMemo(() => {
     const {
       card_styles_design,
-      card_styles_text_color,
       card_styles_card_corner,
       card_styles_card_color,
       card_styles_card_border_width,
@@ -90,7 +89,6 @@ const useLinkStyles = (link: Link) => {
     } = link || {}; // Destructure link properties
 
     const styles = {
-      color: card_styles_text_color,
       borderRadius: card_styles_card_corner ? card_styles_card_corner * 28 : 0,
       borderWidth:
         card_styles_design === 0 ? card_styles_card_border_width * 6 : 0,
@@ -119,7 +117,6 @@ const useLinkStyles = (link: Link) => {
 
     return styles;
   }, [
-    link?.card_styles_text_color,
     link?.card_styles_card_corner,
     link?.card_styles_card_color,
     link?.card_styles_card_border_width,
