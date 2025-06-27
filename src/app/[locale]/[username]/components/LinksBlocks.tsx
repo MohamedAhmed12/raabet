@@ -7,10 +7,8 @@ import { Block } from "@prisma/client";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
-import {
-  EmbedInfo,
-  generateEmbedInfo,
-} from "../../(protected)/dashboard/admin/profile/links/components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/MediaBlock/generateEmbedInfo";
+import { EmbedInfo } from "../../(protected)/dashboard/admin/profile/links/components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/MediaBlock/generateEmbedInfo";
+import { BlockTextAlign } from "../../types/block";
 import { useIframeClickTracker } from "../hooks/useIframeClickTracker";
 import { useIncrementBlockClicks } from "../hooks/useIncrementBlockClicks";
 import useLinkStyles from "../hooks/useLinkStyles";
@@ -39,29 +37,16 @@ export default function LinksBlocks() {
   };
 
   useIframeClickTracker(handleBlockClick);
-  console.log("blocksWithEmbedInfo", blocksWithEmbedInfo);
 
   const fetchEmbedInfo = useCallback(
     async (cancelled: boolean) => {
       const blocksWithEmbedInfo = await Promise.all<EmbedBlock>(
-        (link.blocks || [])
-          .sort((a, b) => a.order - b.order)
-          .map(async (rawBlock): Promise<EmbedBlock> => {
-            const block = { ...rawBlock, clicked: false };
-
-            // Only process audio/video blocks
-            if (block.type !== "audio" && block.type !== "video") {
-              return block;
-            }
-
-            try {
-              const embedInfo = await generateEmbedInfo(block.url);
-              return { ...block, ...embedInfo };
-            } catch (error) {
-              console.error("Error generating embed info:", error);
-              return block;
-            }
+        (link.blocks || []).map(
+          async (rawBlock): Promise<EmbedBlock> => ({
+            ...rawBlock,
+            clicked: false,
           })
+        )
       );
 
       if (!cancelled) {
@@ -95,7 +80,7 @@ export default function LinksBlocks() {
               <div className="w-full aspect-video py-4" key={block.id}>
                 <div className="w-full h-full">
                   <iframe
-                    src={block.src || ""}
+                    src={block.url || ""}
                     className="w-full h-full"
                     data-block-id={block.id}
                   />
@@ -145,20 +130,21 @@ export default function LinksBlocks() {
                   ...linkStyles,
                   color:
                     block?.custom_text_color || link?.card_styles_text_color,
+                  textAlign: block.text_align as BlockTextAlign,
                 }}
               >
                 <div
                   className={cn(
-                    "text-center text-[1em] font-medium leading-[1.3em] mb-1.5 break-words",
+                    "text-[1em] font-medium leading-[1.3em] mb-1.5 break-words w-full",
                     link?.title_font
                   )}
                   style={{ maxWidth: "100%", wordBreak: "break-word" }}
                   dangerouslySetInnerHTML={{ __html: block.title }}
                 />
                 <div
-                  className={`${link?.text_font} text-[12.6px] leading-[1.3em]`}
+                  className={`${link?.text_font} text-[12.6px] leading-[1.3em] w-full`}
                 >
-                  {block.text}
+                  {block.description}
                 </div>
               </div>
             </BlockComponent>
