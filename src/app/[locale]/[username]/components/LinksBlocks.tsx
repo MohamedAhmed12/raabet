@@ -128,8 +128,6 @@ export default function LinksBlocks() {
               onClick={() => handleBlockClick(block.id)}
               animate={shouldAnimate ? animation : {}}
               variants={animationVariants as any}
-              whileHover={shouldAnimate ? { scale: 1.02 } : {}}
-              whileTap={shouldAnimate ? { scale: 0.98 } : {}}
             >
               {link.card_styles_design == 4 && (
                 <div
