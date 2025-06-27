@@ -170,3 +170,13 @@ body {
 .dashboard-general-style-controller:hover {
   background-color: #fafafa;
 }
+
+th {
+  button {
+    outline: none !important;
+    font-size: 1rem;
+  }
+  button:hover {
+    background-color: transparent !important;
+  }
+}
