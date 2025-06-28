@@ -1,15 +1,19 @@
-import {Button} from "@/components/ui/button";
-import {Separator} from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Loader2 } from "lucide-react";
 
 export const CreateUpdateBlockFormFooter = ({
   submitbtnLabel,
   onClose,
   onSubmit,
+  isLoading,
 }: {
   submitbtnLabel: string;
   onClose: () => void;
   onSubmit: () => void;
+  isLoading: boolean;
 }) => {
+  console.log("isLoadinginside", isLoading);
   return (
     <span>
       <Separator />
@@ -26,7 +30,11 @@ export const CreateUpdateBlockFormFooter = ({
           className="flex-1 !text-base"
           onClick={onSubmit}
         >
-          {submitbtnLabel}
+          {isLoading ? (
+            <Loader2 className="w-10 h-10 animate-spin" />
+          ) : (
+            submitbtnLabel
+          )}
         </Button>
       </div>
     </span>
