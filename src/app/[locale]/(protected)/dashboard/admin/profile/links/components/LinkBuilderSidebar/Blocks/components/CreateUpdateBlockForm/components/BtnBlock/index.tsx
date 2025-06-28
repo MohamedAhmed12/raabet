@@ -2,14 +2,16 @@ import { DashboardCard } from "@/app/[locale]/(protected)/dashboard/admin/compon
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Block } from "@prisma/client";
+import { Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { z } from "zod";
 import { CardDesignToggleGroup } from "../../../../../../CardDesignToggleGroup";
+import { GCSFileLoader } from "../../../../../GCSFileLoader";
 import { buttonBlockLayouts } from "../../constants";
 import { BtnBlockStyling } from "./BtnBlockStyling";
 import { ButtonTypeDropdown } from "./ButtonTypeDropdown";
 import { TextBlockStyling } from "./TextBlockStyling";
-import Image from "next/image";
-import { z } from "zod";
 
 export const BtnBlock = ({
   block,
@@ -23,6 +25,27 @@ export const BtnBlock = ({
   const t = useTranslations();
 
   const urlError = errors?.find((error) => error.path?.includes("url"));
+  const bgImageError = errors?.find((error) =>
+    error.path?.includes("bg_image")
+  );
+
+  const handleBgImageUploader = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    linkId: string
+  ) => {
+    console.log("linkId", linkId);
+    const file = e.currentTarget.files?.[0];
+    console.log("file", file);
+
+    if (file) {
+      try {
+        const bgImageURL = await GCSFileLoader(linkId, file);
+        onUpdateBlockProperty("bg_image", bgImageURL);
+      } catch (error) {
+        console.error(`Upload block ${block.id} bgImage failed:`, error);
+      }
+    }
+  };
 
   console.log("dsadsad", block, errors);
   return (
@@ -54,21 +77,40 @@ export const BtnBlock = ({
               className="file-upload-label text-sm mb-3  flex"
             >
               {t("LinksPage.generalStyles.blockForm.uploadedFile")}{" "}
-              {block.bg_image}
+              {block?.bg_image?.split("/").pop()}
             </label>
           )}
           <Input
             id="sad"
             type="file"
-            className="h-14 mb-[14px] py-3"
+            dir="ltr"
+            className="h-14 mb-[14px] py-3 cursor-pointer relative z-10" // Added cursor-pointer and z-index
             icon={
-              <Image src={block.url} width={60} height={60} alt="preview" />
+              block.bg_image ? (
+                <Image
+                  src={block.bg_image}
+                  width={60}
+                  height={60}
+                  alt="preview"
+                />
+              ) : (
+                <Upload className="size-5" />
+              )
             }
-            onChange={() => onUpdateBlockProperty("bg_image", "aaaaaaaaaaa")}
+            onChange={(e) => handleBgImageUploader(e, block.id)}
           />
+          {bgImageError && (
+            <p className="text-red-500 text-sm mt-2">
+              {t("LinksPage.generalStyles.blocks.errors.bgImageRequired")}
+            </p>
+          )}
         </DashboardCard>
       )}
-      <TextBlockStyling block={block} errors={errors} onChange={onUpdateBlockProperty} />
+      <TextBlockStyling
+        block={block}
+        errors={errors}
+        onChange={onUpdateBlockProperty}
+      />
       <BtnBlockStyling block={block} onChange={onUpdateBlockProperty} />
     </div>
   );
