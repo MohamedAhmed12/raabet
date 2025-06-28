@@ -1,38 +1,51 @@
 "use client";
 
-import { useState } from "react";
 import { Block } from "@prisma/client";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { z } from "zod";
+import { validateBlock } from "../../../../../../types/block";
 import { generateEmbedInfo } from "./MediaBlock/generateEmbedInfo";
 
 export const AudioBlock = ({
   block,
+  errors,
   onUpdateBlockProperty,
 }: {
   block: Block;
+  errors: z.ZodIssue[];
   onUpdateBlockProperty: (key: keyof Block, val: string) => void;
 }) => {
-  const [error, setError] = useState("");
   const [inputUrl, setInputUrl] = useState(block.url || "");
 
+  const t = useTranslations("LinksPage.generalStyles.blocks");
+  const mediaUrlError = errors?.find((error) => error.path?.includes("url"));
+
   const handleUrlChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const url = e.target.value;
+    const url = e.target.value.trim();
     setInputUrl(url);
 
-    // Clear error when typing
-    setError("");
+    if (!url) {
+      onUpdateBlockProperty("url", "");
+      return;
+    }
+
+    onUpdateBlockProperty("url", url);
+    const isValidUrl = validateBlock(block, block.type);
+
+    if (!isValidUrl) {
+      return;
+    }
 
     try {
       // Try to generate embed info
-      const info = await generateEmbedInfo(url);
-
-      // Only update block properties if we have valid embed info
-      if (info) {
-        onUpdateBlockProperty("title", info.title);
-        onUpdateBlockProperty("url", url);
+      const embedInfo = await generateEmbedInfo(url);
+      if (embedInfo) {
+        onUpdateBlockProperty("title", embedInfo.title);
+        onUpdateBlockProperty("url", embedInfo.src);
       }
     } catch (error) {
-      console.error(error);
-      setError(error instanceof Error ? error.message : String(error));
+      console.error("Error processing URL:", error);
     }
   };
 
@@ -40,16 +53,22 @@ export const AudioBlock = ({
     <div className="max-w-xl w-full mx-auto space-y-4 p-6">
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Media URL</label>
+          <label className="block text-sm font-medium mb-1">
+            {t("AudioBlock.mediaUrl")}
+          </label>
           <input
             type="text"
             value={inputUrl}
             onChange={handleUrlChange}
-            placeholder="Paste your media URL"
-            className="w-full p-2 border rounded"
+            placeholder={t("AudioBlock.mediaUrlPlaceholder")}
+            className={`w-full p-2 border rounded border-gray-300`}
           />
-          {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
+        {mediaUrlError && (
+          <p className="text-red-500 text-sm mt-2">
+            {t(`errors.${mediaUrlError.message}`)}
+          </p>
+        )}
         {/* <div>
           <label className="block text-sm font-medium mb-1">Tag</label>
           <input

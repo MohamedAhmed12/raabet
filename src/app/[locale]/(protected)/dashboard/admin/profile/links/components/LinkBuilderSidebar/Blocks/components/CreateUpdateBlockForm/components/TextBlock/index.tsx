@@ -163,16 +163,16 @@ const extensions = [
 
 export const TextBlock = ({
   block,
-  onUpdateBlockProperty,
   errors,
+  onUpdateBlockProperty,
 }: {
   block: Block;
-  onUpdateBlockProperty: (key: keyof Block, val: string) => void;
   errors: z.ZodIssue[];
+  onUpdateBlockProperty: (key: keyof Block, val: string) => void;
 }) => {
-  const t = useTranslations();
+  const t = useTranslations("LinksPage.generalStyles.blocks");
 
-  const titleError = errors.find((error) => error.path?.includes("title"));
+  const titleError = errors?.find((error) => error.path?.includes("title"));
 
   const handleUpdate = (e: {
     editor: { getText: () => string; getHTML: () => string };
@@ -190,7 +190,7 @@ export const TextBlock = ({
         onUpdate={handleUpdate}
       />
       {titleError && (
-        <p className="text-red-500 text-sm mt-2">{t("Errors.textRequired")}</p>
+        <p className="text-red-500 text-sm mt-2">{t("errors.textRequired")}</p>
       )}
     </div>
   );
