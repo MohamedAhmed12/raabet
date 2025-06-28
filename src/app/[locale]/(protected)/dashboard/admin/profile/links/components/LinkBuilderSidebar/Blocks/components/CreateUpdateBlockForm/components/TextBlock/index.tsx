@@ -4,7 +4,7 @@ import "./style.css";
 
 import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
-import {EditorProvider, useCurrentEditor} from "@tiptap/react";
+import { EditorProvider, useCurrentEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import {
   AlignCenter,
@@ -17,11 +17,13 @@ import {
   Strikethrough,
 } from "lucide-react";
 
-import {cn} from "@/lib/utils";
-import {Block} from "@prisma/client";
+import { cn } from "@/lib/utils";
+import { Block } from "@prisma/client";
+import { useTranslations } from "next-intl";
+import { z } from "zod";
 
 const MenuBar = () => {
-  const {editor} = useCurrentEditor();
+  const { editor } = useCurrentEditor();
 
   if (!editor) return null;
 
@@ -32,11 +34,11 @@ const MenuBar = () => {
       {/* Heading Dropdown */}
       <select
         value={
-          editor.isActive("heading", {level: 1})
+          editor.isActive("heading", { level: 1 })
             ? "1"
-            : editor.isActive("heading", {level: 2})
+            : editor.isActive("heading", { level: 2 })
             ? "2"
-            : editor.isActive("heading", {level: 3})
+            : editor.isActive("heading", { level: 3 })
             ? "3"
             : "0"
         }
@@ -45,7 +47,7 @@ const MenuBar = () => {
           if (level === 0) {
             editor.chain().focus().setParagraph().run();
           } else {
-            editor.chain().focus().toggleHeading({level}).run();
+            editor.chain().focus().toggleHeading({ level }).run();
           }
         }}
         className="p-1 border rounded"
@@ -115,7 +117,7 @@ const MenuBar = () => {
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         className={cn(
           buttonClass,
-          editor.isActive({textAlign: "left"}) && "is-active"
+          editor.isActive({ textAlign: "left" }) && "is-active"
         )}
       >
         <AlignLeft />
@@ -124,7 +126,7 @@ const MenuBar = () => {
         onClick={() => editor.chain().focus().setTextAlign("center").run()}
         className={cn(
           buttonClass,
-          editor.isActive({textAlign: "center"}) && "is-active"
+          editor.isActive({ textAlign: "center" }) && "is-active"
         )}
       >
         <AlignCenter />
@@ -133,7 +135,7 @@ const MenuBar = () => {
         onClick={() => editor.chain().focus().setTextAlign("right").run()}
         className={cn(
           buttonClass,
-          editor.isActive({textAlign: "right"}) && "is-active"
+          editor.isActive({ textAlign: "right" }) && "is-active"
         )}
       >
         <AlignRight />
@@ -141,6 +143,7 @@ const MenuBar = () => {
     </div>
   );
 };
+
 const extensions = [
   StarterKit.configure({
     bulletList: {
@@ -161,18 +164,34 @@ const extensions = [
 export const TextBlock = ({
   block,
   onUpdateBlockProperty,
+  errors,
 }: {
   block: Block;
   onUpdateBlockProperty: (key: keyof Block, val: string) => void;
+  errors: z.ZodIssue[];
 }) => {
+  const t = useTranslations();
+
+  const titleError = errors.find((error) => error.path?.includes("title"));
+
+  const handleUpdate = (e: {
+    editor: { getText: () => string; getHTML: () => string };
+  }) => {
+    const hasContent = e.editor.getText().trim().length > 0;
+    onUpdateBlockProperty("title", hasContent ? e.editor.getHTML() : "");
+  };
+
   return (
     <div className="flex-1 p-5 mt-4">
       <EditorProvider
         slotBefore={<MenuBar />}
         extensions={extensions}
         content={block.title}
-        onUpdate={(e) => onUpdateBlockProperty("title", e.editor.getHTML())}
-      ></EditorProvider>
+        onUpdate={handleUpdate}
+      />
+      {titleError && (
+        <p className="text-red-500 text-sm mt-2">{t("Errors.textRequired")}</p>
+      )}
     </div>
   );
 };
