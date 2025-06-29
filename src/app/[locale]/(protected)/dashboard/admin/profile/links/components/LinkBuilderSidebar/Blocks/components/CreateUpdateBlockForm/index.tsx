@@ -4,12 +4,17 @@ import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { BlockAnimation, BlockTextAlign } from "@/app/[locale]/types/block";
 import { Block, BlockType } from "@prisma/client";
 import React, { useState } from "react";
-import { blocks } from "../../../../../types/block";
+import {
+  blocks,
+  blockSchemas,
+  validateBlock,
+} from "../../../../../types/block";
 import { CreateUpdateBlockFormFooter } from "./components/Footer";
 import { CreateUpdateBlockFormHeader } from "./components/Header";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { cn } from "@/lib/utils";
+import { z } from "zod";
 
 interface CreateUpdateBlockFormProps {
   type: BlockType;
@@ -47,7 +52,6 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
     type,
     title: "",
     description: "",
-    text: "",
     text_align: BlockTextAlign.Left,
     text_color: "",
     animation: BlockAnimation.None,
@@ -58,16 +62,39 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
     corner: 0,
     layout: "1",
     linkId: linkId || "",
-    clicks: 0,
     views: 0,
     created_at: new Date(),
     updated_at: new Date(),
   };
 
   const [formData, setFormData] = useState<Block>(block || initialBlock);
+  const [errors, setErrors] = useState<z.ZodIssue[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateBlockProperty = (key: keyof Block, value: string) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleOnSubmit = async (block: Block) => {
+    setIsLoading(true);
+
+    const result: z.SafeParseReturnType<
+      unknown,
+      z.infer<(typeof blockSchemas)[BlockType]>
+    > = validateBlock(block, type);
+    console.log("type", block);
+    console.log("result", result);
+
+    if (!result.success) {
+      if (result?.error) {
+        setErrors(result?.error?.issues);
+      }
+    } else {
+      await onSubmit(block);
+      setErrors([]);
+    }
+
+    setIsLoading(false);
   };
 
   return (
@@ -82,11 +109,13 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
       <BlockComponent
         block={formData}
         onUpdateBlockProperty={updateBlockProperty}
+        errors={errors}
       />
 
       <CreateUpdateBlockFormFooter
         submitbtnLabel={block ? "Update" : "Create"}
-        onSubmit={() => onSubmit(formData)}
+        onSubmit={() => handleOnSubmit(formData)}
+        isLoading={isLoading}
         onClose={onClose}
       />
     </div>
