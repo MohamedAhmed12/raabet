@@ -5,6 +5,7 @@ import { animationVariants } from "@/constants/animations";
 import { cn } from "@/lib/cn";
 import { Block } from "@prisma/client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { EmbedInfo } from "../../(protected)/dashboard/admin/profile/links/components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/MediaBlock/generateEmbedInfo";
@@ -88,16 +89,18 @@ export default function LinksBlocks() {
               </div>
             );
           }
-
           const isLink = !!block?.url;
           const BlockComponent = isLink ? motion.a : motion.div;
           const animation = block.animation || "none";
           const shouldAnimate = animation !== "none";
+          const hasPrefixImage = block.layout === "2" && block.bg_image;
+          const hasBgImage = block.layout === "3" && block.bg_image;
 
           return (
             <BlockComponent
               key={block.id}
-              className="flex flex-col items-center justify-center w-full relative"
+              // className="flex flex-col items-center justify-center w-full relative"
+              className="flex items-center w-full"
               style={{
                 marginBottom: `${
                   11 + 33 * (link.card_styles_card_spacing || 0)
@@ -125,26 +128,59 @@ export default function LinksBlocks() {
                 ></div>
               )}
               <div
-                className="flex flex-col items-center justify-center w-full py-[16.5px] px-[13.75px] w-full"
+                className="flex items-center justify-center w-full"
                 style={{
                   ...linkStyles,
                   color:
                     block?.custom_text_color || link?.card_styles_text_color,
                   textAlign: block.text_align as BlockTextAlign,
                 }}
+                dir={block.text_align === "right" ? "rtl" : "ltr"}
               >
+                {hasPrefixImage && (
+                  <div className="flex-shrink-0 w-1/3">
+                    {/* // <div className="flex-shrink-0"> */}
+                    <Image
+                      src={block.bg_image}
+                      width={60}
+                      height={60}
+                      alt="preview"
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                )}
                 <div
                   className={cn(
-                    "text-[1em] font-medium leading-[1.3em] mb-1.5 break-words w-full",
-                    link?.title_font
+                    "flex flex-col px-4 py-2 w-2/3 overflow-hidden",
+                    "text-container flex flex-col flex-2 px-6.5 py-4 overflow-hidden",
+                    hasPrefixImage && "py-0",
+                    hasBgImage && "relative bg-cover bg-center"
                   )}
-                  style={{ maxWidth: "100%", wordBreak: "break-word" }}
-                  dangerouslySetInnerHTML={{ __html: block.title }}
-                />
-                <div
-                  className={`${link?.text_font} text-[12.6px] leading-[1.3em] w-full`}
+                  style={
+                    hasBgImage
+                      ? {
+                          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${block.bg_image})`,
+                        }
+                      : {}
+                  }
                 >
-                  {block.description}
+                  <div
+                    className={cn(
+                      "line-clamp-3",
+                      hasPrefixImage && "line-clamp-2",
+                      link?.title_font
+                    )}
+                    dangerouslySetInnerHTML={{ __html: block.title }}
+                  />
+                  <div
+                    className={cn(
+                      "text-[12.6px] leading-[1.3em] line-clamp-3",
+                      hasPrefixImage && "line-clamp-2",
+                      link?.text_font
+                    )}
+                  >
+                    {block.description}
+                  </div>
                 </div>
               </div>
             </BlockComponent>

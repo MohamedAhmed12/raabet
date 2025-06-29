@@ -184,8 +184,17 @@
           "drag": "Drag the",
           "toReorder": "to reorder blocks. Click a block to edit it."
         },
+        "AudioBlock": {
+          "mediaUrl": "Media URL",
+          "mediaUrlPlaceholder": "Paste your media URL",
+          "validationMessage": "Invalid URL"
+        },
         "errors": {
-          "sortingBlocks": "Something went wrong while sorting blocks!"
+          "sortingBlocks": "Something went wrong while sorting blocks!",
+          "textRequired": "Text is required",
+          "validUrlRequired": "Please insert valid URL to proceed",
+          "titleOrDescriptionRequired": "Please add a title and/or a description",
+          "bgImageRequired": "Image is required for this layout"
         }
       },
       "urlButton": "URL Button",

@@ -39,7 +39,7 @@
     "title": "عنوان",
     "text": "نص",
     "description": "وصف",
-    "styling": "styling",
+    "styling": "التصميم",
     "method": "طريقة",
     "type": "النوع",
     "views": "المشاهدات",
@@ -184,8 +184,17 @@
           "drag": "اسحب",
           "toReorder": "انقر على الكتلة لتعديلها."
         },
+        "AudioBlock": {
+          "mediaUrl": "رابط الصوت",
+          "mediaUrlPlaceholder": "ضع رابط الصوت",
+          "validationMessage": "رابط غير صحيح"
+        },
         "errors": {
-          "sortingBlocks": "حدث خطأ أثناء إعادة ترتيب الكتل!"
+          "sortingBlocks": "حدث خطأ أثناء إعادة ترتيب الكتل!",
+          "textRequired": "من فضلك ادخل نَص للمتابعة",
+          "validUrlRequired": "من فضلك ادخل رابط صحيح لتتمكن من المتابعة",
+          "titleOrDescriptionRequired": "من فضلك ادخل عنوان و/أو وصف",
+          "bgImageRequired": "الصورة مطلوبة لهذا التنسيق"
         }
       },
       "urlButton": "زر الرابط",
@@ -196,7 +205,7 @@
       "text": "نص",
       "audio": "صوت",
       "video": "فيديو",
-      "customBlockTextColor": "custom block text color",
+      "customBlockTextColor": "لون نص مخصص للبلوك",
       "blockForm": {
         "title": {
           "text": "كتلة نص",
@@ -209,7 +218,7 @@
           "video": "كتلة فيديو"
         },
         "btnType": {
-          "btnTypes": "أنواع الأزرار",
+          "btnTypes": "أنواع الزر",
           "link": "رابط",
           "email": "بريد إلكتروني",
           "image": "صورة",
