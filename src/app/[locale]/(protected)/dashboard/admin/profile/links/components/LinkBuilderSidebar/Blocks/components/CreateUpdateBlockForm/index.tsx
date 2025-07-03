@@ -100,7 +100,7 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
   return (
     <div
       className={cn(
-        "flex flex-col flex-1 justify-between absolute top-0 min-w-[520px] z-[9] h-screen font-noto-sans font-medium !bg-white w-[370px] border-1 border-r-[#d3d3d3] overflow-y-auto",
+        "flex flex-col flex-1 justify-between absolute top-0 min-w-[520px] z-[9] min-h-screen font-noto-sans font-medium !bg-white w-[370px] border-1 border-r-[#d3d3d3] overflow-y-auto",
         locale === "ar" ? "right-0" : "left-0"
       )}
     >
