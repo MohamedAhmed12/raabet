@@ -6,41 +6,41 @@ import { TextBlock } from "../components/LinkBuilderSidebar/Blocks/components/Cr
 import { VideoBlock } from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/VideoBlock";
 import { BlockType } from "@prisma/client";
 
-// Base schema that all blocks will extend
+// Base schema for all blocks
 const BaseBlockSchema = z.object({
-  id: z.string(),
-  type: z.string(),
-  title: z.string().optional(),
-  createdAt: z.date().optional(),
-  updatedAt: z.date().optional(),
-});
-
-// Block type to schema mapping
-// Common schema for blocks that use URL, title, and description
-const UrlBasedBlockSchema = BaseBlockSchema.extend({
-  url: z.string().url("validUrlRequired"),
   title: z.string().optional(),
   description: z.string().optional(),
   bg_image: z.string().optional(),
-  layout: z.string().optional(), // Make sure layout is in the schema
-})
-  .refine(
-    (data) => {
-      // If layout is "2" or "3", bg_image is required
-      if (data.layout === "2" || data.layout === "3") {
-        return !!data.bg_image?.trim();
+  layout: z.string().optional(),
+});
+
+// Common validation functions
+const withCommonValidations = <T extends z.ZodObject<any>>(schema: T) => {
+  return schema
+    .refine(
+      (data) => {
+        if (data.layout === "2" || data.layout === "3") {
+          return !!data.bg_image?.trim();
+        }
+        return true;
+      },
+      {
+        message: "bgImageRequired",
+        path: ["bg_image"],
       }
-      return true;
-    },
-    {
-      message: "bgImageRequired",
-      path: ["bg_image"],
-    }
-  )
-  .refine((data) => data.title?.trim() || data.description?.trim(), {
-    message: "titleOrDescriptionRequired",
-    path: ["title", "description"],
-  });
+    )
+    .refine((data) => data.title?.trim() || data.description?.trim(), {
+      message: "titleOrDescriptionRequired",
+      path: ["title", "description"],
+    });
+};
+
+// Common schema for blocks that use URL, title, and description
+const UrlBasedBlockSchema = withCommonValidations(
+  BaseBlockSchema.extend({
+    url: z.string().url("validUrlRequired"),
+  })
+);
 
 const blockSchemas = {
   text: BaseBlockSchema.extend({
@@ -48,9 +48,13 @@ const blockSchemas = {
   }),
 
   url: UrlBasedBlockSchema,
-  email: UrlBasedBlockSchema,
   file: UrlBasedBlockSchema,
   image: UrlBasedBlockSchema,
+  email: withCommonValidations(
+    BaseBlockSchema.extend({
+      url: z.string().email("validUrlRequired"),
+    })
+  ),
 
   separator: BaseBlockSchema.extend({
     title: z.string(),

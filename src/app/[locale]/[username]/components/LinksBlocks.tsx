@@ -57,6 +57,17 @@ export default function LinksBlocks() {
     [link?.blocks]
   );
 
+  async function downloadFile(url: string) {
+    const res = await fetch(url, { mode: "cors" });
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = url.split("/").pop()!;
+    a.click();
+    URL.revokeObjectURL(blobUrl);
+  }
+
   useEffect(() => {
     if (!link?.blocks?.length) {
       setBlocksWithEmbedInfo([]);
@@ -99,8 +110,7 @@ export default function LinksBlocks() {
           return (
             <BlockComponent
               key={block.id}
-              // className="flex flex-col items-center justify-center w-full relative"
-              className="flex items-center w-full"
+              className="flex items-center w-full max-h-[160px]"
               style={{
                 marginBottom: `${
                   11 + 33 * (link.card_styles_card_spacing || 0)
@@ -113,7 +123,13 @@ export default function LinksBlocks() {
               href={isLink ? block.url : undefined}
               target={isLink ? "_blank" : undefined}
               rel={isLink ? "noopener noreferrer" : undefined}
-              onClick={() => handleBlockClick(block.id)}
+              onClick={(e) => {
+                handleBlockClick(block.id);
+                if (block.type === "file") {
+                  e.preventDefault();
+                  downloadFile(block.url);
+                }
+              }}
               animate={shouldAnimate ? animation : {}}
               variants={animationVariants as any}
             >
@@ -127,6 +143,7 @@ export default function LinksBlocks() {
                   }}
                 ></div>
               )}
+
               <div
                 className="flex items-center justify-center w-full"
                 style={{
@@ -137,51 +154,63 @@ export default function LinksBlocks() {
                 }}
                 dir={block.text_align === "right" ? "rtl" : "ltr"}
               >
-                {hasPrefixImage && (
-                  <div className="flex-shrink-0 w-1/3">
-                    {/* // <div className="flex-shrink-0"> */}
-                    <Image
-                      src={block.bg_image}
-                      width={60}
-                      height={60}
-                      alt="preview"
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                )}
-                <div
-                  className={cn(
-                    "flex flex-col px-4 py-2 w-2/3 overflow-hidden",
-                    "text-container flex flex-col flex-2 px-6.5 py-4 overflow-hidden",
-                    hasPrefixImage && "py-0",
-                    hasBgImage && "relative bg-cover bg-center"
-                  )}
-                  style={
-                    hasBgImage
-                      ? {
-                          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${block.bg_image})`,
-                        }
-                      : {}
-                  }
-                >
-                  <div
-                    className={cn(
-                      "line-clamp-3",
-                      hasPrefixImage && "line-clamp-2",
-                      link?.title_font
-                    )}
-                    dangerouslySetInnerHTML={{ __html: block.title }}
+                {block.type}
+                {block.type === "image" ? (
+                  <Image
+                    src={block.bg_image}
+                    width={60}
+                    height={60}
+                    alt="preview"
+                    className="object-cover w-full h-full max-h-[160px]"
                   />
-                  <div
-                    className={cn(
-                      "text-[12.6px] leading-[1.3em] line-clamp-3",
-                      hasPrefixImage && "line-clamp-2",
-                      link?.text_font
+                ) : (
+                  <>
+                    {hasPrefixImage && (
+                      <div className="flex-shrink-0 w-1/3">
+                        <Image
+                          src={block.bg_image}
+                          width={60}
+                          height={60}
+                          alt="preview"
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
                     )}
-                  >
-                    {block.description}
-                  </div>
-                </div>
+                    <div
+                      className={cn(
+                        "flex flex-col px-4 py-2 w-2/3 overflow-hidden",
+                        "text-container flex flex-col flex-2 px-6.5 py-4 overflow-hidden",
+                        hasPrefixImage && "py-0",
+                        hasBgImage && "relative bg-cover bg-center"
+                      )}
+                      style={
+                        hasBgImage
+                          ? {
+                              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${block.bg_image})`,
+                            }
+                          : {}
+                      }
+                    >
+                      <div
+                        className={cn(
+                          "line-clamp-3",
+                          hasPrefixImage && "line-clamp-2",
+                          link?.title_font
+                        )}
+                        dangerouslySetInnerHTML={{ __html: block.title }}
+                      />
+                      <div
+                        className={cn(
+                          "text-[12.6px] leading-[1.3em] line-clamp-3",
+                          hasPrefixImage && "line-clamp-2",
+                          link?.text_font
+                        )}
+                      >
+                        {block.description}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </BlockComponent>
           );
