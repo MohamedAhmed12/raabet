@@ -1,19 +1,19 @@
 "use client";
 
 import * as React from "react";
-
-import {DashboardCard} from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
-import {BlockAnimation, BlockTextAlign} from "@/app/[locale]/types/block";
-import {iconNameType} from "@/assets/icons";
+import { useMemo } from "react";
+import { DashboardCard } from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
+import { BlockAnimation, BlockTextAlign } from "@/app/[locale]/types/block";
+import { iconNameType } from "@/assets/icons";
 import CustomDropdown from "@/components/CustomDropdown";
-import {Icon} from "@/components/Icon";
-import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
-import {cn} from "@/lib/utils";
-import {Block} from "@prisma/client";
-import {DashboardChromPicker} from "../../../../../../DashboardChromPicker";
-import {useTranslations} from "next-intl";
+import { Icon } from "@/components/Icon";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { cn } from "@/lib/utils";
+import { Block } from "@prisma/client";
+import { DashboardChromPicker } from "../../../../../../DashboardChromPicker";
+import { useTranslations } from "next-intl";
 
-const textAlign: {value: BlockTextAlign; icon: iconNameType}[] = [
+const textAlign: { value: BlockTextAlign; icon: iconNameType }[] = [
   {
     value: BlockTextAlign.Left,
     icon: "alignLeft",
@@ -38,10 +38,15 @@ export const BtnBlockStyling = ({
   const [selectedTextAlign, setSelectedTextAlign] = React.useState<string>(
     block?.text_align || textAlign[0].value
   );
+  const blockAnimationIndex = useMemo(
+    () =>
+      Object.values(BlockAnimation).indexOf(block.animation as BlockAnimation),
+    [block.animation]
+  );
 
   const t = useTranslations("");
 
-  const handleOnChange = (value: string) => {
+  const handleOnTextAlignChange = (value: string) => {
     setSelectedTextAlign(value);
     onChange("text_align", value);
   };
@@ -51,7 +56,7 @@ export const BtnBlockStyling = ({
       <ToggleGroup
         type="single"
         value={selectedTextAlign}
-        onValueChange={handleOnChange}
+        onValueChange={handleOnTextAlignChange}
         className="flex w-full h-10 border-1"
       >
         {textAlign.map((item, i) => (
@@ -65,8 +70,8 @@ export const BtnBlockStyling = ({
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-
       <CustomDropdown
+        initialSelected={blockAnimationIndex}
         onSelect={(index) =>
           onChange("animation", Object.values(BlockAnimation)[index])
         }
@@ -74,11 +79,10 @@ export const BtnBlockStyling = ({
         className="my-3 w-full"
         items={Object.values(BlockAnimation)}
       />
-
       <DashboardChromPicker
         label={t("LinksPage.generalStyles.customBlockTextColor")}
-        currentColor={block?.custom_text_color || undefined}
-        onColorChange={({hex}: {hex: string}) =>
+        currentColor={block.custom_text_color}
+        onColorChange={({ hex }: { hex: string }) =>
           onChange("custom_text_color", hex)
         }
       />
