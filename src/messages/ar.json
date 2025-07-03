@@ -192,7 +192,6 @@
         "errors": {
           "sortingBlocks": "حدث خطأ أثناء إعادة ترتيب الكتل!",
           "textRequired": "من فضلك ادخل نَص للمتابعة",
-          "validUrlRequired": "من فضلك ادخل رابط صحيح لتتمكن من المتابعة",
           "titleOrDescriptionRequired": "من فضلك ادخل عنوان و/أو وصف",
           "bgImageRequired": "الصورة مطلوبة لهذا التنسيق"
         }
@@ -224,8 +223,15 @@
           "image": "صورة",
           "file": "ملف"
         },
+        "errors": {
+          "validUrlRequired": "من فضلك ادخل رابط صحيح لتتمكن من المتابعة",
+          "validEmailRequired": "من فضلك ادخل بريد إلكتروني صحيح لتتمكن من المتابعة",
+          "validFileRequired": "من فضلك قم برفع ملف لتتمكن من المتابعة",
+          "validThumbnailRequired": "من فضلك قم برفع صورة مصغّرة (thumbnail) لتتمكن من المتابعة"
+        },
         "layout": "التخطيط",
-        "uploadedFile": "الملف المرفوع: "
+        "uploadedFile": "الملف المرفوع: ",
+        "uploadedImage": "الصورة المرفوعة: "
       }
     }
   },

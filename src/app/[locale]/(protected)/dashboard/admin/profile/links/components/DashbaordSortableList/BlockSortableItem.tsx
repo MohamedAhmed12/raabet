@@ -29,13 +29,16 @@ export const BlockSortableItem = ({ block }: { block: Block }) => {
     try {
       const updatedBlock = await updateBlockAction(block);
 
-      setLink({key:'blocks',value:(prev:Link) => {
-        const prevBlocks = prev?.blocks || [];
+      setLink({
+        key: "blocks",
+        value: (prev: Link) => {
+          const prevBlocks = prev?.blocks || [];
 
-        return prevBlocks.map((block) =>
-          block.id === updatedBlock.id ? updatedBlock : block
-        );
-      }});
+          return prevBlocks.map((block) =>
+            block.id === updatedBlock.id ? updatedBlock : block
+          );
+        },
+      });
       setIsDialogVisible(false);
     } catch (error) {
       console.error(error);

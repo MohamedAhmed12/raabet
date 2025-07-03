@@ -117,7 +117,6 @@ model Link {
   card_styles_card_color           String
   card_styles_text_color           String
   card_styles_label_color          String
-  card_styles_label_text_color     String
   card_styles_card_corner          Float
   card_styles_card_border_width    Float
   card_styles_card_border_color    String
@@ -171,7 +170,6 @@ model Block {
   type                   BlockType
   title                  String      @default("")
   description            String      @default("")
-  text                   String      @default("")
   text_align             String      @default("left")
   text_color             String      @default("")
   animation              String      @default("none")

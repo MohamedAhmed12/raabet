@@ -192,7 +192,6 @@
         "errors": {
           "sortingBlocks": "Something went wrong while sorting blocks!",
           "textRequired": "Text is required",
-          "validUrlRequired": "Please insert valid URL to proceed",
           "titleOrDescriptionRequired": "Please add a title and/or a description",
           "bgImageRequired": "Image is required for this layout"
         }
@@ -224,8 +223,15 @@
           "image": "Image",
           "file": "File"
         },
+        "errors": {
+          "validUrlRequired": "Please insert valid URL to proceed",
+          "validEmailRequired": "Please insert valid email to proceed",
+          "validFileRequired": "Please upload a file to proceed",
+          "validThumbnailRequired": "Please upload a thumbnail to proceed"
+        },
         "layout": "Layout",
-        "uploadedFile": "Uploaded file: "
+        "uploadedFile": "Uploaded file: ",
+        "uploadedImage": "Uploaded image: "
       }
     }
   },

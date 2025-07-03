@@ -1,12 +1,11 @@
 import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
-import { Icon } from "@/components/Icon";
 import { Input } from "@/components/ui/input";
 import { GCSFileLoader } from "../../LinkBuilderSidebar/GCSFileLoader";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Share2, User } from "lucide-react";
+import { Share2, Upload, User } from "lucide-react";
 
 type ContentProps = {
   t: (key: string) => string;
@@ -133,10 +132,7 @@ export default function SocialsAndSharing() {
           >
             <span>Custom Logo</span>
             {!link.social_custom_logo ? (
-              <Icon
-                name="upload"
-                className="border rounded-4xl p-2 !w-10 !h-10"
-              />
+              <Upload className="size-5 border" />
             ) : (
               <Image
                 src={link.social_custom_logo}

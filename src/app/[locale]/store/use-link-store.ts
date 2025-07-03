@@ -50,7 +50,6 @@ export interface Link {
   card_styles_card_shadow?: number;
   card_styles_card_spacing?: number;
   card_styles_label_color?: string;
-  card_styles_label_text_color?: string;
   title_font?: string;
   text_font?: string;
   social_enable_add_contacts?: boolean;

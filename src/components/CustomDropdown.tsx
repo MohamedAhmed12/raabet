@@ -6,13 +6,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Icon } from "./Icon";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { Icon } from "./Icon";
 
 interface CustomDropdownProps {
-  initialSelected?: number;
+  initialSelected?: number | string;
   prefix?: string;
   items: string[];
   className?: string;
@@ -26,7 +26,11 @@ export function CustomDropdown({
   onSelect,
 }: CustomDropdownProps) {
   const t = useTranslations("Dropdowns");
-  const [selected, setSelected] = useState(initialSelected || 0);
+  const initialVal =
+    typeof initialSelected === "number"
+      ? initialSelected
+      : Object.values(items).indexOf(initialSelected as string) || items[0];
+  const [selected, setSelected] = useState(initialVal);
   const handleOnSelect = (index: number) => {
     setSelected(index);
     onSelect(index);

@@ -12,10 +12,9 @@ export async function updateSingleLink(
       where: { id: linkId },
       data: { [key]: val },
     });
-    
     return { success: true, updatedLink };
   } catch (error) {
     console.error(error);
     return null;
-  } 
+  }
 }

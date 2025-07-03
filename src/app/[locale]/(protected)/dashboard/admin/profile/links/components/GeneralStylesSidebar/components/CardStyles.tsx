@@ -50,34 +50,16 @@ export default function CardStyles() {
           handleLinkPropertyValChange("card_styles_text_color", hex)
         }
       />
-      {link?.general_styles_is_label_exist === true && (
-        <>
-          <DashboardChromPicker
-            label={t("labelColor")}
-            currentColorLabel="card_styles_label_color"
-            onColorChange={({ hex }: { hex: string }) =>
-              handleLinkPropertyValChange("card_styles_label_color", hex, false)
-            }
-            onChangeComplete={({ hex }: { hex: string }) =>
-              handleLinkPropertyValChange("card_styles_label_color", hex)
-            }
-          />
-          <DashboardChromPicker
-            label={t("labelTextColor")}
-            currentColorLabel="card_styles_label_text_color"
-            onColorChange={({ hex }: { hex: string }) =>
-              handleLinkPropertyValChange(
-                "card_styles_label_text_color",
-                hex,
-                false
-              )
-            }
-            onChangeComplete={({ hex }: { hex: string }) =>
-              handleLinkPropertyValChange("card_styles_label_text_color", hex)
-            }
-          />
-        </>
-      )}
+      <DashboardChromPicker
+        label={t("labelColor")}
+        currentColorLabel="card_styles_label_color"
+        onColorChange={({ hex }: { hex: string }) =>
+          handleLinkPropertyValChange("card_styles_label_color", hex, false)
+        }
+        onChangeComplete={({ hex }: { hex: string }) =>
+          handleLinkPropertyValChange("card_styles_label_color", hex)
+        }
+      />
       <DashboardSlider
         label={t("cardCorner")}
         defaultValue={[link?.card_styles_card_corner || 0]}
