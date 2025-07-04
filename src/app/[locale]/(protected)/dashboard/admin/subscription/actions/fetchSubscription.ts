@@ -11,26 +11,24 @@ export async function fetchSubscription(
   }
 
   const user = await prisma.user.findUnique({
-    where: { email: email },
+    where: { email },
     include: {
-      subscriptions: true,
+      subscriptions: {
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: 1, // Only get the most recent one (last subscription)
+      },
     },
   });
 
-  if (!user?.subscriptions || user.subscriptions.length === 0) {
+  if (!user?.subscriptions?.[0]) {
     return null;
   }
 
-  const activeSubscription = user.subscriptions.find(
-    (sub: Subscription) => sub.status === "active"
-  );
+  const [currentSubscription] = user.subscriptions;
 
-  const currentSubscription =
-    activeSubscription ||
-    user?.subscriptions[user?.subscriptions?.length - 1] ||
-    null;
-
-  // convert subs to canceled it it was in trial and got expired
+  // Convert to canceled if it was in trial and got expired
   if (
     currentSubscription?.status === "trialing" &&
     currentSubscription?.expiresAt &&
@@ -38,6 +36,7 @@ export async function fetchSubscription(
   ) {
     // convert the returned subs status to canceled
     currentSubscription.status = "canceled";
+
     // update the status in database
     await prisma.subscription.update({
       where: { id: currentSubscription.id },
