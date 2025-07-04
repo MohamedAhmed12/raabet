@@ -1,22 +1,17 @@
 "use server";
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { PrismaClient } from "@prisma/client";
-import {Subscription} from "@prisma/client";
+import prisma from "@/lib/prisma";
+import { Subscription } from "@prisma/client";
 
-
-const prisma = new PrismaClient();
-
-export async function fetchSubscription(): Promise<Subscription | null> {
-  const session = await getServerSession(authOptions);
-
-  if (!session?.user?.email) {
+export async function fetchSubscription(
+  email: string
+): Promise<Subscription | null> {
+  if (!email) {
     return null;
   }
 
   const user = await prisma.user.findUnique({
-    where: { email: session.user.email },
+    where: { email: email },
     include: {
       subscriptions: true,
     },
@@ -27,8 +22,28 @@ export async function fetchSubscription(): Promise<Subscription | null> {
   }
 
   const activeSubscription = user.subscriptions.find(
-    (sub: Subscription) => sub.status === 'active'
+    (sub: Subscription) => sub.status === "active"
   );
 
-  return activeSubscription || user.subscriptions[0];
+  const currentSubscription =
+    activeSubscription ||
+    user?.subscriptions[user?.subscriptions?.length - 1] ||
+    null;
+
+  // convert subs to canceled it it was in trial and got expired
+  if (
+    currentSubscription?.status === "trialing" &&
+    currentSubscription?.expiresAt &&
+    currentSubscription.expiresAt < new Date()
+  ) {
+    // convert the returned subs status to canceled
+    currentSubscription.status = "canceled";
+    // update the status in database
+    await prisma.subscription.update({
+      where: { id: currentSubscription.id },
+      data: { status: "canceled" },
+    });
+  }
+
+  return currentSubscription;
 }
