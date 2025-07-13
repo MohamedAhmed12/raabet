@@ -15,10 +15,13 @@ export function useUpdateLink() {
   );
 
   const { run: runThrottledUpdate } = useThrottleFn(
-    async (key: keyof typeof link, value: string | boolean | number, shouldPersistToDatabase = true) => {
-   
+    async (
+      key: keyof typeof link,
+      value: string | boolean | number,
+      shouldPersistToDatabase = true
+    ) => {
       setLink({ key, value });
-      
+
       if (shouldPersistToDatabase) {
         updateSingleLink(link?.id || "", key, value);
       }
@@ -34,7 +37,7 @@ export function useUpdateLink() {
     ) => {
       runThrottledUpdate(key, val, shouldPersistToDatabase);
     },
-    [link?.id, runThrottledUpdate, updateSingleLink]
+    [runThrottledUpdate]
   );
 
   return { link, handleLinkPropertyValChange };

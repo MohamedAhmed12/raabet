@@ -37,6 +37,7 @@ const Stars = memo(({ count }: StarsProps) => {
     </div>
   );
 });
+Stars.displayName = "Stars";
 
 const ReviewCard = memo(({ review }: { review: Review }) => {
   return (
@@ -49,7 +50,9 @@ const ReviewCard = memo(({ review }: { review: Review }) => {
           </div>
 
           {/* Review Text */}
-          <p className="text-gray-700 text-xs lg:text-sm line-clamp-3">{review.review}</p>
+          <p className="text-gray-700 text-xs lg:text-sm line-clamp-3">
+            {review.review}
+          </p>
 
           {/* Reviewer Info */}
           <div className="flex items-center gap-3 mt-3">
@@ -62,7 +65,9 @@ const ReviewCard = memo(({ review }: { review: Review }) => {
             />
             <div>
               <p className="text-xs lg:text-sm font-bold">{review.name}</p>
-              <p className="text-[.7rem] lg:text-xs text-blue-500">{review.title}</p>
+              <p className="text-[.7rem] lg:text-xs text-blue-500">
+                {review.title}
+              </p>
             </div>
           </div>
         </CardContent>
@@ -70,12 +75,14 @@ const ReviewCard = memo(({ review }: { review: Review }) => {
     </div>
   );
 });
+ReviewCard.displayName = "ReviewCard";
 
 const MemoizedReviews = memo(({ reviews }: { reviews: Review[] }) => {
   return [...reviews, ...reviews].map((review, index) => (
     <ReviewCard key={index} review={review} />
   ));
 });
+MemoizedReviews.displayName = "MemoizedReviews";
 
 export const ReviewsSlider = ({
   reviews,

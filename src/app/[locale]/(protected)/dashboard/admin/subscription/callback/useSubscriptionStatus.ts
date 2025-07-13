@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Subscription } from "@prisma/client";
+import { useEffect, useState } from "react";
 import { fetchSubscription } from "../actions/fetchSubscription";
-import { SubscriptionStatus } from "@prisma/client";
 
 export function useSubscriptionStatus({
   email,
@@ -11,32 +11,30 @@ export function useSubscriptionStatus({
   email: string;
   pollingInterval?: number;
 }) {
-  const [status, setStatus] = useState<SubscriptionStatus | null>(null);
+  const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
-    let intervalId: NodeJS.Timeout;
 
     const fetchStatus = async () => {
       try {
         const subscription = await fetchSubscription(email);
         if (isMounted) {
-          setStatus(subscription?.status || null);
+          setSubscription(subscription);
           setIsLoading(false);
         }
       } catch (error) {
         console.error("Error fetching subscription status:", error);
         if (isMounted) {
-          setStatus(null);
+          setSubscription(null);
           setIsLoading(false);
         }
       }
     };
 
     fetchStatus();
-
-    intervalId = setInterval(fetchStatus, pollingInterval);
+    const intervalId = setInterval(fetchStatus, pollingInterval);
 
     return () => {
       isMounted = false;
@@ -46,5 +44,9 @@ export function useSubscriptionStatus({
     };
   }, [email, pollingInterval]);
 
-  return { status, isLoading };
+  return {
+    subscription,
+    status: subscription?.status || null,
+    isLoading,
+  };
 }

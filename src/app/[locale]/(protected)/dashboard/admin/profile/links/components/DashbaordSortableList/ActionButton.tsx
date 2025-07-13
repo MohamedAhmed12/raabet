@@ -31,7 +31,7 @@ const ActionButtonComponent = ({
         />
       </div>
     ),
-    [isLoading, icon]
+    [isLoading, icon, className, onClick]
   );
 
   return <CustomTooltip trigger={trigger} content={content} />;

@@ -45,7 +45,7 @@ const Blocks = memo(
           });
         }
       },
-      [blocks]
+      [blocks, setLink, t]
     );
 
     // Memoize the block creation handler
@@ -67,7 +67,7 @@ const Blocks = memo(
           toast.error("Something went wrong while creating new block!");
         }
       },
-      [blocks, setLink]
+      [setLink]
     );
 
     const handleOnCreateNewBlock = (blockType: BlockType) => {
@@ -90,7 +90,7 @@ const Blocks = memo(
           {t("helperTooltip.toReorder")}
         </div>
       ),
-      []
+      [t]
     );
 
     return (

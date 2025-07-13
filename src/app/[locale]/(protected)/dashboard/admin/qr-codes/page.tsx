@@ -2,16 +2,13 @@
 
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 import { MainTitle } from "../profile/settings/components/MainTitle";
 import { NewQRCodeDialog } from "./components/NewQRCodeDialog";
 import QRCodeCard from "./components/QRCodeCard";
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { useQRCodeList } from "./hooks/useQRCodeList";
 
 export default function QRCodes() {
   const t = useTranslations("QR");
-  const linkId = useLinkStore((state) => state.link.id);
   const { data: qrCodes, isLoading, error } = useQRCodeList();
 
   return (
@@ -34,10 +31,7 @@ export default function QRCodes() {
       {qrCodes && (
         <div className="flex flex-col gap-4 w-150">
           {qrCodes.map((qr) => (
-            <QRCodeCard
-              key={qr.id}
-              qr={qr}
-            />
+            <QRCodeCard key={qr.id} qr={qr} />
           ))}
         </div>
       )}

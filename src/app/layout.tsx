@@ -1,4 +1,3 @@
-/* eslint-disable */
 import "./globals.css";
 
 import { GoogleAnalytics } from "@next/third-parties/google";

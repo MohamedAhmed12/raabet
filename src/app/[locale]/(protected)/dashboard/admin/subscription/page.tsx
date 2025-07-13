@@ -22,7 +22,7 @@ export default function SubscriptionPage() {
       <script async src="/js/stripe.js"></script>
       <div className={cn("flex-1 w-full")}>
         {isLoading ? (
-          <div className="flex h-full justify-center items-center">
+          <div className="flex h-full min-h-screen justify-center items-center">
             <LoaderCircle className="animate-spin" size={45} />
           </div>
         ) : (

@@ -69,9 +69,6 @@ const blockSchemas = {
   }),
 } as const;
 
-// Type representing all possible block types
-type BlockSchema = (typeof blockSchemas)[BlockType];
-
 // Validation function
 function validateBlock<T extends BlockType>(
   block: unknown,

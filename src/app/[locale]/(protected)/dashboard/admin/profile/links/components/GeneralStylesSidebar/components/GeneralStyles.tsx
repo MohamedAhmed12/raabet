@@ -44,6 +44,7 @@ const MemoizedDashboardSwitch = memo(
     );
   }
 );
+MemoizedDashboardSwitch.displayName = "MemoizedDashboardSwitch";
 
 // Memoized version of Tabs
 const MemoizedTabs = memo(
@@ -82,6 +83,7 @@ const MemoizedTabs = memo(
     );
   }
 );
+MemoizedTabs.displayName = "MemoizedTabs";
 
 // Memoized version of GeneralStyles
 const MemoizedGeneralStyles = memo(
@@ -170,6 +172,7 @@ const MemoizedGeneralStyles = memo(
     );
   }
 );
+MemoizedGeneralStyles.displayName = "MemoizedGeneralStyles";
 
 export default function GeneralStyles() {
   const t = useTranslations("LinksPage");

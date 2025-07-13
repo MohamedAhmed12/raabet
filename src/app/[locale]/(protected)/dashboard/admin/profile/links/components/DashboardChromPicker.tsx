@@ -44,6 +44,7 @@ const MemoizedChromePicker = memo(
     />
   )
 );
+MemoizedChromePicker.displayName = "MemoizedChromePicker";
 
 const DashboardChromPickerContent = ({
   currentColor,
@@ -53,8 +54,13 @@ const DashboardChromPickerContent = ({
   onChangeComplete,
 }: DashboardChromPickerProps) => {
   // Type assertion to ensure currentColorLabel is a valid key of Link type
+  const cachedCurrentColorLabel = useLinkStore(
+    useShallow((state) =>
+      currentColorLabel ? state.link[currentColorLabel] : ""
+    )
+  );
   const initialColor = currentColorLabel
-    ? useLinkStore(useShallow((state) => state.link[currentColorLabel]))
+    ? cachedCurrentColorLabel
     : currentColor;
 
   const [localColor, setLocalColor] = useState<string>(String(initialColor));
@@ -76,7 +82,7 @@ const DashboardChromPickerContent = ({
       onChangeComplete,
       disableAlpha: true,
     }),
-    [localColor, memoizedOnColorChange]
+    [localColor, onChangeComplete, memoizedOnColorChange]
   );
   return (
     <Popover>

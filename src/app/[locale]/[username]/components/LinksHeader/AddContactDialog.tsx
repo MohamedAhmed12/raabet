@@ -18,10 +18,9 @@ import { LinksNavbarIcon } from "./StickyLinksNavbar";
 import { useShallow } from "zustand/react/shallow";
 
 export function AddContactDialog({ isSticky }: { isSticky: boolean }) {
+  const t = useTranslations("ShareBtn");
   const user = useLinkStore(useShallow((state) => state.link.user));
   if (!user) return;
-
-  const t = useTranslations("ShareBtn");
 
   const handleAddContact = async () => {
     const responseBlob = await generateVCardAction(user.fullname);

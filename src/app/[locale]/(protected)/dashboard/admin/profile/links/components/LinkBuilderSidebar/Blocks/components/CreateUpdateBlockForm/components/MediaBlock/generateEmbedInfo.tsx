@@ -54,6 +54,7 @@ export async function generateEmbedInfo(
         )}&parent=${encodeURIComponent(domain)}`,
       };
     } catch (err) {
+      console.error(err);
       throw new Error("Error in Twitch URL:");
     }
   }
@@ -139,6 +140,7 @@ export async function generateEmbedInfo(
       src,
     };
   } catch (err) {
+    console.error(err);
     throw new Error("Error fetching oEmbed data");
   }
 }

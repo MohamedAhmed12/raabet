@@ -16,7 +16,7 @@ export function LinkViewer() {
 
   const containerRef = useRef<HTMLDivElement>(null);
   // it does not work after removing x
-  const [x, y] = useScroll(containerRef);
+  const [y] = useScroll(containerRef);
   const link = useLinkStore(
     useShallow((state) => ({
       id: state.link.id,

@@ -34,6 +34,7 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
       await mutateAsync({ id: qr.id });
       toast.success("QR code deleted successfully");
     } catch (error) {
+      console.error(error);
       toast.error("Failed to delete QR code");
     }
   };

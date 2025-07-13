@@ -61,32 +61,31 @@ export function useQRCode({
     svg.appendChild(border);
   };
 
-  const QRStylingOptions: Partial<Options> = {
-    width,
-    height,
-    type: "svg",
-    data: url,
-    shape: "circle",
-    qrOptions: {
-      errorCorrectionLevel: "M",
-      typeNumber: 0,
-    },
-    dotsOptions: {
-      type: "dots",
-      roundSize: true,
-    },
-    cornersSquareOptions: {
-      type: "square",
-    },
-    cornersDotOptions: {
-      type: "square",
-    },
-    backgroundOptions: {
-      color: "#ffffff",
-    },
-  } as const;
-
   useEffect(() => {
+    const QRStylingOptions: Partial<Options> = {
+      width,
+      height,
+      type: "svg",
+      data: url,
+      shape: "circle",
+      qrOptions: {
+        errorCorrectionLevel: "M",
+        typeNumber: 0,
+      },
+      dotsOptions: {
+        type: "dots",
+        roundSize: true,
+      },
+      cornersSquareOptions: {
+        type: "square",
+      },
+      cornersDotOptions: {
+        type: "square",
+      },
+      backgroundOptions: {
+        color: "#ffffff",
+      },
+    } as const;
     try {
       if (!url) return;
 
@@ -111,7 +110,7 @@ export function useQRCode({
       console.error("Failed to create QR code:", error);
       toast.error("Failed to create QR code");
     }
-  }, [url, QRCodeInstanceRef.current]);
+  }, [url, width, height]);
 
   const handleDownload = (qrId: string) => {
     if (!canvasRef.current) {

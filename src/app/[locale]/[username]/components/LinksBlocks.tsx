@@ -81,7 +81,7 @@ export default function LinksBlocks() {
     return () => {
       cancelled = true;
     };
-  }, [link?.blocks]);
+  }, [link?.blocks, fetchEmbedInfo]);
 
   return (
     blocksWithEmbedInfo && (

@@ -8,9 +8,9 @@ export default async function terms() {
           <div className="text-2xl mb-4"> Terms Of Service</div>
           <div className="text-sm flex flex-col gap-4">
             <span>
-              Please read these Terms and Conditions ("Terms", "Terms and
-              Conditions") carefully before using the rabet.co website (the
-              "Service") operated by Rabet, LLC ("us", "we", or "our").
+              Please read these Terms and Conditions (&quot;Terms&quot;, &quot;Terms and
+              Conditions&quot;) carefully before using the rabet.co website (the
+              &quot;Service&quot;) operated by Rabet, LLC (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).
             </span>
             <span>
               Your access to and use of the Service is conditioned on your
@@ -36,7 +36,7 @@ export default async function terms() {
             <span>
               Our Service allows you to post, link, store, share and otherwise
               make available certain information, text, graphics, videos, or
-              other material ("Content"). You are responsible for the Content
+              other material (&quot;Content&quot;). You are responsible for the Content
               that you post to the Service, including its legality, reliability,
               and appropriateness.
             </span>
@@ -119,7 +119,7 @@ export default async function terms() {
               than you without appropriate authorization, or a name that is
               otherwise offensive, vulgar or obscene. You may not register a
               username with the purpose of selling it, or in any other way
-              "squat" or "park" a username. Failure to comply may result in your
+              &quot;squat&quot; or &quot;park&quot; a username. Failure to comply may result in your
               account being suspended.
             </span>
           </div>
@@ -210,7 +210,7 @@ export default async function terms() {
               All provisions of the Terms which by their nature should survive
               termination shall survive termination, including, without
               limitation, ownership provisions, warranty disclaimers, indemnity
-              and limitations of liability.{" "}
+              and limitations of liability.
             </span>
             <span>
               We shall not be liable to you or any third party for any claims or
@@ -282,7 +282,7 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               Your use of the Service is at your sole risk. The Service is
-              provided on an "AS IS" and "AS AVAILABLE" basis. The Service is
+              provided on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis. The Service is
               provided without warranties of any kind, whether express or
               implied, including, but not limited to, implied warranties of
               merchantability, fitness for a particular purpose,
@@ -367,18 +367,18 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               The Customer owns the rights to its data as data controller, and
-              the service acts as data processor on the Customer's behalf. All
+              the service acts as data processor on the Customer&apos;s behalf. All
               processing by the service of the personal data and other data
               provided by the Customer shall be in accordance with the
-              applicable laws. The service's processing of personal data on
+              applicable laws. The service&apos;s processing of personal data on
               behalf of the Customer shall therefore only be done in order to
-              provide the Product and shall be subject to the Customer's written
+              provide the Product and shall be subject to the Customer&apos;s written
               instructions. The Customer is obligated to keep user logins and
               passwords to the Product secret from any unauthorized users or
               third parties. The Customer is obligated to ensure that the
               personal data provided by the Customer and used in the Product is
               processed by the Customer in accordance with all applicable laws.
-              The Customer is obligated to ensure that the Customer's data
+              The Customer is obligated to ensure that the Customer&apos;s data
               provided in the Product, including personal data, do not violate
               any third party intellectual property rights and/or any applicable
               legislation. The service is entitled to delete any data that in
@@ -406,8 +406,8 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               Some parts of the Service are billed on a subscription basis
-              ("Subscription(s)"). You will be billed in advance on a recurring
-              and periodic basis ("Billing Cycle"). Billing cycles are set on a
+              (&quot;Subscription(s)&quot;). You will be billed in advance on a recurring
+              and periodic basis (&quot;Billing Cycle&quot;). Billing cycles are set on a
               monthly basis
             </span>
             <span>

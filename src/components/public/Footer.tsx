@@ -48,9 +48,9 @@ export const Footer = () => {
             {t("Footer.BuiltWith")}
 
             {/* put my rabet page in the future after creating more of the leade generating free projects */}
-            <a className="mx-1" target="_blank">
+            <NextLink href="#"  className="mx-1" target="_blank">
               Gad
-            </a>
+            </NextLink>
           </div>
         </div>
         <div className="flex flex-col gap-4">
@@ -58,41 +58,41 @@ export const Footer = () => {
             {t("Footer.resources")}
           </div>
           <div className="flex flex-col gap-1 !text-sm">
-            <a href="/contact">{t("Shared.contactUs")}</a>
+            <NextLink href="/contact">{t("Shared.contactUs")}</NextLink>
             {/* implement next  */}
             {/* 
-                <a   
+                <NextLink   
                 href="/i/qr-code"
                 >
                 <div>Free: QR Code Maker</div>
-                </a>
-                <a
+                </NextLink>
+                <NextLink
                 
                 href="https://www.mock.club"
                 target="_blank"
                 >
                 <div>Free: Device Mockups</div>
-                </a>
-                <a
+                </NextLink>
+                <NextLink
                 
                 href="https://www.wallpaper.fm/"
                 target="_blank"
                 >
                 <div>Free: Background Images</div>
-                </a> 
+                </NextLink> 
             */}
-            <a href="/auth/sign-up">{t("Shared.signup")}</a>
-            <a href="/auth/login">{t("Shared.login")}</a>
+            <NextLink href="/auth/sign-up">{t("Shared.signup")}</NextLink>
+            <NextLink href="/auth/login">{t("Shared.login")}</NextLink>
             {/* 
-                <a href="/i/terms-of-service" target="_blank">
+                <NextLink href="/i/terms-of-service" target="_blank">
                 <div>Terms of Service</div>
-                </a>
-                <a href="/i/cookie-policy" target="_blank">
+                </NextLink>
+                <NextLink href="/i/cookie-policy" target="_blank">
                 <div>Cookie Policy</div>
-                </a>
-                <a href="/i/privacy-policy" target="_blank">
+                </NextLink>
+                <NextLink href="/i/privacy-policy" target="_blank">
                 <div>Privacy Policy</div>
-                </a> 
+                </NextLink> 
             */}
           </div>
         </div>
@@ -138,44 +138,44 @@ export const Footer = () => {
           </div>
         )}
         <div className="flex gap-3 w-full">
-          <a
+          <NextLink
             className="flex justify-center items-center hover:transform hover:scale-110 text-deep-blue-gray bg-primary w-10 h-10 rounded-full"
             title="Email"
             href="mailto:contact@rabet.co"
           >
             <Mail />
-          </a>
-          <a
+          </NextLink>
+          <NextLink
             className="flex justify-center items-center hover:transform hover:scale-110 text-deep-blue-gray bg-green-200 w-10 h-10 rounded-full"
             title="X (Twitter)"
             href="https://twitter.com/rabet"
             target="_blank"
           >
             <Icon name="linkedin" className="!w-5 !h-5" />
-          </a>
-          <a
+          </NextLink>
+          <NextLink
             className="flex justify-center items-center hover:transform hover:scale-110 text-deep-blue-gray bg-orange-200 w-10 h-10 rounded-full"
             title="X (Twitter)"
             href="https://twitter.com/rabet"
             target="_blank"
           >
             <Icon name="twitter" className="!w-5 !h-5" />
-          </a>
-          <a
+          </NextLink>
+          <NextLink
             className="flex justify-center items-center hover:transform hover:scale-110 text-deep-blue-gray bg-red-200 w-10 h-10 rounded-full"
             title="Instagram"
             href="https://www.instagram.com/rabet/"
           >
             <Icon name="instagram" className="!w-5 !h-5" />
-          </a>
-          <a
+          </NextLink>
+          <NextLink
             className="flex justify-center items-center hover:transform hover:scale-110 text-deep-blue-gray bg-stone-200 w-10 h-10 rounded-full"
             title="Linkedin"
             href="https://www.youtube.com/@rabet"
             target="_blank"
           >
             <Icon name="youtube" className="!w-5 !h-5" />
-          </a>
+          </NextLink>
         </div>
       </div>
     </footer>

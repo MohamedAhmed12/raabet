@@ -16,9 +16,8 @@ interface BlockActionsProps {
 const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
   const [isCopying, setIsCopying] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const { setLink, blocks } = useLinkStore(
+  const { setLink } = useLinkStore(
     useShallow((state) => ({
-      blocks: state.link.blocks,
       setLink: state.setLink,
     }))
   );
@@ -43,7 +42,7 @@ const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
         setIsCopying(false);
       }
     },
-    [blocks, block, setLink]
+    [block, setLink, t]
   );
 
   const handleDeleteBlock = useCallback(
@@ -70,7 +69,7 @@ const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
         setIsDeleting(false);
       }
     },
-    [blocks, block.id, setLink]
+    [block.id, setLink, t]
   );
 
   return (

@@ -43,7 +43,6 @@ export function ForgetPasswordForm({
       setShowModal(true);
     }
 
-    const data = await res.json();
     if (res.status == 404) {
       toast.error(t("Shared.userNotFound"));
     }

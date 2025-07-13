@@ -34,7 +34,8 @@ const ALLOWED_MIME_TYPES = [
 
 export async function GCSFileLoader(
   linkId: string,
-  file: File
+  file: File,
+  customPath?: string
 ): Promise<string> {
   try {
     // Validate file exists
@@ -60,7 +61,8 @@ export async function GCSFileLoader(
       throw new Error("File type not allowed. Please upload a valid file.");
     }
 
-    const fileName = `${linkId}-${Date.now()}-${file.name}`;
+    const fileName = customPath || `${linkId}-${Date.now()}-${file.name}`;
+
     const presignedUrl = await GCSFileUploader(fileName, file.type);
 
     const uploadRes = await fetch(presignedUrl, {
@@ -70,7 +72,6 @@ export async function GCSFileLoader(
       },
       body: file,
     });
-    console.log("uploadRes", uploadRes);
 
     if (!uploadRes.ok) {
       throw new Error("Upload to Google Cloud Storage failed.");

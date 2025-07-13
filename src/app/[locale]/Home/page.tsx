@@ -1,4 +1,3 @@
-import { Header } from "../../../components/public/Header";
 import AnimatedBar from "./components/AnimatedBar/page";
 import { CentralizePresence } from "./components/CentralizePresence";
 import { TryNow } from "./components/TryNow";

@@ -130,7 +130,7 @@ export default function SocialsAndSharing() {
             htmlFor="custom_logo"
             className="file-upload-label text-sm flex items-center justify-between gap-2 mb-2 px-4 p-3 relative border rounded-lg bg-white shadow-sm"
           >
-            <span>Custom Logo</span>
+            <span>{t("customLogo")}</span>
             {!link.social_custom_logo ? (
               <Upload className="size-5 border" />
             ) : (

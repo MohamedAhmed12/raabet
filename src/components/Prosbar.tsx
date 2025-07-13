@@ -31,18 +31,22 @@ const messages: Message[] = [
 
 const MemoizedIcon = React.memo(Icon);
 
-const MemoizedPros = React.memo(() => (
-  <div className="flex">
-    {[...messages, ...messages].map(({ text, icon }, index) => (
-      <div key={index} className="flex items-center text-xl lg:text-2xl">
-        <MemoizedIcon name={icon} size={30} width={48} />
-        <p className="px-8">
-          {useTranslations("HomePage.AnimatedBar.Prosbar")(text)}
-        </p>
-      </div>
-    ))}
-  </div>
-));
+const MemoizedPros = React.memo(() => {
+  const t = useTranslations("HomePage.AnimatedBar.Prosbar");
+  const duplicatedMessages = [...messages, ...messages];
+
+  return (
+    <div className="flex">
+      {duplicatedMessages.map(({ text, icon }, index) => (
+        <div key={index} className="flex items-center text-xl lg:text-2xl">
+          <MemoizedIcon name={icon} size={30} />
+          <p className="px-8">{t(text)}</p>
+        </div>
+      ))}
+    </div>
+  );
+});
+MemoizedPros.displayName = "MemoizedPros";
 
 export const Prosbar = ({
   colorClass = "text-deep-blue-gray",
@@ -56,7 +60,13 @@ export const Prosbar = ({
         bgColorClass
       )}
     >
-      <Marquee direction="right" speed={50} autoFill={false} pauseOnHover={true} gradient={false}>
+      <Marquee
+        direction="right"
+        speed={50}
+        autoFill={false}
+        pauseOnHover={true}
+        gradient={false}
+      >
         <MemoizedPros />
       </Marquee>
     </div>

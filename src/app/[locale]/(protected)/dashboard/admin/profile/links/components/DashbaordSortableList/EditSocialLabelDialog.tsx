@@ -43,7 +43,7 @@ export const EditSocialLabelDialog = memo(function EditSocialLabelDialog({
       onSubmit(value);
       setIsDialogOpen(open);
     },
-    [value]
+    [value, onSubmit]
   );
 
   return (
