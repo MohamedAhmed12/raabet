@@ -105,10 +105,10 @@ export const LoginForm = ({
           {t("Auth.signIn")}
         </Button>
       </div>
-      <div className="text-center text-sm mt-3">
+      <div className="inline-flex gap-1 justify-center text-xs mt-3">
         {t("Auth.notMember")}
         <Link href="/auth/sign-up">
-          <span className="underline underline-offset-4 px-1">
+          <span className="underline underline-offset-4">
             {t("Auth.signUp")}
           </span>
         </Link>

@@ -1,5 +1,8 @@
+"use server"
+
 import { sendEmail } from "@/app/[locale]/auth/components/emailService";
 import { EmailTemplate } from "@/app/[locale]/auth/components/EmailTemplate";
+import { generateActivationCode } from "@/app/[locale]/auth/verify/generateActivationCode";
 import prisma from "@/lib/prisma";
 
 /**
@@ -15,13 +18,11 @@ export async function createAndSendActivation({
   userId,
   email,
   fullname,
-  generateActivationCode,
   supportEmail,
 }: {
   userId: string;
   email: string;
   fullname: string;
-  generateActivationCode: () => string;
   supportEmail: string;
 }) {
   const activationCode = generateActivationCode();

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -24,6 +25,7 @@ export default function SignUpForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const t = useTranslations();
@@ -36,6 +38,9 @@ export default function SignUpForm({
   });
 
   const onSubmit = async (data: SignupFormData) => {
+    setIsLoading(true);
+    setError(null);
+
     const result = await signup(data);
 
     if (result?.error) {
@@ -48,6 +53,7 @@ export default function SignUpForm({
         callbackUrl: "/dashboard",
       });
     }
+    setIsLoading(false);
   };
 
   return (
@@ -127,15 +133,19 @@ export default function SignUpForm({
           </div>
           <Button
             type="submit"
-            className="w-full bg-blue-400 hover:bg-blue-400 cursor-pointer"
+            className="w-full bg-blue-400 hover:bg-blue-400 cursor-pointer !text-lg"
           >
-            {t("Auth.signUp")}
+            {isLoading ? (
+              <Loader2 className="w-15 h-15 animate-spin" />
+            ) : (
+              t("Auth.signUp")
+            )}
           </Button>
         </div>
-        <div className="text-center text-xs mt-3">
+        <div className="inline-flex gap-1 justify-center text-xs mt-3">
           {t("Auth.alreadyHaveAcc")}
           <Link href="/auth/login">
-            <span className="underline underline-offset-4 px-1">
+            <span className="underline underline-offset-4">
               {t("Auth.signIn")}
             </span>
           </Link>

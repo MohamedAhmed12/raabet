@@ -1,12 +1,20 @@
 "use client";
 
-import {Button} from "@/components/ui/button";
-import {InputOTP, InputOTPGroup, InputOTPSlot} from "@/components/ui/input-otp";
-import {Separator} from "@/components/ui/separator";
-import {cn} from "@/lib/cn";
-import Link from "next/link";
-import {useState} from "react";
+import { Button } from "@/components/ui/button";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { Separator } from "@/components/ui/separator";
+import { createAndSendActivation } from "@/lib/activation";
+import { cn } from "@/lib/cn";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { Loader2 } from "lucide-react";
 
 export default function VerifyForm({
   email,
@@ -15,10 +23,34 @@ export default function VerifyForm({
   email: string;
   onVerify: () => void;
 }) {
-  const t = useTranslations();
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resendIsLoading, setResendIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [verified, setVerified] = useState(false);
+
+  const t = useTranslations();
+  const session = useSession();
+
+  // @ts-expect-error: [to access user data in session it exists in id]
+  const userId = session?.data?.user?.id?.id as string;
+  const fullname = session?.data?.user?.id?.fullname || ("" as string);
+
+  const handleResendEmail = async () => {
+    if (!userId) {
+      toast.success(t("NotFoundPage.something_went_wrong"));
+      return;
+    }
+    setResendIsLoading(true);
+    await createAndSendActivation({
+      userId,
+      email,
+      fullname,
+      supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+    });
+    setResendIsLoading(false);
+    toast.success(t("Auth.activationEmailResent"));
+  };
 
   const handleVerify = async () => {
     setLoading(true);
@@ -26,15 +58,16 @@ export default function VerifyForm({
 
     const res = await fetch("/api/verify", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({email, code}),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, code }),
     });
 
     const data = await res.json();
     setLoading(false);
 
     if (res.ok) {
-      setMessage("✅ Activation successful!");
+      setVerified(true);
+      setMessage(`✅ ${t("Auth.activationSuccessful")}`);
       onVerify();
     } else {
       setMessage(`❌ ${data.error}`);
@@ -47,7 +80,9 @@ export default function VerifyForm({
         <div className="flex gap-4 mb-6 text-[40px] text-deep-blue-gray font-bold leading-[1.1] pb-3">
           <span>{t("Auth.confirmYour")}</span>
           <span className="relative ml-1">
-            <span className="relative inline-block z-[1]">{t("Auth.email")}</span>
+            <span className="relative inline-block z-[1]">
+              {t("Auth.email")}
+            </span>
             <div className="h-[15px] absolute inset-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%] bg-sky-300"></div>
           </span>
         </div>
@@ -58,7 +93,7 @@ export default function VerifyForm({
       </div>
 
       {/* ShadCN OTP Input */}
-      <div className="mb-6">
+      <div className="mb-6" dir="ltr">
         <InputOTP
           maxLength={4}
           value={code}
@@ -75,7 +110,7 @@ export default function VerifyForm({
       {/* Confirm Button */}
       <Button
         onClick={handleVerify}
-        disabled={loading || code.length !== 4}
+        disabled={loading || code.length !== 4 || verified}
         className="w-full h-11 bg-blue-600 hover:bg-blue-700 cursor-pointer"
       >
         {loading ? t("Auth.verifyingButton") : t("Auth.confirmButton")}
@@ -97,15 +132,22 @@ export default function VerifyForm({
 
       {/* Support Links */}
       <div className="text-center text-sm">
-        <div className="mb-4">
-          {t("Auth.cantFindEmail")}{" "}
-          <Link href="" className="underline underline-offset-1">
+        <div className="inline-flex mb-4 gap-1">
+          <span> {t("Auth.cantFindEmail")}</span>
+          <Link
+            href=""
+            onClick={handleResendEmail}
+            className="underline underline-offset-1 flex items-center gap-1"
+          >
             {t("Auth.resendEmail")}
+            {resendIsLoading && (
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            )}
           </Link>
         </div>
-        <div>
-          {t("Auth.enteredWrongEmail")}{" "}
-          <Link href="#" className="underline underline-offset-1">
+        <div className="inline-flex gap-1">
+          <span> {t("Auth.enteredWrongEmail")}</span>
+          <Link href="/auth/sign-up" className="underline underline-offset-1">
             {t("Auth.changeEmail")}
           </Link>
         </div>

@@ -1,9 +1,9 @@
 "use client";
 
-import {GalleryVerticalEnd} from "lucide-react";
-import {useSession} from "next-auth/react";
+import { GalleryVerticalEnd } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import VerifyForm from "./verifyForm";
 
 export default function VerifyPage() {
@@ -19,18 +19,24 @@ export default function VerifyPage() {
     router.replace("/auth/login");
   }
 
-  const onVerify = () => {
-    const currentData = session;
-    // @ts-expect-error: [to access user data in session it exists in id]
-    const authUser = currentData?.data?.user?.id;
+  const onVerify = async () => {
+    try {
+      console.log("onVerify");
+      const currentData = session;
+      // @ts-expect-error: [to access user data in session it exists in id]
+      const authUser = currentData?.data?.user?.id;
 
-    if ("is_confirmed" in authUser) {
-      authUser.is_confirmed = true;
+      if ("is_confirmed" in authUser) {
+        authUser.is_confirmed = true;
+      }
+
+      await session.update(authUser);
+
+      console.log("last onVerify");
+      router.replace("/dashboard/admin/profile/links");
+    } catch (error) {
+      console.error(222111, error);
     }
-
-    session.update(authUser);
-
-    router.replace("/dashboard/admin/profile/links");
   };
 
   return (

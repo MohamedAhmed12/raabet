@@ -39,7 +39,6 @@ export const signup = async ({
       userId: user.id,
       email,
       fullname: user.fullname,
-      generateActivationCode,
       supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
     });
 
