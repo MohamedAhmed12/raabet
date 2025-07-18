@@ -32,9 +32,9 @@ export default function VerifyForm({
   const t = useTranslations();
   const session = useSession();
 
-  // @ts-expect-error: session.data may not match CustomClientSession shape
+  // @ts-expect-error: session.data may not match Session shape
   const userId = session?.data?.user?.id?.id as string;
-  // @ts-expect-error: session.data may not match CustomClientSession shape
+  // @ts-expect-error: session.data may not match Session shape
   const fullname = session?.data?.user?.id?.fullname || ("" as string);
 
   const handleResendEmail = async () => {

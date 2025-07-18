@@ -1,21 +1,32 @@
 "use client";
 
-import { SubscriptionStatus } from "@prisma/client";
-import { useLocale } from "next-intl";
-import { useEffect, useState } from "react";
-import { createStripeCustomerSession } from "./actions/createStripeCustomerSession";
-import { cn } from "@/lib/utils";
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { SubscriptionStatus } from "@prisma/client";
+import { Upload } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useUploadScreenshot } from "./hooks/useUploadScreenshot";
+import { createStripeCustomerSession } from "./actions/createStripeCustomerSession";
+import { GCSFileLoader } from "../profile/links/components/LinkBuilderSidebar/GCSFileLoader";
+import { toast } from "sonner";
 
 interface SubscriptionFormProps {
   status: SubscriptionStatus;
 }
 
 export default function SubscriptionForm({ status }: SubscriptionFormProps) {
-  const locale = useLocale();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [showManualPayment, setShowManualPayment] = useState(false);
+  const [uploadedInvoice, setUploadedInvoice] = useState<string | null>(null);
+  const { mutate: uploadScreenshot, isPending } = useUploadScreenshot();
+
+  const t = useTranslations();
+  const locale = useLocale();
+  const linkId = useLinkStore((state) => state.link.id);
 
   useEffect(() => {
     async function fetchClientSecret() {
@@ -33,10 +44,78 @@ export default function SubscriptionForm({ status }: SubscriptionFormProps) {
     }
   }, [status]);
 
+  const handleFileUploader = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.currentTarget.files?.[0];
+
+    if (file) {
+      try {
+        // Generate a unique filename with user ID and date
+        const fileExtension = file.name.split(".").pop();
+        const fileName = `invoice_${Date.now()}.${fileExtension}`;
+        const filePath = `invoices/${linkId}/${fileName}`;
+
+        const publicUrl = await GCSFileLoader(linkId, file, filePath);
+        setUploadedInvoice(publicUrl);
+
+        await uploadScreenshot(publicUrl);
+
+        toast.success(t("Subscription.InvoiceUploadedSuccessfully"));
+      } catch (error) {
+        console.error("Upload V-Cash or Instapay failed:", error);
+        toast.error(t("Subscription.InvoiceUploadFailed"));
+      }
+    }
+  };
+
+  const handleSwitchPaymentMethod = () => {
+    setShowManualPayment((prev) => !prev);
+  };
+
   return (
-    <div className="flex items-center justify-center flex-1">
+    <div className="flex flex-col items-center justify-center min-h-[70vh] w-full">
       {showManualPayment ? (
-        <div>instapay and v cash upload form</div>
+        <div
+          className="w-full flex gap-3 justify-center items-center"
+          style={{ minHeight: "inherit" }}
+        >
+          {/* upload V-Cash & Instapay Invoice button */}
+          <div className="w-[40%] max-w-[400px]">
+            <label
+              htmlFor="custom_logo"
+              className="file-upload-label text-sm flex items-center justify-between gap-2 px-4 p-3 relative border rounded-lg bg-white shadow-sm cursor-pointer"
+            >
+              <span className="capitalize">
+                {isPending
+                  ? t("LinksPage.generalStyles.header.uploading")
+                  : t("Subscription.uploadInvoice")}
+              </span>
+              {!isPending && <Upload className="size-5" />}
+              {isPending && (
+                <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-gray-900"></div>
+              )}
+            </label>
+            <Input
+              id="custom_logo"
+              type="file"
+              className="hidden"
+              onChange={handleFileUploader}
+            />
+          </div>
+
+          {/* V-Cash & Instapay Preview Box */}
+          <div
+            className="relative min-w-xs border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center overflow-hidden bg-gray-50"
+            style={{ minHeight: "inherit" }}
+          >
+            {uploadedInvoice ? (
+              <Image src={uploadedInvoice} alt="Invoice preview" fill />
+            ) : (
+              <span className="text-lg text-gray-400 text-center w-[70%]">
+                {t("Subscription.uploadInvoiceHelperTxt")}
+              </span>
+            )}
+          </div>
+        </div>
       ) : (
         clientSecret && (
           <stripe-pricing-table
@@ -52,18 +131,28 @@ export default function SubscriptionForm({ status }: SubscriptionFormProps) {
         )
       )}
 
-      <div className="fixed bottom-6 right-6">
+      <div className="fixed bottom-6 end-6">
         <Button
           variant="ghost"
-          className="flex items-center justify-center gap-2 rounded-full p-0 shadow-lg focus:outline-none w-[150px] h-[60px] cursor-pointer hover:bg-gray-200"
-          onClick={() => alert("Pay with Vodafone Cash and Instapay")}
+          className={cn(
+            "flex items-center justify-center gap-2 rounded-full p-0 shadow-lg focus:outline-none w-[150px] h-[60px] cursor-pointer hover:bg-gray-200",
+            showManualPayment && "bg-[#635BFF] text-white"
+          )}
+          onClick={handleSwitchPaymentMethod}
         >
-          <Image
-            src="/images/instapay-v-cash.png"
-            alt="Instapay"
-            width={250}
-            height={60}
-          />
+          {!showManualPayment ? (
+            <Image
+              src="/images/instapay-v-cash.png"
+              alt="Instapay"
+              width={250}
+              height={60}
+              className="object-cover !w-full !h-full"
+            />
+          ) : (
+            <span className="text-base font-base text-center p-2">
+              Pay With <span className="font-extrabold">Stripe</span>
+            </span>
+          )}
         </Button>
       </div>
     </div>
