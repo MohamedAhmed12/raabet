@@ -29,20 +29,24 @@ export async function createStripeCustomerSession() {
 
   // Create stripe customer if doesn't exist in our database
   if (!stripeCustomerId) {
-    const customer = await stripe.customers.create({
-      email: user.email,
-      name: user.fullname || undefined,
-    });
+    try {
+      const customer = await stripe.customers.create({
+        email: user.email,
+        name: user.fullname || undefined,
+      });
 
-    // Update user with customer ID
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { 
-        stripeCustomerId: customer.id,
-      },
-    });
- 
-    stripeCustomerId = customer.id;
+      // Update user with customer ID
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          stripeCustomerId: customer.id,
+        },
+      });
+
+      stripeCustomerId = customer.id;
+    } catch (error) {
+      throw new Error("Create stripe customer failed22222:" + error);
+    }
   }
 
   // Create stripe customer session

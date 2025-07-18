@@ -5,6 +5,13 @@
     "returnHome": "Return to Home Page",
     "something_went_wrong": "Something went wrong!"
   },
+  "VerifyErrors": {
+    "unauthorized": "Unauthorized",
+    "activation_code_required": "Activation code is required.",
+    "no_activation_code": "No activation code found.",
+    "invalid_activation_code": "Invalid activation code.",
+    "internal_server_error": "Internal server error"
+  },
   "Errors": {
     "username": "Username must be at least two characters."
   },
@@ -94,7 +101,8 @@
     "confirm": "Confirm",
     "verifyingButton": "Verifying...",
     "confirmButton": "Confirm",
-    "activationSuccessful": "✅ Activation successful!",
+    "activationSuccessful": "Activation was successful",
+    "activationEmailResent": "Activation email resent",
     "errorPrefix": "❌",
     "resendEmail": "Resend a new confirmation email",
     "cantFindEmail": "Can't find the email?",
@@ -264,7 +272,11 @@
       "succeeded": "Payment Succeeded"
     },
     "tryAgainMsg": "Please try again later.",
-    "restricted": "You need an active subscription to access this content."
+    "restricted": "You need an active subscription to access this content.",
+    "uploadInvoice": "upload the invoice",
+    "uploadInvoiceHelperTxt": "Please upload screenshot of the invoice here",
+    "InvoiceUploadedSuccessfully": "Invoice uploaded successfully",
+    "InvoiceUploadFailed": "Invoice upload failed"
   },
   "SocialsAndSharing": {
     "sectionTitle": "Socials & Sharing",
@@ -279,7 +291,8 @@
     "enableShareButtonTooltipAfter": "icon to the top left of your page which will allow users to easily share your profile via the vCard format.",
     "clickForQRCodeTooltip": "With this enabled, you can click on your profile picture to bring up a QR code which links to your profile. Handy for sharing your profile with people you meet in person!",
     "hideRaabetBrandingTooltip": "Hide the \"Made with raabet\" logo at the bottom of your profile. You can optionally upload your own logo.",
-    "settingsTab": "Settings tab"
+    "settingsTab": "Settings tab",
+    "customLogo": "Custom Logo"
   },
   "Analytics": {
     "Metrics": {

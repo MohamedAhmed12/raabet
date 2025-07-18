@@ -5,6 +5,13 @@
     "returnHome": "العودة الى الصفحة الرئيسية",
     "something_went_wrong": "حدث خطأ ما!"
   },
+  "VerifyErrors": {
+    "unauthorized": "غير مصرح",
+    "activation_code_required": "رمز التفعيل مطلوب.",
+    "no_activation_code": "لم يتم العثور على رمز التفعيل.",
+    "invalid_activation_code": "رمز التفعيل غير صحيح.",
+    "internal_server_error": "خطأ في الخادم الداخلي"
+  },
   "Errors": {
     "username": "يجب أن يكون اسم المستخدم مكونًا من حرفين على الأقل."
   },
@@ -94,7 +101,8 @@
     "confirm": "تأكيد",
     "verifyingButton": "جاري التحقق...",
     "confirmButton": "تأكيد",
-    "activationSuccessful": "✅ تم التفعيل بنجاح!",
+    "activationSuccessful": "تم التفعيل بنجاح",
+    "activationEmailResent": "تم إرسال بريد التفعيل مرة أخرى",
     "errorPrefix": "❌",
     "resendEmail": "إعادة إرسال بريد التأكيد",
     "cantFindEmail": "لا تجد البريد؟",
@@ -264,7 +272,11 @@
       "succeeded": "تم الدفع بنجاح"
     },
     "tryAgainMsg": "يرجى المحاولة مرة أخرى لاحقًا.",
-    "restricted": "تحتاج إلى اشتراك فعّال لمشاهدة هذا المحتوى"
+    "restricted": "تحتاج إلى اشتراك فعّال لمشاهدة هذا المحتوى",
+    "uploadInvoice": "ارفع الفاتورة",
+    "uploadInvoiceHelperTxt": "يرجى رفع screenshot من الفاتورة الخاصة بك هنا",
+    "InvoiceUploadedSuccessfully": "تمَّ رفع الفاتورة بنجاح",
+    "InvoiceUploadFailed": "فشل في رفع الفاتورة"
   },
   "SocialsAndSharing": {
     "sectionTitle": "وسائل التواصل الاجتماعي والمشاركة",
@@ -279,7 +291,8 @@
     "enableShareButtonTooltipAfter": "إلى الزاوية العلوية اليسرى من صفحتك، مما يتيح للمستخدمين نسخ رابط صفحتك ومشاركته بسهولة.",
     "clickForQRCodeTooltip": "عند تمكين هذا الخيار، يمكنك النقر على صورة ملفك الشخصي لعرض رمز استجابة سريع يرتبط بملفك الشخصي. مفيد لمشاركة ملفك الشخصي مع الأشخاص الذين تلتقي بهم شخصياً.",
     "hideRaabetBrandingTooltip": "إخفاء شعار 'تم إنشاؤه بواسطة Rabet' في أسفل ملفك الشخصي. يمكنك اختيار رفع شعارك الخاص.",
-    "settingsTab": "تاب الإعدادات"
+    "settingsTab": "تاب الإعدادات",
+    "customLogo": "شعار مخصص"
   },
   "Analytics": {
     "Metrics": {

@@ -26,11 +26,12 @@ export function CustomDropdown({
   onSelect,
 }: CustomDropdownProps) {
   const t = useTranslations("Dropdowns");
-  const initialVal =
+  const initialVal: number =
     typeof initialSelected === "number"
       ? initialSelected
-      : Object.values(items).indexOf(initialSelected as string) || items[0];
-  const [selected, setSelected] = useState(initialVal);
+      : Object.values(items).indexOf(initialSelected as string) ||
+        (items?.[0] ? parseInt(items[0]) : 0);
+  const [selected, setSelected] = useState<number>(initialVal);
   const handleOnSelect = (index: number) => {
     setSelected(index);
     onSelect(index);

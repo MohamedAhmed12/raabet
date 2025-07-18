@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { MainTitle } from "../../profile/settings/components/MainTitle";
 import { BlockInteractions } from "./components/BlockInteractions";
-import ProfileAnalytics from "./components/ProfileAnalytics/page";
+import ProfileAnalytics from "./components/ProfileAnalytics";
 import { SocialClicks } from "./components/SocialClicks";
 import { useAnalyticsList } from "./hooks/useAnalyticsList";
 

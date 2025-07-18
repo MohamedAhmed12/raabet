@@ -36,7 +36,6 @@ export default function QRCodeDialog() {
           <Icon
             name="link"
             size={30}
-            width={30}
             strokeWidth={3}
             fontWeight={800}
             className="mx-4 text-[#1b97f5]"

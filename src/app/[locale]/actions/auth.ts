@@ -1,9 +1,8 @@
 "use server";
 
+import { createAndSendActivation } from "@/lib/activation";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
-import { generateActivationCode } from "../auth/verify/generateActivationCode";
-import { createAndSendActivation } from "@/lib/activation";
 import { postSignupProcess } from "./postSignupProcess";
 
 export const signup = async ({

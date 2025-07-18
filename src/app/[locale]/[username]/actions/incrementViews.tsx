@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 export async function incrementViews(linkId: string) {
   try {
     // Create a new profile view record
-    await prisma.ProfileView.create({
+    await prisma.profileView.create({
       data: {
         linkId,
       },

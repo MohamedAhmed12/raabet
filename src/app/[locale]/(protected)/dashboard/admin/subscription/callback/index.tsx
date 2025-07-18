@@ -2,7 +2,7 @@
 
 import { getTranslations } from "next-intl/server";
 import Stripe from "stripe";
-import { updateSubscription } from "../../subscription/actions/updateSubscription";
+import { updateSubscription } from "../actions/updateSubscription";
 import ClientStatusCard from "./ClientStatusCard";
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY || "");

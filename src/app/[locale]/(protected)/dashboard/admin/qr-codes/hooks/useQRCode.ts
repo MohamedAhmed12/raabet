@@ -26,7 +26,7 @@ export function useQRCode({
   height = 160,
   onDownload,
 }: UseQRCodeProps) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef = useRef<HTMLDivElement | null>(null);
   const QRCodeInstanceRef = useRef<QRCodeStyling | null>(null);
 
   const extension = (svg: SVGElement, options: Options) => {

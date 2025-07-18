@@ -36,7 +36,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 interface TableProps {
   data: any[];
-  columns: ColumnDef<any>[];
+  columns: ColumnDef<any, any>[];
   enableSearch?: boolean;
   enableColumnDropdown?: boolean;
   showFooter?: boolean;

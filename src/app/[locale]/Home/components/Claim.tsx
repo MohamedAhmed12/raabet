@@ -10,7 +10,6 @@ export const Claim = () => {
       <Icon
         name="link"
         size={40}
-        width={40}
         strokeWidth={3}
         fontWeight={800}
         className="mx-4 text-[#1b97f5]"
