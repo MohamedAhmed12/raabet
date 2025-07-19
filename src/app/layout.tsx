@@ -3,8 +3,8 @@ import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { Noto_Sans_Display } from "next/font/google";
 import { Toaster } from "sonner";
+import localFont from "next/font/local";
 
 import { customGetLocale } from "@/lib/customGetLocale";
 import arMessages from "../messages/ar.json";
@@ -12,10 +12,16 @@ import enMessages from "../messages/en.json";
 import { ReactQueryProvider } from "@/components/ReactQueryProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-const notoSans = Noto_Sans_Display({
-  subsets: ["latin"],
+const notoSans = localFont({
+  src: [
+    { path: "../fonts/NotoSansDisplay-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../fonts/NotoSansDisplay-Medium.ttf", weight: "500", style: "normal" },
+    { path: "../fonts/NotoSansDisplay-SemiBold.ttf", weight: "600", style: "normal" },
+    { path: "../fonts/NotoSansDisplay-Bold.ttf", weight: "700", style: "normal" },
+    { path: "../fonts/NotoSansDisplay-ExtraBold.ttf", weight: "800", style: "normal" },
+  ],
   variable: "--font-noto-sans-display",
-  weight: ["400", "500", "600", "700", "800"], // Add font weights as needed
+  display: "swap",
 });
 
 export const metadata: Metadata = {

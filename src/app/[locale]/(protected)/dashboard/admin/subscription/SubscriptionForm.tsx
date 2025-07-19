@@ -103,8 +103,9 @@ export default function SubscriptionForm({ status }: SubscriptionFormProps) {
           </div>
 
           {/* V-Cash & Instapay Preview Box */}
-          <div
-            className="relative min-w-xs border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center overflow-hidden bg-gray-50"
+          <label
+            htmlFor="custom_logo"
+            className="relative min-w-xs border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center overflow-hidden bg-gray-50 cursor-pointer"
             style={{ minHeight: "inherit" }}
           >
             {uploadedInvoice ? (
@@ -114,7 +115,7 @@ export default function SubscriptionForm({ status }: SubscriptionFormProps) {
                 {t("Subscription.uploadInvoiceHelperTxt")}
               </span>
             )}
-          </div>
+          </label>
         </div>
       ) : (
         clientSecret && (

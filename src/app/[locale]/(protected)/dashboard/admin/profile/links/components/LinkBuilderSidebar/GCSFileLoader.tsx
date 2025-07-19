@@ -42,8 +42,6 @@ export async function GCSFileLoader(
     if (!file) {
       throw new Error("No file provided.");
     }
-
-    console.log("size", file?.size);
     // Validate file size
     if (file.size > MAX_FILE_SIZE) {
       throw new Error(
