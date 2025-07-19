@@ -2,61 +2,25 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
-import * as React from "react";
 
 import { CustomDateTable } from "@/components/CustomDateTable";
-import { Icon } from "@/components/Icon";
+import { Icon, iconNameType } from "@/components/Icon";
 import { Button } from "@/components/ui/button";
+import { Social } from "@prisma/client";
 import { useTranslations } from "next-intl";
 import { FieldController } from "../../../components/FieldController";
 
-const data: Payment[] = [
-  {
-    icon: <Icon name="facebook" sizeClass="sm" />,
-    type: "success",
-    url: "ken99@example.com",
-    clicks: 316,
-  },
-  {
-    icon: <Icon name="discord" sizeClass="sm" />,
-    type: "success",
-    url: "Abe45@example.com",
-    clicks: 242,
-  },
-  {
-    icon: <Icon name="pinterest" sizeClass="sm" />,
-    type: "processing",
-    url: "Monserrat44@example.com",
-    clicks: 837,
-  },
-  {
-    icon: <Icon name="twitter" sizeClass="sm" />,
-    type: "success",
-    url: "Silas22@example.com",
-    clicks: 874,
-  },
-  {
-    icon: <Icon name="instagram" sizeClass="sm" />,
-    type: "failed",
-    url: "carmella@example.com",
-    clicks: 721,
-  },
-];
-
-export type Payment = {
-  icon: React.ReactNode;
-  type: string;
-  url: string;
-  clicks: number;
+export type Payment = Social & {
+  _count: { analytics: number };
 };
 
-export function SocialClicks() {
+export function SocialClicks({ data: rawData }: { data?: Payment[] }) {
   const t = useTranslations();
 
   const columns: ColumnDef<Payment>[] = [
     {
       accessorKey: "icon",
-      header: ({column}) => {
+      header: ({ column }) => {
         return (
           <Button
             variant="ghost"
@@ -68,27 +32,31 @@ export function SocialClicks() {
           </Button>
         );
       },
-      cell: ({row}) => <div className="capitalize">{row.getValue("icon")}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("icon")}</div>
+      ),
     },
     {
       accessorKey: "type",
-      header: ({column}) => {
+      header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             className="cursor-pointer !p-0"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            {t("Analytics.Metrics.socialClicks.type")}
+            {t("Shared.type")}
             <ArrowUpDown />
           </Button>
         );
       },
-      cell: ({row}) => <div className="capitalize">{row.getValue("type")}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("type")}</div>
+      ),
     },
     {
       accessorKey: "url",
-      header: ({column}) => {
+      header: ({ column }) => {
         return (
           <Button
             variant="ghost"
@@ -100,11 +68,14 @@ export function SocialClicks() {
           </Button>
         );
       },
-      cell: ({row}) => <div className="capitalize">{row.getValue("url")}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("url")}</div>
+      ),
     },
     {
-      accessorKey: "clicks",
-      header: ({column}) => {
+      id: "clicks",
+      accessorFn: (row) => row._count?.analytics || 0,
+      header: ({ column }) => {
         return (
           <Button
             variant="ghost"
@@ -116,22 +87,28 @@ export function SocialClicks() {
           </Button>
         );
       },
-      cell: ({row}) => (
-        <div className="capitalize">{row.getValue("clicks")}</div>
+      cell: ({ row }) => (
+        <div className="capitalize">{row.original._count?.analytics || 0}</div>
       ),
     },
   ];
+
+  const data = rawData?.map((row) => ({
+    ...row,
+    type: row.icon,
+    icon: <Icon name={row.icon as iconNameType} className="!w-4.5 !h-4.5" />,
+  }));
 
   return (
     <FieldController
       title={t("Analytics.Metrics.socialClicks.title")}
       titleIcon={
-        <Button variant="outline" className="cursor-pointer">
+        <Button variant="outline" className="cursor-pointer !text-base">
           {t("Shared.export")}
         </Button>
       }
     >
-      <CustomDateTable data={data} columns={columns} />
+      <CustomDateTable data={data || []} columns={columns} />
     </FieldController>
   );
 }

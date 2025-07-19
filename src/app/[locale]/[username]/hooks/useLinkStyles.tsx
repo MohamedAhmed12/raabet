@@ -1,7 +1,7 @@
 /* eslint-disable */
 // @ts-nocheck
-import {Link} from "@/app/[locale]/store/use-link-store";
-import {useMemo} from "react";
+import { Link } from "@/app/[locale]/store/use-link-store";
+import { useMemo } from "react";
 
 function generateShadows(hexColor) {
   // Convert hex to RGB
@@ -9,7 +9,7 @@ function generateShadows(hexColor) {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
     const b = parseInt(hex.slice(5, 7), 16);
-    return {r, g, b};
+    return { r, g, b };
   }
 
   // Convert RGB to hex
@@ -31,7 +31,7 @@ function generateShadows(hexColor) {
 
   // Darken color by a percentage
   function darkenColor(hex, percent) {
-    const {r, g, b} = hexToRgb(hex);
+    const { r, g, b } = hexToRgb(hex);
     const darken = (color) => Math.max(0, color - color * percent);
     return rgbToHex(darken(r), darken(g), darken(b));
   }
@@ -80,21 +80,18 @@ const useLinkStyles = (link: Link) => {
   return useMemo(() => {
     const {
       card_styles_design,
-      card_styles_text_color,
       card_styles_card_corner,
       card_styles_card_color,
       card_styles_card_border_width,
       card_styles_card_border_color,
       card_styles_card_shadow,
-      card_styles_card_spacing,
       general_styles_primary_bgcolor,
     } = link || {}; // Destructure link properties
 
     const styles = {
-      color: card_styles_text_color,
       borderRadius: card_styles_card_corner ? card_styles_card_corner * 28 : 0,
-      borderWidth: (card_styles_card_border_width || 0) * 6,
-      margin: `${11 + 2 * (card_styles_card_spacing || 0)}px 0px`,
+      borderWidth:
+        card_styles_design === 0 ? card_styles_card_border_width * 6 : 0,
     };
 
     // Check if the card design is 1
@@ -115,18 +112,16 @@ const useLinkStyles = (link: Link) => {
       styles.borderColor = card_styles_card_border_color; // Using general_styles_primary_bgcolor
       styles.boxShadow = `0 0 ${(card_styles_card_shadow || 0) * 10}px ${
         (card_styles_card_shadow || 0) / 10
-      }px`;
+      }px rgba(0, 0, 0, 0.3)`;
     }
 
     return styles;
   }, [
-    link?.card_styles_text_color,
     link?.card_styles_card_corner,
     link?.card_styles_card_color,
     link?.card_styles_card_border_width,
     link?.card_styles_card_border_color,
     link?.card_styles_card_shadow,
-    link?.card_styles_card_spacing,
     link?.card_styles_design,
     link?.general_styles_primary_bgcolor, // Added general_styles_primary_bgcolor as dependency
   ]);

@@ -83,10 +83,11 @@ export const BlocksDialog = ({
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <Button
         variant="outline"
-        className="cursor-pointer h-[27px] px-2 capitalize"
+        className="flex gap-1.5 cursor-pointer h-[27px] px-2 capitalize !text-sm"
         onClick={() => setIsDialogOpen(true)}
       >
-        {t("addBlocks")} +
+        <span>{t("addBlocks")}</span>
+        <span className="!text-base">+</span>
       </Button>
       <DialogContent className="font-noto-sans !max-w-[600px]">
         <DialogHeader className="flex items-center">

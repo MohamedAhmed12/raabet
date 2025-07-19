@@ -22,7 +22,7 @@ export const LinksNavbarIcon: React.FC<LinksNavbarIconProps> = ({
       className={cn(
         "cursor-pointer",
         isSticky &&
-          `pointer-events-auto backdrop-blur-md shadow-[0px_0px_20px_2px_rgba(0,0,0,0.1)] rounded-[22.5px] h-[45px] w-[45px] bg-[rgba(0,0,0,0.25)] flex items-center justify-center`,
+          `pointer-events-auto backdrop-blur-md shadow-[0px_0px_20px_2px_rgba(0,0,0,0.1)] rounded-[22.5px] h-[40px] w-[40px] bg-[rgba(0,0,0,0.25)] flex items-center justify-center`,
         className
       )}
     >

@@ -8,6 +8,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "picsum.photos",
       },
+      {
+        protocol: "https",
+        hostname: "storage.googleapis.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.youtube.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.twitch.tv",
+      },
     ],
   },
   experimental: {
@@ -22,6 +34,18 @@ const nextConfig: NextConfig = {
   },
   typescript: {
     // ignoreBuildErrors: true,
+  },
+  eslint: {
+    dirs: [
+      "src/app",
+      "src/assets",
+      "src/components",
+      "src/hooks",
+      "src/i18n",
+      "src/lib",
+      "src/messages",
+      "src/middlewares",
+    ],
   },
 };
 

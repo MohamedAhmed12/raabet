@@ -1,25 +1,31 @@
+import { useTranslations } from "next-intl";
 import { ContentSection } from "../ContentSection";
-import { ImageSection } from "./ImageSection";
-
+import Image from "next/image";
 
 export const GroubBlock = () => {
+  const t = useTranslations("HomePage");
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center">
-      <ImageSection
-        src="https://d1ym67wyom4bkd.cloudfront.net/assets/bundles/db9264c8bc4385992e0f73e2eb736dbc6cb1dfaf/graphics/feature-folder-1.png"
-        alt="third Section"
-      />
+    <div className="flex flex-col-reverse md:flex-row w-full h-full">
+      <div className="relative w-full md:flex-1/2 !min-h-full">
+        <Image
+          src="/images/links-page-preview.png"
+          alt="third Section"
+          width={650}
+          height={650}
+          
+          // className="min-h-full w-full"
+        />
+      </div>
       <ContentSection
-        titleLabel="Group blocks into a"
-        coloredLabel="folder"
-        mainLabel="Use folders to group relevant blocks and keep your page feeling organized and fresh."
-        buttonLabel="Get Started"
+        titleLabel={t("groubBlock.titleLabel")}
+        coloredLabel={t("groubBlock.coloredLabel")}
+        mainLabel={t("groubBlock.mainLabel")}
+        buttonLabel={t("moreFeatures")}
         underlineColor="bg-[#feeb96]"
-        widthClass="w-[500px]"
+        widthClass="w-[80%]"
+        className="w-full"
         redirectUrl="/pricing"
       />
     </div>
   );
 };
-
- 

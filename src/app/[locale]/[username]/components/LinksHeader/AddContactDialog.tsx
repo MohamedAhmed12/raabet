@@ -12,11 +12,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { LinksNavbarIcon } from "./StickyLinksNavbar";
+import { useShallow } from "zustand/react/shallow";
 
 export function AddContactDialog({ isSticky }: { isSticky: boolean }) {
-  const user = useLinkStore((state) => state.link.user);
+  const t = useTranslations("ShareBtn");
+  const user = useLinkStore(useShallow((state) => state.link.user));
   if (!user) return;
 
   const handleAddContact = async () => {
@@ -43,16 +46,16 @@ export function AddContactDialog({ isSticky }: { isSticky: boolean }) {
           </DialogTitle>
         </DialogHeader>
         <div className="text-center mb-3">
-          <span>Add</span>
+          <span>{t("add")}</span>
           <span className="font-semibold mx-1">{user.fullname}</span>
-          <span>as a contact.</span>
+          <span>{t("asContact")}</span>
         </div>
         <DialogFooter>
           <Button
-            className="w-full flex items-center capitalize bg-deep-blue-gray hover:bg-deep-blue-gray cursor-pointer"
+            className="w-full flex !text-base capitalize bg-deep-blue-gray hover:bg-deep-blue-gray cursor-pointer"
             onClick={() => handleAddContact()}
           >
-            add contact
+            {t("addContact")}
           </Button>
         </DialogFooter>
       </DialogContent>

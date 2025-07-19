@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export async function fetchSingleLink({
   userId,
@@ -25,7 +25,11 @@ export async function fetchSingleLink({
             order: "asc", // Change 'order' to whatever field you want to order by (ascending or descending)
           },
         },
-        blocks: true,
+        blocks: {
+          orderBy: {
+            order: "asc",
+          },
+        },
       },
     });
   } catch (error) {

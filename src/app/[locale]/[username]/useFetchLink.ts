@@ -1,6 +1,6 @@
-import {useEffect, useRef, useState} from "react";
-import {fetchSingleLink} from "../actions/fetchSingleLink";
-import {useLinkStore} from "../store/use-link-store";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { fetchSingleLink } from "../actions/fetchSingleLink";
+import { useLinkStore } from "../store/use-link-store";
 
 const useFetchLink = ({
   userId,
@@ -13,24 +13,23 @@ const useFetchLink = ({
   const [data, setData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const setLink = useLinkStore((state) => state.setLink);
+  const replaceLink = useLinkStore((state) => state.replaceLink);
 
   // Use ref to track if the data has been fetched already
   const hasFetchedRef = useRef<boolean>(false);
 
-  useEffect(() => {
-    if (!userId && !username) return; // Don't fetch if userId is missing or data already fetched
-
-    const fetchLink = async () => {
-      setIsLoading(true);
+  const fetchLink = useCallback(
+    async (withLoading = true) => {
+      if (withLoading) setIsLoading(true);
       setError(null);
 
       try {
-        const response = await fetchSingleLink({userId, username});
+        const response = await fetchSingleLink({ userId, username });
 
         if (response) {
           setData(response);
-          setLink(response);
+          // @ts-expect-error - We're ignoring this line because we trust the response matches the Link type
+          replaceLink(response);
 
           hasFetchedRef.current = true; // Mark as fetched
         } else {
@@ -44,12 +43,21 @@ const useFetchLink = ({
       } finally {
         setIsLoading(false);
       }
-    };
+    },
+    [userId, username, replaceLink]
+  );
+
+  const refetch = () => {
+    fetchLink(false);
+  };
+
+  useEffect(() => {
+    if (!userId && !username) return; // Don't fetch if userId is missing or data already fetched
 
     fetchLink();
-  }, [userId, username, setLink]);
+  }, [fetchLink, userId, username]);
 
-  return {isLoading, data, error};
+  return { isLoading, data, error, refetch };
 };
 
 export default useFetchLink;

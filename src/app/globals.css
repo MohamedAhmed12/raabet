@@ -7,8 +7,6 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --font-noto-sans: var(--font-noto-sans-display);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-background: var(--sidebar-background);
@@ -140,6 +138,14 @@
   }
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  box-shadow: 0 0 0px 1000px white inset !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
 html,
 body {
   max-height: 100%;
@@ -161,4 +167,14 @@ body {
 }
 .dashboard-general-style-controller:hover {
   background-color: #fafafa;
+}
+
+th {
+  button {
+    outline: none !important;
+    font-size: 1rem;
+  }
+  button:hover {
+    background-color: transparent !important;
+  }
 }

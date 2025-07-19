@@ -15,14 +15,20 @@ import { signOut } from "next-auth/react"; // Import signOut from NextAuth.js
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
+import { useSession } from "next-auth/react";
 
 export default function CustomSidebar() {
   const locale = useLocale();
+  const session = useSession();
   const t = useTranslations("Sidebar");
   const pathname = usePathname();
-  const {getOppositeLang, switchLocale} = useLocaleMeta();
+  const { getOppositeLang, switchLocale } = useLocaleMeta();
+  const { status, isLoading: isLoadingSubs } = useSubscriptionStatus({
+    email: session?.data?.user?.email as string,
+  });
 
-  const sidebarTabs: {text: string; url: string; icon: iconNameType}[] = [
+  const sidebarTabs: { text: string; url: string; icon: iconNameType }[] = [
     {
       text: t("tabs.design"),
       url: "/dashboard/admin/profile/links",
@@ -41,8 +47,13 @@ export default function CustomSidebar() {
     },
     {
       text: t("tabs.subscribe"),
-      url: "subscribe",
+      url: "/dashboard/admin/subscription",
       icon: "lock-keyhole-open",
+    },
+    {
+      text: t("tabs.qr"),
+      url: "/dashboard/admin/qr-codes",
+      icon: "qr-code",
     },
   ];
 
@@ -93,28 +104,31 @@ export default function CustomSidebar() {
               className="flex gap-2 p-[5.5px] mb-[6px] rounded-sm "
               variant="dashboardDefault"
               isActive={isActive("logout")}
-              onClick={() => signOut({callbackUrl: "/auth/login"})}
+              onClick={() => signOut({ callbackUrl: "/auth/login" })}
             >
               <Link href={"logout"} className="flex gap-2 p-[5.5px] rounded-sm">
                 <Icon name={"log-out"} size={20} />
-                <span>{t('tabs.logout')}</span>
+                <span>{t("tabs.logout")}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter className="p-[11px] font-noto-sans">
-        <Link
-          href="/dashboard/admin/subscripe"
-          className="flex cursor-pointer flex-col h-auto w- p-[11px] items-center text-center text-white bg-[linear-gradient(45deg,_#dd76ff,_#097cd4)] rounded-md"
-        >
-          <Icon name="lock" className="text-white" size={19} />
-          <span className="text-sm font-normal">{t('activateProfile')}</span>
-          <span className="text-sm font-medium">
-          {t('tryFree')}<br /> {t('14days')}
-          </span>
-        </Link>
-      </SidebarFooter>
+      {!isLoadingSubs && status === "trialing" && (
+        <SidebarFooter className="p-[11px] font-noto-sans">
+          <Link
+            href="/dashboard/admin/subscription"
+            className="flex cursor-pointer flex-col h-auto w- p-[11px] items-center text-center text-white bg-[linear-gradient(45deg,_#dd76ff,_#097cd4)] rounded-md"
+          >
+            <Icon name="lock" className="text-white" size={19} />
+            <span className="text-sm font-normal">{t("activateProfile")}</span>
+            <span className="text-sm font-medium">
+              {t("tryFree")}
+              <br /> {t("14days")}
+            </span>
+          </Link>
+        </SidebarFooter>
+      )}
     </Sidebar>
   );
 }

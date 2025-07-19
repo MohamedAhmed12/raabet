@@ -1,12 +1,17 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star } from "lucide-react";
 import { Claim } from "../Claim";
+import { useLocale, useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 export const ContentSection = () => {
+  const t = useTranslations("HomePage.CentralizePresence");
+  const locale = useLocale();
+
   return (
-    <div className="w-full md:w-1/2 flex flex-col justify-center font-noto-sans text-center md:text-left px-[7vw] min-h-[calc(100vh-70px-72px)]">
+    <div className="w-full lg:w-1/2 flex flex-col justify-center items-center font-noto-sans text-center lg:text-left px-[7vw] min-h-[calc(100vh-220px)] lg:min-h-[calc(100vh-70px-72px)] py-13">
       {/* Avatar & Star Rating */}
-      <div className="w-full flex gap-3">
+      <div className="w-full flex gap-3 place-content-center lg:place-content-start mb-6 lg:mb-2">
         <div className="flex -space-x-2">
           {[...Array(5)].map((_, i) => (
             <Avatar
@@ -29,26 +34,31 @@ export const ContentSection = () => {
               />
             ))}
           </div>
-          <p className="text-lg font-semibold text-sm text-gray-500">
-            Loved by 10,000+ users
+          <p className="text-sm lg:text-lg  font-normal lg:font-semibold text-gray-500">
+            {t("users")}
           </p>
         </div>
       </div>
 
       {/* Heading */}
-      <h1 className="text-[64px] text-deep-blue-gray font-bold leading-[1.1]">
-        <span className="mr-4">Centralize your online</span>
+      <h1
+        className={cn(
+          "text-[44px] leading-none text-deep-blue-gray font-extrabold",
+          "lg:text-[66px] lg:leading-[1.1]",
+          locale == "ar" ? "text-right" : "text-left"
+        )}
+      >
+        <span className="mr-4">{t("Centralize")}</span>
         <span className="relative">
-          <span className="relative inline-block z-[1]">presence</span>
+          <span className="relative inline-block z-[1]">{t("presence")}</span>
           <div className="absolute inset-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%] bg-[#7ed0ff]"></div>
         </span>
       </h1>
 
       {/* Description & Input Field */}
-      <div className="max-w-[470px] my-8 font-semibold">
-        <p className="text-lg text-gray-600 mb-6">
-          Gather your socials, music, videos, and more on a beautiful
-          link-in-bio page. Claim your name today!
+      <div className="lg:max-w-[470px] mt-8 mx-auto lg:mx-0">
+        <p className="text-lg lg:text-xl text-center lg:text-start font-base  text-gray-600 mb-6">
+          {t("Description")}
         </p>
 
         <Claim />

@@ -1,7 +1,7 @@
 import * as React from "react";
 
-export function useIsScreenWidthLessThan(width: number) {
-  const [isWidth, setIsWidth] = React.useState<boolean | null>(null);
+export function useIsScreenWidthLessThan(width: number, defaultValue: boolean) {
+  const [isWidth, setIsWidth] = React.useState<boolean>(defaultValue);
 
   React.useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${width - 1}px)`);

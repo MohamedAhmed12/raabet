@@ -1,10 +1,9 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+import { createAndSendActivation } from "@/lib/activation";
+import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
-import { generateActivationCode } from "../auth/verify/generateActivationCode";
-import { EmailTemplate } from "../auth/components/EmailTemplate";
-import { sendEmail } from "../auth/components/emailService";
+import { postSignupProcess } from "./postSignupProcess";
 
 export const signup = async ({
   fullname,
@@ -35,26 +34,16 @@ export const signup = async ({
       },
     });
 
-    const activationCode = generateActivationCode();
-    await prisma.activationCode.create({
-      data: {
-        code: activationCode,
-        userId: user.id,
-        expiresAt: new Date(Date.now() + 15 * 60 * 1000), // Expires in 15 minutes
-      },
-    });
-    const htmlContent = EmailTemplate({
-      user: user.fullname,
-      activationCode: activationCode,
+    await createAndSendActivation({
+      userId: user.id,
+      email,
+      fullname: user.fullname,
+      supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
     });
 
-    // Send activation email
-    await sendEmail({
-      from: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
-      to: email,
-      subject: "Activate Your Account",
-      html: htmlContent,
-    });
+    // Start post-signup processes
+    await postSignupProcess(user.id, fullname);
+
     return { success: true };
   } catch (error) {
     console.error("Signup Error:", error);

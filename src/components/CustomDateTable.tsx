@@ -19,7 +19,8 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
-  DropdownMenuContent, DropdownMenuTrigger
+  DropdownMenuContent,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
@@ -35,7 +36,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 interface TableProps {
   data: any[];
-  columns: ColumnDef<any>[];
+  columns: ColumnDef<any, any>[];
   enableSearch?: boolean;
   enableColumnDropdown?: boolean;
   showFooter?: boolean;
@@ -59,7 +60,7 @@ export function CustomDateTable({
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
-    data,
+    data: data || [],
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -115,7 +116,7 @@ export function CustomDateTable({
                             column.toggleVisibility(!!value)
                           }
                         >
-                          {column.id}
+                          {/* {column.id} */}
                         </DropdownMenuCheckboxItem>
                       );
                     })}
@@ -150,7 +151,7 @@ export function CustomDateTable({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {table?.getRowModel()?.rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -182,14 +183,15 @@ export function CustomDateTable({
       {showFooter && (
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="flex-1 text-sm text-muted-foreground text-right">
-            {table.getFilteredSelectedRowModel().rows.length} {t("of")}{" "}
-            {table.getFilteredRowModel().rows.length} {t("row(s)")}{" "}
+            {table?.getFilteredSelectedRowModel()?.rows?.length} {t("of")}{" "}
+            {table?.getFilteredRowModel()?.rows?.length} {t("row(s)")}{" "}
             {t("selected")}.
           </div>
           <div className="space-x-2">
             <Button
               variant="outline"
               size="sm"
+              className="!text-sm"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
             >
@@ -198,6 +200,7 @@ export function CustomDateTable({
             <Button
               variant="outline"
               size="sm"
+              className="!text-sm"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
             >

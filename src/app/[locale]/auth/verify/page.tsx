@@ -1,9 +1,9 @@
 "use client";
 
-import {GalleryVerticalEnd} from "lucide-react";
-import {useSession} from "next-auth/react";
+import { GalleryVerticalEnd } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import VerifyForm from "./verifyForm";
 
 export default function VerifyPage() {
@@ -19,28 +19,35 @@ export default function VerifyPage() {
     router.replace("/auth/login");
   }
 
-  const onVerify = () => {
-    const currentData = session;
-    // @ts-expect-error: [to access user data in session it exists in id]
-    const authUser = currentData?.data?.user?.id;
+  const onVerify = async () => {
+    try {
+      console.log("onVerify");
+      const currentData = session;
+      // @ts-expect-error: [to access user data in session it exists in id]
+      const authUser = currentData?.data?.user?.id;
 
-    if ("is_confirmed" in authUser) {
-      authUser.is_confirmed = true;
+      if ("is_confirmed" in authUser) {
+        authUser.is_confirmed = true;
+      }
+
+      await session.update(authUser);
+
+      console.log("last onVerify");
+      router.replace("/dashboard/admin/profile/links");
+    } catch (error) {
+      console.error(222111, error);
     }
-
-    session.update(authUser);
-
-    router.replace("/dashboard/admin/profile/links");
   };
 
   return (
     authUser && (
-      <div className="flex min-h-svh flex-col lg:flex-row">
+      <div className="flex min-h-svh flex-col lg:flex-row font-noto-sans">
         <div className="flex flex-1 flex-col">
           <div className="flex justify-center w-full gap-2 md:justify-start">
             <a
               href="#"
-              className="flex items-center h-[70px] w-full pl-8 pr-6 font-medium"
+              className="flex items-center h-[70px] w-full pl-8 gap-2 font-medium"
+              dir="ltr"
             >
               <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
                 <GalleryVerticalEnd className="size-4 " />
@@ -56,8 +63,9 @@ export default function VerifyPage() {
         </div>
         <div className="flex-1 relative hidden bg-muted lg:block">
           <Image
-            src="https://d1ym67wyom4bkd.cloudfront.net/assets/bundles/db9264c8bc4385992e0f73e2eb736dbc6cb1dfaf/graphics/signup-graphic.png"
+            src="/images/login-bg.png"
             alt="verify"
+            fill
             className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
           />
         </div>

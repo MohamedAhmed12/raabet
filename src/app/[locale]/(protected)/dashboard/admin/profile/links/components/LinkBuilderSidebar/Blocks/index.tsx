@@ -1,122 +1,131 @@
 "use client";
 
-import {DashboardCard} from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
-import {useLinkStore} from "@/app/[locale]/store/use-link-store";
-import {Icon} from "@/components/Icon";
-import {Block} from "@prisma/client";
-import {useTranslations} from "next-intl";
-import {useMemo, useState} from "react";
-import {toast} from "sonner";
-import {createBlock as createBlockAction} from "../../../actions/createBlocks";
-// import {orderBlocks} from "../../../actions/orderBlocks";
-import {BlockType} from "../../../types/block";
-// import {BlockSortableItem} from "../../DashbaordSortableList/BlockSortableItem";
-// import DashbaordSortableList from "../../DashbaordSortableList/page";
-import {BlocksDialog} from "./components/BlocksDialog";
-import {CreateUpdateBlockForm} from "./components/CreateUpdateBlockForm";
+import { DashboardCard } from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
+import { Link, useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Icon } from "@/components/Icon";
+import { Block, BlockType } from "@prisma/client";
+import { useTranslations } from "next-intl";
+import { memo, useCallback, useMemo, useState } from "react";
+import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
+import { createBlock } from "../../../actions/createBlocks";
+import { orderBlocks } from "../../../actions/orderBlocks";
+import DashbaordSortableList from "../../DashbaordSortableList";
+import { BlockSortableItem } from "../../DashbaordSortableList/BlockSortableItem";
+import { BlocksDialog } from "./components/BlocksDialog";
+import { CreateUpdateBlockForm } from "./components/CreateUpdateBlockForm";
 
-export const Blocks = () => {
-  const [createNewBlockType, setCreateNewBlockType] =
-    useState<BlockType | null>(null);
+const Blocks = memo(
+  () => {
+    const [createNewBlockType, setCreateNewBlockType] =
+      useState<BlockType | null>(null);
 
-  const t = useTranslations("LinksPage.generalStyles");
-  const blocks = useLinkStore((state) => state.link.blocks);
-  const setLink = useLinkStore((state) => state.setLink);
+    const t = useTranslations("LinksPage.generalStyles.blocks");
+    const { blocks, setLink } = useLinkStore(
+      useShallow((state) => ({
+        blocks: state.link.blocks,
+        setLink: state.setLink,
+      }))
+    );
 
-  const HelperTooltipContent = useMemo(
-    () => (
-      <div className=" items-center justify-center">
-        Drag the
-        <Icon name="grip-vertical" className="inline-flex" sizeClass="sm" />
-        to reorder blocks. Click a block to edit it. Hover the
-        {/* <Icon name="grip-vertical" className="inline-flex" sizeClass="sm" /> */}
-        <Icon name="settings" className="inline-flex mx-[2px]" sizeClass="sm" />
-        to view all options for a block.
-      </div>
-    ),
-    []
-  );
+    const handleOnDragEnd = useCallback(
+      (newBlocksOrder: Block[]) => {
+        const oldBlocksOrder = [...blocks!];
 
-  const renderBlockCards = () => {
-    if (!blocks) return null;
+        setLink({ key: "blocks", value: newBlocksOrder });
+
+        try {
+          orderBlocks(newBlocksOrder);
+        } catch (error) {
+          console.error(error);
+          toast.error(t("errors.sortingBlocks"));
+          setLink({
+            key: "blocks",
+            value: oldBlocksOrder,
+          });
+        }
+      },
+      [blocks, setLink, t]
+    );
+
+    // Memoize the block creation handler
+    const handleCreateNewBlock = useCallback(
+      async (block: Block) => {
+        try {
+          const newBlock = await createBlock(block);
+
+          setLink({
+            key: "blocks",
+            value: (prev: Link) => {
+              const prevBlocks = prev?.blocks || [];
+              return [...prevBlocks, newBlock];
+            },
+          });
+          setCreateNewBlockType(null);
+        } catch (error) {
+          console.error(error);
+          toast.error("Something went wrong while creating new block!");
+        }
+      },
+      [setLink]
+    );
+
+    const handleOnCreateNewBlock = (blockType: BlockType) => {
+      setCreateNewBlockType(blockType);
+    };
+
+    // Memoize the block cards render
+    const renderBlockCards = useMemo(() => {
+      if (!blocks?.length) return null;
+      return blocks.map((block) => (
+        <BlockSortableItem key={`${block.id}-${block.order}`} block={block} />
+      ));
+    }, [blocks]);
+
+    const HelperTooltipContent = useMemo(
+      () => (
+        <div className="items-center justify-center">
+          {t("helperTooltip.drag")}
+          <Icon name="grip-vertical" className="inline-flex" sizeClass="sm" />
+          {t("helperTooltip.toReorder")}
+        </div>
+      ),
+      [t]
+    );
 
     return (
-      <p>f</p>
-      // <DashbaordSortableList items={blocks} onDragEnd={onDragEnd}>
-      //   <ul className="list w-full">
-      //     {blocks?.map((block, index) => (
-      //       <BlockSortableItem key={index} block={block} />
-      //     ))}
-      //   </ul>
-      // </DashbaordSortableList>
+      <>
+        <DashboardCard
+          hasHelperTooltip
+          HelperTooltipContent={HelperTooltipContent}
+          title={t("title")}
+          headerContent={
+            <BlocksDialog onCreateNewBlock={handleOnCreateNewBlock} />
+          }
+          className="gap-0"
+        >
+          <DashbaordSortableList
+            items={blocks || []}
+            onDragEnd={handleOnDragEnd}
+          >
+            <ul className="list w-full">{renderBlockCards}</ul>
+          </DashbaordSortableList>
+        </DashboardCard>
+
+        {/* Overlay create block form */}
+        {createNewBlockType && (
+          <CreateUpdateBlockForm
+            type={createNewBlockType}
+            onSubmit={handleCreateNewBlock}
+            onClose={() => setCreateNewBlockType(null)}
+          />
+        )}
+      </>
     );
-  };
+  },
+  () => true
+);
 
-  const handleOnCreateNewBlock = (blockType: BlockType) => {
-    setCreateNewBlockType(blockType);
-  };
+Blocks.displayName = "Blocks";
 
-  // const onDragEnd = async (newBlocksOrder: Block[]) => {
-  //   const oldBlocksOrder = [...blocks!];
-
-  //   setLink({
-  //     blocks: newBlocksOrder,
-  //   });
-
-  //   try {
-  //     const data = newBlocksOrder.map(({id, order}) => ({
-  //       id,
-  //       order,
-  //     }));
-
-  //     await orderBlocks(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error("Something went wrong while sorting socials!");
-  //     setLink({
-  //       blocks: oldBlocksOrder,
-  //     });
-  //   }
-  // };
-
-  const createBlock = async (block: Block) => {
-    try {
-      const newBlock = await createBlockAction(block);
-      const blocksData: Block[] = blocks ? [...blocks, newBlock] : [newBlock];
-
-      setLink({
-        blocks: blocksData,
-      });
-      setCreateNewBlockType(null);
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong while creating new block!");
-    }
-  };
-
-  return (
-    <>
-      <DashboardCard
-        hasHelperTooltip
-        HelperTooltipContent={HelperTooltipContent}
-        title={t("blocks")}
-        headerContent={
-          //  add block button & dialog
-          <BlocksDialog onCreateNewBlock={handleOnCreateNewBlock} />
-        }
-        className="gap-0"
-      >
-        {renderBlockCards()}
-      </DashboardCard>
-
-      {/* overlay create block form  */}
-      {createNewBlockType && (
-        <CreateUpdateBlockForm
-          type={createNewBlockType}
-          onSubmit={(block) => createBlock(block)}
-          onClose={() => setCreateNewBlockType(null)}
-        />
-      )}
-    </>
-  );
-};
+export { Blocks };

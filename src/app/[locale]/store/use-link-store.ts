@@ -1,10 +1,14 @@
-import {iconNameType} from "@/assets/icons";
-import {Block} from "@prisma/client";
-import {User} from "next-auth";
-import type {StateCreator} from "zustand";
-import {create} from "zustand";
-import {devtools} from "zustand/middleware";
+import { iconNameType } from "@/assets/icons";
+import { Block } from "@prisma/client";
+import { User } from "next-auth";
+import type { StateCreator } from "zustand";
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
+type SetLinkProps = {
+  key: keyof Link;
+  value: string | boolean | number | User | Block[] | LinkSocial[] | any;
+};
 export interface LinkSocial {
   id: string;
   icon: iconNameType;
@@ -14,12 +18,14 @@ export interface LinkSocial {
 }
 
 export interface Link {
-  id?: string;
+  id: string;
   phone?: string;
   website?: string;
   instagram?: string;
   twitter?: string;
+  displayname?: string;
   bio?: string;
+  // used as forgein key
   userName?: string;
   general_styles_desktop_bgcolor?: string;
   general_styles_primary_text_color?: string;
@@ -27,6 +33,7 @@ export interface Link {
   general_styles_is_secondary_bgcolor?: boolean;
   general_styles_is_label_exist?: boolean;
   general_styles_secondary_bgcolor?: string;
+  // implement in link viewer
   general_styles_soft_shadow?: boolean;
   header_styles_profile_shadow?: number;
   header_styles_profile_border_width?: number;
@@ -43,13 +50,16 @@ export interface Link {
   card_styles_card_shadow?: number;
   card_styles_card_spacing?: number;
   card_styles_label_color?: string;
-  card_styles_label_text_color?: string;
   title_font?: string;
   text_font?: string;
   social_enable_add_contacts?: boolean;
   social_enable_share_btn?: boolean;
   social_enable_search?: boolean;
   social_enable_qr_code?: boolean;
+  social_enable_hide_raabet_branding?: boolean;
+  // social_enable_enable_verified_badge?: boolean;
+  social_custom_logo?: string;
+  social_custom_logo_size?: number;
   user?: User;
   socials?: LinkSocial[];
   blocks?: Block[];
@@ -57,18 +67,20 @@ export interface Link {
 
 interface LinkState {
   link: Link;
-  setLink: (link: Partial<Link>) => void;
+  setLink: (props: SetLinkProps) => void;
   replaceLink: (link: Link | ((prev: Link) => Link)) => void;
 }
 
 const createLinkSlice: StateCreator<LinkState> = (set) => ({
-  link: {},
+  link: {
+    id: "",
+  },
 
-  setLink: (data: Partial<Link>) => {
+  setLink: ({ key, value }: SetLinkProps) => {
     set((state) => ({
       link: {
         ...state.link,
-        ...data,
+        [key]: typeof value === "function" ? value(state.link) : value,
       },
     }));
   },
@@ -80,5 +92,5 @@ const createLinkSlice: StateCreator<LinkState> = (set) => ({
 });
 
 export const useLinkStore = create<LinkState>()(
-  devtools(createLinkSlice, {name: "user-context-store"})
+  devtools(createLinkSlice, { name: "user-context-store" })
 );

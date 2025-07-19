@@ -1,7 +1,7 @@
 "use server";
 
 import {LinkSocial} from "@/app/[locale]/store/use-link-store";
-import {prisma} from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export async function updateSocials(data: LinkSocial[]) {
   if (!data.length) return {success: false, error: "No data provided"};

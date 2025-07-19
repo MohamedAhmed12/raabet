@@ -1,0 +1,122 @@
+export interface Review {
+  id: number;
+  name: string;
+  title: string;
+  review: string;
+  image: string;
+  stars: number;
+}
+
+const reviews1: Review[] = [
+  {
+    id: 1,
+    name: "Katie Ortman Doble",
+    title: "Speaker & Author",
+    review:
+      "As a keynote speaker, Liinks has simplified connecting with my audience. I've recommended this product to so many of my peers.",
+    image: "/images/1.jpg",
+    stars: 5,
+  },
+  {
+    id: 2,
+    name: "Ben | Life Through Optics",
+    title: "Photographer & Videographer",
+    review:
+      "I've been using Liinks for a couple of years now and I've loved it right from the start.",
+    image: "/images/2.jpg",
+    stars: 5,
+  },
+  {
+    id: 3,
+    name: "Brikk Animation",
+    title: "CEO at Brikk Animation",
+    review:
+      "Liinks has been a game-changer for us! It’s helped us present our portfolio in a clever, concise, and visually appealing way.",
+    image: "/images/3.jpg",
+    stars: 5,
+  },
+  {
+    id: 4,
+    name: "Luminar Studios",
+    title: "Visual Storyteller",
+    review: "Without Liinks, everything would just be messy.",
+    image: "/images/4.jpg",
+    stars: 4,
+  },
+  {
+    id: 5,
+    name: "SwirliNyx",
+    title: "Artist",
+    review:
+      "I've been using Liinks for my art business for a long time and couldn't fault it! It’s affordable and easy to use.",
+    image: "/images/5.jpg",
+    stars: 5,
+  },
+  {
+    id: 6,
+    name: "Sieg",
+    title: "Photographer",
+    review:
+      "With Liinks, I attract more clients to my social media and website. Liinks has boosted my online presence massively!",
+    image: "/images/6.jpg",
+    stars: 5,
+  },
+];
+
+const reviews2: Review[] = [
+  {
+    id: 1,
+    name: "Katie Ortman Doble",
+    title: "Speaker & Author",
+    review:
+      "As a keynote speaker, Liinks has simplified connecting with my audience. I've recommended this product to so many of my peers.",
+    image: "/images/1.jpg",
+    stars: 5,
+  },
+  {
+    id: 2,
+    name: "Ben | Life Through Optics",
+    title: "Photographer & Videographer",
+    review:
+      "I've been using Liinks for a couple of years now and I've loved it right from the start.",
+    image: "/images/2.jpg",
+    stars: 5,
+  },
+  {
+    id: 3,
+    name: "Brikk Animation",
+    title: "CEO at Brikk Animation",
+    review:
+      "Liinks has been a game-changer for us! It’s helped us present our portfolio in a clever, concise, and visually appealing way.",
+    image: "/images/3.jpg",
+    stars: 5,
+  },
+  {
+    id: 4,
+    name: "Luminar Studios",
+    title: "Visual Storyteller",
+    review: "Without Liinks, everything would just be messy.",
+    image: "/images/4.jpg",
+    stars: 4,
+  },
+  {
+    id: 5,
+    name: "SwirliNyx",
+    title: "Artist",
+    review:
+      "I've been using Liinks for my art business for a long time and couldn't fault it! It’s affordable and easy to use.",
+    image: "/images/5.jpg",
+    stars: 5,
+  },
+  {
+    id: 6,
+    name: "Sieg",
+    title: "Photographer",
+    review:
+      "With Liinks, I attract more clients to my social media and website. Liinks has boosted my online presence massively!",
+    image: "/images/6.jpg",
+    stars: 5,
+  },
+];
+
+export { reviews1, reviews2 };

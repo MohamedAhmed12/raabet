@@ -3,9 +3,10 @@
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Icon } from "@/components/Icon";
 import { ShareBtn } from "@/components/ShareBtn";
+import { useShallow } from "zustand/react/shallow";
 
 export const MainHeaderSection = () => {
-  const link = useLinkStore((state) => state.link);
+  const link = useLinkStore(useShallow((state) => state.link));
 
   return (
     <div className="flex justify-between h-[55px] px-[22px] py-[11px]">

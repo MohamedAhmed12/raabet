@@ -1,5 +1,6 @@
-import { cn } from "@/lib/cn";
-import Link from "next/link";
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/cn';
+import Link from 'next/link';
 
 export const ContentSection = ({
   titleLabel,
@@ -23,28 +24,35 @@ export const ContentSection = ({
   return (
     <div
       className={cn(
-        "w-full h-full md:w-1/2 font-noto-sans px-[7vw] flex justify-center items-center",
+        'flex justify-center items-center w-full md:w-1/2 font-noto-sans py-[32px] px-[7vw] border border-t-[#1d1d28]',
         className
       )}
     >
       <div className={widthClass}>
-        <div className="mb-6 text-[64px] text-deep-blue-gray font-bold leading-[1.1]">
-          <span className="mr-4">{titleLabel}</span>
-          <span className="relative">
-            <span className="relative inline-block z-[1]">{coloredLabel}</span>
-            <div
-              className={cn(
-                "absolute inset-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%] ",
-                underlineColor
-              )}
-            ></div>
-          </span>
+        <div className="flex justify-center md:justify-start text-center md:text-start mb-6 ">
+          <div className="text-[45px] lg:text-[64px] text-deep-blue-gray font-bold leading-[1.1] text-center md:text-start">
+            <span className="mr-4">{titleLabel}</span>
+            <span className="relative">
+              <span className="relative inline-block z-[1]">
+                {coloredLabel}
+              </span>
+              <div
+                className={cn(
+                  'absolute inset-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%]',
+                  underlineColor
+                )}
+              ></div>
+            </span>
+          </div>
         </div>
-        <div className="mb-6">{mainLabel}</div>
-        <Link href={redirectUrl}>
-          <button className="bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold inline-block cursor-pointer transition-all duration-300">
+        <div className="flex text-center md:text-start mb-6">{mainLabel}</div>
+        <Link
+          href={redirectUrl}
+          className="flex justify-center md:justify-start"
+        >
+          <Button className="text-white px-7 py-6 rounded-4xl font-bold mt-8 bg-deep-blue-gray hover:bg-deep-blue-gray">
             {buttonLabel}
-          </button>
+          </Button>
         </Link>
       </div>
     </div>

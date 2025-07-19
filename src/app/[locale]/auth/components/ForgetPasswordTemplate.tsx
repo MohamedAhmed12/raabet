@@ -35,7 +35,7 @@ export const ForgetPasswordTemplate = ({
 
     <div style="text-align: center; margin-top: 20px">
       <a
-        href="${process.env.BASE_URL}/auth/resetPassword?token=${token}"
+        href="${process.env.BASE_URL}/auth/reset-password?token=${token}"
         style="
           display: inline-block;
           background-color: #0d6efd;

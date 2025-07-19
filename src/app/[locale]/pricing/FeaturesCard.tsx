@@ -1,16 +1,28 @@
 import Image from "next/image";
 import { plans } from "../../../../public/data/plans";
+import { cn } from "@/lib/utils";
+import { useLocale } from "next-intl";
 
 export const FeaturesCard = () => {
+  const locale = useLocale();
+
   return (
-    <div className="hidden lg:flex flex-col min-w-[450px] w-[450px] border-l-1 border-deep-blue-gray bg-gray-100 font-noto-sans shadow-[8px_8px_0px_#1d1d28] rounded-bl-[20px]">
+    <div
+      className={cn(
+        "relative hidden lg:flex flex-col min-w-[450px] w-[450px] border-deep-blue-gray bg-gray-100 font-noto-sans",
+        locale === "ar"
+          ? "border-r-1 shadow-[-8px_8px_0px_#1d1d28] rounded-br-[20px]"
+          : "border-l-1 shadow-[8px_8px_0px_#1d1d28] rounded-bl-[20px]"
+      )}
+    >
       <Image
-        className="h-[400.9px] w-full bg-[#7ed0ff] bg-center bg-contain bg-no-repeat border-deep-blue-gray"
+        className="h-[402px]"
         style={{
-          backgroundImage:
-            'url("https://d1ym67wyom4bkd.cloudfront.net/assets/bundles/db9264c8bc4385992e0f73e2eb736dbc6cb1dfaf/graphics/pricing-graphic.png")',
+          backgroundImage: 'url("/images/plan-features-card.png")',
         }}
-        src="https://d1ym67wyom4bkd.cloudfront.net/assets/bundles/db9264c8bc4385992e0f73e2eb736dbc6cb1dfaf/graphics/pricing-graphic.png"
+        src="/images/plan-features-card.png"
+        height={410}
+        width={450}
         alt="pricing_bg"
       />
 
@@ -18,7 +30,10 @@ export const FeaturesCard = () => {
         <div key={section.title}>
           <div
             key={section.title}
-            className="flex items-center pl-8 h-[80px] space-y-3 border-y-1 border-deep-blue-gray last:border-0 text-2xl font-bold"
+            className={cn(
+              "flex items-center h-[80px] space-y-3 border-y-1 border-deep-blue-gray last:border-0 text-2xl font-bold",
+              locale === "ar" ? "pr-8" : "pl-8"
+            )}
           >
             {section.title}
           </div>
@@ -26,7 +41,10 @@ export const FeaturesCard = () => {
           {section.features.map((feature, i) => (
             <div
               key={i}
-              className="flex items-center pl-8 h-[64px] space-y-3 not-last:border-b-1 not-last:border-deep-blue-gray"
+              className={cn(
+                "flex items-center h-[64px] space-y-3 not-last:border-b-1 not-last:border-deep-blue-gray",
+                locale === "ar" ? "pr-8" : "pl-8"
+              )}
             >
               {feature.text}
             </div>

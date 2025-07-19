@@ -7,26 +7,60 @@
 generator client {
   provider = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl  = env("DIRECT_URL")
 }
 
 model User {  
-  id              String  @id @default(uuid())
-  fullname        String  @unique
-  email           String  @unique
-  password        String
-  avatar          String @default("/images/user-placeholder.png")
-  createdAt DateTime @default(now()) @db.Timestamp(3) // Database-specific type
-  links           Link[]
-  is_confirmed    Boolean  @default(false)
-  activationCodes ActivationCode[] // One-to-many relationship
-  passwordResetToken PasswordResetToken?
-  resetToken        String?  @unique
-  resetTokenExpires DateTime?
+  id                  String  @id @default(uuid())
+  fullname            String  @unique
+  email               String  @unique
+  password            String
+  avatar              String @default("/images/user-placeholder.png")
+  links               Link[]
+  is_confirmed        Boolean  @default(false)
+  activationCodes     ActivationCode[] // One-to-many relationship
+  passwordResetToken  PasswordResetToken?
+  resetToken          String?  @unique
+  resetTokenExpires   DateTime?
+  stripeCustomerId    String?  @unique
+  subscriptions  Subscription[]  // One-to-many relationship
+  newsletterSubscribers NewsletterSubscriber[]    // One-to-many relationship with NewsletterSubscriber
+}
+
+enum PaymentMethod {
+  stripe
+  manual
+}
+
+enum SubscriptionStatus {
+  active
+  pending
+  failed
+  canceled
+  trialing
+  none
+}
+
+model Subscription {
+  id                     String          @id @default(uuid())
+  userId                 String          @unique
+  status                 SubscriptionStatus @default(trialing)
+  paymentMethod          PaymentMethod
+  paymentScreenshot     String?         // For manual payments
+  amount                Float
+  expiresAt             DateTime?
+  stripeSessionId       String?         @unique
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+  user                  User            @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 model ActivationCode {
@@ -49,16 +83,20 @@ model PasswordResetToken {
 }
 
 model Link {
-  id                               String  @id @default(uuid())
+  id             String  @id @default(uuid())
   phone        String
   website      String
   instagram    String
   twitter      String
+  displayname  String
   bio          String
 
-  // Relationship 
-  blocks                           Block[]  // One-to-many relationship with Block
-  socials                          Social[]  // One-to-many relationship with social
+  // Relationships
+  blocks                           Block[]    // One-to-many relationship with Block
+  socials                          Social[]    // One-to-many relationship with social
+  qrcodes                          QRCode[]    // One-to-many relationship with QRCode
+  analytics                        Analytics[] // One-to-many relationship with Analytics
+  profileViews                     ProfileView[] // One-to-many relationship with ProfileView
   userName     String
   userId       String
   user         User   @relation(fields: [userId], references: [id]) // Reference `id` in User
@@ -80,7 +118,6 @@ model Link {
   card_styles_card_color           String
   card_styles_text_color           String
   card_styles_label_color          String
-  card_styles_label_text_color     String
   card_styles_card_corner          Float
   card_styles_card_border_width    Float
   card_styles_card_border_color    String
@@ -92,6 +129,10 @@ model Link {
   social_enable_share_btn          Boolean
   social_enable_search             Boolean
   social_enable_qr_code            Boolean
+  social_enable_hide_raabet_branding Boolean @default(false)
+  // social_enable_enable_verified_badge Boolean @default(false)
+  social_custom_logo               String   @default("")
+  social_custom_logo_size          Float   @default(0)
 }
 
 // Define the enum
@@ -106,34 +147,106 @@ enum BlockType {
   video
 }
 
+model QRCode {
+  id          String   @id @default(uuid())
+  type        QRType   // enum for URL or TEXT
+  url         String   @unique // Only for URL type
+  display_url String   @unique
+  views       Int      @default(0)
+  isMain      Boolean  @default(false)
+  link        Link     @relation(fields: [linkId], references: [id])
+  linkId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum QRType {
+  url
+  profile
+}
+
 model Block {
-  id                     String  @id @default(uuid())
-  style                  Int     @default(0)
+  id                     String      @id @default(uuid())
+  style                  Int         @default(0)
   type                   BlockType
-  title                  String  @default("")
-  description            String  @default("")
-  text                   String  @default("")
-  text_align             String  @default("left")
-  text_color             String  @default("")
-  animation              String  @default("none")
-  bg_image               String  @default("")
-  custom_text_color      String  @default("")             
+  title                  String      @default("")
+  description            String      @default("")
+  text_align             String      @default("left")
+  text_color             String      @default("")
+  animation              String      @default("none")
+  bg_image               String      @default("")
+  custom_text_color      String      @default("")             
   url                    String
   order                  Int
-  corner                 Int     @default(0) // Corner value (e.g., rounded corners) max value is 28px
-  layout                 String  @default("0") // it has to be string although it only have strings as value
+  corner                 Int         @default(0) // Corner value (e.g., rounded corners) max value is 28px
+  layout                 String      @default("0") // it has to be string although it only have strings as value
+  views                  Int      @default(0)
+  analytics Analytics[] @relation("BlockAnalytics", fields: [], references: [])
+
+  linkId                String
+  link                  Link        @relation(fields: [linkId], references: [id])
   
-  linkId                 String
-  link                   Link    @relation(fields: [linkId], references: [id]) // Linking Block to Link
+  created_at            DateTime    @default(now())
+  updated_at            DateTime    @updatedAt
+  
+  @@index([linkId])
 }
 
 model Social {
-  id      String @id @default(uuid())
-  icon    String
-  url     String
-  order   Int
-  label   String?
+  id        String      @id @default(uuid())
+  icon      String
+  url       String
+  order     Int
+  label     String?
   
-  linkId  String
-  link    Link   @relation(fields: [linkId], references: [id])
+  linkId    String
+  link      Link        @relation(fields: [linkId], references: [id])
+  
+  analytics Analytics[] @relation("SocialAnalytics", fields: [], references: [])
+
+  @@index([linkId])
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  subscribedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+
+  @@index([email])
+}
+
+model Analytics {
+  id          String   @id @default(uuid())
+  
+  // Relations to Block or Social
+  blockId     String?
+  block       Block?   @relation("BlockAnalytics", fields: [blockId], references: [id])
+  
+  socialId    String?
+  social      Social?  @relation("SocialAnalytics", fields: [socialId], references: [id])
+  
+  // Link reference
+  linkId      String
+  link        Link     @relation(fields: [linkId], references: [id])
+
+  
+  created_at  DateTime @default(now())
+
+  // Indexes for better query performance
+  @@index([blockId])
+  @@index([socialId])
+  @@index([created_at])
+  @@index([linkId])
+}
+
+model ProfileView {
+  id        String   @id @default(uuid())
+  linkId    String
+  link      Link     @relation(fields: [linkId], references: [id])
+
+  created_at DateTime @default(now())
+
+  @@index([linkId])
 }

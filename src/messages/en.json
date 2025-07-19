@@ -5,18 +5,36 @@
     "returnHome": "Return to Home Page",
     "something_went_wrong": "Something went wrong!"
   },
+  "VerifyErrors": {
+    "unauthorized": "Unauthorized",
+    "activation_code_required": "Activation code is required.",
+    "no_activation_code": "No activation code found.",
+    "invalid_activation_code": "Invalid activation code.",
+    "internal_server_error": "Internal server error"
+  },
   "Errors": {
     "username": "Username must be at least two characters."
   },
   "ActivationBanner": {
     "firstHalf": "To activate your profile, you need to",
-    "secondHalf": "in a plan.",
+    "secondHalf": "in a plan",
     "confirmed": "Confirmed",
-    "needConfirmation": "Pending confirmation"
+    "needConfirmation": "Pending confirmation",
+    "pending": "Your subscription is pending",
+    "paymentIssuesFirstHalf": "Your subscription has issues. Please update your"
+  },
+  "ShareBtn": {
+    "add": "Add",
+    "addContact": "Add contact",
+    "asContact": "as a contact",
+    "copyURL": "Copy Profile URL",
+    "copiedToClipboard": "Copied to Clipboard"
   },
   "Shared": {
+    "pricing": "Pricing",
+    "rabet": "Rabet",
     "email": "Email",
-    "subscribe": "Subscribe",
+    "subscribe": "subscribe",
     "username": "Username",
     "confirmed": "Confirmed",
     "needConfirmation": "Pending confirmation",
@@ -26,7 +44,98 @@
     "title": "Title",
     "text": "Text",
     "description": "Description",
-    "styling": "Styling"
+    "styling": "Styling",
+    "method": "method",
+    "payment": "payment",
+    "type": "Type",
+    "views": "Views",
+    "url": "URL",
+    "signup": "Sign Up",
+    "login": "Login",
+    "contactUs": "Contact Us",
+    "userNotFound": "User not found",
+    "processing": "Processing...",
+    "resetting": "Resetting...",
+    "reset": "Reset",
+    "passwordMinLimit": "Password must be at least 6 characters",
+    "and": "&"
+  },
+  "Auth": {
+    "sign": "Sign",
+    "in": "In",
+    "welcomeBack": "Welcome back! Sign in to your Rabet account",
+    "password": "Password",
+    "fullname": "Full Name",
+    "emailOrUsername": "Email or Username",
+    "emailOrUsernamePlaceholder": "Enter your email or username",
+    "forgotPassword": "Forgot your password?",
+    "passwordResetRequested": "Password Reset Requested",
+    "requestPasswordReset": "Request password reset",
+    "enterYourNewPassword": "Enter your new password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "reset": "reset",
+    "notYetAMember": "Not yet a member?",
+    "invalidCredentials": "Invalid email or password",
+    "somethingWentWrong": "Something went wrong. Please try again.",
+    "emailInvalid": "Invalid email",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "notMember": "Not yet a member?",
+    "alreadyHaveAcc": "Already have an account?",
+    "joining": "By joining, you agree to our",
+    "terms": "terms",
+    "privacy": "privacy policy",
+    "and": "and",
+    "join": "Join",
+    "okay": "Okay",
+    "resetPassword": "Reset Password",
+    "signUpDescription": "Over 10,000 artists, creators, business owners, and more use Liinks to centralize their online presence.",
+    "resetPasswordDescription": "Request an email to reset your account password",
+    "passwordResetRequestedDescription": " If an account is associated with this email or username, you will receive an email to reset your password.",
+    "verifyEmail": "Verify email",
+    "confirmEmail": "Confirm your email",
+    "codeSentTo": "We sent a code to",
+    "confirmYour": "Confirm your",
+    "email": "email",
+    "verifying": "Verifying...",
+    "confirm": "Confirm",
+    "verifyingButton": "Verifying...",
+    "confirmButton": "Confirm",
+    "activationSuccessful": "Activation was successful",
+    "activationEmailResent": "Activation email resent",
+    "errorPrefix": "❌",
+    "resendEmail": "Resend a new confirmation email",
+    "cantFindEmail": "Can't find the email?",
+    "enteredWrongEmail": "Entered the wrong email address?",
+    "changeEmail": "Change email"
+  },
+  "Pricing": {
+    "plans": "Plans",
+    "description": "Subscribe to Premium to give your link in bio superpowers, or choose to go Pro and supercharge your entire team.",
+    "mostPopular": "Most Popular",
+    "bestValue": "Best Value",
+    "premium": "Premium",
+    "general": "General",
+    "linkBlocks": "Link Blocks",
+    "specialBlocks": "Special Blocks",
+    "analytics": "Analytics",
+    "unlimitedBlocksAndSocials": "Unlimited blocks and socials",
+    "customRaabetURL": "Custom Raabet URL",
+    "verificationBadge": "Verification badge",
+    "shareButtonWithQRCode": "Share button with QR code + vCard",
+    "linkToURL": "Link to URL or Email",
+    "imageThumbnails": "Image thumbnails",
+    "customizeColors": "Customize colors, fonts, borders, etc...",
+    "animateBlocks": "Animate blocks to draw attention",
+    "audioVideoMedia": "Audio, Video and Media embed block",
+    "richTextBlock": "Rich text block",
+    "fileDownloadBlock": "File download block",
+    "totalPageViews": "Total page view & link click analytics",
+    "individualLinkAnalytics": "Individual link analytics",
+    "analyticsDateRange": "Analytics for all time or custom date range",
+    "seeAllFeatures": "See all features",
+    "pricePerMonth": "USD per month",
+    "freeTrial": "Try Free For 14 Days"
   },
   "LinksPage": {
     "title": "General Styles",
@@ -41,6 +150,7 @@
       "profilePictureBorder": "Profile Picture Border",
       "profilePictureBorderColor": "Profile Picture Border Color",
       "collapseLongBio": "Collapse Long Bio",
+      "collapseLongBioTooltip": "Collapse a long bio down to 3 lines when your profile is first loaded. Clicking on a collapsed bio will expand it.",
       "socialIconSize": "Social Icon Size"
     },
     "cardStyles": {
@@ -58,13 +168,42 @@
       "cardSpacing": "Card Spacing"
     },
     "generalStyles": {
+      "header": {
+        "title": "Header",
+        "description": "Configure your Profile Picture, Name and Bio. These settings will also be used as the image, title and description when you share your profile",
+        "uploading": "Uploading...",
+        "fields": {
+          "name": "Name",
+          "bio": "Bio"
+        }
+      },
       "linkBuilder": "Link Builder",
       "styles": "styles",
       "addSocial": "Add Social Media",
-      "addSeparator": "Add Separator",
-      "socials": "Social Media",
+      "socials": {
+        "title": "Social Media",
+        "description": "Link out to your various online profiles. Please paste the full URLs to your profiles.",
+        "addSeparator": "Add Separator"
+      },
       "addBlocks": "Add Blocks",
-      "blocks": "Blocks",
+      "blocks": {
+        "title": "Blocks",
+        "helperTooltip": {
+          "drag": "Drag the",
+          "toReorder": "to reorder blocks. Click a block to edit it."
+        },
+        "AudioBlock": {
+          "mediaUrl": "Media URL",
+          "mediaUrlPlaceholder": "Paste your media URL",
+          "validationMessage": "Invalid URL"
+        },
+        "errors": {
+          "sortingBlocks": "Something went wrong while sorting blocks!",
+          "textRequired": "Text is required",
+          "titleOrDescriptionRequired": "Please add a title and/or a description",
+          "bgImageRequired": "Image is required for this layout"
+        }
+      },
       "urlButton": "URL Button",
       "emailButton": "Email Button",
       "fileButton": "File Button",
@@ -92,8 +231,15 @@
           "image": "Image",
           "file": "File"
         },
+        "errors": {
+          "validUrlRequired": "Please insert valid URL to proceed",
+          "validEmailRequired": "Please insert valid email to proceed",
+          "validFileRequired": "Please upload a file to proceed",
+          "validThumbnailRequired": "Please upload a thumbnail to proceed"
+        },
         "layout": "Layout",
-        "uploadedFile": "Uploaded file: "
+        "uploadedFile": "Uploaded file: ",
+        "uploadedImage": "Uploaded image: "
       }
     }
   },
@@ -105,6 +251,48 @@
       "placeholder": "Your name",
       "submitText": "Update Name"
     }
+  },
+  "QR": {
+    "title": "QR Codes",
+    "subTitle": "Create unlimited dynamic QR codes and track their usage.",
+    "newQR": "Create QR Code",
+    "profileQRTitle": "Your profile QR Code",
+    "delete": "Delete",
+    "download": "Download",
+    "successDelete": "QR code deleted successfully",
+    "errorDelete": "Failed to delete QR code",
+    "urlLabel": "Website URL",
+    "createQRCode": "Create QR Code",
+    "profile": "Profile",
+    "url": "URL"
+  },
+  "Subscription": {
+    "paymentStatus": {
+      "failed": "Payment Failed",
+      "succeeded": "Payment Succeeded"
+    },
+    "tryAgainMsg": "Please try again later.",
+    "restricted": "You need an active subscription to access this content.",
+    "uploadInvoice": "upload the invoice",
+    "uploadInvoiceHelperTxt": "Please upload screenshot of the invoice here",
+    "InvoiceUploadedSuccessfully": "Invoice uploaded successfully",
+    "InvoiceUploadFailed": "Invoice upload failed"
+  },
+  "SocialsAndSharing": {
+    "sectionTitle": "Socials & Sharing",
+    "enableAddContact": "Enable Add Contact",
+    "enableShareButton": "Enable Share Button",
+    "clickForQRCode": "Click for QR Code",
+    "hideRaabetBranding": "Hide Raabet Branding",
+    "enableAddContactTooltip": "Enabling this will add a",
+    "enableAddContactTooltipAfter": "icon to the top right of your page which will allow users to easily save your contact info via the ",
+    "enableAddContactTooltipAfter2": " format. We will automatically generate your vCard using your profile picture, display name, email, phone number and any other links provided in the Socials field.",
+    "enableShareButtonTooltip": "Enabling this will add a",
+    "enableShareButtonTooltipAfter": "icon to the top left of your page which will allow users to easily share your profile via the vCard format.",
+    "clickForQRCodeTooltip": "With this enabled, you can click on your profile picture to bring up a QR code which links to your profile. Handy for sharing your profile with people you meet in person!",
+    "hideRaabetBrandingTooltip": "Hide the \"Made with raabet\" logo at the bottom of your profile. You can optionally upload your own logo.",
+    "settingsTab": "Settings tab",
+    "customLogo": "Custom Logo"
   },
   "Analytics": {
     "Metrics": {
@@ -120,16 +308,14 @@
         "title": "Social Clicks",
         "clicks": "Clicks",
         "url": "URL",
-        "type": "Type",
         "icon": "Icon"
       },
       "blockInteractions": {
         "title": "Block Interactions",
         "showHidden": "Show Hidden",
         "clicks": "Clicks",
-        "type": "Type",
         "name": "Name",
-        "views": "Views"
+        "added": "Added"
       }
     }
   },
@@ -146,16 +332,12 @@
       "settings": "Settings",
       "analytics": "Analytics",
       "subscribe": "Subscribe",
+      "qr": "QR Codes",
       "logout": "Logout"
     },
     "activateProfile": "Activate Profile",
     "tryFree": "Try Free",
     "14days": "For 14 Days"
-  },
-  "ShareBtn": {
-    "add": "Add",
-    "addContact": "Add Contact",
-    "asContact": "As Contact"
   },
   "Dropdowns": {
     "lastWeek": "Last Week",
@@ -171,5 +353,83 @@
     "jello": "Jello",
     "rubberBand": "Rubber Band",
     "animation": "Animation"
+  },
+  "Header": {
+    "home": "Home"
+  },
+  "Footer": {
+    "CentralizePresence": "Centralizing your online presence since 2022.",
+    "BuiltWith": "Built with ❤️ by",
+    "resources": "Resources",
+    "stayUpdated": "Stay up to date",
+    "subscribed": {
+      "thanks": "Thanks for subscribing!",
+      "updates": "Watch your inbox for product updates."
+    }
+  },
+  "BlockActions": {
+    "copyBlock": "Copy Block",
+    "edit": "Edit",
+    "schedule": "Schedule",
+    "delete": "Delete",
+    "copySuccess": "Block copied successfully",
+    "copyError": "Something went wrong while copying the block",
+    "deleteError": "Something went wrong while deleting the block",
+    "deleteConfirm": "Are you sure you want to delete this block?"
+  },
+  "HomePage": {
+    "CentralizePresence": {
+      "users": "Loved by 10,000+ users",
+      "Centralize": "Centralize your online",
+      "presence": "presence",
+      "Description": "Gather your socials, music, videos, and more on a beautiful link-in-bio page. Claim your name today!"
+    },
+    "AnimatedBar": {
+      "Prosbar": {
+        "block": "Powerful Block Builder",
+        "live": "Go Live in Minutes",
+        "Customizable": "Fully Customizable"
+      },
+      "review": {
+        "people": "What are people",
+        "saying": "saying",
+        "aboutUs": "about us?"
+      }
+    },
+    "WhyUs": {
+      "titleLabel": "Why choose",
+      "coloredLabel": "Rabet",
+      "mainLabel": "With our robust customization options and powerful block types, your profile will stand out from the noise. We're also more affordable than the competition, and a great choice for teams.",
+      "block": {
+        "1stCard": {
+          "title": "More customizable",
+          "label": "More options to design your page, and have it match your brand"
+        },
+        "2stCard": {
+          "title": "More powerful",
+          "label": "Greater variety of block layouts and more options for organization"
+        },
+        "3stCard": {
+          "title": "More affordable",
+          "label": "More affordable than most competing platforms"
+        },
+        "4stCard": {
+          "title": "Great for teams",
+          "label": "Easily manage multiple profiles with the plan"
+        }
+      }
+    },
+    "groubBlock": {
+      "titleLabel": "Group blocks into a",
+      "coloredLabel": "folder",
+      "mainLabel": "Use folders to group relevant blocks and keep your page feeling organized and fresh."
+    },
+    "TryNow": {
+      "tryRabet": "try Rabbet",
+      "now": "now"
+    },
+    "claim": "claim",
+    "getStarted": "Get Started",
+    "moreFeatures": "More Features"
   }
 }

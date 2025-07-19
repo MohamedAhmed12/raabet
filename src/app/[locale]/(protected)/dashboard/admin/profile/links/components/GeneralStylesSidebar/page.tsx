@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import CardStyles from "./components/CardStyles";
 import GeneralStyles from "./components/GeneralStyles";
 import HeaderStyles from "./components/HeaderStyles";
+import SocialsAndSharing from "./components/SocialsAndSharing";
 
 export default function GeneralStylesSidebar() {
   return (
@@ -19,6 +20,8 @@ export default function GeneralStylesSidebar() {
       <HeaderStyles />
       <Separator className="my-[22px]" />
       <CardStyles />
+      <Separator className="my-[22px]" />
+      <SocialsAndSharing/>
     </div>
   );
 }

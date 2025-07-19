@@ -8,17 +8,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
-
-const resetPasswordSchema = z.object({
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
-
-type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
+import { useTranslations } from "next-intl";
 
 export default function ResetPasswordForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
+  const t = useTranslations();
+  const resetPasswordSchema = z.object({
+    password: z.string().min(6, t("Shared.passwordMinLimit")),
+  });
+
+  type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
+
   const {
     register,
     handleSubmit,
@@ -29,6 +31,7 @@ export default function ResetPasswordForm({
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const token = searchParams.get("token");
@@ -56,11 +59,9 @@ export default function ResetPasswordForm({
   };
 
   return (
-    <div
-      className="flex flex-col items-center justify-center px-6 font-noto-sans w-7xl max-w-[650px]"
-    >
+    <div className="flex flex-col items-center justify-center px-6 font-noto-sans w-7xl max-w-[650px]">
       <div className="flex justify-center items-center w-full px-11 py-5">
-        <h2 className="text-[32px] text-center">Reset Password</h2>
+        <h2 className="text-[32px] text-center">{t("Auth.resetPassword")}</h2>
       </div>
       <div className="w-full p-[22px]">
         {error && <p className="text-red-500 text-center mb-3">{error}</p>}
@@ -71,10 +72,12 @@ export default function ResetPasswordForm({
           {...props}
         >
           <div className="flex flex-col space-y-2">
-            <label className="text-gray-700 text-sm">Password</label>
+            <label className="text-gray-700 text-sm">
+              {t("Auth.password")}
+            </label>
             <Input
               type="password"
-              placeholder="Enter your new password"
+              placeholder={t("Auth.enterYourNewPassword")}
               {...register("password")}
               required
               className="px-4 py-2 border rounded-md text-lg"
@@ -89,7 +92,7 @@ export default function ResetPasswordForm({
             className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 transition"
             disabled={loading}
           >
-            {loading ? "Resetting..." : "Reset"}
+            {loading ? t("Shared.resetting") : t("Shared.reset")}
           </Button>
         </form>
       </div>
