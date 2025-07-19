@@ -9,7 +9,7 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               Please read these Terms and Conditions (&quot;Terms&quot;, &quot;Terms and
-              Conditions&quot;) carefully before using the rabet.co website (the
+              Conditions&quot;) carefully before using the rabet-link.com website (the
               &quot;Service&quot;) operated by Rabet, LLC (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).
             </span>
             <span>
@@ -56,7 +56,7 @@ export default async function terms() {
               </ul>
             </span>
             <span className="font-bold text-xl">
-              Information Collected From liinks.co Website Visitors And Users
+              Information Collected From rabet-link.com Website Visitors And Users
             </span>
 
             <span>
@@ -109,7 +109,7 @@ export default async function terms() {
           </div>
           <div className="text-sm flex flex-col gap-4">
             <span>
-              In order for liinks.co to provide you with our Services, we work
+              In order for rabet-link.com to provide you with our Services, we work
               with third parties with whom we may share personal data to support
               these Services. Your personal data may be shared with third
               parties who provide hosting and server co-location services,
@@ -135,8 +135,8 @@ export default async function terms() {
               apply to third-party websites and services.
             </span>
             <span>
-              liinks.co remains responsible for the processing of personal data
-              carried out by Third Party Service Providers that liinks.co has
+              rabet-link.com remains responsible for the processing of personal data
+              carried out by Third Party Service Providers that rabet-link.com has
               engaged with for respective data processing in accordance with
               applicable laws.
             </span>
@@ -154,12 +154,12 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               We may retain your personal data for as long as your relationship
-              with us is active by having an liinks.co account, or as otherwise
+              with us is active by having an rabet-link.com account, or as otherwise
               needed to provide you our Services.
             </span>
             <span>
               After terminating your relationship with us by deleting your
-              liinks.co account or otherwise ceasing to use our Services, we may
+              rabet-link.com account or otherwise ceasing to use our Services, we may
               continue to store copies of your personal data as reasonably
               necessary to comply with our legal obligations, to resolve
               disputes between you and us, to prevent fraud and abuse, to
@@ -180,7 +180,7 @@ export default async function terms() {
             <span>
               You have the right to request access to your personal data and to
               correct, amend, delete, or limit the use of your personal data by
-              reaching us at hello@liinks.co. Furthermore, if you believe that
+              reaching us at support@rabet-link.com. Furthermore, if you believe that
               we have unlawfully processed your personal data, you have the
               right to submit a complaint to the contact information provided
               below, or to your respective data protection supervisory
@@ -200,13 +200,13 @@ export default async function terms() {
               therefore we cannot guarantee absolute security of information. We
               encourage you to take care of the personal data in your possession
               that you process online and set strong passwords for your
-              liinks.co account, limit access of your computer and browser by
+              rabet-link.com account, limit access of your computer and browser by
               signing off after you have finished your session, and avoid
               providing us with any sensitive information whose disclosure you
               believe could cause you substantial harm.
             </span>
             <span>
-              All of liinks.co&apos;s authorized personnel involved in the processing
+              All of rabet-link.com&apos;s authorized personnel involved in the processing
               of your and your Customer&apos;s personal data have committed
               themselves to confidentiality obligations and shall not access or
               otherwise process your personal data without your authorization if
@@ -245,7 +245,7 @@ export default async function terms() {
               If you have any questions about your personal data or this Privacy
               Policy, or if you would like to file a complaint about how we
               process your personal data, please contact us by email at
-              hello@rabet.co.
+              support@rabet-link.com.
             </span>
           </div>
         </div>

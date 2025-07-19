@@ -10,7 +10,7 @@ async function main() {
 
   const user = await prisma.user.create({
     data: {
-      email: "admin@rabet.com",
+      email: "support@rabet-link.com",
       password: hashedPassword, // Use hashed password in real applications
       fullname: "admin",
       is_confirmed: true,

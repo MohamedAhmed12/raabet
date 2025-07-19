@@ -141,7 +141,7 @@ export const Footer = () => {
           <NextLink
             className="flex justify-center items-center hover:transform hover:scale-110 text-deep-blue-gray bg-primary w-10 h-10 rounded-full"
             title="Email"
-            href="mailto:contact@rabet.co"
+            href="mailto:support@rabet-link.com"
           >
             <Mail />
           </NextLink>

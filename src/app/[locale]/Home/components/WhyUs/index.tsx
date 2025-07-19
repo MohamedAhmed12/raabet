@@ -8,7 +8,7 @@ export const WhyUs = () => {
   const locale = useLocale();
 
   return (
-    <div className="flex flex-col md:flex-row items-stretch w-full">
+    <div className="flex flex-col md:flex-row items-stretch w-full font-noto-sans">
       <ContentSection
         titleLabel={t("WhyUs.titleLabel")}
         coloredLabel={t("WhyUs.coloredLabel")}

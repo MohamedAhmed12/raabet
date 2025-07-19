@@ -22,8 +22,8 @@ export const plans: Plan[] = [
         title: "General",
         features: [
           { text: "Unlimited blocks and socials", value: true },
-          { text: "Custom Raabet URL", value: false },
-          // { text: "liinksAffiliate", value: false }, next release
+          { text: "Custom Rabet URL", value: false },
+          // { text: "RabetAffiliate", value: false }, next release
           // ticket for both
           { text: "Verification badge", value: true },
           { text: "Share button with QR code + vCard", value: true },
@@ -82,10 +82,10 @@ export const plans: Plan[] = [
   //       title: "General",
   //       features: [
   //         { text: "unlimitedBlocksAndSocials", value: true },
-  //         { text: "customLiinksUrl", value: false },
+  //         { text: "customRabetUrl", value: false },
   //         { text: "syncInstagramPosts", value: true },
   //         { text: "multiPageNavigation", value: true },
-  //         { text: "liinksAffiliate", value: false },
+  //         { text: "RabetAffiliate", value: false },
   //         { text: "verificationBadge", value: true },
   //       ],
   //     },
@@ -132,7 +132,7 @@ export const arPlans: Plan[] = [
         title: "عام",
         features: [
           { "text": "كتل وروابط اجتماعية غير محدودة", "value": true },
-          { "text": "رابط Raabet مخصص", "value": false },
+          { "text": "رابط Rabet مخصص", "value": false },
           { "text": "شارة التحقق", "value": true },
           { "text": "زر مشاركة مع رمز QR وبطاقة vCard", "value": true }
         ]

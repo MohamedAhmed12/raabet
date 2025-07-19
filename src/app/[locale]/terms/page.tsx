@@ -9,7 +9,7 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               Please read these Terms and Conditions (&quot;Terms&quot;, &quot;Terms and
-              Conditions&quot;) carefully before using the rabet.co website (the
+              Conditions&quot;) carefully before using the rabet-link.com website (the
               &quot;Service&quot;) operated by Rabet, LLC (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).
             </span>
             <span>
@@ -476,7 +476,7 @@ export default async function terms() {
           <div className="text-2xl mb-4">17. Contact Us</div>
           <div className="text-sm flex flex-col gap-4">
             <span>
-              If you have any questions about these Terms, please contact us by email at contact@rabet.co
+              If you have any questions about these Terms, please contact us by email at support@rabet-link.com
             </span>
           </div>
         </div>

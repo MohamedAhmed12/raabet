@@ -8,7 +8,7 @@ export const ForgetPasswordTemplate = ({
   <div style="text-align: center">
     <img
       src="https://your-logo-url.com/logo.png"
-      alt="Liinks Logo"
+      alt="Rabet Logo"
       width="50"
       style="margin-bottom: 15px"
     />
@@ -60,10 +60,10 @@ export const ForgetPasswordTemplate = ({
   >
     <img
       src="https://your-logo-url.com/logo.png"
-      alt="Liinks Logo"
+      alt="Rabet Logo"
       width="30"
     />
-    <p>© Liinks - All Rights Reserved</p>
+    <p>© Rabet - All Rights Reserved</p>
     <p>Charlie Clark, 335 Carroll St #5F, 11231, NY, USA</p>
     <p>
       <a

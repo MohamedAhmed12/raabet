@@ -7,7 +7,7 @@ export const EmailTemplate = ({
 }) => `
   <div style="background-color: #e3f2fd; padding: 40px; font-family: Arial, sans-serif;">
 <div style="text-align: center;">
-  <img src="https://your-logo-url.com/logo.png" alt="Liinks Logo" width="50" style="margin-bottom: 15px;"/>
+  <img src="https://your-logo-url.com/logo.png" alt="Rabet Logo" width="50" style="margin-bottom: 15px;"/>
 </div>
     <div style="max-width: 500px; background: #fff; padding: 30px; border-radius: 8px; margin: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
       <h1 style="color: #0d47a1;">Hi ${user}!</h1>
@@ -29,8 +29,8 @@ export const EmailTemplate = ({
     </div>
 
     <div style="margin-top: 20px; font-size: 12px; color: #888; text-align: center;">
-      <img src="https://your-logo-url.com/logo.png" alt="Liinks Logo" width="30"/>
-      <p>© Liinks - All Rights Reserved</p>
+      <img src="https://your-logo-url.com/logo.png" alt="Rabet Logo" width="30"/>
+      <p>© Rabet - All Rights Reserved</p>
       <p>Charlie Clark, 335 Carroll St #5F, 11231, NY, USA</p>
       <p>
         <a href="https://yourwebsite.com/faq" style="color: #0d47a1; text-decoration: none;">FAQ</a> | 

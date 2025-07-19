@@ -21,7 +21,7 @@ export async function newsletterSubscribe({
     if (!user) {
       // If no user ID was provided or user not found, use admin user
       user = await prisma.user.findUnique({
-        where: { email: "admin@rabet.com" },
+        where: { email: "support@rabet-link.com" },
       });
     }
 
