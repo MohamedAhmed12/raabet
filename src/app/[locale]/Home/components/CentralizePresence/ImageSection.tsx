@@ -17,7 +17,7 @@ export const ImageSection = () => {
         alt="Hero Image"
         className={cn(
           "w-full !relative",
-          "lg:!h-[87%] lg:!max-h-[40vw] lg:!absolute lg:!w-[92vh] lg:!left-1/2 lg:!top-1/2 lg:!-translate-x-1/2 lg:!-translate-y-1/2 !right-[unset] !bottom-[unset]"
+          "lg:!h-[87%] lg:!max-h-[40vw] lg:!absolute lg:!w-[90vh] lg:!left-1/2 lg:!top-1/2 lg:!-translate-x-1/2 lg:!-translate-y-1/2 !right-[unset] !bottom-[unset]"
         )}
       />
 

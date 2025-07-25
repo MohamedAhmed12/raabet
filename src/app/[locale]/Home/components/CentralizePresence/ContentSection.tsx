@@ -9,7 +9,7 @@ export const ContentSection = () => {
   const locale = useLocale();
 
   return (
-    <div className="w-full lg:w-1/2 flex flex-col justify-center items-center font-noto-sans text-center lg:text-left px-[7vw] min-h-[calc(100vh-220px)] lg:min-h-[calc(100vh-70px-72px)] py-13">
+    <div className="w-full lg:w-1/2 flex flex-col justify-center items-start font-noto-sans text-center lg:text-left px-[7vw] min-h-[calc(100vh-220px)] lg:min-h-[calc(100vh-70px-72px)] py-13">
       {/* Avatar & Star Rating */}
       <div className="w-full flex gap-3 place-content-center lg:place-content-start mb-6 lg:mb-2">
         <div className="flex -space-x-2">
@@ -56,8 +56,8 @@ export const ContentSection = () => {
       </h1>
 
       {/* Description & Input Field */}
-      <div className="lg:max-w-[470px] mt-8 mx-auto lg:mx-0">
-        <p className="text-lg lg:text-xl text-center lg:text-start font-base  text-gray-600 mb-6">
+      <div className="lg:max-w-[75%] mt-8 mx-auto lg:mx-0">
+        <p className="text-lg text-center lg:text-start font-base  text-gray-600 mb-6">
           {t("Description")}
         </p>
 

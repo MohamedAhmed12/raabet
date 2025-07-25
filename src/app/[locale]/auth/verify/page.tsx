@@ -45,7 +45,7 @@ export default function VerifyPage() {
         <div className="flex flex-1 flex-col">
           <div className="flex justify-center w-full gap-2 md:justify-start">
             <a
-              href="#"
+              href="\"
               className="flex items-center h-[70px] w-full pl-8 gap-2 font-medium"
               dir="ltr"
             >

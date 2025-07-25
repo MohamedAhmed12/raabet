@@ -14,7 +14,7 @@ export const Claim = () => {
         fontWeight={800}
         className="mx-4 text-[#1b97f5]"
       />
-      <span className="mr-[2px]">rabet-link.com/</span>
+      <span className="mr-[2px] min-w-max">rabet-link.com/</span>
       <Input
         type="text"
         placeholder="name"
