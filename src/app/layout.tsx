@@ -14,11 +14,31 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 const notoSans = localFont({
   src: [
-    { path: "../fonts/NotoSansDisplay-Regular.ttf", weight: "400", style: "normal" },
-    { path: "../fonts/NotoSansDisplay-Medium.ttf", weight: "500", style: "normal" },
-    { path: "../fonts/NotoSansDisplay-SemiBold.ttf", weight: "600", style: "normal" },
-    { path: "../fonts/NotoSansDisplay-Bold.ttf", weight: "700", style: "normal" },
-    { path: "../fonts/NotoSansDisplay-ExtraBold.ttf", weight: "800", style: "normal" },
+    {
+      path: "../fonts/NotoSansDisplay-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/NotoSansDisplay-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../fonts/NotoSansDisplay-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../fonts/NotoSansDisplay-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../fonts/NotoSansDisplay-ExtraBold.ttf",
+      weight: "800",
+      style: "normal",
+    },
   ],
   variable: "--font-noto-sans-display",
   display: "swap",
@@ -27,6 +47,12 @@ const notoSans = localFont({
 export const metadata: Metadata = {
   title: "Rabet",
   description: "Created by Gad",
+  icons: {
+    icon: [
+      "/svg/mainLogo.svg",
+      { url: "/svg/mainLogo.svg", media: "(prefers-color-scheme: dark)" },
+    ],
+  },
 };
 
 const messages: Record<string, any> = {
