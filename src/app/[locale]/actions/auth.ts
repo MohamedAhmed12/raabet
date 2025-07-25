@@ -19,7 +19,7 @@ export const signup = async ({
     const existingUser = await prisma?.user?.findUnique({ where: { email } });
 
     if (existingUser) {
-      return { error: "User already exists" };
+      return { ok: false, error: "User already exists" };
     }
 
     // Hash the password
@@ -44,9 +44,9 @@ export const signup = async ({
     // Start post-signup processes
     await postSignupProcess(user.id, fullname);
 
-    return { success: true };
+    return { ok: true, error: null };
   } catch (error) {
     console.error("Signup Error:", error);
-    return { error: "Something went wrong. Please try again." };
+    return { ok: false, error: "Something went wrong. Please try again." };
   }
 };
