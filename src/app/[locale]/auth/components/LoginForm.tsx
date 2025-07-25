@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useTranslations } from "next-intl";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -23,8 +25,10 @@ export const LoginForm = ({
   ...props
 }: React.ComponentPropsWithoutRef<"form">) => {
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const t = useTranslations();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -35,19 +39,24 @@ export const LoginForm = ({
 
   const onSubmit = async ({ email, password }: LoginFormData) => {
     try {
+      setError(null);
+      setIsLoading(true);
       const result = await signIn("credentials", {
         email: email,
         password: password,
-        redirect: true, // Prevent automatic redirection
-        callbackUrl: "/dashboard/admin",
+        redirect: false,
       });
 
-      if (result?.error) {
-        setError("Invalid email or password"); // Show custom error message
+      if (result?.ok) {
+        return router.replace("/dashboard/admin/profile/links");
       }
+
+      setError("Invalid email or password"); // Show custom error message
     } catch (err) {
       console.error(err);
       setError("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -75,6 +84,10 @@ export const LoginForm = ({
             placeholder={t("Shared.email")}
             {...register("email")}
             className={errors.email ? "border-red-500" : ""}
+            onChange={(e) => {
+              setError(null);
+              register("email").onChange(e);
+            }}
           />
           {errors.email && (
             <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -87,6 +100,10 @@ export const LoginForm = ({
             placeholder={t("Auth.password")}
             {...register("password")}
             className={errors.password ? "border-red-500" : ""}
+            onChange={(e) => {
+              setError(null);
+              register("password").onChange(e);
+            }}
           />
           {errors.password && (
             <p className="text-red-500 text-sm">{errors.password.message}</p>
@@ -102,7 +119,11 @@ export const LoginForm = ({
           type="submit"
           className="w-full bg-blue-400 hover:bg-blue-400 cursor-pointer"
         >
-          {t("Auth.signIn")}
+          {isLoading ? (
+            <Loader2 className="!w-6.5 !h-6.5 animate-spin" />
+          ) : (
+            t("Auth.signIn")
+          )}
         </Button>
       </div>
       <div className="inline-flex gap-1 justify-center text-xs mt-3">
