@@ -5,8 +5,14 @@ import { WhyUs } from "./components/WhyUs";
 import { PublicContainer } from "@/components/PublicContainer";
 
 export default function Home() {
+  const test = () => {
+    throw new Error("Test Sentry 22Break");
+  };
   return (
     <PublicContainer>
+      <button onClick={() => test()}>
+        aaa
+      </button>
       <CentralizePresence />
       <AnimatedBar />
       <WhyUs />
