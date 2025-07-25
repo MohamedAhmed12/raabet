@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -29,6 +30,7 @@ export default function SignUpForm({
   const [error, setError] = useState<string | null>(null);
 
   const t = useTranslations();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -38,22 +40,32 @@ export default function SignUpForm({
   });
 
   const onSubmit = async (data: SignupFormData) => {
-    setIsLoading(true);
-    setError(null);
+    try {
+      setIsLoading(true);
+      setError(null);
+      console.error("console error test");
+      console.debug("console debug test");
 
-    const result = await signup(data);
+      const signUpResult = await signup(data);
 
-    if (result?.error) {
-      setError(result.error);
-    } else {
-      await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: true, // Prevent automatic redirection
-        callbackUrl: "/dashboard",
-      });
+      if (signUpResult?.ok) {
+        const logInResult = await signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          redirect: false,
+        });
+        if (logInResult?.ok) {
+          return router.replace("/dashboard/admin/profile/links");
+        }
+      }
+
+      setError(signUpResult?.error);
+    } catch (error) {
+      console.error(error);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
