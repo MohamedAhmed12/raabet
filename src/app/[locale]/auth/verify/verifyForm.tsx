@@ -132,8 +132,8 @@ export default function VerifyForm({
       )}
 
       {/* Support Links */}
-      <div className="text-center text-sm">
-        <div className="inline-flex mb-4 gap-1">
+      <div className="flex flex-col gap-2 items-center text-sm">
+        <div className="inline-flex gap-1">
           <span> {t("Auth.cantFindEmail")}</span>
           <Link
             href=""

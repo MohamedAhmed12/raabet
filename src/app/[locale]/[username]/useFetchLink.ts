@@ -34,12 +34,12 @@ const useFetchLink = ({
           hasFetchedRef.current = true; // Mark as fetched
         } else {
           const e = `No link attached to this userId`;
-          console.debug(e);
+          console.error(e);
           setError(e);
         }
       } catch (err) {
         setError("Failed to fetch data");
-        console.debug(err);
+        console.error(err);
       } finally {
         setIsLoading(false);
       }

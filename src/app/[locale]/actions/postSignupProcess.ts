@@ -1,4 +1,5 @@
 import { createTrackedQRcodeURL } from "@/lib/createTrackedQRcodeURL";
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 
 export const postSignupProcess = async (userId: string, fullname: string) => {
@@ -88,7 +89,12 @@ export const createQRCode = async (url: string, linkId: string) => {
     });
     return qrCode;
   } catch (error) {
-    console.error("Failed to create QR code:", error);
+    logError(error, {
+      action: "postSignupProcess/createQRCode",
+      url,
+      linkId,
+      errorType: error instanceof Error ? error.constructor.name : "UnknownError"
+    });
     throw error;
   }
 };

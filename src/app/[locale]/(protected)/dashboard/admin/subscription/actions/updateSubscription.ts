@@ -1,5 +1,6 @@
 "use server";
 
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 
 export async function updateSubscription(
@@ -10,7 +11,6 @@ export async function updateSubscription(
   }
 ) {
   try {
-    console.log("stripePaymentStatus", data.stripePaymentStatus);
     // Find the user associated with this customer ID
     const user = await prisma.user.findFirst({
       where: {
@@ -20,11 +20,17 @@ export async function updateSubscription(
     });
 
     if (!user) {
-      throw new Error("User not found for customer");
+      const err = `User not found for customer`;
+      logError(`${err}: ${customerId}`, {
+        action: "updateSubscription",
+        errorType: "ValidationError",
+      });
+      throw new Error(err);
     }
 
-    const subscriptionStatus = data?.stripePaymentStatus === "paid" ? "active" : "failed";
-   
+    const subscriptionStatus =
+      data?.stripePaymentStatus === "paid" ? "active" : "failed";
+
     // Use upsert to create or update the subscription
     const subscription = await prisma.subscription.upsert({
       where: { userId: user.id },
@@ -46,7 +52,11 @@ export async function updateSubscription(
 
     return subscription;
   } catch (error) {
-    console.error("Failed to update subscription:", error);
+    const err = `Failed to update subscription: ${error}`;
+    logError(err, {
+      action: "updateSubscription",
+      errorType: "ValidationError",
+    });
     throw error;
   }
 }

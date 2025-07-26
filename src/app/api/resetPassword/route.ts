@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
+import { logError } from "@/lib/errorHandling";
+import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import prisma from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -13,19 +14,23 @@ export async function POST(req: Request) {
     // Ensure JWT secret is available
     const secret = process.env.JWT_SECRET;
     if (!secret) {
-      console.error("Server error: JWT secret is not set");
-      return NextResponse.json(
-        { message: "Server error: JWT secret is not set" },
-        { status: 500 }
-      );
+      const message = `Server error: JWT secret is not set`;
+      logError(message, {
+        action: "resetPassword",
+        errorType: "ValidationError",
+      });
+      return NextResponse.json({ message }, { status: 500 });
     }
-
 
     let decoded;
     try {
       decoded = jwt.verify(token, secret) as jwt.JwtPayload;
     } catch (error) {
-      console.error("JWT verification failed:", error);
+      const err = `JWT verification failed: ${error}`;
+      logError(err, {
+        action: "resetPassword",
+        errorType: "ValidationError",
+      });
       return NextResponse.json(
         { message: "Invalid or expired token" },
         { status: 401 }
@@ -77,7 +82,11 @@ export async function POST(req: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error in password reset:", error);
+    const err = `Error in password reset: ${error}`;
+    logError(err, {
+      action: "resetPassword",
+      errorType: "ValidationError",
+    });
     return NextResponse.json(
       { message: "Something went wrong", error: error },
       { status: 500 }

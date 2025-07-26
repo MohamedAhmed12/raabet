@@ -1,5 +1,6 @@
 "use server";
 
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 
 export async function fetchSingleLink({
@@ -33,8 +34,13 @@ export async function fetchSingleLink({
       },
     });
   } catch (error) {
-    console.error(error);
-    return error;
+    logError(error, {
+      action: "fetchSingleLink",
+      errorType: error instanceof Error ? error.constructor.name : "DatabaseError",
+      userId: userId || "undefined",
+      username: username || "undefined",
+    });
+    throw error;
   } finally {
     await prisma.$disconnect();
   }

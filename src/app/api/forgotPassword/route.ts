@@ -1,9 +1,10 @@
 import { sendEmail } from "@/app/[locale]/auth/components/emailService";
 import { ForgetPasswordTemplate } from "@/app/[locale]/auth/components/ForgetPasswordTemplate";
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
+import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import jwt from "jsonwebtoken";
 
 // Zod Schema for validation
 const forgotPasswordSchema = z.object({
@@ -63,7 +64,11 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "Reset email sent" }, { status: 200 });
   } catch (error) {
-    console.error(1123213213, error);
+    const err = `Failed to send reset password email: ${error}`;
+    logError(err, {
+      action: "forgotPassword",
+      errorType: "ValidationError",
+    });
     return NextResponse.json({ error });
   }
 }

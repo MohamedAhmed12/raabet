@@ -1,5 +1,6 @@
 "use server";
 
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 import { SubscriptionStatus } from "@prisma/client";
 import { NextResponse } from "next/server";
@@ -52,12 +53,18 @@ export async function POST(request: Request) {
         await handlePaymentSucceeded(event);
         break;
       default:
-        console.error(`Unhandled event type ${event.type}`);
+        logError(`Unhandled event type ${event.type}`, {
+          action: "stripeWebhook/event/handling",
+          errorType: "ValidationError",
+        });
     }
 
     return NextResponse.json({ received: true });
   } catch (err: any) {
-    console.error("Webhook Error:", err.message);
+    logError(`Webhook Error: ${err.message}`, {
+      action: "stripeWebhook/POST",
+      errorType: "ValidationError",
+    });
     return NextResponse.json({ error: "Webhook Error" }, { status: 400 });
   }
 }
@@ -76,7 +83,12 @@ async function updateSubscriptionInDatabase(
     });
 
     if (!user) {
-      throw new Error("User not found for customer");
+      const err = "User not found for customer";
+      logError(`${err}: ${customerId}`, {
+        action: "updateSubscriptionInDatabase",
+        errorType: "ValidationError",
+      });
+      throw new Error(err);
     }
 
     // Extract subscription details based on type
@@ -114,7 +126,10 @@ async function updateSubscriptionInDatabase(
       },
     });
   } catch (error) {
-    console.error("Error updating subscription in database:", error);
+    logError(`Error updating subscription in database: ${error}`, {
+      action: "updateSubscriptionInDatabase",
+      errorType: "ValidationError",
+    });
     throw error;
   }
 }
@@ -154,7 +169,10 @@ async function handleSubscriptionUpdated(event: Stripe.Event) {
       subscriptionStatus
     );
   } catch (error) {
-    console.error("Error handling subscription updated:", error);
+    logError(`Error handling subscription updated: ${error}`, {
+      action: "handleSubscriptionUpdated",
+      errorType: "ValidationError",
+    });
     throw error;
   }
 }
@@ -166,7 +184,10 @@ async function handleSubscriptionDeleted(event: Stripe.Event) {
   try {
     await updateSubscriptionInDatabase(customerId, subscription, "canceled");
   } catch (error) {
-    console.error("Error handling subscription deleted:", error);
+    logError(`Error handling subscription deleted: ${error}`, {
+      action: "handleSubscriptionDeleted",
+      errorType: "ValidationError",
+    });
     throw error;
   }
 }
@@ -178,7 +199,10 @@ async function handlePaymentSucceeded(event: Stripe.Event) {
   try {
     await updateSubscriptionInDatabase(customerId, invoice, "active");
   } catch (error) {
-    console.error("Error handling payment succeeded:", error);
+    logError(`Error handling payment succeeded: ${error}`, {
+      action: "handlePaymentSucceeded",
+      errorType: "ValidationError",
+    });
     throw error;
   }
 }
@@ -195,7 +219,12 @@ async function handlePaymentFailed(event: Stripe.Event) {
     });
 
     if (!user) {
-      throw new Error("User not found for customer");
+      const err = "User not found for customer";
+      logError(`${err}: ${customerId}`, {
+        action: "handlePaymentFailed",
+        errorType: "ValidationError",
+      });
+      throw new Error(err);
     }
 
     // Update subscription status to failed
@@ -219,7 +248,10 @@ async function handlePaymentFailed(event: Stripe.Event) {
       },
     });
   } catch (error) {
-    console.error("Error handling payment failed:", error);
+    logError(`Error handling payment failed: ${error}`, {
+      action: "handlePaymentFailed",
+      errorType: "ValidationError",
+    });
     throw error;
   }
 }

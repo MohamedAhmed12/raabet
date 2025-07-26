@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { logError } from "@/lib/errorHandling";
 
 export const getQRCodeList = async ({ linkId }: { linkId: string }) => {
   try {
@@ -17,7 +18,12 @@ export const getQRCodeList = async ({ linkId }: { linkId: string }) => {
 
     return qrcodes;
   } catch (error) {
-    console.error("Failed to fetch QR codes:", error);
-    throw new Error(`Failed to fetch QR codes: ${error}`);
+    const err = `Failed to fetch QR codes: ${error}`;
+    logError(err, {
+      action: "getQRCodeList",
+      errorType: "ValidationError",
+      linkId,
+    });
+    throw new Error(err);
   }
 };

@@ -1,5 +1,6 @@
 "use server";
 
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 
 type ListAnalyticsParams = {
@@ -13,8 +14,15 @@ export async function listProfileViews({ linkId }: ListAnalyticsParams) {
         linkId,
       },
     });
-  } catch (error) {
-    console.error("Error fetching analytics:", error);
-    throw error;
+  } catch (error: unknown) {
+    logError(error, {
+      action: "listProfileViews",
+      errorType: error instanceof Error ? error.constructor.name : "UnknownError",
+      linkId,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Re-throw with a user-friendly message
+    throw new Error("Failed to fetch profile views. Please try again later.");
   }
 }

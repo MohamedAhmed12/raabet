@@ -1,5 +1,6 @@
 "use server";
 
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 
 export const updateUser = async (
@@ -15,7 +16,11 @@ export const updateUser = async (
 
     return updatedUser;
   } catch (error) {
-    console.error("Failed to update user field:", error);
+    const err = `Failed to update user field:${error}`;
+    logError(err, {
+      action: "updateUser",
+      errorType: "ValidationError",
+    });
     return error;
   }
 };

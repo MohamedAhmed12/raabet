@@ -4,12 +4,21 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { CustomServerSession } from "@/app/[locale]/types/custom-session";
+import { logError } from "@/lib/errorHandling";
 
 export async function uploadScreenshot(invoiceURL: string) {
-  const session: CustomServerSession | null = await getServerSession(authOptions);
+  const session: CustomServerSession | null = await getServerSession(
+    authOptions
+  );
 
   if (!session?.user?.email) {
-    throw new Error("Not authenticated");
+    const err = `Not authenticated`;
+    logError(err, {
+      action: "uploadScreenshot",
+      errorType: "ValidationError",
+      email: session?.user?.email,
+    });
+    throw new Error(err);
   }
 
   const userId = session.user.id.id;

@@ -1,7 +1,8 @@
 "use server";
 
-import {iconNameType} from "@/assets/icons";
+import { iconNameType } from "@/assets/icons";
 import prisma from "@/lib/prisma";
+import { logError } from "@/lib/errorHandling";
 
 export async function createSocial({
   linkId,
@@ -12,8 +13,8 @@ export async function createSocial({
 }) {
   try {
     const lastItem = await prisma.social.findFirst({
-      where: {linkId},
-      orderBy: {order: "desc"},
+      where: { linkId },
+      orderBy: { order: "desc" },
     });
 
     const order = lastItem ? lastItem.order + 1 : 0;
@@ -28,13 +29,17 @@ export async function createSocial({
     });
 
     const socials = await prisma.social.findMany({
-      where: {linkId},
-      orderBy: {order: "asc"},
+      where: { linkId },
+      orderBy: { order: "asc" },
     });
 
-    return {success: true, socials};
+    return { success: true, socials };
   } catch (error) {
-    console.error(error);
-    return {success: false, error: "Database error"};
+    logError(`Error creating social:${error}`, {
+      action: "createSocial",
+      errorType: "ValidationError",
+      linkId,
+    });
+    return { success: false, error: "Database error" };
   }
 }

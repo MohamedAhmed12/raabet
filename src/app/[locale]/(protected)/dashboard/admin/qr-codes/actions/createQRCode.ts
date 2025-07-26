@@ -3,6 +3,7 @@
 import { createTrackedQRcodeURL } from "@/lib/createTrackedQRcodeURL";
 import prisma from "@/lib/prisma";
 import { QRType } from "@prisma/client";
+import { logError } from "@/lib/errorHandling";
 
 export async function createQRCode(url: string, linkId: string) {
   try {
@@ -12,9 +13,16 @@ export async function createQRCode(url: string, linkId: string) {
     });
 
     if (existingQRCode) {
+      const err = `QR code with this URL already exists`;
+      logError(err, {
+        action: "createQRCode",
+        errorType: "ValidationError",
+        type: "duplicate",
+        existingQRCode,
+      });
       throw new Error(
         JSON.stringify({
-          message: "QR code with this URL already exists",
+          message: err,
           type: "duplicate",
           existingQRCode,
         })
@@ -32,7 +40,11 @@ export async function createQRCode(url: string, linkId: string) {
 
     return qrCode;
   } catch (error) {
-    console.error("Failed to create QR code:", error);
+    const err = `Failed to create QR code:${error}`;
+    logError(err, {
+      action: "createQRCode",
+      errorType: "ValidationError",
+    });
     throw error;
   }
 }

@@ -1,5 +1,6 @@
 "use server";
 
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 
 export async function incrementViews(linkId: string) {
@@ -17,7 +18,13 @@ export async function incrementViews(linkId: string) {
       data: { views: { increment: 1 } },
     });
   } catch (error) {
-    console.error("Failed to record profile view:", error);
-    throw error;
+    logError(error, {
+      action: "profile/incrementViews",
+      linkId,
+      errorType:
+        error instanceof Error ? error.constructor.name : "UnknownError",
+    });
+
+    throw new Error("Failed to record view. Please try again.");
   }
 }

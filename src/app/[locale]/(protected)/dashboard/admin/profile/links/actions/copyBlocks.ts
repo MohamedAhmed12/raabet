@@ -1,10 +1,10 @@
 "use server";
 
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 import { Block } from "@prisma/client";
 
 export async function copyBlock(data: Block) {
-  
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { linkId, id, ...dataToCopy } = data;
 
@@ -23,7 +23,11 @@ export async function copyBlock(data: Block) {
       },
     });
   } catch (error) {
-    console.error("Error copying block:", error);
+    const err = `Error copying block:${error}`;
+    logError(err, {
+      action: "copyBlock",
+      errorType: "ValidationError",
+    });
     throw error;
   }
 }

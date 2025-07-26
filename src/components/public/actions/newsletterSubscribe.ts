@@ -1,5 +1,6 @@
 "use server";
 
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 
 export async function newsletterSubscribe({
@@ -49,7 +50,17 @@ export async function newsletterSubscribe({
 
     return { success: true, message: "Successfully subscribed" };
   } catch (error) {
-    console.error("Subscription error:", error);
-    throw error;
+    logError(error, {
+      action: "newsletter/subscribe",
+      email,
+      userId: userId || "unknown",
+      errorType:
+        error instanceof Error ? error.constructor.name : "UnknownError",
+    });
+
+    // Re-throw with a user-friendly message
+    throw new Error(
+      "Failed to process your subscription. Please try again later."
+    );
   }
 }

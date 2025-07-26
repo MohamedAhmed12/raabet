@@ -4,6 +4,7 @@ import { createAndSendActivation } from "@/lib/activation";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { postSignupProcess } from "./postSignupProcess";
+import { logError } from "@/lib/errorHandling";
 
 export const signup = async ({
   fullname,
@@ -21,7 +22,6 @@ export const signup = async ({
     if (existingUser) {
       return { ok: false, error: "User already exists" };
     }
-
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -46,7 +46,13 @@ export const signup = async ({
 
     return { ok: true, error: null };
   } catch (error) {
-    console.error("Signup Error:", error);
+    logError(error, {
+      action: "auth/signup",
+      email,
+      fullname,
+      errorType:
+        error instanceof Error ? error.constructor.name : "UnknownError",
+    });
     return { ok: false, error: "Something went wrong. Please try again." };
   }
 };

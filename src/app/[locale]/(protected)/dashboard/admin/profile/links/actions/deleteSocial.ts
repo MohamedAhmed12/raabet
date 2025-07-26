@@ -1,6 +1,7 @@
-'use server';
+"use server";
 
-import prisma from '@/lib/prisma';
+import prisma from "@/lib/prisma";
+import { logError } from "@/lib/errorHandling";
 
 export async function deleteSocial(id: string, linkId: string) {
   try {
@@ -18,7 +19,12 @@ export async function deleteSocial(id: string, linkId: string) {
 
     return { success: true, socials: updatedSocials };
   } catch (error: any) {
-    console.error('error in item Deletion:', error.message || error);
+    const err = `Error deleting social:${error.message || error}`;
+    logError(err, {
+      action: "deleteSocial",
+      errorType: "ValidationError",
+      id,
+    });
     return { success: false, error: error.message || 'Unknown error' };
   }
 }

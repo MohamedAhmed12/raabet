@@ -1,5 +1,6 @@
 "use server";
 
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 import { generateVCard } from "../helpers/generateVCard";
 
@@ -17,7 +18,13 @@ export async function generateVCardAction(fullname: string) {
 
     // If user is not found, throw an error
     if (!user) {
-      throw new Error(`Could not find user with name: ${fullname}`);
+      const err = `Could not find user with name: ${fullname}`;
+      logError(err, {
+        action: "generateVCardAction",
+        fullname,
+        errorType: "ValidationError"
+      });
+      throw new Error(err);
     }
 
     // Generate vCard content from user data
@@ -25,13 +32,25 @@ export async function generateVCardAction(fullname: string) {
 
     // If vCard content could not be generated, throw an error
     if (!vCard) {
-      throw new Error(`Could not generate vCard for user: ${fullname}`);
+      const err = `Could not generate vCard for user: ${fullname}`;
+      logError(err, {
+        action: "generateVCardAction",
+        fullname,
+        errorType: "ValidationError"
+      });
+      throw new Error(err);
     }
 
     // Return the vCard file as a downloadable response
     return new Blob([vCard], { type: "text/vcard" });
   } catch (error) {
-    console.error({ tag: "generate_vcard", error });
+    logError(error, {
+      action: "generateVCardAction",
+      fullname,
+      errorType: error instanceof Error ? error.constructor.name : "UnknownError"
+    });
+    
+    // Return null to handle the error gracefully in the UI
     return null;
   } finally {
     await prisma.$disconnect();

@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { Block } from "@prisma/client";
+import { logError } from "@/lib/errorHandling";
 
 export async function updateBlock(data: Block) {
   if (!data) throw new Error("No data provided");
@@ -12,7 +13,12 @@ export async function updateBlock(data: Block) {
       data,
     });
   } catch (error) {
-    console.error("Error while updating block:", error);
+    const err = `Error while updating block:${error}`;
+    logError(err, {
+      action: "updateBlock",
+      errorType: "ValidationError",
+      id: data.id,
+    });
     throw error;
   }
 }

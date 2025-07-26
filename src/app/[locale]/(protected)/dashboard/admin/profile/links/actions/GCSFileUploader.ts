@@ -1,6 +1,7 @@
 "use server";
 
 import { Storage } from "@google-cloud/storage";
+import { logError } from "@/lib/errorHandling";
 
 const storage = new Storage({
   projectId: process.env.GCP_PROJECT_ID,
@@ -19,7 +20,14 @@ const bucket = storage.bucket(bucketName);
 
 export async function GCSFileUploader(fileName: string, contentType: string) {
   if (!fileName || !contentType) {
-    throw new Error("Missing parameters");
+    const error = new Error("Missing required parameters");
+    logError(error, {
+      action: "GCSFileUploader",
+      errorType: "ValidationError",
+      fileName: fileName || "undefined",
+      contentType: contentType || "undefined"
+    });
+    throw error
   }
 
   try {
@@ -31,7 +39,13 @@ export async function GCSFileUploader(fileName: string, contentType: string) {
     });
     return url;
   } catch (error) {
-    console.error("Failed to generate presigned URL:", error);
-    throw error;
+    logError(error, {
+      action: "GCSFileUploader/generatePresignedUrl",
+      errorType: error instanceof Error ? error.constructor.name : "UnknownError",
+      fileName: fileName || "undefined",
+      contentType: contentType || "undefined"
+    });
+    
+    throw new Error("Failed to generate upload URL. Please try again.");
   }
 }

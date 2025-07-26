@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { logError } from "@/lib/errorHandling";
 
 export async function createSeparator(linkId: string) {
   try {
@@ -25,7 +26,12 @@ export async function createSeparator(linkId: string) {
 
     return { success: true, separator };
   } catch (error: any) {
-    console.error("createSeparator error:", error.message || error);
+    const err = `Error creating separator:${error.message || error}`;
+    logError(err, {
+      action: "createSeparator",
+      errorType: "ValidationError",
+      linkId,
+    });
     return { success: false, error: error.message || "Unknown error" };
   }
 }

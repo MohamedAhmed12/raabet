@@ -4,6 +4,7 @@ import Stripe from "stripe";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import prisma from "@/lib/prisma";
+import { logError } from "@/lib/errorHandling";
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!);
 
@@ -11,7 +12,12 @@ export async function createStripeCustomerSession() {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
-    throw new Error("Unauthorized");
+    const err = `Unauthorized`;
+    logError(err, {
+      action: "createStripeCustomerSession",
+      errorType: "ValidationError",
+    });
+    throw new Error(err);
   }
 
   // Fetch user and their subscription from DB
@@ -21,7 +27,12 @@ export async function createStripeCustomerSession() {
   });
 
   if (!user) {
-    throw new Error("User not found");
+    const err = `User not found`;
+    logError(err, {
+      action: "createStripeCustomerSession",
+      errorType: "ValidationError",
+    });
+    throw new Error(err);
   }
 
   // Get the user's stripeCustomerId
@@ -45,7 +56,12 @@ export async function createStripeCustomerSession() {
 
       stripeCustomerId = customer.id;
     } catch (error) {
-      throw new Error("Create stripe customer failed22222:" + error);
+      const err = `Create stripe customer failed:${error}`;
+      logError(err, {
+        action: "createStripeCustomerSession",
+        errorType: "ValidationError",
+      });
+      throw new Error(err);
     }
   }
 

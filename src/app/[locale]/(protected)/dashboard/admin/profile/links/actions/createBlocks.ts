@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { Block } from "@prisma/client";
+import { logError } from "@/lib/errorHandling";
 
 export async function createBlock(data: Block) {
   if (!data) throw new Error("No data provided");
@@ -21,7 +22,12 @@ export async function createBlock(data: Block) {
       },
     });
   } catch (error) {
-    console.error("Error creating new block:", error);
+    const err = `Error creating new block:${error}`;
+    logError(err, {
+      action: "createBlock",
+      errorType: "ValidationError",
+      linkId,
+    });
     throw error;
   }
 }

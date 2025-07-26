@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { logError } from "@/lib/errorHandling";
 
 export const deleteQRCode = async (id: string) => {
   try {
@@ -8,7 +9,12 @@ export const deleteQRCode = async (id: string) => {
       where: { id },
     });
   } catch (error) {
-    console.error("Failed to delete QR code:", error);
+    const err = `Failed to delete QR code:${error}`;
+    logError(err, {
+      action: "deleteQRCode",
+      errorType: "ValidationError",
+      id,
+    });
     throw error;
   }
 };

@@ -1,3 +1,4 @@
+import { logError } from "@/lib/errorHandling";
 import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
@@ -6,11 +7,13 @@ import SMTPTransport from "nodemailer/lib/smtp-transport";
 const transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
   port: Number(process.env.MAIL_PORT), // Convert port to number
-  secure: process.env.NODE_ENV !== "development",
+  secure: true,
   auth: {
     user: process.env.MAIL_USER,
     pass: process.env.MAIL_PASS,
   },
+  greetingTimeout: 20000,
+  connectionTimeout: 30000,
 } as SMTPTransport.Options);
 
 // Function to send email
@@ -18,12 +21,12 @@ export const sendEmail = async ({
   from,
   to,
   subject,
-  html
+  html,
 }: {
   from: string;
   to: string;
   subject: string;
-  html:string;
+  html: string;
 }) => {
   try {
     // Generate email HTML using the EmailTemplate component
@@ -39,7 +42,14 @@ export const sendEmail = async ({
     const info = await transporter.sendMail(mailOptions);
     return info;
   } catch (error) {
-    console.error("Failed to send activation email:", error);
+    logError(error, {
+      action: "sendEmail",
+      errorType:
+        error instanceof Error ? error.constructor.name : "UnknownError",
+      from,
+      to,
+      subject,
+    });
     throw error;
   }
 };

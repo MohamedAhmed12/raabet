@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { logError } from "@/lib/errorHandling";
 
 interface BlockProps {
   id?: string;
@@ -26,7 +27,11 @@ export async function orderBlocks(data: BlockProps[]) {
 
     return res;
   } catch (error) {
-    console.error("Error ordering blocks:", error);
+    const err = `Error ordering blocks:${error}`;
+    logError(err, {
+      action: "orderBlocks",
+      errorType: "ValidationError",
+    });
     throw error;
   }
 }

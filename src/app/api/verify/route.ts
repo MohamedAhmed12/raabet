@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma"; // Import Prisma instance
 
 import en from "@/messages/en.json";
 import ar from "@/messages/ar.json";
+import { logError } from "@/lib/errorHandling";
 
 // Helper to get locale from request (cookie, header, or fallback)
 function getLocale(req: NextRequest): "en" | "ar" {
@@ -27,6 +28,10 @@ export async function POST(req: NextRequest) {
     // Get session email
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
+      logError(`User not authenticated`, {
+        action: "verifyAccount",
+        errorType: "ValidationError",
+      });
       return NextResponse.json({ error: t("unauthorized") }, { status: 401 });
     }
     const email = session.user.email;
@@ -34,6 +39,10 @@ export async function POST(req: NextRequest) {
     // Extract code from request
     const { code } = await req.json();
     if (!code) {
+      logError(`Activation code is required`, {
+        action: "verifyAccount",
+        errorType: "ValidationError",
+      });
       return NextResponse.json({ error: t("activation_code_required") }, { status: 400 });
     }
 
@@ -44,11 +53,19 @@ export async function POST(req: NextRequest) {
     });
 
     if (!activationCode) {
+      logError(`No activation code found for user`, {
+        action: "verifyAccount",
+        errorType: "ValidationError",
+      });
       return NextResponse.json({ error: t("no_activation_code") }, { status: 404 });
     }
 
     // Check if the provided code matches the latest activation code
     if (activationCode.code !== code) {
+      logError(`Invalid activation code`, {
+        action: "verifyAccount",
+        errorType: "ValidationError",
+      });
       return NextResponse.json({ error: t("invalid_activation_code") }, { status: 400 });
     }
 
@@ -67,7 +84,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "Account verified successfully!" });
 
   } catch (error) {
-    console.error("Verification error:", error);
+    logError(`Verification error: ${error}`, {
+      action: "verifyAccount",
+      errorType: "ValidationError",
+    });
     return NextResponse.json({ error: t("internal_server_error") }, { status: 500 });
   }
 }

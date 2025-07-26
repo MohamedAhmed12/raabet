@@ -2,6 +2,7 @@
 
 import {LinkSocial} from "@/app/[locale]/store/use-link-store";
 import prisma from "@/lib/prisma";
+import { logError } from "@/lib/errorHandling";
 
 export async function updateSocials(data: LinkSocial[]) {
   if (!data.length) return {success: false, error: "No data provided"};
@@ -20,7 +21,11 @@ export async function updateSocials(data: LinkSocial[]) {
 
     return res;
   } catch (error) {
-    console.error("Error updating socials:", error);
+    const err = `Error updating socials:${error}`;
+    logError(err, {
+      action: "updateSocials",
+      errorType: "ValidationError",
+    });
     throw error;
   }
 }

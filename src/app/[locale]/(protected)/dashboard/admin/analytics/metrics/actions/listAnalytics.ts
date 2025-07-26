@@ -1,5 +1,6 @@
 "use server";
 
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 
 type ListAnalyticsParams = {
@@ -166,8 +167,16 @@ export async function listAnalytics({
     );
 
     return { blocks, socials, profileViews, dateStats: dateStatsArray };
-  } catch (error) {
-    console.error("Error fetching analytics:", error);
-    throw error;
+  } catch (error: unknown) {
+    logError(error, {
+      action: "listAnalytics",
+      errorType: error instanceof Error ? error.constructor.name : "UnknownError",
+      linkId,
+      dateRange,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Re-throw with a user-friendly message
+    throw new Error("Failed to fetch analytics data. Please try again later.");
   }
 }
