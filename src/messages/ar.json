@@ -107,7 +107,8 @@
     "resendEmail": "إعادة إرسال بريد التأكيد",
     "cantFindEmail": "لا تجد البريد؟",
     "enteredWrongEmail": "هل أدخلت عنوان البريد الإلكتروني الخطأ؟",
-    "changeEmail": "تغيير البريد الإلكتروني"
+    "changeEmail": "تغيير البريد الإلكتروني",
+    "activationEmailResentFailed": "فشل إرسال بريد التفعيل مرة أخرى"
   },
   "Pricing": {
     "plans": "خطط الدفع",

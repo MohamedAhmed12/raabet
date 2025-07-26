@@ -21,7 +21,6 @@ export default function VerifyPage() {
 
   const onVerify = async () => {
     try {
-      console.log("onVerify");
       const currentData = session;
       // @ts-expect-error: [to access user data in session it exists in id]
       const authUser = currentData?.data?.user?.id;
@@ -32,10 +31,9 @@ export default function VerifyPage() {
 
       await session.update(authUser);
 
-      console.log("last onVerify");
       router.replace("/dashboard/admin/profile/links");
     } catch (error) {
-      console.error(222111, error);
+      console.error(error);
     }
   };
 

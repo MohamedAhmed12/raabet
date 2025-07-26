@@ -107,7 +107,8 @@
     "resendEmail": "Resend a new confirmation email",
     "cantFindEmail": "Can't find the email?",
     "enteredWrongEmail": "Entered the wrong email address?",
-    "changeEmail": "Change email"
+    "changeEmail": "Change email",
+    "activationEmailResentFailed": "Failed to resend activation email"
   },
   "Pricing": {
     "plans": "Plans",

@@ -23,8 +23,13 @@ export const NewQRCodeDialog = () => {
   const [url, setUrl] = useState("");
 
   const t = useTranslations("QR");
-  const user = useLinkStore(useShallow((state) => state.link.user));
-  const profileurl = `${process.env.NEXT_PUBLIC_BASE_URL}/${user?.fullname}`;
+  const { user, qrcodes } = useLinkStore(
+    useShallow((state) => ({
+      user: state.link.user,
+      qrcodes: state.link.qrcodes,
+    }))
+  );
+  const profileurl = qrcodes?.[0]?.url || "";
 
   const { mutateAsync, isPending } = useCreateQRCode();
 
@@ -34,8 +39,6 @@ export const NewQRCodeDialog = () => {
       handleOnOpenChange(false);
       toast.success("QR code created successfully");
     } catch (error: unknown) {
-      console.error("Error caught:", error);
-
       let errorMessage = "Failed to create QR code";
 
       try {
@@ -84,6 +87,7 @@ export const NewQRCodeDialog = () => {
           <div className="flex justify-end space-x-2">
             <Button
               variant="outline"
+              className="!text-base"
               onClick={() => {
                 setShowQRGenerator(false);
                 setUrl("");
@@ -93,6 +97,7 @@ export const NewQRCodeDialog = () => {
             </Button>
             <Button
               variant={"dashboard-default"}
+              className="!text-base"
               onClick={async () => handleCreateQRCode()}
               disabled={isPending || !url}
             >
@@ -140,7 +145,7 @@ export const NewQRCodeDialog = () => {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="cursor-pointer h-10 font-noto-sans"
+          className="cursor-pointer h-10 font-noto-sans !text-base"
           onClick={() => setOpen(true)}
         >
           {t("newQR")}

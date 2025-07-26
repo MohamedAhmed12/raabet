@@ -18,7 +18,7 @@ import { Check, Copy } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
-import {useShallow} from 'zustand/react/shallow';
+import { useShallow } from "zustand/react/shallow";
 
 export function ShareBtn({
   isSticky = false,
@@ -32,8 +32,13 @@ export function ShareBtn({
   const [isCopied, setIsCopied] = useState(false);
 
   const t = useTranslations("ShareBtn");
-  const user = useLinkStore(useShallow((state) => state.link.user));
-  const profileurl = `${process.env.NEXT_PUBLIC_BASE_URL}/${user?.fullname}`;
+  const { user, qrcodes } = useLinkStore(
+    useShallow((state) => ({
+      user: state.link.user,
+      qrcodes: state.link.qrcodes,
+    }))
+  );
+  const profileurl = qrcodes?.[0]?.url || "";
 
   if (!user) return;
 
@@ -65,7 +70,7 @@ export function ShareBtn({
             "text-black border-1 border-gray-300 rounded-sm !p-2 cursor-pointer bg-white hover:bg-gray-200",
             className,
             isSticky &&
-              `pointer-events-auto backdrop-blur-md shadow-[0px_0px_20px_2px_rgba(0,0,0,0.1)] rounded-[22.5px] h-[40px] w-[40px] bg-[rgba(0,0,0,0.25)] flex items-center justify-center`,
+              `pointer-events-auto backdrop-blur-md shadow-[0px_0px_20px_2px_rgba(0,0,0,0.1)] rounded-[22.5px] h-[40px] w-[40px] bg-[rgba(0,0,0,0.25)] flex items-center justify-center`
           )}
         >
           <Icon

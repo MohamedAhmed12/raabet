@@ -16,17 +16,10 @@ export async function createQRCode(url: string, linkId: string) {
       const err = `QR code with this URL already exists`;
       logError(err, {
         action: "createQRCode",
-        errorType: "ValidationError",
-        type: "duplicate",
+        errorType: "DuplicationError",
         existingQRCode,
       });
-      throw new Error(
-        JSON.stringify({
-          message: err,
-          type: "duplicate",
-          existingQRCode,
-        })
-      );
+      throw new Error(err);
     }
 
     const qrCode = await prisma.qRCode.create({

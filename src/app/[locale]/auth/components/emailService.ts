@@ -3,19 +3,6 @@ import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 
-// Create a transporter using Mailtrap credentials
-const transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: Number(process.env.MAIL_PORT), // Convert port to number
-  secure: true,
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  },
-  greetingTimeout: 20000,
-  connectionTimeout: 30000,
-} as SMTPTransport.Options);
-
 // Function to send email
 export const sendEmail = async ({
   from,
@@ -29,7 +16,26 @@ export const sendEmail = async ({
   html: string;
 }) => {
   try {
+    // Create a transporter using Mailtrap credentials
+    const transporter = nodemailer.createTransport({
+      host: process.env.MAIL_HOST,
+      port: Number(process.env.MAIL_PORT), // Convert port to number
+      secure:
+        process.env.NODE_ENV === "production"
+          ? true
+          : process.env.MAIL_SECURE === "true"
+          ? true
+          : false,
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      },
+      greetingTimeout: 20000,
+      connectionTimeout: 30000,
+    } as SMTPTransport.Options);
+
     // Generate email HTML using the EmailTemplate component
+    console.log("process.env.MAIL_SECURE", process.env.MAIL_SECURE);
 
     const mailOptions: Mail.Options = {
       from,
@@ -37,10 +43,10 @@ export const sendEmail = async ({
       subject,
       html,
       headers: {
-        'X-Entity-Ref-ID': crypto.randomUUID(),
-        'Message-ID': `<${Date.now()}@rabet-link.com>`,
-        'List-Unsubscribe': `<mailto:unsubscribe@rabet-link.com?subject=Unsubscribe>`,
-      }
+        "X-Entity-Ref-ID": crypto.randomUUID(),
+        "Message-ID": `<${Date.now()}@rabet-link.com>`,
+        "List-Unsubscribe": `<mailto:unsubscribe@rabet-link.com?subject=Unsubscribe>`,
+      },
     };
 
     // Send email

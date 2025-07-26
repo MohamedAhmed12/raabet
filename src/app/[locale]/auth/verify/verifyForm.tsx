@@ -9,12 +9,12 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { createAndSendActivation } from "@/lib/activation";
 import { cn } from "@/lib/cn";
+import { Loader2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useSession } from "next-auth/react";
-import { Loader2 } from "lucide-react";
 
 export default function VerifyForm({
   email,
@@ -38,40 +38,52 @@ export default function VerifyForm({
   const fullname = session?.data?.user?.id?.fullname || ("" as string);
 
   const handleResendEmail = async () => {
-    if (!userId) {
-      toast.success(t("NotFoundPage.something_went_wrong"));
-      return;
+    try {
+      if (!userId) {
+        toast.success(t("NotFoundPage.something_went_wrong"));
+        return;
+      }
+      setResendIsLoading(true);
+      await createAndSendActivation({
+        userId,
+        email,
+        fullname,
+        supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
+      });
+      setResendIsLoading(false);
+      toast.success(t("Auth.activationEmailResent"));
+    } catch (error) {
+      console.error("Error resending activation email:", error);
+      toast.error(t("Auth.activationEmailResentFailed"));
+    } finally {
+      setResendIsLoading(false);
     }
-    setResendIsLoading(true);
-    await createAndSendActivation({
-      userId,
-      email,
-      fullname,
-      supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
-    });
-    setResendIsLoading(false);
-    toast.success(t("Auth.activationEmailResent"));
   };
 
   const handleVerify = async () => {
-    setLoading(true);
-    setMessage("");
+    try {
+      setLoading(true);
+      setMessage("");
 
-    const res = await fetch("/api/verify", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, code }),
-    });
+      const res = await fetch("/api/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code }),
+      });
 
-    const data = await res.json();
-    setLoading(false);
+      const data = await res.json();
 
-    if (res.ok) {
-      setVerified(true);
-      setMessage(`✅ ${t("Auth.activationSuccessful")}`);
-      onVerify();
-    } else {
-      setMessage(`❌ ${data.error}`);
+      if (res.ok) {
+        setVerified(true);
+        setMessage(`✅ ${t("Auth.activationSuccessful")}`);
+        onVerify();
+      } else {
+        setMessage(`❌ ${data.error}`);
+      }
+    } catch (error) {
+      console.error("Error verifying code:", error);
+    } finally {
+      setLoading(false);
     }
   };
 

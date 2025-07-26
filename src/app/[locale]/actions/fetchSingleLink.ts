@@ -31,6 +31,13 @@ export async function fetchSingleLink({
             order: "asc",
           },
         },
+        qrcodes: {
+          where: { type: 'profile' },
+          take: 1,
+          select: {
+            url: true
+          }
+        }
       },
     });
   } catch (error) {

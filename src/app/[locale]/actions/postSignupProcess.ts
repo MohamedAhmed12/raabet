@@ -4,11 +4,14 @@ import prisma from "@/lib/prisma";
 
 export const postSignupProcess = async (userId: string, fullname: string) => {
   try {
+    const userName = formatUsername(fullname);
+    const QRCodeURL = `${process.env.NEXT_PUBLIC_BASE_URL}/ar/${userName}`;
+
     // 1. Create a link for the user
     const link = await prisma.link.create({
       data: {
         userId: userId,
-        userName: fullname,
+        userName,
         displayname: fullname,
         bio: "",
         phone: "",
@@ -60,15 +63,18 @@ export const postSignupProcess = async (userId: string, fullname: string) => {
     });
 
     // 3. Create a QR code for the user's profile
-    const qrCode = await createQRCode(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/${link.userName}`,
-      link.id
-    );
+    // const url = ;
+    const qrCode = await createQRCode(QRCodeURL, link.id);
 
     return { link, subscription, qrCode };
   } catch (error) {
-    console.error("Post-signup process failed:", error);
-    // Consider implementing a retry mechanism or notification for admin
+    logError(error, {
+      action: "postSignupProcess",
+      userId,
+      fullname,
+      errorType:
+        error instanceof Error ? error.constructor.name : "UnknownError",
+    });
     throw error;
   }
 };
@@ -87,14 +93,29 @@ export const createQRCode = async (url: string, linkId: string) => {
         },
       },
     });
+
     return qrCode;
   } catch (error) {
     logError(error, {
       action: "postSignupProcess/createQRCode",
       url,
       linkId,
-      errorType: error instanceof Error ? error.constructor.name : "UnknownError"
+      errorType:
+        error instanceof Error ? error.constructor.name : "UnknownError",
     });
     throw error;
   }
+};
+
+// Format and validate username
+const formatUsername = (input: string): string => {
+  // Convert to lowercase and replace spaces with dots
+  let formatted = input.toLowerCase().replace(/\s+/g, ".");
+  // Remove any characters that are not letters, numbers, periods, or underscores
+  formatted = formatted.replace(/[^a-z0-9._]/g, "");
+  // Ensure it doesn't start or end with a dot or underscore
+  formatted = formatted.replace(/^[._]+/, "").replace(/[._]+$/, "");
+  // Replace multiple dots/underscores with a single dot
+  formatted = formatted.replace(/[._]+/g, ".");
+  return formatted;
 };

@@ -1,5 +1,5 @@
 import { iconNameType } from "@/assets/icons";
-import { Block } from "@prisma/client";
+import { Block, QRCode } from "@prisma/client";
 import { User } from "next-auth";
 import type { StateCreator } from "zustand";
 import { create } from "zustand";
@@ -63,6 +63,7 @@ export interface Link {
   user?: User;
   socials?: LinkSocial[];
   blocks?: Block[];
+  qrcodes?: QRCode[];
 }
 
 interface LinkState {
