@@ -43,9 +43,6 @@ export default function SignUpForm({
     try {
       setIsLoading(true);
       setError(null);
-      console.error("console error test");
-      console.debug("console debug test");
-
       const signUpResult = await signup(data);
 
       if (signUpResult?.ok) {
