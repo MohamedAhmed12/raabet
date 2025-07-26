@@ -36,6 +36,11 @@ export const sendEmail = async ({
       to, // Recipient email
       subject,
       html,
+      headers: {
+        'X-Entity-Ref-ID': crypto.randomUUID(),
+        'Message-ID': `<${Date.now()}@rabet-link.com>`,
+        'List-Unsubscribe': `<mailto:unsubscribe@rabet-link.com?subject=Unsubscribe>`,
+      }
     };
 
     // Send email
