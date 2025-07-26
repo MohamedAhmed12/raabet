@@ -34,7 +34,7 @@ export const signup = async ({
       },
     });
 
-    await createAndSendActivation({
+    createAndSendActivation({
       userId: user.id,
       email,
       fullname: user.fullname,

@@ -61,7 +61,7 @@ export const postSignupProcess = async (userId: string, fullname: string) => {
 
     // 3. Create a QR code for the user's profile
     const qrCode = await createQRCode(
-      `https://rabet-link.com/${link.userName}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/${link.userName}`,
       link.id
     );
 
