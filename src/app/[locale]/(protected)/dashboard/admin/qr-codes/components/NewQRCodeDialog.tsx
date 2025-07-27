@@ -23,9 +23,8 @@ export const NewQRCodeDialog = () => {
   const [url, setUrl] = useState("");
 
   const t = useTranslations("QR");
-  const { user, qrcodes } = useLinkStore(
+  const { qrcodes } = useLinkStore(
     useShallow((state) => ({
-      user: state.link.user,
       qrcodes: state.link.qrcodes,
     }))
   );
