@@ -9,7 +9,7 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               Please read these Terms and Conditions (&quot;Terms&quot;, &quot;Terms and
-              Conditions&quot;) carefully before using the rabet-link.com website (the
+              Conditions&quot;) carefully before using the rabetlink.com website (the
               &quot;Service&quot;) operated by Rabet, LLC (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).
             </span>
             <span>
@@ -56,7 +56,7 @@ export default async function terms() {
               </ul>
             </span>
             <span className="font-bold text-xl">
-              Information Collected From rabet-link.com Website Visitors And Users
+              Information Collected From rabetlink.com Website Visitors And Users
             </span>
 
             <span>
@@ -109,7 +109,7 @@ export default async function terms() {
           </div>
           <div className="text-sm flex flex-col gap-4">
             <span>
-              In order for rabet-link.com to provide you with our Services, we work
+              In order for rabetlink.com to provide you with our Services, we work
               with third parties with whom we may share personal data to support
               these Services. Your personal data may be shared with third
               parties who provide hosting and server co-location services,
@@ -135,8 +135,8 @@ export default async function terms() {
               apply to third-party websites and services.
             </span>
             <span>
-              rabet-link.com remains responsible for the processing of personal data
-              carried out by Third Party Service Providers that rabet-link.com has
+              rabetlink.com remains responsible for the processing of personal data
+              carried out by Third Party Service Providers that rabetlink.com has
               engaged with for respective data processing in accordance with
               applicable laws.
             </span>
@@ -154,12 +154,12 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               We may retain your personal data for as long as your relationship
-              with us is active by having an rabet-link.com account, or as otherwise
+              with us is active by having an rabetlink.com account, or as otherwise
               needed to provide you our Services.
             </span>
             <span>
               After terminating your relationship with us by deleting your
-              rabet-link.com account or otherwise ceasing to use our Services, we may
+              rabetlink.com account or otherwise ceasing to use our Services, we may
               continue to store copies of your personal data as reasonably
               necessary to comply with our legal obligations, to resolve
               disputes between you and us, to prevent fraud and abuse, to
@@ -200,13 +200,13 @@ export default async function terms() {
               therefore we cannot guarantee absolute security of information. We
               encourage you to take care of the personal data in your possession
               that you process online and set strong passwords for your
-              rabet-link.com account, limit access of your computer and browser by
+              rabetlink.com account, limit access of your computer and browser by
               signing off after you have finished your session, and avoid
               providing us with any sensitive information whose disclosure you
               believe could cause you substantial harm.
             </span>
             <span>
-              All of rabet-link.com&apos;s authorized personnel involved in the processing
+              All of rabetlink.com&apos;s authorized personnel involved in the processing
               of your and your Customer&apos;s personal data have committed
               themselves to confidentiality obligations and shall not access or
               otherwise process your personal data without your authorization if

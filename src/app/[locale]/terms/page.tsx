@@ -9,7 +9,7 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               Please read these Terms and Conditions (&quot;Terms&quot;, &quot;Terms and
-              Conditions&quot;) carefully before using the rabet-link.com website (the
+              Conditions&quot;) carefully before using the rabetlink.com website (the
               &quot;Service&quot;) operated by Rabet, LLC (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).
             </span>
             <span>

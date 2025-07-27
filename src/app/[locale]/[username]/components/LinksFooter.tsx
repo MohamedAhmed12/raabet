@@ -3,7 +3,7 @@ export default function LinksFooter() {
     <div className="flex w-full items-center justify-center text-[#6B5B71] font-bold h-[100px]">
       <a
         className="flex flex-col space-2 items-center font-noto-sans w-max"
-        href="https://rabet-link.com"
+        href="https://rabetlink.com"
         data-google-action="click"
         data-google-category="footer-logo-click"
         data-google-label="mohamedgad-67d5ae9419c8bbb508c06d13"
@@ -13,7 +13,7 @@ export default function LinksFooter() {
           Made with
         </span>
 
-        <span className="text-[1em] font-bold">rabet-link.com</span>
+        <span className="text-[1em] font-bold">rabetlink.com</span>
       </a>
     </div>
   );

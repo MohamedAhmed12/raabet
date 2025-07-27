@@ -17,7 +17,7 @@ export default async function ProfileSettings() {
 
       <CustomForm
         title={t("Settings.usernameForm.title")}
-        prefix="rabet-link.com/"
+        prefix="rabetlink.com/"
         submitText={t("Settings.usernameForm.submitText")}
         placeholder={t("Settings.usernameForm.placeholder")}
       />
