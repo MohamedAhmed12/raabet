@@ -19,7 +19,6 @@ export const ContentSection = () => {
               className="w-[38px] h-[38px] border border-black bg-white rounded-full shadow-[1.5px_1.5px_0px_#1d1d28]"
             >
               <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           ))}
         </div>
@@ -43,9 +42,9 @@ export const ContentSection = () => {
       {/* Heading */}
       <h1
         className={cn(
-          "text-[44px] leading-none text-deep-blue-gray font-extrabold",
+          "text-[44px] leading-none text-deep-blue-gray font-extrabold text-center",
           "lg:text-[66px] lg:leading-[1.1]",
-          locale == "ar" ? "text-right" : "text-left"
+          locale == "ar" ? "lg:text-right" : "lg:text-left"
         )}
       >
         <span className="mr-4">{t("Centralize")}</span>
@@ -56,7 +55,7 @@ export const ContentSection = () => {
       </h1>
 
       {/* Description & Input Field */}
-      <div className="lg:max-w-[75%] mt-8 mx-auto lg:mx-0">
+      <div className="lg:max-w-[90%] mt-8 mx-auto lg:mx-0">
         <p className="text-lg text-center lg:text-start font-base  text-gray-600 mb-6">
           {t("Description")}
         </p>

@@ -1,16 +1,20 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import NextLink from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { MobileHeader } from "./MobileHeader";
-import { WebHeader } from "./WebHeader";
-import { useLocale } from "next-intl";
 import { Link } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { useLocale, useTranslations } from "next-intl";
+import NextLink from "next/link";
+import { MobileHeader } from "./MobileHeader";
+import { RabetAvatar } from "./RabetAvatar";
+import { WebHeader } from "./WebHeader";
 
 export const Header = () => {
   const t = useTranslations();
   const locale = useLocale();
+  const { data: session, status } = useSession();
+  const isLoading = status === "loading";
 
   return (
     <header
@@ -34,19 +38,35 @@ export const Header = () => {
         </NextLink>
         <NextLink
           href="/pricing"
-          className={cn("mt-[3px]", locale === "ar" ? "mr-4" : "ml-4")}
+          className={cn(
+            "mt-[3px] hidden lg:block",
+            locale === "ar" ? "mr-4" : "ml-4"
+          )}
         >
           {t("Shared.pricing")}
         </NextLink>
       </div>
 
-      <div className="flex gap-4 items-center">
-        <WebHeader />
-        <button className="bg-deep-blue-gray text-white px-6 py-4 rounded-4xl font-bold leading-none">
-          <NextLink href="/auth/sign-up">{t("Shared.signup")}</NextLink>
-        </button>
-        <MobileHeader />
-      </div>
+      {isLoading ? (
+        <div className="flex gap-4 items-center">
+          <Skeleton className="h-8 w-15 rounded-full" />
+          <Skeleton className="h-10 w-25 rounded-full" />
+        </div>
+      ) : (
+        <div className="flex gap-4 items-center">
+          {session ? (
+            <RabetAvatar />
+          ) : (
+            <>
+              <WebHeader />
+              <button className="bg-deep-blue-gray text-white px-6 py-4 rounded-4xl font-bold leading-none">
+                <NextLink href="/auth/sign-up">{t("Shared.signup")}</NextLink>
+              </button>
+              <MobileHeader />
+            </>
+          )}
+        </div>
+      )}
     </header>
   );
 };
