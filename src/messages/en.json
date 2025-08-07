@@ -356,7 +356,9 @@
     "animation": "Animation"
   },
   "Header": {
-    "home": "Home"
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "logout": "Logout"
   },
   "Footer": {
     "CentralizePresence": "Centralizing your online presence since 2025.",
