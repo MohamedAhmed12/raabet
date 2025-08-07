@@ -87,6 +87,7 @@ import {
   SiTumblr,
   SiTwitch,
   SiVimeo,
+  SiWhatsapp,
   SiX,
   SiYoutube,
 } from "@icons-pack/react-simple-icons";
@@ -137,6 +138,7 @@ export const socialIcons = {
   clubhouse: SiClubhouse,
   bluesky: SiBluesky,
   tidal: SiTidal,
+  whatsapp: SiWhatsapp,
 };
 
 const icons = {

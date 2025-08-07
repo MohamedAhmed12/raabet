@@ -38,6 +38,15 @@ export const Header = () => {
         >
           {t("Shared.pricing")}
         </NextLink>
+        <NextLink
+          href="/contact"
+          className={cn(
+            "mt-[3px] hidden lg:block",
+            locale === "ar" ? "mr-4" : "ml-4"
+          )}
+        >
+          {t("Contact.contact")}
+        </NextLink>
       </div>
 
       <div className="flex gap-4 items-center">
