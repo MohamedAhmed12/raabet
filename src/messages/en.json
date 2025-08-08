@@ -110,7 +110,6 @@
     "email": "email",
     "verifying": "Verifying...",
     "confirm": "Confirm",
-    "verifyingButton": "Verifying...",
     "confirmButton": "Confirm",
     "activationSuccessful": "Activation was successful",
     "activationEmailResent": "Activation email resent",
@@ -345,7 +344,9 @@
       "analytics": "Analytics",
       "subscribe": "Subscribe",
       "qr": "QR Codes",
-      "logout": "Logout"
+      "logout": "Logout",
+      "requestFeature": "Request a Feature",
+      "feedback": "Feedback & Rewards"
     },
     "activateProfile": "Activate Profile",
     "tryFree": "Try Free",

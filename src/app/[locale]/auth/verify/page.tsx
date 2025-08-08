@@ -19,24 +19,6 @@ export default function VerifyPage() {
     router.replace("/auth/login");
   }
 
-  const onVerify = async () => {
-    try {
-      const currentData = session;
-      // @ts-expect-error: [to access user data in session it exists in id]
-      const authUser = currentData?.data?.user?.id;
-
-      if ("is_confirmed" in authUser) {
-        authUser.is_confirmed = true;
-      }
-
-      await session.update(authUser);
-
-      router.replace("/dashboard/admin/profile/links");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     authUser && (
       <div className="flex min-h-svh flex-col lg:flex-row font-noto-sans">
@@ -55,7 +37,7 @@ export default function VerifyPage() {
           </div>
           <div className="flex flex-1 items-center justify-center">
             <div className="w-full h-full max-w-full max-h-screen">
-              <VerifyForm email={authUser.email} onVerify={() => onVerify()} />
+              <VerifyForm email={authUser.email} />
             </div>
           </div>
         </div>

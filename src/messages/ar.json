@@ -110,7 +110,6 @@
     "email": "البريد الإلكتروني",
     "verifying": "جاري التحقق...",
     "confirm": "تأكيد",
-    "verifyingButton": "جاري التحقق...",
     "confirmButton": "تأكيد",
     "activationSuccessful": "تم التفعيل بنجاح",
     "activationEmailResent": "تم إرسال بريد التفعيل مرة أخرى",
@@ -345,7 +344,9 @@
       "analytics": "التحليلات",
       "subscribe": "الاشتراك",
       "qr": "QR كود",
-      "logout": "تسجيل الخروج"
+      "logout": "تسجيل الخروج",
+      "requestFeature": "طلب ميزة",
+      "feedback": "الملاحظات والمكافآت"
     },
     "activateProfile": "تفعيل الملف الشخصي",
     "tryFree": "جرّب مجانًا",

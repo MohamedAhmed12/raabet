@@ -13,16 +13,11 @@ import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export default function VerifyForm({
-  email,
-  onVerify,
-}: {
-  email: string;
-  onVerify: () => void;
-}) {
+export default function VerifyForm({ email }: { email: string }) {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [resendIsLoading, setResendIsLoading] = useState(false);
@@ -31,6 +26,7 @@ export default function VerifyForm({
 
   const t = useTranslations();
   const session = useSession();
+  const router = useRouter();
 
   // @ts-expect-error: session.data may not match Session shape
   const userId = session?.data?.user?.id?.id as string;
@@ -76,12 +72,31 @@ export default function VerifyForm({
       if (res.ok) {
         setVerified(true);
         setMessage(`✅ ${t("Auth.activationSuccessful")}`);
-        onVerify();
+        updateSessionUser();
       } else {
         setMessage(`❌ ${data.error}`);
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error verifying code:", error);
+      setLoading(false);
+    }
+  };
+
+  const updateSessionUser = async () => {
+    try {
+      // @ts-expect-error: [to access user data in session it exists in id]
+      const authUser = session?.data?.user?.id;
+
+      if ("is_confirmed" in authUser) {
+        authUser.is_confirmed = true;
+      }
+
+      await session.update(authUser);
+
+      router.replace("/dashboard/admin/profile/links");
+    } catch (error) {
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -126,7 +141,11 @@ export default function VerifyForm({
         disabled={loading || code.length !== 4 || verified}
         className="w-full h-11 bg-blue-600 hover:bg-blue-700 cursor-pointer"
       >
-        {loading ? t("Auth.verifyingButton") : t("Auth.confirmButton")}
+        {loading || verified ? (
+          <Loader2 className="!w-6.5 !h-6.5 animate-spin" />
+        ) : (
+          t("Auth.confirmButton")
+        )}
       </Button>
 
       <Separator className="my-[33px]" />
