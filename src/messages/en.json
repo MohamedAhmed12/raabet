@@ -1,4 +1,15 @@
 {
+  "FeedbackPopup": {
+    "title": "Your Feedback Matters",
+    "rateExperience": "Rate your overall experience",
+    "highlightLabel": "What would you like to highlight?",
+    "feature": "I want to suggest a new feature",
+    "issue": "I faced an issue or error",
+    "other": "Other",
+    "messageLabel": "Your message",
+    "messagePlaceholder": "Share more details with us...",
+    "submit": "Submit"
+  },
   "NotFoundPage": {
     "title": "Page Not Found",
     "description": "No user was found for this URL. The URL may be incorrect, or the user may have deleted their account or been suspended.",
