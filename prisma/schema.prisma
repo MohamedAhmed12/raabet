@@ -101,6 +101,10 @@ model Link {
   userId       String
   user         User   @relation(fields: [userId], references: [id]) // Reference `id` in User
  
+  // Feedback relationship
+  feedbacks     Feedback[]
+  last_feedback_ts DateTime?
+
   // Styling and design fields
   general_styles_desktop_bgcolor   String
   general_styles_primary_text_color String
@@ -133,6 +137,16 @@ model Link {
   // social_enable_enable_verified_badge Boolean @default(false)
   social_custom_logo               String   @default("")
   social_custom_logo_size          Float   @default(0)
+}
+
+model Feedback {
+  id        String   @id @default(uuid())
+  link      Link     @relation(fields: [linkId], references: [id])
+  linkId    String
+  rating    Int      // 1 to 5
+  highlight String   // 'feature', 'error', 'other'
+  feedback  String
+  createdAt DateTime @default(now())
 }
 
 // Define the enum
