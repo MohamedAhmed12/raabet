@@ -343,10 +343,10 @@
       "settings": "Settings",
       "analytics": "Analytics",
       "subscribe": "Subscribe",
-      "qr": "QR Codes",
+      "qr": "QR codes",
       "logout": "Logout",
-      "requestFeature": "Request a Feature",
-      "feedback": "Feedback & Rewards"
+      "requestFeature": "Request feature",
+      "rewards": "Rewards"
     },
     "activateProfile": "Activate Profile",
     "tryFree": "Try Free",

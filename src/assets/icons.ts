@@ -50,7 +50,7 @@ import {
   AlignCenter,
   Clock,
   Upload,
-  StickyNote ,
+  StickyNote,
   BadgeCheck,
 } from "lucide-react";
 
@@ -200,9 +200,9 @@ const icons = {
   alignLeft: AlignLeft,
   alignRight: AlignRight,
   alignCenter: AlignCenter,
-  upload:Upload,
+  upload: Upload,
   stickyNote: StickyNote,
-  badgeCheck:BadgeCheck,
+  badgeCheck: BadgeCheck,
   ...socialIcons,
 };
 

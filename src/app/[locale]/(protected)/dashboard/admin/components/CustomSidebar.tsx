@@ -11,14 +11,18 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useLocaleMeta } from "@/hooks/use-locale-meta";
-import { signOut } from "next-auth/react"; // Import signOut from NextAuth.js
+import { Award, CirclePlus } from "lucide-react";
+import { signOut, useSession } from "next-auth/react"; // Import signOut from NextAuth.js
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
-import { useSession } from "next-auth/react";
 
-export default function CustomSidebar() {
+export default function CustomSidebar({
+  onOpenFeedbackPopup,
+}: {
+  onOpenFeedbackPopup: () => void;
+}) {
   const locale = useLocale();
   const session = useSession();
   const t = useTranslations("Sidebar");
@@ -84,6 +88,31 @@ export default function CustomSidebar() {
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
+
+          {/* feedback tabs  */}
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              className="flex gap-2 p-[11px] mb-[6px] rounded-sm cursor-pointer"
+              variant="dashboardDefault"
+              isActive={false}
+              onClick={onOpenFeedbackPopup}
+            >
+              <CirclePlus size={20} className="min-w-[20px] min-h-[20px]" />
+              <span>{t("tabs.requestFeature")}</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              className="flex gap-2 p-[11px] mb-[6px] rounded-sm cursor-pointer"
+              variant="dashboardDefault"
+              isActive={false}
+              onClick={onOpenFeedbackPopup}
+            >
+              <Award size={20} className="min-w-[20px] min-h-[20px]" />
+              <span>{t("tabs.rewards")}</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
 
           {/* localization tab */}
           <SidebarMenuItem>

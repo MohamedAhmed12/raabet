@@ -15,10 +15,13 @@ import { Star } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import { cn } from "@/lib/utils";
 
-export default function FeedbackPopup() {
+export default function FeedbackPopup({
+  onOpenFeedbackPopup,
+}: {
+  onOpenFeedbackPopup: (open: boolean) => void;
+}) {
   const t = useTranslations("FeedbackPopup");
   const locale = useLocale();
-  const [open, setOpen] = useState(true);
   const [rating, setRating] = useState(0);
   const [highlight, setHighlight] = useState("feature");
   const [message, setMessage] = useState("");
@@ -30,12 +33,12 @@ export default function FeedbackPopup() {
       message,
     };
     console.log("Submitted feedback:", feedbackData);
-    setOpen(false);
+    onOpenFeedbackPopup(false);
     // You can send this to your backend or API here
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={true} onOpenChange={onOpenFeedbackPopup}>
       <DialogContent className="flex flex-col justify-center items-center max-w-md font-noto-sans px-5">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl mb-4">
