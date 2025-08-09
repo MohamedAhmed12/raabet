@@ -60,6 +60,7 @@ export interface Link {
   // social_enable_enable_verified_badge?: boolean;
   social_custom_logo?: string;
   social_custom_logo_size?: number;
+  last_feedback_ts?: Date;
   user?: User;
   socials?: LinkSocial[];
   blocks?: Block[];
