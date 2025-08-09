@@ -19,6 +19,7 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useGiveFeedback } from "../hooks/useGiveFeedback";
+import { useUpdateFeedbackTimestamp } from "../hooks/useUpdateFeedbackTimestamp";
 
 export default function FeedbackPopup({
   onOpenFeedbackPopup,
@@ -33,7 +34,8 @@ export default function FeedbackPopup({
   const t = useTranslations();
   const linkId = useLinkStore((state) => state.link.id);
 
-  const { mutate } = useGiveFeedback({
+  const { mutate: updateFeedbackTimestamp } = useUpdateFeedbackTimestamp();
+  const { mutate: giveFeedback } = useGiveFeedback({
     onSuccess: () => {
       toast.success(t("FeedbackPopup.submitSuccess"));
     },
@@ -74,18 +76,23 @@ export default function FeedbackPopup({
     }
 
     // If validation passes, submit the feedback
-    mutate({
+    giveFeedback({
       linkId,
       rating,
       highlight,
       feedback: message,
     });
 
-    onOpenFeedbackPopup(false);
+    handleOnOpenChange(false);
+  };
+
+  const handleOnOpenChange = (open: boolean) => {
+    updateFeedbackTimestamp({ linkId });
+    onOpenFeedbackPopup(open);
   };
 
   return (
-    <Dialog open={true} onOpenChange={onOpenFeedbackPopup}>
+    <Dialog open={true} onOpenChange={handleOnOpenChange}>
       <DialogContent className="flex flex-col justify-center items-center max-w-md font-noto-sans px-5">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl mb-4">

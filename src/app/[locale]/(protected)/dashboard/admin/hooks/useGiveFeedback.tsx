@@ -28,9 +28,6 @@ export function useGiveFeedback(
       if (!linkId) {
         throw new Error("Link ID is required");
       }
-      if (!rating || !highlight || !feedback) {
-        throw new Error("All feedback data is required");
-      }
       return giveFeedback({ linkId, rating, highlight, feedback });
     },
     ...options,

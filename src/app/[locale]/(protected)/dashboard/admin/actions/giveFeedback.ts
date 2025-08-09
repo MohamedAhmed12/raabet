@@ -28,11 +28,7 @@ export async function giveFeedback({
         },
       });
     }
-    // Update last_feedback_ts on Link
-    await prisma.link.update({
-      where: { id: linkId },
-      data: { last_feedback_ts: new Date() },
-    });
+
     return { success: true };
   } catch (error: unknown) {
     logError(error, {
