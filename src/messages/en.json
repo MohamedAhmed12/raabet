@@ -8,7 +8,14 @@
     "other": "Other",
     "messageLabel": "Your message",
     "messagePlaceholder": "Share more details with us...",
-    "submit": "Submit"
+    "submit": "Submit",
+    "submitSuccess": "Thank you for your feedback!",
+    "validation": {
+      "ratingRequired": "Please select a rating",
+      "highlightRequired": "Please select an option",
+      "messageRequired": "Please provide your feedback",
+      "messageTooLong": "Feedback is too long"
+    }
   },
   "NotFoundPage": {
     "title": "Page Not Found",

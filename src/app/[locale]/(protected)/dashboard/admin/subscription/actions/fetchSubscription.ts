@@ -38,7 +38,7 @@ export async function fetchSubscription(
     currentSubscription.status = "canceled";
 
     // update the status in database
-    await prisma.subscription.update({
+    prisma.subscription.update({
       where: { id: currentSubscription.id },
       data: { status: "canceled" },
     });

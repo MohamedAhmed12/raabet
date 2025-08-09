@@ -1,40 +1,87 @@
 "use client";
-import { useState } from "react";
+
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Star } from "lucide-react";
-import { useTranslations, useLocale } from "next-intl";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { Star } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
+import { toast } from "sonner";
+import { z } from "zod";
+import { useGiveFeedback } from "../hooks/useGiveFeedback";
 
 export default function FeedbackPopup({
   onOpenFeedbackPopup,
 }: {
   onOpenFeedbackPopup: (open: boolean) => void;
 }) {
-  const t = useTranslations("FeedbackPopup");
-  const locale = useLocale();
   const [rating, setRating] = useState(0);
   const [highlight, setHighlight] = useState("feature");
   const [message, setMessage] = useState("");
 
+  const locale = useLocale();
+  const t = useTranslations();
+  const linkId = useLinkStore((state) => state.link.id);
+
+  const { mutate } = useGiveFeedback({
+    onSuccess: () => {
+      toast.success(t("FeedbackPopup.submitSuccess"));
+    },
+    onError: () => {
+      toast.error(t("NotFoundPage.something_went_wrong"));
+    },
+  });
+
+  const feedbackSchema = useMemo(
+    () =>
+      z.object({
+        rating: z.number().min(1, t("FeedbackPopup.validation.ratingRequired")),
+        highlight: z
+          .string()
+          .min(1, t("FeedbackPopup.validation.highlightRequired")),
+        message: z
+          .string()
+          .min(1, t("FeedbackPopup.validation.messageRequired"))
+          .max(1000, t("FeedbackPopup.validation.messageTooLong")),
+      }),
+    []
+  );
+
   const submitFeedback = () => {
-    const feedbackData = {
+    // Validate form data
+    const result = feedbackSchema.safeParse({
       rating,
       highlight,
       message,
-    };
-    console.log("Submitted feedback:", feedbackData);
+    });
+
+    if (!result.success) {
+      // Show first validation error
+      const firstError = result.error.errors[0];
+      console.error(firstError, "firstError");
+      toast.error(firstError.message);
+      return;
+    }
+
+    // If validation passes, submit the feedback
+    mutate({
+      linkId,
+      rating,
+      highlight,
+      feedback: message,
+    });
+
     onOpenFeedbackPopup(false);
-    // You can send this to your backend or API here
   };
 
   return (
@@ -42,14 +89,14 @@ export default function FeedbackPopup({
       <DialogContent className="flex flex-col justify-center items-center max-w-md font-noto-sans px-5">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl mb-4">
-            {t("title")}
+            {t("FeedbackPopup.title")}
           </DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col w-full gap-y-2">
           <div className="mb-4">
             <Label className="text-sm font-semibold uppercase">
-              {t("rateExperience")}
+              {t("FeedbackPopup.rateExperience")}
             </Label>
             <div className="flex gap-1 mt-1">
               {[1, 2, 3, 4, 5].map((i) => (
@@ -67,7 +114,7 @@ export default function FeedbackPopup({
 
           <div className="mb-4">
             <Label className="text-sm font-semibold uppercase">
-              {t("highlightLabel")}
+              {t("FeedbackPopup.highlightLabel")}
             </Label>
 
             <RadioGroup
@@ -80,27 +127,27 @@ export default function FeedbackPopup({
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="feature" id="feature" />
-                <Label htmlFor="feature">{t("feature")}</Label>
+                <Label htmlFor="feature">{t("FeedbackPopup.feature")}</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="issue" id="issue" />
-                <Label htmlFor="issue">{t("issue")}</Label>
+                <Label htmlFor="issue">{t("FeedbackPopup.issue")}</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="other" id="other" />
-                <Label htmlFor="other">{t("other")}</Label>
+                <Label htmlFor="other">{t("FeedbackPopup.other")}</Label>
               </div>
             </RadioGroup>
           </div>
 
           <div className="mb-4">
             <Label className="text-sm font-semibold uppercase">
-              {t("messageLabel")}
+              {t("FeedbackPopup.messageLabel")}
             </Label>
             <Textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder={t("messagePlaceholder")}
+              placeholder={t("FeedbackPopup.messagePlaceholder")}
               className="mt-1"
             />
           </div>
@@ -110,9 +157,8 @@ export default function FeedbackPopup({
           <Button
             onClick={submitFeedback}
             className="bg-deep-blue-gray hover:bg-deep-blue-gray text-white px-6 py-5 rounded-4xl font-bold leading-none"
-            // className="bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold"
           >
-            {t("submit")}
+            {t("FeedbackPopup.submit")}
           </Button>
         </DialogFooter>
       </DialogContent>

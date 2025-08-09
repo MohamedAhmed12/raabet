@@ -13,7 +13,6 @@ export const CreateUpdateBlockFormFooter = ({
   onSubmit: () => void;
   isLoading: boolean;
 }) => {
-  console.log("isLoadinginside", isLoading);
   return (
     <span>
       <Separator />
@@ -28,6 +27,7 @@ export const CreateUpdateBlockFormFooter = ({
         <Button
           variant={"dashboard-default"}
           className="flex-1 !text-base"
+          disabled={isLoading}
           onClick={onSubmit}
         >
           {isLoading ? (

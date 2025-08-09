@@ -8,7 +8,14 @@
     "other": "أخرى",
     "messageLabel": "رسالتك",
     "messagePlaceholder": "شاركنا المزيد من التفاصيل...",
-    "submit": "إرسال"
+    "submit": "إرسال",
+    "submitSuccess": "شكراً على مشاركتك!",
+    "validation": {
+      "ratingRequired": "الرجاء اختيار التقييم",
+      "highlightRequired": "الرجاء اختيار خيار",
+      "messageRequired": "الرجاء إدخال ملاحظاتك",
+      "messageTooLong": "الملاحظة طويلة جداً"
+    }
   },
   "NotFoundPage": {
     "title": "الصفحة غير موجودة",

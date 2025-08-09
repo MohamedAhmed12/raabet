@@ -103,7 +103,7 @@ model Link {
  
   // Feedback relationship
   feedbacks     Feedback[]
-  last_feedback_ts DateTime?
+  last_feedback_ts DateTime? @default(now())
 
   // Styling and design fields
   general_styles_desktop_bgcolor   String
