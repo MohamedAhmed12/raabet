@@ -1,16 +1,18 @@
 "use client";
 
+import useFetchLink from "@/app/[locale]/[username]/useFetchLink";
+import Loading from "@/app/loading";
 import { usePathname } from "@/i18n/navigation";
-import { useSession } from "next-auth/react";
-import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
 import { cn } from "@/lib/cn";
+import { getFontClassClient } from "@/lib/fonts";
+import { SubscriptionStatus } from "@prisma/client";
+import { useSession } from "next-auth/react";
+import { useLocale } from "next-intl";
 import NoSubsContent from "../components/NoSubsContent";
 import SubscriptionBanner from "../components/SubscriptionBanner";
-import { SubscriptionStatus } from "@prisma/client";
-import { problemStatuses } from "../subscription/types/subscripiton";
-import Loading from "@/app/loading";
-import useFetchLink from "@/app/[locale]/[username]/useFetchLink";
 import DashboardNotFound from "../not-found";
+import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
+import { problemStatuses } from "../subscription/types/subscripiton";
 
 export const DashboardContainer = ({
   children,
@@ -26,6 +28,9 @@ export const DashboardContainer = ({
   const { status, isLoading: isLoadingSubs } = useSubscriptionStatus({
     email: session?.data?.user?.email as string,
   });
+
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
 
   if (error) return <DashboardNotFound />;
 
@@ -47,7 +52,8 @@ export const DashboardContainer = ({
           ) : (
             <div
               className={cn(
-                "flex flex-col items-center font-noto-sans w-full m-0 overflow-auto"
+                "flex flex-col items-center w-full m-0 overflow-auto",
+                fontClass
                 // pathname === "/dashboard/admin/profile/links"
                 // ? "max-h-screen"
                 // : "flex-1 md:mx-auto md:w-[calc(100%+(-66px))]"

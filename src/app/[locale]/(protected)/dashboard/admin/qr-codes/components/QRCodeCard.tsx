@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { QRCode, QRType } from "@prisma/client";
 import { Download, Loader2, Trash2 } from "lucide-react";
@@ -18,8 +19,9 @@ interface QRCodeCardProps {
 export default function QRCodeCard({ qr }: QRCodeCardProps) {
   const locale = useLocale();
   const t = useTranslations();
+  const fontClass = getFontClassClient(locale);
 
-  const { data: profileViews } = useProfileViewsList()
+  const { data: profileViews } = useProfileViewsList();
   const { canvasRef, handleDownload } = useQRCode({
     url: qr.display_url,
     width: 160,
@@ -41,7 +43,7 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
 
   return (
     <Card>
-      <CardContent className="flex justify-between w-full font-noto-sans">
+      <CardContent className={cn("flex justify-between w-full", fontClass)}>
         <div className="flex flex-col gap-3  max-w-[65%]">
           <div className="flex flex-col gap-1 justify-center items-start">
             <div className="flex justify-center items-center gap-2">

@@ -2,11 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -28,6 +29,9 @@ export const LoginForm = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const t = useTranslations();
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   const router = useRouter();
   const {
     register,
@@ -63,7 +67,7 @@ export const LoginForm = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={cn("flex flex-col font-noto-sans", className)}
+      className={cn("flex flex-col", className, fontClass)}
       {...props}
     >
       <div className="flex flex-col justify-center items-center">

@@ -44,6 +44,38 @@ const notoSans = localFont({
   display: "swap",
 });
 
+const Cairo = localFont({
+  src: [
+    {
+      path: "../fonts/Cairo-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Cairo-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Cairo-SemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Cairo-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../fonts/Cairo-ExtraBold.ttf",
+      weight: "800",
+      style: "normal",
+    },
+  ],
+  variable: "--font-cairo",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Rabet",
   description: "Created by Gad",
@@ -72,7 +104,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={isRTL ? "rtl" : "ltr"}>
       <body
-        className={`${notoSans.variable} antialiased text-deep-blue-gray`}
+        className={`${Cairo.variable} ${notoSans.variable} antialiased text-deep-blue-gray`}
         style={{ marginRight: "0!important" }}
       >
         <NextIntlClientProvider locale={locale} messages={currentLocalMessages}>

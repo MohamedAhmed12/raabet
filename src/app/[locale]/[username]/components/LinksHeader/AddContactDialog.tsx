@@ -12,13 +12,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useTranslations } from "next-intl";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { LinksNavbarIcon } from "./StickyLinksNavbar";
 import { useShallow } from "zustand/react/shallow";
+import { LinksNavbarIcon } from "./StickyLinksNavbar";
 
 export function AddContactDialog({ isSticky }: { isSticky: boolean }) {
   const t = useTranslations("ShareBtn");
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
   const user = useLinkStore(useShallow((state) => state.link.user));
   if (!user) return;
 
@@ -39,7 +43,7 @@ export function AddContactDialog({ isSticky }: { isSticky: boolean }) {
       <DialogTrigger asChild>
         <LinksNavbarIcon isSticky={isSticky} iconName="user-round-plus" />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[350px] font-noto-sans">
+      <DialogContent className={cn("sm:max-w-[350px]", fontClass)}>
         <DialogHeader className="flex items-center">
           <DialogTitle>
             <Icon size={30} name="user-round-plus" />

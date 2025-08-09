@@ -8,6 +8,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-noto-sans: var(--font-noto-sans-display);
+  --font-cairo: var(--font-cairo);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-background: var(--sidebar-background);
   --color-sidebar-border: var(--sidebar-border);
@@ -88,7 +89,7 @@
   --sidebar-ring: oklch(0.708 0 0);
   --deep-blue-gray: oklch(23.59% 0.021 284.67);
   --light-orange: oklch(89% 0.0913 75.83);
-  --default-font-family: (noto);
+  --default-font-family: var(--font-noto-sans-display);
 }
 
 .dark {

@@ -1,7 +1,10 @@
 "use client";
 
+import { cn } from "@/lib/cn";
+import { getFontClassClient } from "@/lib/fonts";
 import { GalleryVerticalEnd } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import VerifyForm from "./verifyForm";
@@ -9,6 +12,9 @@ import VerifyForm from "./verifyForm";
 export default function VerifyPage() {
   const session = useSession();
   const router = useRouter();
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   // @ts-expect-error: [to access user data in session it exists in id]
   const authUser = session?.data?.user?.id;
 
@@ -21,7 +27,7 @@ export default function VerifyPage() {
 
   return (
     authUser && (
-      <div className="flex min-h-svh flex-col lg:flex-row font-noto-sans">
+      <div className={cn("flex min-h-svh flex-col lg:flex-row", fontClass)}>
         <div className="flex flex-1 flex-col">
           <div className="flex justify-center w-full gap-2 md:justify-start">
             <a

@@ -1,8 +1,15 @@
+import { cn } from "@/lib/utils";
+import { useLocale } from "next-intl";
+import { getFontClassClient } from "@/lib/fonts";
+
 export default function LinksFooter() {
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   return (
     <div className="flex w-full items-center justify-center text-[#6B5B71] font-bold h-[100px]">
       <a
-        className="flex flex-col space-2 items-center font-noto-sans w-max"
+        className={cn("flex flex-col space-2 items-center w-max", fontClass)}
         href="https://rabetlink.com"
         data-google-action="click"
         data-google-category="footer-logo-click"

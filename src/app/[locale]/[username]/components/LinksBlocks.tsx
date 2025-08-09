@@ -3,8 +3,10 @@
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { animationVariants } from "@/constants/animations";
 import { cn } from "@/lib/cn";
+import { getFontClassClient } from "@/lib/fonts";
 import { Block } from "@prisma/client";
 import { motion } from "framer-motion";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
@@ -20,6 +22,8 @@ export default function LinksBlocks() {
   const [blocksWithEmbedInfo, setBlocksWithEmbedInfo] = useState<EmbedBlock[]>(
     []
   );
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
   const link = useLinkStore(useShallow((state) => state.link));
   const linkStyles = useLinkStyles(link);
 
@@ -85,7 +89,12 @@ export default function LinksBlocks() {
 
   return (
     blocksWithEmbedInfo && (
-      <div className="block-icons-container flex flex-col mt-[31px] justify-center items-center flex-wrap font-noto-sans">
+      <div
+        className={cn(
+          "block-icons-container flex flex-col mt-[31px] justify-center items-center flex-wrap",
+          fontClass
+        )}
+      >
         {blocksWithEmbedInfo?.map((block) => {
           if (["audio", "video"].includes(block.type)) {
             return (

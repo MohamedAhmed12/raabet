@@ -1,20 +1,23 @@
 "use client";
 
-import { useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
-import { useTranslations } from "next-intl";
+import { getFontClassClient } from "@/lib/fonts";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 export default function ResetPasswordForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
   const t = useTranslations();
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
   const resetPasswordSchema = z.object({
     password: z.string().min(6, t("Shared.passwordMinLimit")),
   });
@@ -59,7 +62,12 @@ export default function ResetPasswordForm({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 font-noto-sans w-7xl max-w-[650px]">
+    <div
+      className={cn(
+        "flex flex-col items-center justify-center px-6 w-7xl max-w-[650px]",
+        fontClass
+      )}
+    >
       <div className="flex justify-center items-center w-full px-11 py-5">
         <h2 className="text-[32px] text-center">{t("Auth.resetPassword")}</h2>
       </div>

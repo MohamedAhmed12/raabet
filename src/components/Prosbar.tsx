@@ -1,9 +1,8 @@
-import { iconNameType } from "@/assets/icons";
+import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { AppWindow, Clock8, HandHelping, LucideIcon } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import Marquee from "react-fast-marquee";
-import { Icon } from "./Icon";
-import { useTranslations } from "next-intl";
-import React from "react";
 
 interface Props {
   colorClass?: string;
@@ -11,63 +10,67 @@ interface Props {
 }
 interface Message {
   text: string;
-  icon: iconNameType;
+  icon: LucideIcon;
 }
 
 const messages: Message[] = [
-  { text: "block", icon: "appWindow" },
-  { text: "live", icon: "clock8" },
-  { text: "Customizable", icon: "handHelping" },
-  { text: "block", icon: "appWindow" },
-  { text: "live", icon: "clock8" },
-  { text: "Customizable", icon: "handHelping" },
-  { text: "block", icon: "appWindow" },
-  { text: "live", icon: "clock8" },
-  { text: "Customizable", icon: "handHelping" },
-  { text: "block", icon: "appWindow" },
-  { text: "live", icon: "clock8" },
-  { text: "Customizable", icon: "handHelping" },
+  { text: "block", icon: AppWindow },
+  { text: "live", icon: Clock8 },
+  { text: "Customizable", icon: HandHelping },
+  { text: "block", icon: AppWindow },
+  { text: "live", icon: Clock8 },
+  { text: "Customizable", icon: HandHelping },
+  { text: "block", icon: AppWindow },
+  { text: "live", icon: Clock8 },
+  { text: "Customizable", icon: HandHelping },
+  { text: "block", icon: AppWindow },
+  { text: "live", icon: Clock8 },
+  { text: "Customizable", icon: HandHelping },
 ];
-
-const MemoizedIcon = React.memo(Icon);
-
-const MemoizedPros = React.memo(() => {
-  const t = useTranslations("HomePage.AnimatedBar.Prosbar");
-  const duplicatedMessages = [...messages, ...messages];
-
-  return (
-    <div className="flex">
-      {duplicatedMessages.map(({ text, icon }, index) => (
-        <div key={index} className="flex items-center text-xl lg:text-2xl">
-          <MemoizedIcon name={icon} size={30} />
-          <p className="px-8">{t(text)}</p>
-        </div>
-      ))}
-    </div>
-  );
-});
-MemoizedPros.displayName = "MemoizedPros";
 
 export const Prosbar = ({
   colorClass = "text-deep-blue-gray",
   bgColorClass,
 }: Props) => {
+  const t = useTranslations("HomePage.AnimatedBar.Prosbar");
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
+  const duplicatedMessages = [...messages, ...messages];
+
   return (
     <div
       className={cn(
-        "flex min-h-[60px] lg:min-h-[102px] max-w-full py-4 overflow-hidden font-bold uppercase tracking-wide font-noto-sans border border-y-black",
+        "flex min-h-[60px] lg:min-h-[102px] max-w-full py-4 overflow-hidden font-bold uppercase tracking-wide border border-y-black",
+        fontClass,
         colorClass,
         bgColorClass
       )}
     >
       <Marquee
-        direction="right"
+        direction={locale === "ar" ? "left" : "right"}
+        style={{
+          direction: locale === "ar" ? "ltr" : undefined,
+        }}
         speed={50}
-        autoFill={false}
+        autoFill={true}
         pauseOnHover={true}
         gradient={false}
+        loop={0}
       >
-        <MemoizedPros />
+        <div className="flex">
+          {duplicatedMessages.map(({ text, icon: Icon }, index) => {
+            return (
+              <div
+                key={index}
+                className="flex items-center text-xl lg:text-2xl"
+              >
+                <Icon size={30} />
+                <p className="px-8">{t(text)}</p>
+              </div>
+            );
+          })}
+        </div>
       </Marquee>
     </div>
   );

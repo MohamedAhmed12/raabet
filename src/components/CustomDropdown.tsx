@@ -6,8 +6,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { Icon } from "./Icon";
 
@@ -25,13 +26,17 @@ export function CustomDropdown({
   className,
   onSelect,
 }: CustomDropdownProps) {
-  const t = useTranslations("Dropdowns");
   const initialVal: number =
     typeof initialSelected === "number"
       ? initialSelected
       : Object.values(items).indexOf(initialSelected as string) ||
         (items?.[0] ? parseInt(items[0]) : 0);
   const [selected, setSelected] = useState<number>(initialVal);
+
+  const t = useTranslations("Dropdowns");
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   const handleOnSelect = (index: number) => {
     setSelected(index);
     onSelect(index);
@@ -54,7 +59,7 @@ export function CustomDropdown({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         defaultValue={0}
-        className="min-w-[175px] font-noto-sans"
+        className={cn("min-w-[175px]", fontClass)}
       >
         {items.map((item, index) => (
           <DropdownMenuItem

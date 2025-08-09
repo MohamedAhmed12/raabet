@@ -1,8 +1,10 @@
 "use client";
 
-import React from "react";
-import { useTranslations } from "next-intl";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
+import React from "react";
 
 interface SubscriptionBannerProps {
   status: string;
@@ -10,6 +12,9 @@ interface SubscriptionBannerProps {
 
 const SubscriptionBanner: React.FC<SubscriptionBannerProps> = ({ status }) => {
   const t = useTranslations();
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   if (status === "active") return null;
 
   let message: React.ReactNode = null;
@@ -58,7 +63,11 @@ const SubscriptionBanner: React.FC<SubscriptionBannerProps> = ({ status }) => {
 
   return (
     <div
-      className={`sticky top-0 z-2 flex items-center justify-center w-full p-4 text-center h-[44px] font-semibold text-xs md:text-base font-noto-sans text-deep-blue-gray ${conditionalStyle}`}
+      className={cn(
+        "sticky top-0 z-2 flex items-center justify-center w-full p-4 text-center h-[44px] font-semibold text-xs md:text-base text-deep-blue-gray",
+        conditionalStyle,
+        fontClass
+      )}
     >
       {message}.
     </div>

@@ -2,19 +2,28 @@
 
 import { Prosbar } from "@/components/Prosbar";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { useLocale, useTranslations } from "next-intl";
 import { reviews1, reviews2 } from "../../../../../../public/data/reviews";
 import { ReviewsSlider } from "./ReviewsSlider";
 
 export default function AnimatedBar() {
   const t = useTranslations("HomePage");
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
 
   return (
     <>
       <Prosbar bgColorClass="bg-light-orange" />
 
       {/* Reviews Section */}
-      <div className="relative flex flex-col justify-center items-center w-full overflow-hidden py-10 bg-[#D7A9FF] font-noto-sans">
+      <div
+        className={cn(
+          "relative flex flex-col justify-center items-center w-full overflow-hidden py-10 bg-[#D7A9FF]",
+          fontClass
+        )}
+      >
         {/* Heading */}
         <div className="text-[45px] lg:text-[65px] text-deep-blue-gray font-bold leading-[1.1] mb-10">
           <h2>{t("AnimatedBar.review.people")}</h2>
@@ -22,7 +31,14 @@ export default function AnimatedBar() {
             <span className="relative z-[2]">
               {t("AnimatedBar.review.saying")}
             </span>
-            <div className="absolute top-11 bottom-2 left-0 right-0 bg-white z-[1]" />
+            <div
+              className={cn(
+                "absolute  left-[-2%] right-[-2%] bg-white z-[1]",
+                locale == "ar"
+                  ? "top-[0.65em] bottom-[0.05em]"
+                  : "top-[0.67em] bottom-0"
+              )}
+            />
           </span>
           <span className="p-2">{t("AnimatedBar.review.aboutUs")}</span>
         </div>

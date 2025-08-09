@@ -16,9 +16,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 import { Block } from "@prisma/client";
 import { File, Upload } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { GCSFileLoader } from "../../../../../GCSFileLoader";
 
@@ -34,6 +36,8 @@ export const ButtonTypeDropdown = ({
   const [btnType, setBtnType] = React.useState(block.type);
 
   const t = useTranslations("LinksPage.generalStyles.blockForm");
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
 
   const linkOptions: {
     label: string;
@@ -100,7 +104,6 @@ export const ButtonTypeDropdown = ({
     block.type in errorMessages
       ? errorMessages[block.type as keyof typeof errorMessages]
       : undefined;
-  console.log("urlError", urlError, errorMessage);
 
   return (
     <div className="flex flex-col font-inherit gap-5">
@@ -112,7 +115,7 @@ export const ButtonTypeDropdown = ({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-56 font-noto-sans"
+            className={cn("w-56", fontClass)}
             align="start"
             alignOffset={3}
           >

@@ -4,10 +4,11 @@ import { signup } from "@/app/[locale]/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
+import { getFontClassClient } from "@/lib/fonts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -30,6 +31,8 @@ export default function SignUpForm({
   const [error, setError] = useState<string | null>(null);
 
   const t = useTranslations();
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
   const router = useRouter();
   const {
     register,
@@ -66,7 +69,12 @@ export default function SignUpForm({
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded-lg shadow font-noto-sans">
+    <div
+      className={cn(
+        "max-w-md mx-auto mt-10 p-6 border rounded-lg shadow",
+        fontClass
+      )}
+    >
       <h2 className="text-2xl font-semibold mb-4">{t("Auth.signUp")}</h2>
       {error && <p className="text-red-500 mb-3">{error}</p>}
 

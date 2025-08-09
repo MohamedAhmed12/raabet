@@ -9,7 +9,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useTranslations } from "next-intl";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { BlockType } from "../../../../types/block";
 
@@ -21,6 +23,9 @@ export const BlocksDialog = ({
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const t = useTranslations("LinksPage.generalStyles");
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   const blocksStaticData: {
     icon: iconNameType;
     type: BlockType;
@@ -89,7 +94,7 @@ export const BlocksDialog = ({
         <span>{t("addBlocks")}</span>
         <span className="!text-base">+</span>
       </Button>
-      <DialogContent className="font-noto-sans !max-w-[600px]">
+      <DialogContent className={cn("!max-w-[600px]", fontClass)}>
         <DialogHeader className="flex items-center">
           <DialogTitle className="capitalize mb-3">
             {t("addBlocks")}

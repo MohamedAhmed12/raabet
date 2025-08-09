@@ -3,6 +3,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { useLocale } from "next-intl";
 import { memo } from "react";
 
 function CustomTooltipComponent({
@@ -12,10 +15,13 @@ function CustomTooltipComponent({
   trigger: React.ReactNode;
   content: React.ReactNode;
 }>) {
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>{trigger}</TooltipTrigger>
-      <TooltipContent color="gray" className="max-w-[280px] font-noto-sans">
+      <TooltipContent color="gray" className={cn("max-w-[280px]", fontClass)}>
         {content}
       </TooltipContent>
     </Tooltip>

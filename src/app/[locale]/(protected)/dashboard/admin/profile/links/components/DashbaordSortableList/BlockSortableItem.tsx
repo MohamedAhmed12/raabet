@@ -1,9 +1,12 @@
 import { stripHtmlTags } from "@/app/[locale]/[username]/helpers/stripHtmlTags";
 import { Link, useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Block } from "@prisma/client";
 import { GripVertical } from "lucide-react";
+import { useLocale } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 import { updateBlock as updateBlockAction } from "../../actions/updateBlock";
@@ -12,6 +15,9 @@ import { BlockActions } from "./BlockActions";
 
 export const BlockSortableItem = ({ block }: { block: Block }) => {
   const [isDialogVisible, setIsDialogVisible] = useState(false);
+
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
 
   const setLink = useLinkStore((state) => state.setLink);
 
@@ -50,7 +56,10 @@ export const BlockSortableItem = ({ block }: { block: Block }) => {
     <li
       ref={setNodeRef}
       style={style}
-      className="flex items-center bg-white rounded-lg border border-blue-300 shadow-md hover:shadow-lg font-noto-sans font-light h-[62px] overflow-hidden not-last:mb-3"
+      className={cn(
+        "flex items-center bg-white rounded-lg border border-blue-300 shadow-md hover:shadow-lg font-light h-[62px] overflow-hidden not-last:mb-3",
+        fontClass
+      )}
     >
       <div
         {...attributes}

@@ -1,12 +1,12 @@
-import { useTranslations } from "next-intl";
-import { ContactCard } from "./ContactCard";
 import {
   SiInstagram,
   SiWhatsapp,
   SiYoutube,
 } from "@icons-pack/react-simple-icons";
 import { Mail, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import LinkedIn from "../../../../../public/svg/LinkedIn";
+import { ContactCard } from "./ContactCard";
 
 export const ContactSection = () => {
   const t = useTranslations("Contact");
@@ -17,7 +17,7 @@ export const ContactSection = () => {
         <h1 className="flex gap-2 justify-center text-4xl md:text-6xl font-bold text-deep-blue-gray mb-6">
           <span className="relative">
             <span className="relative inline-block z-[1]">{t("contact")}</span>
-            <div className="h-[15px] absolute inset-0 top-[0.73em] bottom-[0.15em] left-[-3%] right-[-3%] bg-light-orange"></div>
+            <div className="absolute inset-0 top-[0.7em] bottom-0 left-[-3%] right-[-3%] bg-light-orange"></div>
           </span>
           <span className="relative inline-block">{t("us")}</span>
         </h1>
@@ -39,7 +39,10 @@ export const ContactSection = () => {
           />
         </div>
         <div className="flex flex-col md:flex-row gap-8">
-          <ContactCard icon={<LinkedIn className="w-[35px] h-[35px]" />} title={t("linkedin")} />
+          <ContactCard
+            icon={<LinkedIn className="w-[35px] h-[35px]" />}
+            title={t("linkedin")}
+          />
           <ContactCard icon={<X size={35} />} title={t("twitter")} />
         </div>
       </div>

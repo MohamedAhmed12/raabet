@@ -1,6 +1,7 @@
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
+import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Link } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -13,14 +14,17 @@ import { WebHeader } from "./WebHeader";
 export const Header = () => {
   const t = useTranslations();
   const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   const { data: session, status } = useSession();
   const isLoading = status === "loading";
 
   return (
     <header
       className={cn(
-        "flex items-center justify-between w-full h-16 fixed z-[50] bg-white border-b border-deep-blue-gray font-noto-sans px-4",
-        "lg:px-8"
+        "flex items-center justify-between w-full h-16 fixed z-[50] bg-white border-b border-deep-blue-gray px-4",
+        "lg:px-8",
+        fontClass
       )}
     >
       <div className="flex items-center">

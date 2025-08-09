@@ -14,8 +14,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/cn";
+import { getFontClassClient } from "@/lib/fonts";
 import { Check, Copy } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
@@ -32,6 +33,9 @@ export function ShareBtn({
   const [isCopied, setIsCopied] = useState(false);
 
   const t = useTranslations("ShareBtn");
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   const { user, qrcodes } = useLinkStore(
     useShallow((state) => ({
       user: state.link.user,
@@ -93,7 +97,7 @@ export function ShareBtn({
           </DialogTitle>
         </DialogHeader>
 
-        <DialogFooter className="flex !flex-col gap-4 font-noto-sans">
+        <DialogFooter className={cn("flex !flex-col gap-4", fontClass)}>
           <Button
             className="w-full flex !text-base capitalize bg-deep-blue-gray hover:bg-deep-blue-gray cursor-pointer"
             onClick={() => handleAddContact()}

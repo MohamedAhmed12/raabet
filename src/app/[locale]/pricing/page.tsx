@@ -1,17 +1,24 @@
+import { PublicContainer } from "@/components/PublicContainer";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { getLocale, getTranslations } from "next-intl/server";
 import { FeaturesCard } from "./FeaturesCard";
 import { PlansCard } from "./PlansCard";
-import { PublicContainer } from "@/components/PublicContainer";
-import { getLocale, getTranslations } from "next-intl/server";
-import { cn } from "@/lib/utils";
 
-export default async function Pricing() { 
+export default async function Pricing() {
   const t = await getTranslations();
-  const locale =await getLocale();
+  const locale = await getLocale();
+  const fontClass = getFontClassClient(locale);
 
   return (
     <PublicContainer>
       <div className="flex flex-col px-[7vw] pb-16">
-        <div className="flex flex-col justify-center items-center mt-16 font-noto-sans">
+        <div
+          className={cn(
+            "flex flex-col justify-center items-center mt-16",
+            fontClass
+          )}
+        >
           <div
             className={cn(
               "flex flex-col justify-center items-center text-[2.9rem] leading-[.8] font-extrabold text-deep-blue-gray text-center mb-8 capitalize",
@@ -25,9 +32,7 @@ export default async function Pricing() {
               <div
                 className={cn(
                   "h-[17px] absolute inset-0 bottom-[0.15em] left-[-3%] right-[-3%] bg-light-orange z-[0]",
-                  locale == "ar"
-                    ? "top-[0.5em]"
-                    : "top-[0.60em]",
+                  locale == "ar" ? "top-[0.54em]" : "top-[0.60em]",
                   "lg:h-[23px]"
                 )}
               ></div>

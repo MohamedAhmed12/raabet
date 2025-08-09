@@ -1,5 +1,6 @@
 "use client";
 
+import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, Link, Loader2, Mail } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -10,6 +11,7 @@ import { useNewsletterSubscribe } from "./hooks/useNewsletterSubscribe";
 export const Footer = () => {
   const t = useTranslations();
   const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
 
   const { mutate: subscribe, isSuccess, isPending } = useNewsletterSubscribe();
 
@@ -23,8 +25,9 @@ export const Footer = () => {
   return (
     <footer
       className={cn(
-        "flex flex-col items-start justify-between bg-deep-blue-gray text-gray-300 font-noto-sans text-gray-300 py-[60px] px-[7vw]",
-        "lg:flex-row gap-8.5 lg:gap-0"
+        "flex flex-col items-start justify-between bg-deep-blue-gray text-gray-300 text-gray-300 py-[60px] px-[7vw]",
+        "lg:flex-row gap-8.5 lg:gap-0",
+        fontClass
       )}
     >
       <div className="flex flex-col gap-8.5 lg:flex-row lg:gap-21">
@@ -48,7 +51,7 @@ export const Footer = () => {
             {t("Footer.BuiltWith")}
 
             {/* put my rabet page in the future after creating more of the leade generating free projects */}
-            <NextLink href="#"  className="mx-1" target="_blank">
+            <NextLink href="#" className="mx-1" target="_blank">
               Gad
             </NextLink>
           </div>

@@ -1,18 +1,21 @@
 "use client";
 
+import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { plans as enPlans, arPlans } from "../../../../../public/data/plans";
+import { useLocale, useTranslations } from "next-intl";
+import { arPlans, plans as enPlans } from "../../../../../public/data/plans";
 import { FeaturesList } from "./FeaturesList";
 import { MobileFeaturesList } from "./MobileFeaturesList";
-import { useLocale, useTranslations } from "next-intl";
 
 export const PlansCard = () => {
   const locale = useLocale();
   const t = useTranslations();
+  const fontClass = getFontClassClient(locale);
+
   const plans = locale == "ar" ? arPlans : enPlans;
 
   return (
-    <div className="flex flex-col lg:flex-row font-noto-sans">
+    <div className={cn("flex flex-col lg:flex-row", fontClass)}>
       {plans.map((plan, i) => (
         <div
           key={plan.name}
@@ -48,7 +51,8 @@ export const PlansCard = () => {
           >
             <h2
               className={cn(
-                "text-[32px] font-extrabold font-noto-sans",
+                "text-[32px] font-extrabold",
+                fontClass,
                 i == 0 ? "text-light-orange" : "text-[#d9acfd]"
               )}
               style={{
@@ -70,7 +74,9 @@ export const PlansCard = () => {
                   {plan.discountPrice}
                 </span>
               </div>
-              <span className="text-base mt-2">{t("Pricing.pricePerMonth")}</span>
+              <span className="text-base mt-2">
+                {t("Pricing.pricePerMonth")}
+              </span>
             </div>
 
             {/* <Separator /> */}

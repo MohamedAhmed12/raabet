@@ -1,13 +1,21 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { getFontClassClient } from "@/lib/fonts";
+import { useLocale } from "next-intl";
+
 export function ForgetPasswordForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   return (
     <form className={cn("flex flex-col", className)} {...props}>
-      <div className="flex flex-col justify-center items-center font-noto-sans">
+      <div
+        className={cn("flex flex-col justify-center items-center", fontClass)}
+      >
         <div className="mb-6 text-[40px] text-deep-blue-gray font-bold leading-[1.1] pb-3">
           <span className="pr-2">Reset</span>
           <span className="relative">

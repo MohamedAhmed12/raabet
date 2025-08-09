@@ -12,6 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Star } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -32,6 +33,7 @@ export default function FeedbackPopup({
 
   const locale = useLocale();
   const t = useTranslations();
+  const fontClass = getFontClassClient(locale);
   const linkId = useLinkStore((state) => state.link.id);
 
   const { mutate: updateFeedbackTimestamp } = useUpdateFeedbackTimestamp();
@@ -93,7 +95,12 @@ export default function FeedbackPopup({
 
   return (
     <Dialog open={true} onOpenChange={handleOnOpenChange}>
-      <DialogContent className="flex flex-col justify-center items-center max-w-md font-noto-sans px-5">
+      <DialogContent
+        className={cn(
+          "flex flex-col justify-center items-center max-w-md px-5",
+          fontClass
+        )}
+      >
         <DialogHeader>
           <DialogTitle className="text-center text-2xl mb-4">
             {t("FeedbackPopup.title")}

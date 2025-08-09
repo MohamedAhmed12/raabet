@@ -1,7 +1,6 @@
-import { PublicContainer } from '@/components/PublicContainer';
-import { Metadata } from 'next';
-import { useTranslations } from 'next-intl';
-import { ContactSection } from './_components/ContactSection';
+import { PublicContainer } from "@/components/PublicContainer";
+import { Metadata } from "next";
+import { ContactSection } from "./_components/ContactSection";
 
 export const metadata: Metadata = {
   title: "Contact Us - Rabet",
@@ -10,8 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const t = useTranslations("Contact");
-
   return (
     <PublicContainer>
       <ContactSection />

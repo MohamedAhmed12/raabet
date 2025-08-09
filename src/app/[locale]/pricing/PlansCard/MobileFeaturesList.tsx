@@ -4,17 +4,19 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { useLocale, useTranslations } from "next-intl";
 import { Plan } from "../../../../../public/data/plans";
 import { TrueFalseIcon } from "./TrueFalseIcon";
-import { useLocale, useTranslations } from "next-intl";
 
 export const MobileFeaturesList = ({ plan }: { plan: Plan }) => {
   const locale = useLocale();
   const t = useTranslations();
+  const fontClass = getFontClassClient(locale);
 
   return (
-    <div className="flex lg:hidden felx p-6 font-noto-sans text-sm">
+    <div className={cn("flex lg:hidden felx p-6 text-sm", fontClass)}>
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger className="w-full justify-center items-center text-base text-center font-semibold text-deep-blue-gray">

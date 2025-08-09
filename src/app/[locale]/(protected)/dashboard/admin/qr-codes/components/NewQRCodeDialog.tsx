@@ -1,5 +1,6 @@
 "use client";
 
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,14 +8,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { FileUser, Link, Plus, Loader2 } from "lucide-react";
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { FileUser, Link, Loader2, Plus } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { useCreateQRCode } from "../hooks/useCreateQRCode";
 import { useShallow } from "zustand/react/shallow";
+import { useCreateQRCode } from "../hooks/useCreateQRCode";
 
 export const NewQRCodeDialog = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -23,6 +25,9 @@ export const NewQRCodeDialog = () => {
   const [url, setUrl] = useState("");
 
   const t = useTranslations("QR");
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   const { qrcodes } = useLinkStore(
     useShallow((state) => ({
       qrcodes: state.link.qrcodes,
@@ -144,14 +149,19 @@ export const NewQRCodeDialog = () => {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="cursor-pointer h-10 font-noto-sans !text-base"
+          className={cn("cursor-pointer h-10 !text-base", fontClass)}
           onClick={() => setOpen(true)}
         >
           {t("newQR")}
           <Plus className="w-4 h-4 mr-2" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="flex justify-center items-center flex-col gap-2 font-noto-sans !max-w-115">
+      <DialogContent
+        className={cn(
+          "flex justify-center items-center flex-col gap-2 !max-w-115",
+          fontClass
+        )}
+      >
         <DialogTitle>
           {showProfileQR ? t("profileQRTitle") : t("newQR")}
         </DialogTitle>

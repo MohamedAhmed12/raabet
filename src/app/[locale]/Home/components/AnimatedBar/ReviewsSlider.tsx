@@ -2,6 +2,7 @@
 
 import { Icon } from "@/components/Icon";
 import { Card, CardContent } from "@/components/ui/card";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import { memo } from "react";
 import Marquee from "react-fast-marquee";
@@ -91,8 +92,14 @@ export const ReviewsSlider = ({
   reviews: Review[];
   speed: number;
 }) => {
+  const locale = useLocale();
+
   return (
     <Marquee
+      direction={locale === "ar" ? "left" : "right"}
+      style={{
+        direction: locale === "ar" ? "ltr" : undefined,
+      }}
       speed={speed}
       className="overflow-hidden min-h-[180px] lg:min-h-[232px]"
       pauseOnHover

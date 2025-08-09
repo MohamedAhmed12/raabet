@@ -1,19 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { Icon } from "@/components/Icon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@radix-ui/react-label";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 import {
   Dialog,
   DialogContent,
-  DialogTitle,
   DialogOverlay,
+  DialogTitle,
 } from "@radix-ui/react-dialog";
-import { Icon } from "@/components/Icon";
-import { useTranslations } from "next-intl";
+import { Label } from "@radix-ui/react-label";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 
 export function ForgetPasswordForm({
@@ -26,6 +27,8 @@ export function ForgetPasswordForm({
   const [showModal, setShowModal] = useState(false);
 
   const t = useTranslations();
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,7 +59,7 @@ export function ForgetPasswordForm({
     <>
       <form
         onSubmit={handleSubmit}
-        className={cn("flex flex-col font-noto-sans", className)}
+        className={cn("flex flex-col", className,fontClass)}
         {...props}
       >
         <div className="flex flex-col justify-center items-center">

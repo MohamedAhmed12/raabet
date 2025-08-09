@@ -1,15 +1,18 @@
-import Image from "next/image";
-import { plans } from "../../../../public/data/plans";
+import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { useLocale } from "next-intl";
+import Image from "next/image";
+import { plans } from "../../../../public/data/plans";
 
 export const FeaturesCard = () => {
   const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
 
   return (
     <div
       className={cn(
-        "relative hidden lg:flex flex-col min-w-[450px] w-[450px] border-deep-blue-gray bg-gray-100 font-noto-sans",
+        "relative hidden lg:flex flex-col min-w-[450px] w-[450px] border-deep-blue-gray bg-gray-100",
+        fontClass,
         locale === "ar"
           ? "border-r-1 shadow-[-8px_8px_0px_#1d1d28] rounded-br-[20px]"
           : "border-l-1 shadow-[8px_8px_0px_#1d1d28] rounded-bl-[20px]"

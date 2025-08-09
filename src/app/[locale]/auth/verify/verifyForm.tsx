@@ -9,9 +9,10 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { createAndSendActivation } from "@/lib/activation";
 import { cn } from "@/lib/cn";
+import { getFontClassClient } from "@/lib/fonts";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,6 +26,8 @@ export default function VerifyForm({ email }: { email: string }) {
   const [verified, setVerified] = useState(false);
 
   const t = useTranslations();
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
   const session = useSession();
   const router = useRouter();
 
@@ -104,7 +107,7 @@ export default function VerifyForm({ email }: { email: string }) {
 
   return (
     <div className="flex flex-col justify-center items-center h-full mx-auto px-[7vw] py-4">
-      <div className="font-noto-sans">
+      <div className={fontClass}>
         <div className="flex gap-4 mb-6 text-[40px] text-deep-blue-gray font-bold leading-[1.1] pb-3">
           <span>{t("Auth.confirmYour")}</span>
           <span className="relative ml-1">

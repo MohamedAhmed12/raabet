@@ -11,6 +11,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useLocaleMeta } from "@/hooks/use-locale-meta";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 import { Award, CirclePlus } from "lucide-react";
 import { signOut, useSession } from "next-auth/react"; // Import signOut from NextAuth.js
 import { useLocale, useTranslations } from "next-intl";
@@ -23,9 +25,10 @@ export default function CustomSidebar({
 }: {
   onOpenFeedbackPopup: () => void;
 }) {
-  const locale = useLocale();
-  const session = useSession();
   const t = useTranslations("Sidebar");
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+  const session = useSession();
   const pathname = usePathname();
   const { getOppositeLang, switchLocale } = useLocaleMeta();
   const { status, isLoading: isLoadingSubs } = useSubscriptionStatus({
@@ -65,7 +68,7 @@ export default function CustomSidebar({
 
   return (
     <Sidebar
-      className="font-noto-sans font-medium"
+      className={cn("font-medium", fontClass)}
       side={locale === "ar" ? "right" : "left"}
     >
       <SidebarContent className="p-[11px] pt-[55px]">
@@ -144,7 +147,7 @@ export default function CustomSidebar({
         </SidebarMenu>
       </SidebarContent>
       {!isLoadingSubs && status === "trialing" && (
-        <SidebarFooter className="p-[11px] font-noto-sans">
+        <SidebarFooter className={cn("p-[11px]", fontClass)}>
           <Link
             href="/dashboard/admin/subscription"
             className="flex cursor-pointer flex-col h-auto w- p-[11px] items-center text-center text-white bg-[linear-gradient(45deg,_#dd76ff,_#097cd4)] rounded-md"

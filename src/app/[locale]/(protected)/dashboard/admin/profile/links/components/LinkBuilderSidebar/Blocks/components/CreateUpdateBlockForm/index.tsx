@@ -2,8 +2,12 @@
 
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { BlockAnimation, BlockTextAlign } from "@/app/[locale]/types/block";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 import { Block, BlockType } from "@prisma/client";
+import { useLocale, useTranslations } from "next-intl";
 import React, { useState } from "react";
+import { z } from "zod";
 import {
   blocks,
   blockSchemas,
@@ -11,10 +15,6 @@ import {
 } from "../../../../../types/block";
 import { CreateUpdateBlockFormFooter } from "./components/Footer";
 import { CreateUpdateBlockFormHeader } from "./components/Header";
-import { useTranslations } from "next-intl";
-import { useLocale } from "next-intl";
-import { cn } from "@/lib/utils";
-import { z } from "zod";
 
 interface CreateUpdateBlockFormProps {
   type: BlockType;
@@ -30,6 +30,7 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
   onClose,
 }) => {
   const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
   const t = useTranslations("LinksPage.generalStyles.blockForm");
   const linkId = useLinkStore((state) => state.link.id);
   const blocksLength = useLinkStore((state) => state.link.blocks?.length);
@@ -100,8 +101,9 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
   return (
     <div
       className={cn(
-        "flex flex-col flex-1 justify-between absolute top-0 min-w-[520px] z-[9] min-h-screen font-noto-sans font-medium !bg-white w-[370px] border-1 border-r-[#d3d3d3] overflow-y-auto",
-        locale === "ar" ? "right-0" : "left-0"
+        "flex flex-col flex-1 justify-between absolute top-0 min-w-[520px] z-[9] min-h-screen font-medium !bg-white w-[370px] border-1 border-r-[#d3d3d3] overflow-y-auto",
+        locale === "ar" ? "right-0" : "left-0",
+        fontClass
       )}
     >
       <CreateUpdateBlockFormHeader title={blocksTitles[type]} />

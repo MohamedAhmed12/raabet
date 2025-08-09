@@ -1,7 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import NextLink from "next/link";
 import {
   Drawer,
   DrawerContent,
@@ -10,11 +8,17 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Menu } from "lucide-react";
 import { usePathname } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { Menu } from "lucide-react";
+import NextLink from "next/link";
 
 export const MobileHeader = () => {
   const t = useTranslations();
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
   const pathname = usePathname();
 
   return (
@@ -24,7 +28,7 @@ export const MobileHeader = () => {
           <Menu className="w-6 h-6" />
         </button>
       </DrawerTrigger>
-      <DrawerContent className="bg-white font-noto-sans">
+      <DrawerContent className={cn("bg-white", fontClass)}>
         <DrawerHeader className="hidden">
           <DrawerTitle>Move Goal</DrawerTitle>
           <DrawerDescription>Set your daily activity goal.</DrawerDescription>

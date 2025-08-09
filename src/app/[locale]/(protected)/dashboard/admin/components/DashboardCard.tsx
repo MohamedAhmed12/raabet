@@ -1,6 +1,8 @@
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {HelperTooltip} from "./HelperTooltip";
-import {cn} from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { useLocale } from "next-intl";
+import { HelperTooltip } from "./HelperTooltip";
 
 export const DashboardCard = ({
   hasHelperTooltip = false,
@@ -17,12 +19,15 @@ export const DashboardCard = ({
   title: string;
   className?: string;
 }) => {
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   return (
-    <Card className={cn("p-0 font-noto-sans", className)}>
+    <Card className={cn("p-0", className, fontClass)}>
       <CardHeader className="p-0 ">
         <CardTitle
           className="flex justify-between w-full font-normal text-[14px] text-center dashboard-general-style-controller text-deep-blue-gray bg-[#fafafa] !mb-0 !rounded-t-xl !rounded-b-none"
-          style={{borderWidth: 0, borderBottomWidth: 1}}
+          style={{ borderWidth: 0, borderBottomWidth: 1 }}
         >
           <span className="flex justify-center items-center gap-2 ">
             {hasHelperTooltip && (

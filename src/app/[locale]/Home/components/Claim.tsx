@@ -1,12 +1,18 @@
 import { Icon } from "@/components/Icon";
 import { Input } from "@/components/ui/input";
+import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export const Claim = () => {
   const t = useTranslations("HomePage");
+  const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
+
   return (
-    <div className="flex items-center rounded-[100px] border border-[#1d1d28] shadow-[3px_3px_0px_#1d1d28] bg-white cursor-text p-2 mt-8 font-noto-sans font-semibold">
+    <div
+      className={`flex items-center rounded-[100px] border border-[#1d1d28] shadow-[3px_3px_0px_#1d1d28] bg-white cursor-text p-2 mt-8 ${fontClass} font-semibold`}
+    >
       <Icon
         name="link"
         size={40}

@@ -1,14 +1,21 @@
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import { ContentSection } from "../ContentSection";
 import { WhyUsBlock } from "./components/whyUsBlock";
-import { cn } from "@/lib/utils";
 
 export const WhyUs = () => {
   const t = useTranslations("HomePage");
   const locale = useLocale();
+  const fontClass = getFontClassClient(locale);
 
   return (
-    <div className="flex flex-col md:flex-row items-stretch w-full font-noto-sans">
+    <div
+      className={cn(
+        "flex flex-col md:flex-row items-stretch w-full",
+        fontClass
+      )}
+    >
       <ContentSection
         titleLabel={t("WhyUs.titleLabel")}
         coloredLabel={t("WhyUs.coloredLabel")}
