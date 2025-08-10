@@ -33,10 +33,6 @@ export const RabetAvatar = () => {
   const sessionUser = session?.user as SessionUser | null;
   const user = sessionUser?.id;
 
-  if (!user) {
-    return null;
-  }
-
   const { fullName, email, image } = useMemo(() => {
     return {
       email: user?.email || "",
@@ -44,6 +40,10 @@ export const RabetAvatar = () => {
       fullName: user?.fullname || "",
     };
   }, [user]);
+
+  if (!user) {
+    return null;
+  }
 
   const getInitials = (name: string) => {
     return name

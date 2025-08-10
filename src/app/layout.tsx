@@ -3,14 +3,15 @@ import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { Toaster } from "sonner";
 import localFont from "next/font/local";
+import { Toaster } from "sonner";
 
-import { customGetLocale } from "@/lib/customGetLocale";
-import arMessages from "../messages/ar.json";
-import enMessages from "../messages/en.json";
 import { ReactQueryProvider } from "@/components/ReactQueryProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { customGetLocale } from "@/lib/customGetLocale";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import arMessages from "../messages/ar.json";
+import enMessages from "../messages/en.json";
 
 const notoSans = localFont({
   src: [
@@ -112,6 +113,7 @@ export default async function RootLayout({
             <TooltipProvider>
               <Toaster />
               {children}
+              <ReactQueryDevtools initialIsOpen={false} />
             </TooltipProvider>
           </ReactQueryProvider>
         </NextIntlClientProvider>
