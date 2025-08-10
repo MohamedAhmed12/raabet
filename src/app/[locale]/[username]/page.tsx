@@ -32,9 +32,24 @@ export default function UserName() {
    * propsLink exists when using profile link viewer
    * store link
    */
-  if ((!username && !data) || error) return notFound();
+  // Early return for error states
+  if (error) {
+    console.error('Error fetching user data:', error);
+    return notFound();
+  }
 
-  if (isLoading) return <Loading />;
+  // Handle loading state
+  if (isLoading || !data) {
+    return <Loading />;
+  }
 
+  // Validate required data
+  const hasRequiredData = data?.id && data?.user?.id;
+  if (!hasRequiredData) {
+    console.warn('Incomplete user data received:', data);
+    return notFound();
+  }
+
+  // Only render the main component when we have valid data
   return <MainLinkComponent link={data} isSticky={state.y > 20} />;
 }

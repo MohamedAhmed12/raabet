@@ -4,4 +4,4 @@ export const problemStatuses: SubscriptionStatus[] = [
   "none",
   "failed",
   "canceled",
-];
+] as const;

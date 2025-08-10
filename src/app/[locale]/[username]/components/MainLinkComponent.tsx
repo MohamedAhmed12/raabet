@@ -2,6 +2,7 @@
 
 import { Link } from "@/app/[locale]/store/use-link-store";
 import { cn } from "@/lib/cn";
+import { Link as PrismaLink } from "@prisma/client";
 import Image from "next/image";
 import { memo, useMemo } from "react";
 import LinksBlocks from "./LinksBlocks";
@@ -11,7 +12,7 @@ import LinksNavbar from "./LinksHeader/LinksNavbar";
 import LinksSocialIcons from "./LinksSocialIcons";
 
 interface MainLinkComponentProps {
-  link: Link;
+  link: Link | PrismaLink;
   isSticky: boolean;
   className?: string;
 }

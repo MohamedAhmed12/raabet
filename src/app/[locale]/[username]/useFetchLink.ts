@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { useQuery } from "@tanstack/react-query";
 import { fetchSingleLink } from "../actions/fetchSingleLink";
-import { useLinkStore } from "../store/use-link-store";
 
 const useFetchLink = ({
   userId,
@@ -9,55 +9,29 @@ const useFetchLink = ({
   userId?: string | undefined;
   username?: string;
 }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [data, setData] = useState<any | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
   const replaceLink = useLinkStore((state) => state.replaceLink);
 
-  // Use ref to track if the data has been fetched already
-  const hasFetchedRef = useRef<boolean>(false);
-
-  const fetchLink = useCallback(
-    async (withLoading = true) => {
-      if (withLoading) setIsLoading(true);
-      setError(null);
-
-      try {
-        const response = await fetchSingleLink({ userId, username });
-
-        if (response) {
-          setData(response);
-          // @ts-expect-error - We're ignoring this line because we trust the response matches the Link type
-          replaceLink(response);
-
-          hasFetchedRef.current = true; // Mark as fetched
-        } else {
-          const e = `No link attached to this userId`;
-          console.error(e);
-          setError(e);
-        }
-      } catch (err) {
-        setError("Failed to fetch data");
-        console.error(err);
-      } finally {
-        setIsLoading(false);
+  return useQuery({
+    queryKey: ["link", { userId, username }],
+    queryFn: async () => {
+      if (!userId && !username) {
+        throw new Error("User ID or username is required");
       }
+      const response = await fetchSingleLink({ userId, username });
+
+      if (!response) {
+        throw new Error("No link attached to this userId");
+      }
+
+      // @ts-expect-error - We're ignoring this line because we trust the response matches the Link type
+      replaceLink(response);
+
+      return response;
     },
-    [userId, username, replaceLink]
-  );
-
-  const refetch = () => {
-    fetchLink(false);
-  };
-
-  useEffect(() => {
-    if (!userId && !username) return; // Don't fetch if userId is missing or data already fetched
-
-    fetchLink();
-  }, [fetchLink, userId, username]);
-
-  return { isLoading, data, error, refetch };
+    enabled: !!(userId || username), // Only run the query if we have either userId or username
+    staleTime: 15 * 60 * 1000, // 15 minutes
+    retry: 1,
+  });
 };
 
 export default useFetchLink;

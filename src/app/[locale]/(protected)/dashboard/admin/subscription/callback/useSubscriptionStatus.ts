@@ -1,52 +1,32 @@
 "use client";
 
-import { Subscription } from "@prisma/client";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { fetchSubscription } from "../actions/fetchSubscription";
 
 export function useSubscriptionStatus({
   email,
-  pollingInterval = 60000,
+  pollingInterval = 5 * 60 * 1000,
 }: {
   email: string;
   pollingInterval?: number;
 }) {
-  const [subscription, setSubscription] = useState<Subscription | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchStatus = async () => {
-      try {
-        const subscription = await fetchSubscription(email);
-        if (isMounted) {
-          setSubscription(subscription);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching subscription status:", error);
-        if (isMounted) {
-          setSubscription(null);
-          setIsLoading(false);
-        }
+  console.log("subs called", email);
+  return useQuery({
+    queryKey: ["subscriptionStatus", { email }],
+    queryFn: async () => {
+      if (!email) {
+        throw new Error("User ID or username is required");
       }
-    };
+      const subscription = await fetchSubscription(email);
 
-    fetchStatus();
-    const intervalId = setInterval(fetchStatus, pollingInterval);
-
-    return () => {
-      isMounted = false;
-      if (intervalId) {
-        clearInterval(intervalId);
+      if (!subscription) {
+        throw new Error("Error fetching subscription status");
       }
-    };
-  }, [email, pollingInterval]);
 
-  return {
-    subscription,
-    status: subscription?.status || null,
-    isLoading,
-  };
+      return subscription.status;
+    },
+    enabled: !!email, // Only run the query if we have either userId or username
+    staleTime: 0, // Always consider data stale, will refetch on mount
+    refetchInterval: pollingInterval,
+  });
 }

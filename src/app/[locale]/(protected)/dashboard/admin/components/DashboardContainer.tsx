@@ -25,7 +25,7 @@ export const DashboardContainer = ({
   // @ts-expect-error: [to access user data in session it exists in id]
   const userId = session?.data?.user?.id?.id as string;
   const { isLoading: isLoadingLink, error } = useFetchLink({ userId });
-  const { status, isLoading: isLoadingSubs } = useSubscriptionStatus({
+  const { data: status, isLoading: isLoadingSubs } = useSubscriptionStatus({
     email: session?.data?.user?.email as string,
   });
 

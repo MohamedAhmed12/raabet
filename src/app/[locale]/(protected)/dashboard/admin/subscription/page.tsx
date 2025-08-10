@@ -10,9 +10,15 @@ import { problemStatuses } from "./types/subscripiton";
 
 export default function SubscriptionPage() {
   const session = useSession();
-  const { status, isLoading } = useSubscriptionStatus({
+
+  const {
+    data: status,
+    isLoading,
+    refetch,
+  } = useSubscriptionStatus({
     email: session?.data?.user?.email || "",
   });
+
   const showSubscriptionForm = status && problemStatuses.includes(status);
   const showSubscriptionStatusCard =
     status && !problemStatuses.includes(status);
@@ -30,7 +36,9 @@ export default function SubscriptionPage() {
             {showSubscriptionStatusCard && (
               <SubscriptionStatusCard status={status} />
             )}
-            {showSubscriptionForm && <SubscriptionForm status={status} />}
+            {showSubscriptionForm && (
+              <SubscriptionForm status={status} refetch={refetch} />
+            )}
           </div>
         )}
       </div>
