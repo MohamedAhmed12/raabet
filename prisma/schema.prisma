@@ -13,7 +13,11 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl  = env("DIRECT_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
 
 model User {  
@@ -21,6 +25,7 @@ model User {
   fullname            String  @unique
   email               String  @unique
   password            String
+  role                UserRole @default(USER)
   avatar              String @default("/images/user-placeholder.png")
   links               Link[]
   is_confirmed        Boolean  @default(false)
@@ -103,7 +108,7 @@ model Link {
  
   // Feedback relationship
   feedbacks     Feedback[]
-  last_feedback_ts DateTime? @default(now())
+  last_feedback_ts DateTime @default(now())
 
   // Styling and design fields
   general_styles_desktop_bgcolor   String
