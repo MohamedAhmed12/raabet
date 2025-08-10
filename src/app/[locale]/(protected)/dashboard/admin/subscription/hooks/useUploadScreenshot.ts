@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { uploadScreenshot } from "../actions/uploadScreenshot";
 
 type UploadScreenshotResponse = {
@@ -11,10 +11,16 @@ type UploadScreenshotResponse = {
   expiresAt: Date | null;
 };
 
-export function useUploadScreenshot() {
+export function useUploadScreenshot(
+  options?: Omit<
+    UseMutationOptions<UploadScreenshotResponse, Error, string>,
+    "mutationFn"
+  >
+) {
   return useMutation<UploadScreenshotResponse, Error, string>({
     mutationFn: async (invoiceURL) => {
       return uploadScreenshot(invoiceURL);
     },
+    ...options,
   });
 }

@@ -13,13 +13,13 @@ import {
 import { useLocaleMeta } from "@/hooks/use-locale-meta";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { SubscriptionStatus } from "@prisma/client";
+import { useQueryClient } from "@tanstack/react-query";
 import { Award, CirclePlus } from "lucide-react";
 import { signOut, useSession } from "next-auth/react"; // Import signOut from NextAuth.js
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
-
 export default function CustomSidebar({
   onOpenFeedbackPopup,
 }: {
@@ -30,10 +30,13 @@ export default function CustomSidebar({
   const fontClass = getFontClassClient(locale);
   const session = useSession();
   const pathname = usePathname();
+  const queryClient = useQueryClient();
   const { getOppositeLang, switchLocale } = useLocaleMeta();
-  const { status, isLoading: isLoadingSubs } = useSubscriptionStatus({
-    email: session?.data?.user?.email as string,
-  });
+
+  const SubscriptionStatus = queryClient.getQueryData<SubscriptionStatus>([
+    "subscriptionStatus",
+    { email: session?.data?.user?.email as string },
+  ]);
 
   const sidebarTabs: { text: string; url: string; icon: iconNameType }[] = [
     {
@@ -140,13 +143,13 @@ export default function CustomSidebar({
             >
               <Link href={"logout"} className="flex gap-2 p-[5.5px] rounded-sm">
                 <Icon name={"log-out"} size={20} />
-                <span>{t("tabs.logout")}</span>
+                <span className="text-xs">{t("tabs.logout")}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
-      {!isLoadingSubs && status === "trialing" && (
+      {SubscriptionStatus === "trialing" && (
         <SidebarFooter className={cn("p-[11px]", fontClass)}>
           <Link
             href="/dashboard/admin/subscription"

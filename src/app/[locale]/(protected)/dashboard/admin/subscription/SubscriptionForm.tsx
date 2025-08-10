@@ -5,28 +5,64 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { SubscriptionStatus } from "@prisma/client";
+import { format } from "date-fns";
 import { Upload } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useUploadScreenshot } from "./hooks/useUploadScreenshot";
-import { createStripeCustomerSession } from "./actions/createStripeCustomerSession";
-import { GCSFileLoader } from "../profile/links/components/LinkBuilderSidebar/GCSFileLoader";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { useShallow } from "zustand/react/shallow";
+import { GCSFileLoader } from "../profile/links/components/LinkBuilderSidebar/GCSFileLoader";
+import { createStripeCustomerSession } from "./actions/createStripeCustomerSession";
+import { useUploadScreenshot } from "./hooks/useUploadScreenshot";
 
 interface SubscriptionFormProps {
   status: SubscriptionStatus;
+  refetch: () => void;
 }
 
-export default function SubscriptionForm({ status }: SubscriptionFormProps) {
+export default function SubscriptionForm({
+  status,
+  refetch,
+}: SubscriptionFormProps) {
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [showManualPayment, setShowManualPayment] = useState(false);
+  const [isUploadingInvoice, setIsUploadingInvoice] = useState(false);
   const [uploadedInvoice, setUploadedInvoice] = useState<string | null>(null);
-  const { mutate: uploadScreenshot, isPending } = useUploadScreenshot();
+
+  const { mutateAsync: uploadScreenshot, isPending } = useUploadScreenshot({
+    onSuccess: () => {
+      // Clear any existing timeout to prevent memory leaks
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = setTimeout(() => {
+        refetch();
+        timeoutRef.current = null;
+      }, 1400);
+    },
+  });
 
   const t = useTranslations();
   const locale = useLocale();
-  const linkId = useLinkStore((state) => state.link.id);
+
+  const { linkId, userId } = useLinkStore(
+    useShallow((state) => ({
+      linkId: state.link.id,
+      userId: state.link.user?.id,
+    }))
+  );
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     async function fetchClientSecret() {
@@ -49,20 +85,23 @@ export default function SubscriptionForm({ status }: SubscriptionFormProps) {
 
     if (file) {
       try {
+        setIsUploadingInvoice(true);
         // Generate a unique filename with user ID and date
         const fileExtension = file.name.split(".").pop();
         const fileName = `invoice_${Date.now()}.${fileExtension}`;
-        const filePath = `invoices/${linkId}/${fileName}`;
+        const humanDate = format(Date.now(), "d-M-yyyy");
+        const filePath = `invoices/${humanDate}/${userId}/${fileName}`;
 
         const publicUrl = await GCSFileLoader(linkId, file, filePath);
         setUploadedInvoice(publicUrl);
 
         await uploadScreenshot(publicUrl);
-
         toast.success(t("Subscription.InvoiceUploadedSuccessfully"));
       } catch (error) {
         console.error("Upload V-Cash or Instapay failed:", error);
         toast.error(t("Subscription.InvoiceUploadFailed"));
+      } finally {
+        setIsUploadingInvoice(false);
       }
     }
   };
@@ -85,12 +124,12 @@ export default function SubscriptionForm({ status }: SubscriptionFormProps) {
               className="file-upload-label text-sm flex items-center justify-between gap-2 px-4 p-3 relative border rounded-lg bg-white shadow-sm cursor-pointer"
             >
               <span className="capitalize">
-                {isPending
+                {isPending || isUploadingInvoice
                   ? t("LinksPage.generalStyles.header.uploading")
                   : t("Subscription.uploadInvoice")}
               </span>
-              {!isPending && <Upload className="size-5" />}
-              {isPending && (
+              {!isPending && !isUploadingInvoice && <Upload className="size-5" />}
+              {(isPending || isUploadingInvoice) && (
                 <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-gray-900"></div>
               )}
             </label>
