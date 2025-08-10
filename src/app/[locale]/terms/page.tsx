@@ -1,16 +1,23 @@
 "use server";
 
-export default async function terms() {
+import { getFontClass } from "@/lib/fonts";
+
+export default async function TermsPage() {
+  const fontClass = await getFontClass();
+
   return (
-    <div className="bg-gray-200 py-15 flex items-center justify-center font-noto-sans">
+    <div
+      className={`bg-gray-200 py-15 flex items-center justify-center ${fontClass}`}
+    >
       <div className="bg-white py-10 px-20 flex flex-col items-start max-w-4xl rounded-sm gap-4">
         <div>
           <div className="text-2xl mb-4"> Terms Of Service</div>
           <div className="text-sm flex flex-col gap-4">
             <span>
-              Please read these Terms and Conditions (&quot;Terms&quot;, &quot;Terms and
-              Conditions&quot;) carefully before using the rabetlink.com website (the
-              &quot;Service&quot;) operated by Rabet, LLC (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).
+              Please read these Terms and Conditions (&quot;Terms&quot;,
+              &quot;Terms and Conditions&quot;) carefully before using the
+              rabetlink.com website (the &quot;Service&quot;) operated by Rabet,
+              LLC (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).
             </span>
             <span>
               Your access to and use of the Service is conditioned on your
@@ -36,9 +43,9 @@ export default async function terms() {
             <span>
               Our Service allows you to post, link, store, share and otherwise
               make available certain information, text, graphics, videos, or
-              other material (&quot;Content&quot;). You are responsible for the Content
-              that you post to the Service, including its legality, reliability,
-              and appropriateness.
+              other material (&quot;Content&quot;). You are responsible for the
+              Content that you post to the Service, including its legality,
+              reliability, and appropriateness.
             </span>
             <span>
               By posting Content to the Service, you grant us the right and
@@ -119,8 +126,8 @@ export default async function terms() {
               than you without appropriate authorization, or a name that is
               otherwise offensive, vulgar or obscene. You may not register a
               username with the purpose of selling it, or in any other way
-              &quot;squat&quot; or &quot;park&quot; a username. Failure to comply may result in your
-              account being suspended.
+              &quot;squat&quot; or &quot;park&quot; a username. Failure to
+              comply may result in your account being suspended.
             </span>
           </div>
         </div>
@@ -169,14 +176,13 @@ export default async function terms() {
               that are not owned or controlled by Rabet, LLC.
             </span>
             <span>
-              Rabet, LLC has no control over, and assumes no responsibility
-              for, the content, privacy policies, or practices of any third
-              party web sites or services. You further acknowledge and agree
-              that Rabet, LLC shall not be responsible or liable, directly or
-              indirectly, for any damage or loss caused or alleged to be caused
-              by or in connection with use of or reliance on any such content,
-              goods or services available on or through any such web sites or
-              services.
+              Rabet, LLC has no control over, and assumes no responsibility for,
+              the content, privacy policies, or practices of any third party web
+              sites or services. You further acknowledge and agree that Rabet,
+              LLC shall not be responsible or liable, directly or indirectly,
+              for any damage or loss caused or alleged to be caused by or in
+              connection with use of or reliance on any such content, goods or
+              services available on or through any such web sites or services.
             </span>
             <span>
               We only provide links to external websites as a convenience, and
@@ -282,10 +288,10 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               Your use of the Service is at your sole risk. The Service is
-              provided on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis. The Service is
-              provided without warranties of any kind, whether express or
-              implied, including, but not limited to, implied warranties of
-              merchantability, fitness for a particular purpose,
+              provided on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot;
+              basis. The Service is provided without warranties of any kind,
+              whether express or implied, including, but not limited to, implied
+              warranties of merchantability, fitness for a particular purpose,
               non-infringement or course of performance.
             </span>
             <span>
@@ -367,24 +373,24 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               The Customer owns the rights to its data as data controller, and
-              the service acts as data processor on the Customer&apos;s behalf. All
-              processing by the service of the personal data and other data
+              the service acts as data processor on the Customer&apos;s behalf.
+              All processing by the service of the personal data and other data
               provided by the Customer shall be in accordance with the
               applicable laws. The service&apos;s processing of personal data on
               behalf of the Customer shall therefore only be done in order to
-              provide the Product and shall be subject to the Customer&apos;s written
-              instructions. The Customer is obligated to keep user logins and
-              passwords to the Product secret from any unauthorized users or
-              third parties. The Customer is obligated to ensure that the
-              personal data provided by the Customer and used in the Product is
-              processed by the Customer in accordance with all applicable laws.
-              The Customer is obligated to ensure that the Customer&apos;s data
-              provided in the Product, including personal data, do not violate
-              any third party intellectual property rights and/or any applicable
-              legislation. The service is entitled to delete any data that in
-              the sole discretion of the service constitutes a breach of the
-              aforesaid undertaking by the Customer, and the Customer will not
-              be entitled to any compensation in that respect.
+              provide the Product and shall be subject to the Customer&apos;s
+              written instructions. The Customer is obligated to keep user
+              logins and passwords to the Product secret from any unauthorized
+              users or third parties. The Customer is obligated to ensure that
+              the personal data provided by the Customer and used in the Product
+              is processed by the Customer in accordance with all applicable
+              laws. The Customer is obligated to ensure that the Customer&apos;s
+              data provided in the Product, including personal data, do not
+              violate any third party intellectual property rights and/or any
+              applicable legislation. The service is entitled to delete any data
+              that in the sole discretion of the service constitutes a breach of
+              the aforesaid undertaking by the Customer, and the Customer will
+              not be entitled to any compensation in that respect.
             </span>
           </div>
         </div>
@@ -406,9 +412,9 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               Some parts of the Service are billed on a subscription basis
-              (&quot;Subscription(s)&quot;). You will be billed in advance on a recurring
-              and periodic basis (&quot;Billing Cycle&quot;). Billing cycles are set on a
-              monthly basis
+              (&quot;Subscription(s)&quot;). You will be billed in advance on a
+              recurring and periodic basis (&quot;Billing Cycle&quot;). Billing
+              cycles are set on a monthly basis
             </span>
             <span>
               At the end of each Billing Cycle, your Subscription will
@@ -444,8 +450,8 @@ export default async function terms() {
           <div className="text-2xl mb-4">15. Subscriptions</div>
           <div className="text-sm flex flex-col gap-4">
             <span>
-              Rabet, LLC, in its sole discretion and at any time, may modify
-              the Subscription fees for the Subscriptions. Any Subscription fee
+              Rabet, LLC, in its sole discretion and at any time, may modify the
+              Subscription fees for the Subscriptions. Any Subscription fee
               change will become effective at the end of the then-current
               Billing Cycle.
             </span>
@@ -476,7 +482,8 @@ export default async function terms() {
           <div className="text-2xl mb-4">17. Contact Us</div>
           <div className="text-sm flex flex-col gap-4">
             <span>
-              If you have any questions about these Terms, please contact us by email at support@rabet-link.com
+              If you have any questions about these Terms, please contact us by
+              email at support@rabet-link.com
             </span>
           </div>
         </div>

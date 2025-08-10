@@ -1,16 +1,23 @@
 "use server";
 
-export default async function terms() {
+import { getFontClass } from "@/lib/fonts";
+
+export default async function PrivacyPage() {
+  const fontClass = await getFontClass();
+
   return (
-    <div className="bg-gray-200 py-15 flex items-center justify-center font-noto-sans">
+    <div
+      className={`bg-gray-200 py-15 flex items-center justify-center ${fontClass}`}
+    >
       <div className="bg-white py-10 px-20 flex flex-col items-start max-w-4xl rounded-sm gap-4">
         <div>
           <div className="text-2xl mb-4">Privacy Policy</div>
           <div className="text-sm flex flex-col gap-4">
             <span>
-              Please read these Terms and Conditions (&quot;Terms&quot;, &quot;Terms and
-              Conditions&quot;) carefully before using the rabetlink.com website (the
-              &quot;Service&quot;) operated by Rabet, LLC (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).
+              Please read these Terms and Conditions (&quot;Terms&quot;,
+              &quot;Terms and Conditions&quot;) carefully before using the
+              rabetlink.com website (the &quot;Service&quot;) operated by Rabet,
+              LLC (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).
             </span>
             <span>
               Your access to and use of the Service is conditioned on your
@@ -56,7 +63,8 @@ export default async function terms() {
               </ul>
             </span>
             <span className="font-bold text-xl">
-              Information Collected From rabetlink.com Website Visitors And Users
+              Information Collected From rabetlink.com Website Visitors And
+              Users
             </span>
 
             <span>
@@ -109,10 +117,10 @@ export default async function terms() {
           </div>
           <div className="text-sm flex flex-col gap-4">
             <span>
-              In order for rabetlink.com to provide you with our Services, we work
-              with third parties with whom we may share personal data to support
-              these Services. Your personal data may be shared with third
-              parties who provide hosting and server co-location services,
+              In order for rabetlink.com to provide you with our Services, we
+              work with third parties with whom we may share personal data to
+              support these Services. Your personal data may be shared with
+              third parties who provide hosting and server co-location services,
               communications and content delivery networks, data and cyber
               security services, billing and payment processing services, fraud
               detection and prevention services, web analytics, email
@@ -135,10 +143,10 @@ export default async function terms() {
               apply to third-party websites and services.
             </span>
             <span>
-              rabetlink.com remains responsible for the processing of personal data
-              carried out by Third Party Service Providers that rabetlink.com has
-              engaged with for respective data processing in accordance with
-              applicable laws.
+              rabetlink.com remains responsible for the processing of personal
+              data carried out by Third Party Service Providers that
+              rabetlink.com has engaged with for respective data processing in
+              accordance with applicable laws.
             </span>
             <span>
               In certain circumstances, we may also be required to share
@@ -154,13 +162,13 @@ export default async function terms() {
           <div className="text-sm flex flex-col gap-4">
             <span>
               We may retain your personal data for as long as your relationship
-              with us is active by having an rabetlink.com account, or as otherwise
-              needed to provide you our Services.
+              with us is active by having an rabetlink.com account, or as
+              otherwise needed to provide you our Services.
             </span>
             <span>
               After terminating your relationship with us by deleting your
-              rabetlink.com account or otherwise ceasing to use our Services, we may
-              continue to store copies of your personal data as reasonably
+              rabetlink.com account or otherwise ceasing to use our Services, we
+              may continue to store copies of your personal data as reasonably
               necessary to comply with our legal obligations, to resolve
               disputes between you and us, to prevent fraud and abuse, to
               enforce our agreements, and/or to protect our legitimate
@@ -180,8 +188,8 @@ export default async function terms() {
             <span>
               You have the right to request access to your personal data and to
               correct, amend, delete, or limit the use of your personal data by
-              reaching us at support@rabet-link.com. Furthermore, if you believe that
-              we have unlawfully processed your personal data, you have the
+              reaching us at support@rabet-link.com. Furthermore, if you believe
+              that we have unlawfully processed your personal data, you have the
               right to submit a complaint to the contact information provided
               below, or to your respective data protection supervisory
               authority.
@@ -200,17 +208,18 @@ export default async function terms() {
               therefore we cannot guarantee absolute security of information. We
               encourage you to take care of the personal data in your possession
               that you process online and set strong passwords for your
-              rabetlink.com account, limit access of your computer and browser by
-              signing off after you have finished your session, and avoid
+              rabetlink.com account, limit access of your computer and browser
+              by signing off after you have finished your session, and avoid
               providing us with any sensitive information whose disclosure you
               believe could cause you substantial harm.
             </span>
             <span>
-              All of rabetlink.com&apos;s authorized personnel involved in the processing
-              of your and your Customer&apos;s personal data have committed
-              themselves to confidentiality obligations and shall not access or
-              otherwise process your personal data without your authorization if
-              it&apos;s not for the purposes of providing you our Services.
+              All of rabetlink.com&apos;s authorized personnel involved in the
+              processing of your and your Customer&apos;s personal data have
+              committed themselves to confidentiality obligations and shall not
+              access or otherwise process your personal data without your
+              authorization if it&apos;s not for the purposes of providing you
+              our Services.
             </span>
             <span>
               In the event that we experience a personal data breach, we will
