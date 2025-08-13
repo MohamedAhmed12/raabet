@@ -41,7 +41,7 @@ export default function SubscriptionForm({
       timeoutRef.current = setTimeout(() => {
         refetch();
         timeoutRef.current = null;
-      }, 1400);
+      }, 1500);
     },
   });
 
@@ -128,7 +128,9 @@ export default function SubscriptionForm({
                   ? t("LinksPage.generalStyles.header.uploading")
                   : t("Subscription.uploadInvoice")}
               </span>
-              {!isPending && !isUploadingInvoice && <Upload className="size-5" />}
+              {!isPending && !isUploadingInvoice && (
+                <Upload className="size-5" />
+              )}
               {(isPending || isUploadingInvoice) && (
                 <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-gray-900"></div>
               )}

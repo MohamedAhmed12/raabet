@@ -4,6 +4,8 @@ import { useLocale } from "next-intl";
 
 export const ImageSection = () => {
   const locale = useLocale();
+  const isArabic = locale === "ar";
+
   return (
     <div
       className={cn(
@@ -12,7 +14,7 @@ export const ImageSection = () => {
       )}
     >
       <Image
-        src="/images/image-section-bg.png"
+        src={isArabic ? "/images/image-section-bg-ar.png" : "/images/image-section-bg-en.png"}
         fill
         alt="Hero Image"
         className={cn(

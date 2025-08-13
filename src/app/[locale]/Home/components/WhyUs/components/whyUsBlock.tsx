@@ -34,7 +34,7 @@ export const WhyUsBlock = () => {
       </div>
       <div className="w-full md:w-1/2">
         <FeatureCard
-          src="/images/u_ur-team.png"
+          src="/images/team.png"
           alt="multi-Profile"
           Title={t("4stCard.title")}
           label={t("4stCard.label")}

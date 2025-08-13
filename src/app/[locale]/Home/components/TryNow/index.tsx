@@ -13,7 +13,7 @@ export const TryNow = () => {
       <div className="flex flex-col-reverse lg:flex-row bg-light-orange">
         <div className="relative flex justify-end flex-1 md:flex-1/2 min-h-[80vh] overflow-hidden">
           <Image
-            src="/images/colored-links-page-preview.png"
+            src={locale === "ar" ? "/images/page-preview-ar.png" : "/images/page-preview-en.png"}
             alt="try now"
             width={200}
             height={200}
