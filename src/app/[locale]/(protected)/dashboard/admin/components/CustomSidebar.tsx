@@ -33,7 +33,7 @@ export default function CustomSidebar({
   const queryClient = useQueryClient();
   const { getOppositeLang, switchLocale } = useLocaleMeta();
 
-  const SubscriptionStatus = queryClient.getQueryData<SubscriptionStatus>([
+  const subscriptionStatus = queryClient.getQueryData<SubscriptionStatus>([
     "subscriptionStatus",
     { email: session?.data?.user?.email as string },
   ]);
@@ -149,7 +149,7 @@ export default function CustomSidebar({
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
-      {SubscriptionStatus === "trialing" && (
+      {subscriptionStatus !== SubscriptionStatus.active && (
         <SidebarFooter className={cn("p-[11px]", fontClass)}>
           <Link
             href="/dashboard/admin/subscription"

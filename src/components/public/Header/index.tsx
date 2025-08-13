@@ -56,7 +56,7 @@ export const Header = () => {
             locale === "ar" ? "mr-4" : "ml-4"
           )}
         >
-          {t("Contact.contact")}
+          {`${t("Contact.contact")} ${t("Contact.us")}`}
         </NextLink>
       </div>
 

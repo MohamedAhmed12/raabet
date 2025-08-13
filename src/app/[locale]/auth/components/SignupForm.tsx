@@ -63,7 +63,6 @@ export default function SignUpForm({
     } catch (error) {
       console.error(error);
       setError("Something went wrong. Please try again.");
-    } finally {
       setIsLoading(false);
     }
   };

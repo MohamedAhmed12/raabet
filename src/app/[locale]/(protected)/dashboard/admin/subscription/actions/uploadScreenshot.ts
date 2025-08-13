@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { CustomServerSession } from "@/app/[locale]/types/custom-session";
 import { logError } from "@/lib/errorHandling";
+import { addDays } from "date-fns";
 
 export async function uploadScreenshot(invoiceURL: string) {
   const session: CustomServerSession | null = await getServerSession(
@@ -28,7 +29,9 @@ export async function uploadScreenshot(invoiceURL: string) {
     data: {
       paymentScreenshot: invoiceURL,
       status: "pending",
+      paymentMethod: "manual",
       updatedAt: new Date(),
+      expiresAt: addDays(new Date(), 30),
     },
   });
 

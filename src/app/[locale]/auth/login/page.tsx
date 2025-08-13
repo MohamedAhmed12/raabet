@@ -27,7 +27,7 @@ export default function LoginPage() {
           src="/images/login-bg.png"
           fill
           alt="Sign-in"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale transform -rotate-[20deg]"
         />
       </div>
     </div>
