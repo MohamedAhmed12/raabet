@@ -35,12 +35,17 @@ export default async function SessionPage({
     }
 
     // Update subscription in the database
-    await updateSubscription(customerId, {
+    const subscription = await updateSubscription(customerId, {
       stripeSessionId: sessionId,
       stripePaymentStatus: paymentStatus,
     });
 
-    return <ClientStatusCard title={t("paymentStatus.succeeded")} />;
+    return (
+      <ClientStatusCard
+        title={t("paymentStatus.succeeded")}
+        subscription={subscription}
+      />
+    );
   } catch (error: unknown) {
     console.error("Error fetching session:", error);
     return (

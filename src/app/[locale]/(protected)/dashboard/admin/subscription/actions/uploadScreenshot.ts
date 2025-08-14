@@ -31,7 +31,6 @@ export async function uploadScreenshot(invoiceURL: string) {
       status: "pending",
       paymentMethod: "manual",
       updatedAt: new Date(),
-      expiresAt: addDays(new Date(), 30),
     },
   });
 

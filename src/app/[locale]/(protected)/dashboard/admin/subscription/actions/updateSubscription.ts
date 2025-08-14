@@ -47,6 +47,14 @@ export async function updateSubscription(
       update: {
         stripeSessionId: data.stripeSessionId,
         status: subscriptionStatus,
+        paymentMethod: "stripe",
+      },
+      include: {
+        user: {
+          select: {
+            email: true,
+          },
+        },
       },
     });
 
