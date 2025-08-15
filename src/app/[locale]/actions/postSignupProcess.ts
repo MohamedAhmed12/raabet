@@ -1,6 +1,8 @@
 import { createTrackedQRcodeURL } from "@/lib/createTrackedQRcodeURL";
+import { formatUsername } from "@/lib/formatUsername";
 import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
+import { BlockType } from "@prisma/client";
 
 export const postSignupProcess = async (userId: string, fullname: string) => {
   try {
@@ -34,11 +36,11 @@ export const postSignupProcess = async (userId: string, fullname: string) => {
         card_styles_card_color: "#ffffff",
         card_styles_text_color: "#000000",
         card_styles_label_color: "#6b7280",
-        card_styles_card_corner: 12,
-        card_styles_card_border_width: 1,
+        card_styles_card_corner: 0.3,
+        card_styles_card_border_width: 0.4,
         card_styles_card_border_color: "#e5e7eb",
-        card_styles_card_shadow: 1,
-        card_styles_card_spacing: 8,
+        card_styles_card_shadow: 0,
+        card_styles_card_spacing: 0.5,
         title_font: "Inter",
         text_font: "Inter",
         social_enable_add_contacts: true,
@@ -62,8 +64,73 @@ export const postSignupProcess = async (userId: string, fullname: string) => {
       },
     });
 
-    // 3. Create a QR code for the user's profile
-    // const url = ;
+    // 3. Create default blocks for the new link
+    const defaultBlocks = [
+      // Text block
+      {
+        linkId: link.id,
+        type: "text" as BlockType,
+        title: `Welcome to My Page!`,
+        description: "Thanks for visiting. Here's how you can connect with me.",
+        url: "#", // Adding required url field
+        layout: "1",
+        order: 0,
+        corner: 8,
+        text_color: "#1e293b",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      // Social media URL block
+      {
+        linkId: link.id,
+        type: "url" as BlockType,
+        title: "Connect on Social Media",
+        description: "Follow me for updates and more content",
+        url: "#", // Replace with actual social media URL
+        layout: "2",
+        order: 1,
+        corner: 8,
+        text_color: "#0369a1",
+        bg_image: "/images/1.jpg",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      // Email block
+      {
+        linkId: link.id,
+        type: "email" as BlockType,
+        title: "Get in Touch",
+        description: "Send me an email",
+        url: `mailto:${userId}@example.com`,
+        layout: "1",
+        order: 2,
+        corner: 8,
+        text_color: "#166534",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      // Portfolio URL block
+      {
+        linkId: link.id,
+        type: "url" as BlockType,
+        title: "Check Out My Work",
+        description: "View my portfolio and latest projects",
+        url: "#", // Adding required url field
+        layout: "1",
+        order: 0,
+        corner: 8,
+        text_color: "#1e293b",
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+    ];
+
+    // Create all blocks in a transaction
+    await prisma.$transaction(
+      defaultBlocks.map((block) => prisma.block.create({ data: block }))
+    );
+
+    // 4. Create a QR code for the user's profile
     const qrCode = await createQRCode(QRCodeURL, link.id);
 
     return { link, subscription, qrCode };
@@ -105,17 +172,4 @@ export const createQRCode = async (url: string, linkId: string) => {
     });
     throw error;
   }
-};
-
-// Format and validate username
-const formatUsername = (input: string): string => {
-  // Convert to lowercase and replace spaces with dots
-  let formatted = input.toLowerCase().replace(/\s+/g, ".");
-  // Remove any characters that are not letters, numbers, periods, or underscores
-  formatted = formatted.replace(/[^a-z0-9._]/g, "");
-  // Ensure it doesn't start or end with a dot or underscore
-  formatted = formatted.replace(/^[._]+/, "").replace(/[._]+$/, "");
-  // Replace multiple dots/underscores with a single dot
-  formatted = formatted.replace(/[._]+/g, ".");
-  return formatted;
 };

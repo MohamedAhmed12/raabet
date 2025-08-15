@@ -2,21 +2,23 @@
 
 import "./style.css"; // TO DO: conditionally import it only in links page
 
-import { useScroll } from "@reactuses/core";
-import { useCallback, useRef, useState } from "react";
-import { useShallow } from "zustand/react/shallow";
-
 import { MainLinkComponent } from "@/app/[locale]/[username]/components/MainLinkComponent";
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { cn } from "@/lib/utils";
+import { useScroll } from "@reactuses/core";
+import { useCallback, useRef, useState } from "react";
+import { useShallow } from "zustand/shallow";
 import { LinkViewerTabs } from "./LinkViewerTabs";
 
 export function LinkViewer() {
   const [selectedTab, setSelectedTab] = useState(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  // it does not work after removing x
-  const [y] = useScroll(containerRef);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, y] = useScroll(containerRef, {
+    throttle: 16,
+  });
+
   const link = useLinkStore(
     useShallow((state) => ({
       id: state.link.id,
@@ -55,8 +57,12 @@ export function LinkViewer() {
               selectedTab == 0 && "md:w-[64%] md:max-w-[350px] h-[600px]"
             )}
           >
-            <div ref={containerRef} className="link-viewer-container w-full">
-              <MainLinkComponent link={link} isSticky={y > 20} />
+            <div
+              ref={containerRef}
+              className="link-viewer-container w-full"
+              style={{ scrollBehavior: "smooth" }}
+            >
+              <MainLinkComponent link={link} isSticky={(y || 0) > 20} />
             </div>
           </div>
         </div>

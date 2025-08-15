@@ -70,7 +70,7 @@ const MainLinkComponentContent = ({
 
             <div
               className={cn(
-                "flex flex-col flex-1",
+                "flex flex-col flex-1 mt-[15px]",
                 link?.general_styles_is_secondary_bgcolor && "mt-[25px]"
               )}
             >
