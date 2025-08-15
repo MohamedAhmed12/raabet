@@ -46,6 +46,7 @@ export const DashboardContainer = ({
           {problemStatuses.includes(status as SubscriptionStatus) &&
           ![
             "/dashboard/admin/subscription",
+            "/dashboard/admin/subscription/manual-activate",
             "/dashboard/admin/subscription/callback",
           ].includes(pathname) ? (
             <NoSubsContent />
