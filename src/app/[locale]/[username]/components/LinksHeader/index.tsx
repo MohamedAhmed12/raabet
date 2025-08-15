@@ -8,7 +8,7 @@ import { useShallow } from "zustand/react/shallow";
 
 export function LinksHeader() {
   const [collapseBio, setCollapseBio] = useState<boolean>(true);
-  const link = useLinkStore(useShallow(state => state.link));
+  const link = useLinkStore(useShallow((state) => state.link));
 
   const handleToggleCollapseBio = () => {
     setCollapseBio((prev) => !prev);
@@ -26,19 +26,21 @@ export function LinksHeader() {
           {link?.displayname}
         </div>
         {/* bio */}
-        <h2
-          className={cn(
-            "font-normal text-[13px] leading-[1.3] max-w-[300px] mt-[31px] break-words",
-            link.text_font && `${link.text_font}`,
-            link.header_styles_collapse_long_bio &&
-              collapseBio &&
-              "line-clamp-3",
-            link.header_styles_collapse_long_bio && "cursor-pointer"
-          )}
-          onClick={handleToggleCollapseBio}
-        >
-          {link.bio}
-        </h2>
+        {link.bio && (
+          <h2
+            className={cn(
+              "font-normal text-[13px] leading-[1.3] max-w-[300px] mt-[31px] break-words",
+              link.text_font && `${link.text_font}`,
+              link.header_styles_collapse_long_bio &&
+                collapseBio &&
+                "line-clamp-3",
+              link.header_styles_collapse_long_bio && "cursor-pointer"
+            )}
+            onClick={handleToggleCollapseBio}
+          >
+            {link.bio}
+          </h2>
+        )}
       </div>
     </div>
   );

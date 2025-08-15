@@ -57,6 +57,8 @@ export default function SignUpForm({
         if (logInResult?.ok) {
           return router.replace("/dashboard/admin/profile/links");
         }
+      } else {
+        setIsLoading(false);
       }
 
       setError(signUpResult?.error);

@@ -23,7 +23,7 @@ export default async function middleware(
     if (authResponse) return authResponse;
 
     // Then, apply the verification middleware
-    const verificationResponse = withVerification(req);
+    const verificationResponse = await withVerification(req);
 
     if (verificationResponse) return verificationResponse;
   }

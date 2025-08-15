@@ -91,7 +91,7 @@ export default function LinksBlocks() {
     blocksWithEmbedInfo && (
       <div
         className={cn(
-          "block-icons-container flex flex-col mt-[31px] justify-center items-center flex-wrap",
+          "block-icons-container flex flex-col justify-center items-center flex-wrap",
           fontClass
         )}
       >
@@ -163,7 +163,6 @@ export default function LinksBlocks() {
                 }}
                 dir={block.text_align === "right" ? "rtl" : "ltr"}
               >
-                {block.type}
                 {block.type === "image" ? (
                   <Image
                     src={block.bg_image}
@@ -187,9 +186,10 @@ export default function LinksBlocks() {
                     )}
                     <div
                       className={cn(
-                        "flex flex-col px-4 py-2 w-2/3 overflow-hidden",
+                        "flex flex-col justify-center px-4 py-2 w-2/3 overflow-hidden",
                         "text-container flex flex-col flex-2 px-6.5 py-4 overflow-hidden",
                         hasPrefixImage && "py-0",
+                        !hasPrefixImage && "items-center",
                         hasBgImage && "relative bg-cover bg-center"
                       )}
                       style={
@@ -202,7 +202,7 @@ export default function LinksBlocks() {
                     >
                       <div
                         className={cn(
-                          "line-clamp-3",
+                          "line-clamp-3 font-semibold",
                           hasPrefixImage && "line-clamp-2",
                           link?.title_font
                         )}

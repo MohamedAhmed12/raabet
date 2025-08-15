@@ -53,6 +53,8 @@ export const LoginForm = ({
 
       if (result?.ok) {
         return router.replace("/dashboard/admin/profile/links");
+      } else {
+        setIsLoading(false);
       }
 
       setError("Invalid email or password"); // Show custom error message

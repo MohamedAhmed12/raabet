@@ -19,10 +19,11 @@ export default function LinksSocialIcons() {
   };
 
   return (
-    link?.socials && (
+    link?.socials &&
+    link?.socials?.length > 0 && (
       <div
         className={cn(
-          "social-icons-container flex mt-[31px] justify-center items-center flex-wrap gap-x-2",
+          "social-icons-container flex mb-[31px] justify-center items-center flex-wrap gap-x-2",
           fontClass
         )}
       >

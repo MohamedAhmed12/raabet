@@ -27,18 +27,22 @@ export async function fetchSubscription(
   }
 
   const [currentSubscription] = user.subscriptions;
-
-  // Convert to canceled if it was in trial and got expired
-  if (
-    currentSubscription?.status === "trialing" &&
+  // Check if subscription has expired
+  const isSubscriptionExpired =
     currentSubscription?.expiresAt &&
-    currentSubscription.expiresAt < new Date()
+    currentSubscription.expiresAt < new Date();
+
+  // Mark as canceled if it's an expired trial or manual payment
+  if (
+    isSubscriptionExpired &&
+    (currentSubscription?.status === "trialing" ||
+      currentSubscription?.paymentMethod === "manual")
   ) {
     // convert the returned subs status to canceled
     currentSubscription.status = "canceled";
 
     // update the status in database
-    prisma.subscription.update({
+    await prisma.subscription.update({
       where: { id: currentSubscription.id },
       data: { status: "canceled" },
     });
