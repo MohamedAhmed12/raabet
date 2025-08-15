@@ -154,7 +154,7 @@ export default function LinksBlocks() {
               )}
 
               <div
-                className="flex items-center justify-center w-full"
+                className="flex items-center justify-center w-full h-full min-h-[60px]"
                 style={{
                   ...linkStyles,
                   color:
@@ -174,7 +174,7 @@ export default function LinksBlocks() {
                 ) : (
                   <>
                     {hasPrefixImage && (
-                      <div className="flex-shrink-0 w-1/3">
+                      <div className="flex-shrink-0 w-1/3 h-full flex">
                         <Image
                           src={block.bg_image}
                           width={60}
@@ -203,7 +203,7 @@ export default function LinksBlocks() {
                       <div
                         className={cn(
                           "line-clamp-3 font-semibold",
-                          hasPrefixImage && "line-clamp-2",
+                          hasPrefixImage ?"line-clamp-2":"text-center",
                           link?.title_font
                         )}
                         dangerouslySetInnerHTML={{ __html: block.title }}
@@ -211,7 +211,7 @@ export default function LinksBlocks() {
                       <div
                         className={cn(
                           "text-[12.6px] leading-[1.3em] line-clamp-3",
-                          hasPrefixImage && "line-clamp-2",
+                          hasPrefixImage ?"line-clamp-2":"text-center",
                           link?.text_font
                         )}
                       >

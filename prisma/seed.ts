@@ -195,7 +195,7 @@ async function main() {
       },
       {
         linkId: link.id,
-        url: "https://picsum.photos/300/200",
+        url: "/images/7.jpg",
         type: BlockType.image,
         title: "title5",
         description: "description 5",
