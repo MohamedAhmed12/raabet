@@ -3,7 +3,7 @@ import {defineRouting} from "next-intl/routing";
 
 const locales = Object.keys(languageMeta);
 
-export const defaultLocale = "en";
+export const defaultLocale = "ar";
 export const routing = defineRouting({
   // A list of all locales that are supported
   locales,

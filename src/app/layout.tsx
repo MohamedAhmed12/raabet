@@ -6,12 +6,11 @@ import { NextIntlClientProvider } from "next-intl";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
 
-import { ReactQueryProvider } from "@/components/ReactQueryProvider";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { customGetLocale } from "@/lib/customGetLocale";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import arMessages from "../messages/ar.json";
 import enMessages from "../messages/en.json";
+import { Providers } from "@/components/providers/Providers";
 
 const notoSans = localFont({
   src: [
@@ -109,13 +108,11 @@ export default async function RootLayout({
         style={{ marginRight: "0!important" }}
       >
         <NextIntlClientProvider locale={locale} messages={currentLocalMessages}>
-          <ReactQueryProvider>
-            <TooltipProvider>
-              <Toaster />
-              {children}
-              <ReactQueryDevtools initialIsOpen={false} />
-            </TooltipProvider>
-          </ReactQueryProvider>
+          <Providers>
+            <Toaster />
+            {children}
+            <ReactQueryDevtools initialIsOpen={false} />
+          </Providers>
         </NextIntlClientProvider>
       </body>
       {process.env.NEXT_PUBLIC_GA_ID &&

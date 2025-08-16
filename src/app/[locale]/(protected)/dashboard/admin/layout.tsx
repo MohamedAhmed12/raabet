@@ -3,7 +3,6 @@
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { addDays, isBefore } from "date-fns";
-import { SessionProvider } from "next-auth/react";
 import { useMemo, useState } from "react";
 import CustomSidebar from "./components/CustomSidebar";
 import { DashboardContainer } from "./components/DashboardContainer";
@@ -42,18 +41,16 @@ export default function DashboardLayout({
   };
 
   return (
-    <SessionProvider>
-      <SidebarProvider className="bg-gray-100">
-        <CustomSidebar
-          onOpenFeedbackPopup={() => handleToggleFeedbackPopup(true)}
+    <SidebarProvider className="bg-gray-100">
+      <CustomSidebar
+        onOpenFeedbackPopup={() => handleToggleFeedbackPopup(true)}
+      />
+      <DashboardContainer>{children}</DashboardContainer>
+      {shouldShowFeedback && (
+        <FeedbackPopup
+          onOpenFeedbackPopup={(event) => handleToggleFeedbackPopup(event)}
         />
-        <DashboardContainer>{children}</DashboardContainer>
-        {shouldShowFeedback && (
-          <FeedbackPopup
-            onOpenFeedbackPopup={(event) => handleToggleFeedbackPopup(event)}
-          />
-        )}
-      </SidebarProvider>
-    </SessionProvider>
+      )}
+    </SidebarProvider>
   );
 }

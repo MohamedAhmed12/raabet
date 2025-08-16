@@ -1,11 +1,17 @@
 "use client";
 
-import { SessionProvider } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export default function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <SessionProvider>{children}</SessionProvider>;
+  const session = useSession();
+  if (session?.status === "authenticated") {
+    return redirect("/dashboard/admin/profile/links");
+  }
+
+  return children;
 }
