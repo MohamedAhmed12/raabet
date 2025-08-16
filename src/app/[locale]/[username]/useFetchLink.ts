@@ -29,7 +29,7 @@ const useFetchLink = ({
       return response;
     },
     enabled: !!(userId || username), // Only run the query if we have either userId or username
-    staleTime: 15 * 60 * 1000, // 15 minutes
+    staleTime: 5 * 60 * 1000, // 5 minutes
     retry: 1,
   });
 };
