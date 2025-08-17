@@ -1,11 +1,10 @@
 "use server";
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import prisma from "@/lib/prisma";
 import { CustomServerSession } from "@/app/[locale]/types/custom-session";
+import { authOptions } from "@/lib/auth";
 import { logError } from "@/lib/errorHandling";
-import { addDays } from "date-fns";
+import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 
 export async function uploadScreenshot(invoiceURL: string) {
   const session: CustomServerSession | null = await getServerSession(

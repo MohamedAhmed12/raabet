@@ -67,7 +67,7 @@ export default function FeedbackPopup({
           .min(1, t("FeedbackPopup.validation.messageRequired"))
           .max(1000, t("FeedbackPopup.validation.messageTooLong")),
       }),
-    []
+    [t]
   );
 
   const submitFeedback = async () => {
