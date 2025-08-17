@@ -12,8 +12,13 @@ interface StripeSubscription extends Stripe.Subscription {
 }
 
 interface StripeInvoice extends Stripe.Invoice {
+  id: string;
   subscription: string | null;
   period_end: number;
+  discount: {
+    id: string;
+    promotion_code: string;
+  };
 }
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!);
@@ -134,6 +139,34 @@ async function updateSubscriptionInDatabase(
   }
 }
 
+async function updateCouponInDatabase(stripeId: string) {
+  try {
+    const coupon = await prisma.coupon.findFirst({
+      where: { stripeId },
+    });
+    if (!coupon) {
+      const err = "Coupon not found for stripeId";
+      logError(`${err}: ${stripeId}`, {
+        action: "updateCouponInDatabase",
+        errorType: "ValidationError",
+      });
+      throw new Error(err);
+    }
+    await prisma.coupon.update({
+      where: { id: coupon.id },
+      data: {
+        usedAt: new Date(),
+      },
+    });
+  } catch (error) {
+    logError(`Error updating coupon in database: ${error}`, {
+      action: "updateCouponInDatabase",
+      errorType: "ValidationError",
+    });
+    throw error;
+  }
+}
+
 function mapStripeStatusToSubscriptionStatus(
   stripeStatus: string
 ): SubscriptionStatus {
@@ -195,9 +228,15 @@ async function handleSubscriptionDeleted(event: Stripe.Event) {
 async function handlePaymentSucceeded(event: Stripe.Event) {
   const invoice = event.data.object as StripeInvoice;
   const customerId = invoice.customer as string;
+  const couponStripeId = invoice?.discount?.promotion_code as string;
 
   try {
     await updateSubscriptionInDatabase(customerId, invoice, "active");
+
+    // if coupon applied to this payment
+    if (couponStripeId) {
+      await updateCouponInDatabase(couponStripeId);
+    }
   } catch (error) {
     logError(`Error handling payment succeeded: ${error}`, {
       action: "handlePaymentSucceeded",
