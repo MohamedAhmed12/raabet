@@ -8,6 +8,7 @@ import Stripe from "stripe";
 
 // Define Stripe types
 interface StripeSubscription extends Stripe.Subscription {
+  subscription: string | null;
   current_period_end: number;
 }
 
@@ -98,7 +99,9 @@ async function updateSubscriptionInDatabase(
 
     // Extract subscription details based on type
     const subscriptionId =
-      "id" in subscription ? subscription.id : subscription.subscription || "";
+      "subscription" in subscription
+        ? (subscription as StripeInvoice).subscription || ""
+        : (subscription as StripeSubscription).id;
     const amount =
       "amount_paid" in subscription
         ? subscription.amount_paid || 0
