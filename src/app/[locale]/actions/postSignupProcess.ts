@@ -91,7 +91,7 @@ export const postSignupProcess = async (userId: string, fullname: string) => {
         order: 1,
         corner: 8,
         text_color: "#0369a1",
-        bg_image: "/images/1.jpg",
+        bg_image: "/images/7.jpg",
         created_at: new Date(),
         updated_at: new Date(),
       },

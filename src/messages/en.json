@@ -1,6 +1,8 @@
 {
   "FeedbackPopup": {
+    "promoCode": "Promo Code",
     "title": "Your Feedback Matters",
+    "description": "We value your input! Share your feedback and enjoy a 75% discount on your next purchase as a token of our appreciation.",
     "rateExperience": "Rate your overall experience",
     "highlightLabel": "What would you like to highlight?",
     "feature": "I want to suggest a new feature",

@@ -64,6 +64,7 @@ model Subscription {
   createdAt             DateTime        @default(now())
   updatedAt             DateTime        @updatedAt
   user                  User            @relation(fields: [userId], references: [id])
+  coupons               Coupon[]        // Relation to Coupon model
 
   @@index([userId])
 }
@@ -182,6 +183,23 @@ model QRCode {
 enum QRType {
   url
   profile
+}
+
+model Coupon {
+  id            String     @id @default(uuid())
+  code          String     @unique
+  value         Float      // The actual discount value (e.g., 10 for 10% or $10)
+  usedAt        DateTime?
+  expiresAt     DateTime
+  stripeId      String
+  subscription  Subscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([code])
+  @@index([stripeId])
+  @@index([subscriptionId])
 }
 
 model Block {

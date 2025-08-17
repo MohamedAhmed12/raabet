@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import CustomSidebar from "./components/CustomSidebar";
 import { DashboardContainer } from "./components/DashboardContainer";
 import FeedbackPopup from "./components/FeedbackPopup";
+import { useShallow } from "zustand/shallow";
 
 export default function DashboardLayout({
   children,
@@ -15,15 +16,21 @@ export default function DashboardLayout({
 }>) {
   const [isManuallyOpened, setIsManuallyOpened] = useState(false);
 
-  const lastFeedbackTimestamp =
-    useLinkStore((state) => state.link.last_feedback_ts) || "";
+  const { linkID, lastFeedbackTimestamp } =
+    useLinkStore(
+      useShallow((state) => {
+        return {
+          lastFeedbackTimestamp: state.link.last_feedback_ts,
+          linkID: state.link.id,
+        };
+      })
+    ) || "";
 
   const shouldShowFeedback = useMemo(() => {
     // If manually opened, always show
     if (isManuallyOpened) return true;
-
     // Automatic check logic
-    if (!lastFeedbackTimestamp) return true;
+    if (!linkID || !lastFeedbackTimestamp) return false;
 
     try {
       const feedbackDate = new Date(lastFeedbackTimestamp);
@@ -34,7 +41,7 @@ export default function DashboardLayout({
     } catch {
       return true; // On error, show feedback
     }
-  }, [lastFeedbackTimestamp, isManuallyOpened]);
+  }, [isManuallyOpened, linkID, lastFeedbackTimestamp]);
 
   const handleToggleFeedbackPopup = (open: boolean) => {
     setIsManuallyOpened(open);

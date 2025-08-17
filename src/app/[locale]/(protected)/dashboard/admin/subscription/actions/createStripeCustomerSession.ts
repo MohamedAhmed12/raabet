@@ -23,7 +23,6 @@ export async function createStripeCustomerSession() {
   // Fetch user and their subscription from DB
   const user = await prisma.user.findUnique({
     where: { email: session.user.email },
-    include: { subscriptions: true },
   });
 
   if (!user) {
@@ -75,5 +74,6 @@ export async function createStripeCustomerSession() {
 
   return {
     clientSecret: customerSession.client_secret,
+    user,
   };
 }

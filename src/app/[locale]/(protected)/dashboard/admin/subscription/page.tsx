@@ -36,9 +36,7 @@ export default function SubscriptionPage() {
             {showSubscriptionStatusCard && (
               <SubscriptionStatusCard status={status} />
             )}
-            {showSubscriptionForm && (
-              <SubscriptionForm status={status} refetch={refetch} />
-            )}
+            {showSubscriptionForm && <SubscriptionForm refetch={refetch} />}
           </div>
         )}
       </div>

@@ -4,12 +4,12 @@ import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { SubscriptionStatus } from "@prisma/client";
 import { format } from "date-fns";
 import { Upload } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import { GCSFileLoader } from "../profile/links/components/LinkBuilderSidebar/GCSFileLoader";
@@ -17,19 +17,19 @@ import { createStripeCustomerSession } from "./actions/createStripeCustomerSessi
 import { useUploadScreenshot } from "./hooks/useUploadScreenshot";
 
 interface SubscriptionFormProps {
-  status: SubscriptionStatus;
   refetch: () => void;
 }
 
-export default function SubscriptionForm({
-  status,
-  refetch,
-}: SubscriptionFormProps) {
+export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [showManualPayment, setShowManualPayment] = useState(false);
   const [isUploadingInvoice, setIsUploadingInvoice] = useState(false);
   const [uploadedInvoice, setUploadedInvoice] = useState<string | null>(null);
+
+  const { data: session, update } = useSession();
+  // @ts-expect-error: [to access user data in session it exists in id]
+  const sessionUser = useMemo(() => session?.user?.id, [session?.user?.id]);
 
   const { mutateAsync: uploadScreenshot, isPending } = useUploadScreenshot({
     onSuccess: () => {
@@ -64,47 +64,56 @@ export default function SubscriptionForm({
     };
   }, []);
 
-  useEffect(() => {
-    async function fetchClientSecret() {
-      try {
-        const result = await createStripeCustomerSession();
-        setClientSecret(result?.clientSecret);
-      } catch (error) {
-        console.error("Failed to create Stripe customer session:", error);
-      }
-    }
+  const fetchClientSecret = useCallback(async () => {
+    try {
+      const result = await createStripeCustomerSession();
+      setClientSecret(result?.clientSecret);
 
+      if (result?.user && sessionUser) {
+        await update({
+          ...sessionUser,
+        });
+      }
+    } catch (error) {
+      console.error("Failed to create Stripe customer session:", error);
+    }
+  }, [sessionUser, update]);
+
+  useEffect(() => {
     // Only fetch client secret if subscription is not active
-    if (status !== "active") {
+    if (!sessionUser.stripeCustomerId || !clientSecret) {
       fetchClientSecret();
     }
-  }, [status]);
+  }, [sessionUser, fetchClientSecret, clientSecret]);
 
-  const handleFileUploader = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.currentTarget.files?.[0];
+  const handleFileUploader = useMemo(
+    () => async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.currentTarget.files?.[0];
 
-    if (file) {
-      try {
-        setIsUploadingInvoice(true);
-        // Generate a unique filename with user ID and date
-        const fileExtension = file.name.split(".").pop();
-        const fileName = `invoice_${Date.now()}.${fileExtension}`;
-        const humanDate = format(Date.now(), "d-M-yyyy");
-        const filePath = `invoices/${humanDate}/${userId}/${fileName}`;
+      if (file) {
+        try {
+          setIsUploadingInvoice(true);
+          // Generate a unique filename with user ID and date
+          const fileExtension = file.name.split(".").pop();
+          const fileName = `invoice_${Date.now()}.${fileExtension}`;
+          const humanDate = format(Date.now(), "d-M-yyyy");
+          const filePath = `invoices/${humanDate}/${userId}/${fileName}`;
 
-        const publicUrl = await GCSFileLoader(linkId, file, filePath);
-        setUploadedInvoice(publicUrl);
+          const publicUrl = await GCSFileLoader(linkId, file, filePath);
+          setUploadedInvoice(publicUrl);
 
-        await uploadScreenshot(publicUrl);
-        toast.success(t("Subscription.InvoiceUploadedSuccessfully"));
-      } catch (error) {
-        console.error("Upload V-Cash or Instapay failed:", error);
-        toast.error(t("Subscription.InvoiceUploadFailed"));
-      } finally {
-        setIsUploadingInvoice(false);
+          await uploadScreenshot(publicUrl);
+          toast.success(t("Subscription.InvoiceUploadedSuccessfully"));
+        } catch (error) {
+          console.error("Upload V-Cash or Instapay failed:", error);
+          toast.error(t("Subscription.InvoiceUploadFailed"));
+        } finally {
+          setIsUploadingInvoice(false);
+        }
       }
-    }
-  };
+    },
+    [linkId, userId, uploadScreenshot, t]
+  );
 
   const handleSwitchPaymentMethod = () => {
     setShowManualPayment((prev) => !prev);

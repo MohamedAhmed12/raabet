@@ -5,16 +5,19 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { Star } from "lucide-react";
+import { LoaderCircle, Star } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -30,14 +33,20 @@ export default function FeedbackPopup({
   const [rating, setRating] = useState(0);
   const [highlight, setHighlight] = useState("feature");
   const [message, setMessage] = useState("");
+  const [promoCode, setPromoCode] = useState<string | null>(null);
 
   const locale = useLocale();
   const t = useTranslations();
   const fontClass = getFontClassClient(locale);
+  const session = useSession();
   const linkId = useLinkStore((state) => state.link.id);
 
+  // @ts-expect-error: [to access user data in session it exists in id]
+  const userStripeCustomerId = session?.data?.user?.id
+    ?.stripeCustomerId as string;
+
   const { mutate: updateFeedbackTimestamp } = useUpdateFeedbackTimestamp();
-  const { mutate: giveFeedback } = useGiveFeedback({
+  const { mutateAsync: giveFeedback, isPending } = useGiveFeedback({
     onSuccess: () => {
       toast.success(t("FeedbackPopup.submitSuccess"));
     },
@@ -61,31 +70,40 @@ export default function FeedbackPopup({
     []
   );
 
-  const submitFeedback = () => {
+  const submitFeedback = async () => {
     // Validate form data
-    const result = feedbackSchema.safeParse({
+    const validate = feedbackSchema.safeParse({
       rating,
       highlight,
       message,
     });
 
-    if (!result.success) {
+    if (!validate.success) {
       // Show first validation error
-      const firstError = result.error.errors[0];
+      const firstError = validate.error.errors[0];
       console.error(firstError, "firstError");
       toast.error(firstError.message);
       return;
     }
 
     // If validation passes, submit the feedback
-    giveFeedback({
+    const result = await giveFeedback({
+      userStripeCustomerId,
       linkId,
       rating,
       highlight,
       feedback: message,
     });
 
-    handleOnOpenChange(false);
+    if (!result.success) {
+      toast.error(t("NotFoundPage.something_went_wrong"));
+      return;
+    }
+
+    if (result?.promoCode) {
+      // To DO send by email
+      setPromoCode(result.promoCode);
+    }
   };
 
   const handleOnOpenChange = (open: boolean) => {
@@ -101,80 +119,106 @@ export default function FeedbackPopup({
           fontClass
         )}
       >
-        <DialogHeader>
-          <DialogTitle className="text-center text-2xl mb-4">
-            {t("FeedbackPopup.title")}
-          </DialogTitle>
-        </DialogHeader>
+        {!promoCode && (
+          <DialogHeader>
+            <DialogTitle className="text-center text-2xl mb-1">
+              {t("FeedbackPopup.title")}
+            </DialogTitle>
+            <DialogDescription className="text-center px-10 mb-4">
+              {t("FeedbackPopup.description")}
+            </DialogDescription>
+          </DialogHeader>
+        )}
 
-        <div className="flex flex-col w-full gap-y-2">
-          <div className="mb-4">
-            <Label className="text-sm font-semibold uppercase">
-              {t("FeedbackPopup.rateExperience")}
-            </Label>
-            <div className="flex gap-1 mt-1">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <Star
-                  key={i}
-                  onClick={() => setRating(i)}
-                  className={`w-6 h-6 cursor-pointer transition-colors ${
-                    i <= rating ? "text-yellow-400" : "text-gray-300"
-                  }`}
-                  fill={i <= rating ? "#facc15" : "none"}
-                />
-              ))}
+        {!promoCode ? (
+          <div className="flex flex-col w-full gap-y-2">
+            <div className="mb-4">
+              <Label className="text-sm font-semibold uppercase">
+                {t("FeedbackPopup.rateExperience")}
+              </Label>
+              <div className="flex gap-1 mt-1">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star
+                    key={i}
+                    onClick={() => setRating(i)}
+                    className={`w-6 h-6 cursor-pointer transition-colors ${
+                      i <= rating ? "text-yellow-400" : "text-gray-300"
+                    }`}
+                    fill={i <= rating ? "#facc15" : "none"}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <Label className="text-sm font-semibold uppercase">
+                {t("FeedbackPopup.highlightLabel")}
+              </Label>
+
+              <RadioGroup
+                value={highlight}
+                onValueChange={setHighlight}
+                className={cn(
+                  "flex flex-col mt-2 space-y-2 items-start justify-start"
+                )}
+                dir={locale === "ar" ? "rtl" : "ltr"}
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="feature" id="feature" />
+                  <Label htmlFor="feature">{t("FeedbackPopup.feature")}</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="issue" id="issue" />
+                  <Label htmlFor="issue">{t("FeedbackPopup.issue")}</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="other" id="other" />
+                  <Label htmlFor="other">{t("FeedbackPopup.other")}</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="mb-4">
+              <Label className="text-sm font-semibold uppercase">
+                {t("FeedbackPopup.messageLabel")}
+              </Label>
+              <Textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder={t("FeedbackPopup.messagePlaceholder")}
+                className="mt-1"
+              />
             </div>
           </div>
-
-          <div className="mb-4">
-            <Label className="text-sm font-semibold uppercase">
-              {t("FeedbackPopup.highlightLabel")}
+        ) : (
+          <div className="flex flex-col w-full gap-y-2 justify-center items-center px-20 py-6">
+            <Label className="text-sm font-semibold uppercase mb-5 text-2xl">
+              {t("FeedbackPopup.promoCode")}
             </Label>
+            <div className="flex justify-center items-center">
+              <Input
+                value={promoCode}
+                readOnly
+                className="text-center py-8 !text-2xl"
+              />
+            </div>
+          </div>
+        )}
 
-            <RadioGroup
-              value={highlight}
-              onValueChange={setHighlight}
-              className={cn(
-                "flex flex-col mt-2 space-y-2 items-start justify-start"
-              )}
-              dir={locale === "ar" ? "rtl" : "ltr"}
+        {!promoCode && (
+          <DialogFooter className="mt-4">
+            <Button
+              onClick={submitFeedback}
+              className="bg-deep-blue-gray hover:bg-deep-blue-gray text-white px-6 py-5 rounded-4xl font-bold leading-none !min-w-[100px]"
             >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="feature" id="feature" />
-                <Label htmlFor="feature">{t("FeedbackPopup.feature")}</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="issue" id="issue" />
-                <Label htmlFor="issue">{t("FeedbackPopup.issue")}</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="other" id="other" />
-                <Label htmlFor="other">{t("FeedbackPopup.other")}</Label>
-              </div>
-            </RadioGroup>
-          </div>
-
-          <div className="mb-4">
-            <Label className="text-sm font-semibold uppercase">
-              {t("FeedbackPopup.messageLabel")}
-            </Label>
-            <Textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder={t("FeedbackPopup.messagePlaceholder")}
-              className="mt-1"
-            />
-          </div>
-        </div>
-
-        <DialogFooter className="mt-4">
-          <Button
-            onClick={submitFeedback}
-            className="bg-deep-blue-gray hover:bg-deep-blue-gray text-white px-6 py-5 rounded-4xl font-bold leading-none"
-          >
-            {t("FeedbackPopup.submit")}
-          </Button>
-        </DialogFooter>
+              {isPending ? (
+                <LoaderCircle className="animate-spin" size={20} />
+              ) : (
+                t("FeedbackPopup.submit")
+              )}
+            </Button>
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );
