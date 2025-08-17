@@ -5,7 +5,7 @@ import { UserRole } from "@prisma/client";
 import { format } from "date-fns";
 import { Loader2, Search } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
 import { useAdminSubscriptionsCheck } from "./hook/useAdminSubscriptionsCheck";
 import { useAdminSubscriptionsManualActivate } from "./hook/useAdminSubscriptionsManualActivate";
@@ -15,6 +15,7 @@ export default function SubscriptionManualActivatePage() {
   const [userId, setUserId] = useState("");
   const session = useSession();
   const router = useRouter();
+
   // @ts-expect-error: [to access user data in session it exists in id]
   const authUser = session?.data?.user?.id;
 

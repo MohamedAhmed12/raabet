@@ -6,7 +6,7 @@ import { GalleryVerticalEnd } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useLocale } from "next-intl";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import VerifyForm from "./verifyForm";
 
 export default function VerifyPage() {

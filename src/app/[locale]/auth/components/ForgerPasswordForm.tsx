@@ -13,7 +13,7 @@ import {
 } from "@radix-ui/react-dialog";
 import { Label } from "@radix-ui/react-label";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -50,16 +50,18 @@ export function ForgetPasswordForm({
       toast.error(t("Shared.userNotFound"));
     }
   };
-  const handleClose = () => {
-    setShowModal(false);
-    router.replace("/");
+  const handleClose = (event: boolean) => {
+    if (event === false) {
+      setShowModal(event);
+      router.replace("/");
+    }
   };
 
   return (
     <>
       <form
         onSubmit={handleSubmit}
-        className={cn("flex flex-col", className,fontClass)}
+        className={cn("flex flex-col", className, fontClass)}
         {...props}
       >
         <div className="flex flex-col justify-center items-center">
@@ -101,7 +103,7 @@ export function ForgetPasswordForm({
         </div>
       </form>
 
-      <Dialog open={showModal} onOpenChange={setShowModal}>
+      <Dialog open={showModal} onOpenChange={(e) => handleClose(e)}>
         {/* ✅ Overlay with blur effect */}
         <DialogOverlay className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40" />
 
@@ -119,7 +121,7 @@ export function ForgetPasswordForm({
             {t("Auth.passwordResetRequestedDescription")}
           </p>
           <Button
-            onClick={handleClose}
+            onClick={() => handleClose(false)}
             className="mx-2.5 my-4 bg-blue-500 hover:bg-blue-600 text-white"
             size="lg"
           >

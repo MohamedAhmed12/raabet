@@ -19,7 +19,8 @@ import { Award, CirclePlus } from "lucide-react";
 import { signOut, useSession } from "next-auth/react"; // Import signOut from NextAuth.js
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
+
 export default function CustomSidebar({
   onOpenFeedbackPopup,
 }: {

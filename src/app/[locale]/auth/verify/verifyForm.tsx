@@ -14,7 +14,7 @@ import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -94,7 +94,6 @@ export default function VerifyForm({ email }: { email: string }) {
       if ("is_confirmed" in authUser) {
         authUser.is_confirmed = true;
       }
-
       await session.update(authUser);
 
       router.replace("/dashboard/admin/profile/links");

@@ -14,7 +14,7 @@ import { LayoutDashboard, LogOut } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import NextLink from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useMemo } from "react";
 
 type SessionUser = {

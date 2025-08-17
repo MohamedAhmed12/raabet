@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
+import Loading from "@/app/loading";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 export default function AuthLayout({
   children,
@@ -9,9 +11,15 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   const session = useSession();
-  if (session?.status === "authenticated") {
-    return redirect("/dashboard/admin/profile/links");
-  }
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.replace("/dashboard/admin/profile/links");
+    }
+  }, [session?.status, router]);
+
+  if (session?.status === "loading") return <Loading />;
 
   return children;
 }
