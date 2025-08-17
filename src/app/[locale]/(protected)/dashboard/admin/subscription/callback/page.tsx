@@ -10,7 +10,7 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY || "");
 export default async function SessionPage({
   searchParams,
 }: {
-  searchParams: { session_id?: string };
+  searchParams: { session_id?: string | undefined };
 }) {
   const t = await getTranslations("Subscription");
   const param = await searchParams;
