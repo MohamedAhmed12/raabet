@@ -6,6 +6,7 @@ export const DashboardSlider = ({
   defaultValue,
   max,
   step,
+  labelClassName,
   onValueChange,
   onValueCommit,
 }: Readonly<{
@@ -13,17 +14,20 @@ export const DashboardSlider = ({
   defaultValue?: number[] | undefined;
   max?: number | undefined;
   step?: number | undefined;
+  labelClassName?: string;
   onValueChange: (value: number) => void;
   onValueCommit: (value: number) => void;
 }>) => {
   return (
     <div className="dashboard-general-style-controller">
-      <LinksPageFieldLabel>{label}</LinksPageFieldLabel>
+      <LinksPageFieldLabel className={labelClassName}>
+        {label}
+      </LinksPageFieldLabel>
       <Slider
         defaultValue={defaultValue}
         max={max}
         step={step}
-        className="w-[124px] cursor-grab active:cursor-grabbing"
+        className="w-[120px] cursor-grab active:cursor-grabbing"
         progressbarcolor="bg-dashboard-primary"
         onValueChange={(val: number[]) => {
           onValueChange(val[0]);
