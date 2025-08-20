@@ -25,7 +25,7 @@ export default function LoginPage() {
       <div className="flex-1 relative hidden bg-muted lg:block">
         <Image
           src="/images/login-bg.jpg"
-          alt="Sign-up"
+          alt="login"
           fill
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
