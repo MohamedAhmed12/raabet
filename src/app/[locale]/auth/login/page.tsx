@@ -1,7 +1,7 @@
 "use client";
-import {GalleryVerticalEnd} from "lucide-react";
+import { GalleryVerticalEnd } from "lucide-react";
 
-import {LoginForm} from "@/app/[locale]/auth/components/LoginForm";
+import { LoginForm } from "@/app/[locale]/auth/components/LoginForm";
 import Image from "next/image";
 
 export default function LoginPage() {
@@ -24,10 +24,10 @@ export default function LoginPage() {
       </div>
       <div className="flex-1 relative hidden bg-muted lg:block">
         <Image
-          src="/images/login-bg.png"
+          src="/images/login-bg.jpg"
+          alt="login"
           fill
-          alt="Sign-in"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale transform -rotate-[20deg]"
+          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>
     </div>

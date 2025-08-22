@@ -13,11 +13,14 @@ export default function AuthLayout({
   const session = useSession();
   const router = useRouter();
 
+  // @ts-expect-error: session.data may not match Session shape
+  const isCurrentUserConfirmed = session?.data?.user?.id?.is_confirmed;
+
   useEffect(() => {
-    if (session?.status === "authenticated") {
+    if (session?.status === "authenticated" && isCurrentUserConfirmed) {
       router.replace("/dashboard/admin/profile/links");
     }
-  }, [session?.status, router]);
+  }, [session?.status, router, isCurrentUserConfirmed]);
 
   if (session?.status === "loading") return <Loading />;
 

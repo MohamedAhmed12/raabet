@@ -61,7 +61,7 @@ const ReviewCard = memo(({ review }: { review: Review }) => {
               src={review.image}
               width={40}
               height={40}
-              className="rounded-full"
+              className="rounded-full h-full"
               alt={review.name}
             />
             <div>

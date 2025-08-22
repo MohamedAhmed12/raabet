@@ -7,6 +7,10 @@ import { plans } from "../../../../public/data/plans";
 export const FeaturesCard = () => {
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
+  const backgroundSrc =
+    locale === "ar"
+      ? "/images/plan-features-card-ar.png"
+      : "/images/plan-features-card-en.png";
 
   return (
     <div
@@ -21,9 +25,9 @@ export const FeaturesCard = () => {
       <Image
         className="h-[402px]"
         style={{
-          backgroundImage: 'url("/images/plan-features-card.png")',
+          backgroundImage: `url("${backgroundSrc}")`,
         }}
-        src="/images/plan-features-card.png"
+        src={backgroundSrc}
         height={410}
         width={450}
         alt="pricing_bg"
