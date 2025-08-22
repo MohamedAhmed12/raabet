@@ -1,19 +1,46 @@
-// This file configures the initialization of Sentry on the server.
-// The config you add here will be used whenever the server handles a request.
-// https://docs.sentry.io/platforms/javascript/guides/nextjs/
-
+import { getSentryConfig } from "@/lib/utils";
 import * as Sentry from "@sentry/nextjs";
+import type { ErrorEvent, EventHint } from "@sentry/nextjs";
+
+const { isDevelopment, dsn, environment } = getSentryConfig();
 
 Sentry.init({
-  dsn: process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN,
-  environment: process.env.NEXT_PUBLIC_APP_ENV,
+  dsn,
+  environment,
+  // More conservative sampling in production
+  tracesSampleRate: isDevelopment ? 1.0 : 0.2,
+  // Only enable debug in development
+  debug: isDevelopment && window.location.search.includes("debug=sentry"),
+  // Enable logs only in development to reduce noise
+  enableLogs: isDevelopment,
 
-  // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
-  tracesSampleRate: 1,
+  beforeSend: (event: ErrorEvent, hint: EventHint) => {
+    // Filter out health check errors or common non-actionable errors
+    const originalError = hint.originalException as Error;
+    if (originalError?.message?.includes("health")) {
+      return null;
+    }
 
-  // Enable logs to be sent to Sentry
-  enableLogs: true,
+    if (isDevelopment) {
+      console.log("Sentry event (server):", event);
+      // Remove debug meta to avoid symbolication issues
+      event.debug_meta = undefined;
+    }
 
-  // Setting this option to true will print useful information to the console while you're setting up Sentry.
-  debug: false,
+    return event;
+  },
+
+  integrations: [
+    Sentry.extraErrorDataIntegration(),
+    Sentry.captureConsoleIntegration({
+      levels: ["error"], // Only capture errors in production
+    }),
+    // Add context integration for better debugging
+    Sentry.contextLinesIntegration({
+      frameContextLines: 5,
+    }),
+  ],
+
+  // Add release information for better tracking
+  release: process.env.npm_package_version,
 });

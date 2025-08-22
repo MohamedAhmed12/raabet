@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/nextjs";
+import { getSentryConfig } from "./utils";
 
 type ErrorContext = {
   action: string;
@@ -14,20 +15,21 @@ type ErrorContext = {
 export function logError(
   error: unknown,
   context: ErrorContext,
-  level: 'error' | 'warning' | 'info' = 'error'
+  level: "error" | "warning" | "info" = "error"
 ): void {
+  const { isDevelopment } = getSentryConfig();
   // Extract error message and stack trace
   const errorMessage = error instanceof Error ? error.message : String(error);
   const stack = error instanceof Error ? error.stack : undefined;
 
   // Log to console
   const logMessage = `[${context.action.toUpperCase()}] ${errorMessage}`;
-  
+
   switch (level) {
-    case 'warning':
+    case "warning":
       console.warn(logMessage, { context, stack });
       break;
-    case 'info':
+    case "info":
       console.info(logMessage, { context });
       break;
     default: // error
@@ -35,34 +37,18 @@ export function logError(
   }
 
   // Skip Sentry in development unless explicitly enabled
-  if (process.env.NODE_ENV === 'development' && !process.env.NEXT_PUBLIC_ENABLE_SENTRY_IN_DEV) {
+  if (isDevelopment && !window.location.search.includes("debug=sentry")) {
     return;
   }
 
-  // Capture in Sentry with additional context
-  const scope = new Sentry.Scope();
-  
-  // Add context as tags for better filtering in Sentry
-  Object.entries(context).forEach(([key, value]) => {
-    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-      scope.setTag(key, String(value));
-    }
-  });
-
-  // Add context as extra data
-  scope.setExtras({
-    ...context,
-    environment: process.env.NODE_ENV,
-  });
-
   // Capture the error with the appropriate level
   if (error instanceof Error) {
-    Sentry.captureException(error, scope);
+    Sentry.captureException(error);
   } else {
     const errorToSend = new Error(errorMessage);
-    errorToSend.name = 'CustomError';
+    errorToSend.name = "CustomError";
     if (stack) errorToSend.stack = stack;
-    Sentry.captureException(errorToSend, scope);
+    Sentry.captureException(errorToSend);
   }
 }
 
@@ -82,7 +68,8 @@ export async function withErrorHandling<T>(
   } catch (error) {
     logError(error, context);
     return {
-      error: error instanceof Error ? error.message : 'An unknown error occurred'
+      error:
+        error instanceof Error ? error.message : "An unknown error occurred",
     };
   }
 }
