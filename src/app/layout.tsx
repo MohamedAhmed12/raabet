@@ -78,13 +78,36 @@ const Cairo = localFont({
 
 export const metadata: Metadata = {
   title: "Rabet",
-  description: "Created by Gad",
+  description: "Your link in bio tool to share all your important links in one place",
   icons: {
     icon: [
       "/svg/mainLogo.svg",
       { url: "/svg/mainLogo.svg", media: "(prefers-color-scheme: dark)" },
     ],
   },
+  openGraph: {
+    title: "Rabet - Your Link in Bio Tool",
+    description: "Share all your important links in one beautiful profile",
+    url: "https://rabetlink.com",
+    siteName: "Rabet",
+    images: [
+      {
+        url: "/images/meta-data-screenshot.png", // You need to add this image to your public folder
+        width: 1200,
+        height: 630,
+        alt: 'Rabet - Your Link in Bio',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Rabet - Your Link in Bio Tool',
+    description: 'Share all your important links in one beautiful profile',
+    images: ['/images/meta-data-screenshot.png'], // Same image as above
+  },
+  metadataBase: new URL('https://rabetlink.com'),
 };
 
 const messages: Record<string, any> = {

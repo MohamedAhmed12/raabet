@@ -11,6 +11,7 @@ export const Claim = () => {
 
   return (
     <div
+      dir="ltr"
       className={`flex items-center rounded-[100px] border border-[#1d1d28] shadow-[3px_3px_0px_#1d1d28] bg-white cursor-text p-2 mt-8 ${fontClass} font-semibold`}
     >
       <Icon
