@@ -37,7 +37,10 @@ export function logError(
   }
 
   // Skip Sentry in development unless explicitly enabled
-  if (isDevelopment && !window.location.search.includes("debug=sentry")) {
+  if (
+    isDevelopment &&
+    process.env.NEXT_PUBLIC_ENABLE_SENTRY_IN_DEV === "true"
+  ) {
     return;
   }
 

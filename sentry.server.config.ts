@@ -10,7 +10,8 @@ Sentry.init({
   // More conservative sampling in production
   tracesSampleRate: isDevelopment ? 1.0 : 0.2,
   // Only enable debug in development
-  debug: isDevelopment && window.location.search.includes("debug=sentry"),
+  debug:
+    isDevelopment && process.env.NEXT_PUBLIC_ENABLE_SENTRY_IN_DEV === "true",
   // Enable logs only in development to reduce noise
   enableLogs: isDevelopment,
 

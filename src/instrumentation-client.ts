@@ -25,7 +25,8 @@ if (typeof window !== "undefined") {
     replaysSessionSampleRate: 0.01, // Lower session sampling
     replaysOnErrorSampleRate: 0.5, // Moderate error replay sampling
 
-    debug: isDevelopment && window.location.search.includes("debug=sentry"),
+    debug:
+      isDevelopment && process.env.NEXT_PUBLIC_ENABLE_SENTRY_IN_DEV === "true",
 
     beforeSend: (event) => {
       // Filter out common browser errors
