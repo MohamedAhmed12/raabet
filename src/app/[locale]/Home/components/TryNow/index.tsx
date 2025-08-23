@@ -18,8 +18,8 @@ export const TryNow = () => {
             width={200}
             height={200}
             className={cn(
-              "w-[95%] m-auto",
-              "lg:h-[105%] lg:absolute lg:bottom-[-90px] lg:w-[70%]",
+              "w-[95%] m-auto mb-8",
+              "lg:h-[105%] lg:absolute lg:bottom-[-90px] lg:w-[80%] lg:mb-0",
               locale === "ar" ? "lg:left-0" : "lg:right-0"
             )}
           />

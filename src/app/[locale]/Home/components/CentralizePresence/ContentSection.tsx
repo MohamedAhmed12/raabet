@@ -5,6 +5,13 @@ import { Star } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Claim } from "../Claim";
 
+const avatars = [
+  "/images/avatars/khalid-al-gurayed.webp",
+  "/images/avatars/ovioo.webp",
+  "/images/avatars/noah-johnson.webp",
+  "/images/avatars/ameera-al-eisaei.webp",
+  "/images/avatars/sara-al‑zahrani.webp",
+];
 export const ContentSection = () => {
   const t = useTranslations("HomePage.CentralizePresence");
   const locale = useLocale();
@@ -20,12 +27,12 @@ export const ContentSection = () => {
       {/* Avatar & Star Rating */}
       <div className="w-full flex gap-3 place-content-center lg:place-content-start mb-6 lg:mb-2">
         <div className="flex -space-x-2">
-          {[...Array(5)].map((_, i) => (
+          {avatars.map((avatar, i) => (
             <Avatar
               key={i}
               className="w-[38px] h-[38px] border border-black bg-white rounded-full shadow-[1.5px_1.5px_0px_#1d1d28]"
             >
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src={avatar} />
             </Avatar>
           ))}
         </div>

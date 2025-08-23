@@ -23,7 +23,9 @@ Sentry.init({
     }
 
     if (isDevelopment) {
-      console.log("Sentry event (server):", event);
+      if (process.env.NEXT_PUBLIC_ENABLE_SENTRY_IN_DEV === "true") {
+        console.log("Sentry event (server):", event);
+      }
       // Remove debug meta to avoid symbolication issues
       event.debug_meta = undefined;
     }

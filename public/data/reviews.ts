@@ -12,24 +12,28 @@ const reviews1: Review[] = [
     id: 1,
     name: "Sara Al‑Zahrani",
     title: "Designer, Riyadh",
-    review: "Rabet made sharing my links effortless. Looks great and works fast!",
-    image: "/images/gulf1.jpg",
+    review:
+      "Rabet made sharing my links effortless. Looks great and works fast!",
+    image: "/images/avatars/sara-al‑zahrani.webp",
     stars: 5,
   },
   {
     id: 2,
-    name: "Mohamed El‑Shamy",
+    name: "Ahmed Hassan",
     title: "Marketing, Cairo",
-    review: "رابط تعامل معاه سهل حتى فى الدفع بدفع انستا باى او فودافون كاش و  سعره لذيذ",
-    image: "/images/egypt1.jpg",
+    review:
+      "رابط تعامل معاه سهل حتى فى الدفع بدفع انستا باى او فودافون كاش و  سعره لذيذ", // need saudi review
+    image: "/images/avatars/ahmed-hassan.webp",
+
     stars: 5,
   },
   {
     id: 3,
-    name: "Huda Al‑Amiri",
+    name: "Noah Johnson",
     title: "Entrepreneur, Dubai",
-    review: `بالج والله، رابط مرتب مرة وسهل استخدامه، والسعر كويس، والدعم يرد بسرعة`,
-    image: "/images/gulf2.jpg",
+    review:
+      "Seriously, it’s a super neat and easy-to-use link. Great price, and support replies fast!",
+    image: "/images/avatars/noah-johnson.webp",
     stars: 4,
   },
   {
@@ -52,7 +56,8 @@ const reviews1: Review[] = [
     id: 6,
     name: "Ameera Al-Eisaei",
     title: "Content Creator, Bahrain",
-    review: `رابط سهل علي تنسيق روابطي بشكل مرتب و فى مميزات كويسه زى الانيمشن و ال flexible customization`,
+    review:
+      "الرابط مرررة سهل لرتب روابطي، و فيه مميزات خوش مثل الأنيمشن و الـ flexible customization",
     image: "/images/avatars/ameera-al-eisaei.webp",
     stars: 5,
   },
@@ -63,52 +68,52 @@ const reviews2: Review[] = [
     id: 1,
     name: "Noura Al‑Hashimi",
     title: "Marketer, Abu Dhabi",
-    review: "Built my full Rabet/links page in one afternoon. Smooth and flexible",
+    review:
+      "Built my full Rabet/links page in one afternoon. Smooth and flexible",
     image: "/images/avatars/noura-al-hashimi.webp",
     stars: 5,
   },
   {
     id: 2,
-    name: "Ahmed Hassan",
+    name: "Mohamed Hamdan",
     title: "Business Owner, Cairo",
-    review: "رابط  سهل علي ترتيب روابط مشروعي بسرعة وبدون مشاكل",
-    image: "/images/avatars/ahmed-hassan.webp",
+    review: "رابط بعد سهل لرتب روابط مشروعي بسرعة وبلا مشاكل",
+    image: "/images/avatars/mohamed-hamdan.webp",
     stars: 5,
   },
   {
     id: 3,
-    name: "Layla Al‑Faraj",
+    name: "Khalid Al Gurayed",
     title: "Creator, Bahrain",
     review: "Rabet looks amazing makes my profile links shine",
-    image: "/images/avatars/layla-al-faraj.webp",
+    image: "/images/avatars/khalid-al-gurayed.webp",
     stars: 5,
   },
   {
     id: 4,
-    name: "Yara Mostafa",
-    title: "Photographer, Alexandria",
+    name: "Ovioo",
+    title: "Virtual Design saas, USA",
     review: "رابط منظم واحترافي. مناسب لعرض الصور والأعمال بسهولة",
-    image: "/images/avatars/ovioo.svg",
-    stars: 4,
+    image: "/images/avatars/ovioo.webp",
+    stars: 5,
   },
   {
     id: 5,
     name: "Emily Smith",
     title: "Designer, UK",
-    review: "A great link-in-bio tool. Easy UI, flexible layout and advanced options",
+    review:
+      "A great link-in-bio tool. Easy UI, flexible layout and advanced options",
     image: "/images/avatars/emily-smith.webp",
     stars: 5,
   },
   {
     id: 6,
-    name: "Angela Bierman",
-    title: "Verified Reviewer, US",
+    name: "Bas Michielsen",
+    title: "Verified Reviewer, Netherlands",
     review: "I’ve tried many bio‑link, Rabet tools were the easiest to set up",
-    image: "/images/avatars/angela-bierman.webp",
+    image: "/images/avatars/bas-michielsen.webp",
     stars: 5,
   },
 ];
-
-
 
 export { reviews1, reviews2 };
