@@ -1,10 +1,11 @@
 "use server";
 
 import { createAndSendActivation } from "@/lib/activation";
+import { logError } from "@/lib/errorHandling";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
+import { getTranslations } from "next-intl/server";
 import { postSignupProcess } from "./postSignupProcess";
-import { logError } from "@/lib/errorHandling";
 
 export const signup = async ({
   fullname,
@@ -15,12 +16,14 @@ export const signup = async ({
   email: string;
   password: string;
 }) => {
+  const t = await getTranslations('Auth');
+
   try {
     // Check if user already exists
     const existingUser = await prisma?.user?.findUnique({ where: { email } });
 
     if (existingUser) {
-      return { ok: false, error: "User already exists" };
+      return { ok: false, error: t("userAlreadyExists") };
     }
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -53,6 +56,6 @@ export const signup = async ({
       errorType:
         error instanceof Error ? error.constructor.name : "UnknownError",
     });
-    return { ok: false, error: "Something went wrong. Please try again." };
+    return { ok: false, error: t("somethingWentWrong") };
   }
 };

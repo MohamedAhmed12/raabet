@@ -127,7 +127,8 @@
     "cantFindEmail": "Can't find the email?",
     "enteredWrongEmail": "Entered the wrong email address?",
     "changeEmail": "Change email",
-    "activationEmailResentFailed": "Failed to resend activation email"
+    "activationEmailResentFailed": "Failed to resend activation email",
+    "userAlreadyExists": "User already exists"
   },
   "Pricing": {
     "plans": "Plans",

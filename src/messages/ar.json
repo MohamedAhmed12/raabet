@@ -127,7 +127,8 @@
     "cantFindEmail": "لا تجد البريد؟",
     "enteredWrongEmail": "هل أدخلت عنوان البريد الإلكتروني الخطأ؟",
     "changeEmail": "تغيير البريد الإلكتروني",
-    "activationEmailResentFailed": "فشل إرسال بريد التفعيل مرة أخرى"
+    "activationEmailResentFailed": "فشل إرسال بريد التفعيل مرة أخرى",
+    "userAlreadyExists": "المستخدم موجود بالفعل"
   },
   "Pricing": {
     "plans": "خطط الدفع",
