@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -33,6 +34,7 @@ export default function ResetPasswordForm({
   });
 
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const searchParams = useSearchParams();
@@ -83,13 +85,26 @@ export default function ResetPasswordForm({
             <label className="text-gray-700 text-sm">
               {t("Auth.password")}
             </label>
-            <Input
-              type="password"
-              placeholder={t("Auth.enterYourNewPassword")}
-              {...register("password")}
-              required
-              className="px-4 py-2 border rounded-md text-lg"
-            />
+            <div className="flex relative">
+              <Input
+                type={showPassword ? "text" : "password"}
+                placeholder={t("Auth.enterYourNewPassword")}
+                {...register("password")}
+                required
+                className="px-4 py-2 border rounded-md text-lg"
+              />
+              <button
+                type="button"
+                className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5" />
+                ) : (
+                  <Eye className="h-5 w-5" />
+                )}
+              </button>
+            </div>
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}

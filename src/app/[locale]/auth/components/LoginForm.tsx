@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const loginSchema = z.object({
@@ -26,6 +26,7 @@ export const LoginForm = ({
   ...props
 }: React.ComponentPropsWithoutRef<"form">) => {
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const t = useTranslations();
@@ -99,17 +100,30 @@ export const LoginForm = ({
           )}
         </div>
         <div className="grid">
-          <Input
-            id="password"
-            type="password"
-            placeholder={t("Auth.password")}
-            {...register("password")}
-            className={errors.password ? "border-red-500" : ""}
-            onChange={(e) => {
-              setError(null);
-              register("password").onChange(e);
-            }}
-          />
+          <div className="flex relative">
+            <Input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              placeholder={t("Auth.password")}
+              {...register("password")}
+              className={errors.password ? "border-red-500" : ""}
+              onChange={(e) => {
+                setError(null);
+                register("password").onChange(e);
+              }}
+            />
+            <button
+              type="button"
+              className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? (
+                <EyeOff className="h-5 w-5" />
+              ) : (
+                <Eye className="h-5 w-5" />
+              )}
+            </button>
+          </div>
           {errors.password && (
             <p className="text-red-500 text-sm">{errors.password.message}</p>
           )}

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
@@ -28,6 +28,7 @@ export default function SignUpForm({
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const t = useTranslations();
@@ -122,15 +123,28 @@ export default function SignUpForm({
             )}
           </div>
           <div className="grid">
-            <Input
-              id="password"
-              type="password"
-              {...register("password")}
-              placeholder={t("Auth.password")}
-              required
-            />{" "}
+            <div className="flex relative">
+              <Input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                {...register("password")}
+                placeholder={t("Auth.password")}
+                required
+              />
+              <button
+                type="button"
+                className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5" />
+                ) : (
+                  <Eye className="h-5 w-5" />
+                )}
+              </button>
+            </div>
             {errors.password && (
-              <p className="text-red-500">{errors.password.message}</p>
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
           </div>
           <div className="!text-xs text-gray-400 font-medium flex justify-center items-center gap-2">
