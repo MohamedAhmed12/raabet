@@ -31,7 +31,7 @@ export const postSignupProcess = async (userId: string, fullname: string) => {
         header_styles_profile_border_width: 0,
         header_styles_profile_border_color: "#000000",
         header_styles_collapse_long_bio: false,
-        header_styles_social_icons_size: 24,
+        header_styles_social_icons_size: 0.1,
         card_styles_design: 0,
         card_styles_card_color: "#ffffff",
         card_styles_text_color: "#000000",

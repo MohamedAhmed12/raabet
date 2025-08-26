@@ -13,6 +13,7 @@ export function LinksHeader() {
   const handleToggleCollapseBio = () => {
     setCollapseBio((prev) => !prev);
   };
+
   return (
     <div className="flex flex-col items-center mb-[33px] text-current">
       <div className="flex flex-col w-full items-center justify-center">
@@ -29,7 +30,7 @@ export function LinksHeader() {
         {link.bio && (
           <h2
             className={cn(
-              "font-normal text-[13px] leading-[1.3] max-w-[300px] mt-[31px] break-words",
+              "font-normal text-[13px] leading-[1.3] max-w-[300px] mt-[31px] break-words whitespace-pre-line",
               link.text_font && `${link.text_font}`,
               link.header_styles_collapse_long_bio &&
                 collapseBio &&
