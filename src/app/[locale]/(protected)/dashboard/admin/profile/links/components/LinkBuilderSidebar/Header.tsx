@@ -86,10 +86,7 @@ export const Header = () => {
   };
 
   return (
-    <DashboardAccordion
-    mainLabel={t("title")}
-    content={t("description")}
-    >
+    <DashboardAccordion mainLabel={t("title")} content={t("description")}>
       <div className="flex items-center gap-2">
         {link.user?.avatar && (
           <Image
@@ -104,7 +101,7 @@ export const Header = () => {
           id="picture"
           type="file"
           accept="image/*"
-          className="w-full"
+          className="w-full cursor-pointer"
           onChange={handlePhotoChange}
           capture="user"
           disabled={uploading}

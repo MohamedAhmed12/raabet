@@ -10,7 +10,6 @@ export function useSubscriptionStatus({
   email: string;
   pollingInterval?: number;
 }) {
-  console.log("subs called", email);
   return useQuery({
     queryKey: ["subscriptionStatus", { email }],
     queryFn: async () => {
