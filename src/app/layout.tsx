@@ -6,11 +6,12 @@ import { NextIntlClientProvider } from "next-intl";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
 
+import { Providers } from "@/components/providers/Providers";
 import { customGetLocale } from "@/lib/customGetLocale";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import arMessages from "../messages/ar.json";
 import enMessages from "../messages/en.json";
-import { Providers } from "@/components/providers/Providers";
+import LazySentryInit from "./lazy-sentry-init";
 
 const notoSans = localFont({
   src: [
@@ -78,7 +79,8 @@ const Cairo = localFont({
 
 export const metadata: Metadata = {
   title: "Rabet",
-  description: "Your link in bio tool to share all your important links in one place",
+  description:
+    "Your link in bio tool to share all your important links in one place",
   icons: {
     icon: [
       "/svg/mainLogo.svg",
@@ -95,19 +97,19 @@ export const metadata: Metadata = {
         url: "/images/meta-data-screenshot.png", // You need to add this image to your public folder
         width: 1200,
         height: 630,
-        alt: 'Rabet - Your Link in Bio',
+        alt: "Rabet - Your Link in Bio",
       },
     ],
-    locale: 'en_US',
-    type: 'website',
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Rabet - Your Link in Bio Tool',
-    description: 'Share all your important links in one beautiful profile',
-    images: ['/images/meta-data-screenshot.png'], // Same image as above
+    card: "summary_large_image",
+    title: "Rabet - Your Link in Bio Tool",
+    description: "Share all your important links in one beautiful profile",
+    images: ["/images/meta-data-screenshot.png"], // Same image as above
   },
-  metadataBase: new URL('https://rabetlink.com'),
+  metadataBase: new URL("https://rabetlink.com"),
 };
 
 const messages: Record<string, any> = {
@@ -130,6 +132,8 @@ export default async function RootLayout({
         className={`${Cairo.variable} ${notoSans.variable} antialiased text-deep-blue-gray`}
         style={{ marginRight: "0!important" }}
       >
+        <LazySentryInit />
+
         <NextIntlClientProvider locale={locale} messages={currentLocalMessages}>
           <Providers>
             <Toaster />
