@@ -1,8 +1,8 @@
 "use client";
 
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
-import { Icon } from "@/components/Icon";
 import { ShareBtn } from "@/components/ShareBtn";
+import { Copy } from "lucide-react";
 import { useShallow } from "zustand/react/shallow";
 
 export const MainHeaderSection = () => {
@@ -13,12 +13,13 @@ export const MainHeaderSection = () => {
   return (
     <div className="flex justify-between h-[55px] px-[22px] py-[11px]">
       <div className="flex items-center justify-between gap-2">
-        <Icon name="copy" size={15} />
+        <Copy size={15} />
 
         <a
           href={url}
           target="_blank"
-          className="text-dashboard-primary underline text-sm"
+          title={url}
+          className="!max-w-[220px] text-dashboard-primary underline text-sm truncate"
         >
           {url}
         </a>
