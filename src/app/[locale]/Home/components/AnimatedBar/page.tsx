@@ -20,7 +20,7 @@ export default function AnimatedBar() {
       {/* Reviews Section */}
       <div
         className={cn(
-          "relative flex flex-col justify-center items-center w-full overflow-hidden py-10 bg-[#D7A9FF]",
+          "relative flex flex-col justify-center items-center w-full overflow-hidden py-10 bg-[#D7A9FF] min-h-[825px]",
           fontClass
         )}
       >

@@ -17,6 +17,7 @@ export const ImageSection = () => {
         src={isArabic ? "/images/image-section-bg-ar.png" : "/images/image-section-bg-en.png"}
         fill
         alt="Hero Image"
+        priority
         className={cn(
           "w-full !relative",
           "lg:!h-[87%] lg:!max-h-[40vw] lg:!absolute lg:!w-[90vh] lg:!left-1/2 lg:!top-1/2 lg:!-translate-x-1/2 lg:!-translate-y-1/2 !right-[unset] !bottom-[unset]"

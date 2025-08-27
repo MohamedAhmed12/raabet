@@ -1,18 +1,29 @@
-import AnimatedBar from "./components/AnimatedBar/page";
-import { CentralizePresence } from "./components/CentralizePresence";
-import { TryNow } from "./components/TryNow";
-import { WhyUs } from "./components/WhyUs";
+import { Suspense, lazy } from "react";
 import { PublicContainer } from "@/components/PublicContainer";
+
+// Lazy load heavy components
+const AnimatedBar = lazy(() => import("./components/AnimatedBar/page"));
+const CentralizePresence = lazy(
+  () => import("./components/CentralizePresence")
+);
+const TryNow = lazy(() => import("./components/TryNow"));
+const WhyUs = lazy(() => import("./components/WhyUs"));
 
 export default function Home() {
   return (
     <PublicContainer>
-      <CentralizePresence />
-      <AnimatedBar />
-      <WhyUs />
-      {/* deploy with group blocks feature */}
-      {/* <GroubBlock /> */}
-      <TryNow />
+      <Suspense fallback={<div>Loading...</div>}>
+        <CentralizePresence />
+      </Suspense>
+      <Suspense fallback={<div>Loading animation...</div>}>
+        <AnimatedBar />
+      </Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
+        <WhyUs />
+      </Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
+        <TryNow />
+      </Suspense>
     </PublicContainer>
   );
 }

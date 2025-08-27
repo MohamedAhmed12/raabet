@@ -1,16 +1,17 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Star } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import Image from "next/image";
 import { Claim } from "../Claim";
 
 const avatars = [
-  "/images/avatars/khalid-al-gurayed.webp",
-  "/images/avatars/ovioo.webp",
-  "/images/avatars/noah-johnson.webp",
-  "/images/avatars/ameera-al-eisaei.webp",
-  "/images/avatars/sara-al‑zahrani.webp",
+  { src: "/images/avatars/khalid-al-gurayed.webp", alt: "Khalid Al-Gurayed" },
+  { src: "/images/avatars/ovioo.webp", alt: "Ovioo" },
+  { src: "/images/avatars/noah-johnson.webp", alt: "Noah Johnson" },
+  { src: "/images/avatars/ameera-al-eisaei.webp", alt: "Ameera Al-Eisaei" },
+  { src: "/images/avatars/sara-al‑zahrani.webp", alt: "Sara Al-Zahrani" },
 ];
 export const ContentSection = () => {
   const t = useTranslations("HomePage.CentralizePresence");
@@ -28,12 +29,20 @@ export const ContentSection = () => {
       <div className="w-full flex gap-3 place-content-center lg:place-content-start mb-6 lg:mb-2">
         <div className="flex -space-x-2">
           {avatars.map((avatar, i) => (
-            <Avatar
+            <div
               key={i}
-              className="w-[38px] h-[38px] border border-black bg-white rounded-full shadow-[1.5px_1.5px_0px_#1d1d28]"
+              className="relative w-[38px] h-[38px] border border-black bg-white rounded-full shadow-[1.5px_1.5px_0px_#1d1d28] overflow-hidden"
             >
-              <AvatarImage src={avatar} />
-            </Avatar>
+              <Image
+                src={avatar.src}
+                alt={avatar.alt}
+                width={38}
+                height={38}
+                className="object-cover w-full h-full"
+                loading="lazy"
+                sizes="(max-width: 768px) 38px, 38px"
+              />
+            </div>
           ))}
         </div>
 

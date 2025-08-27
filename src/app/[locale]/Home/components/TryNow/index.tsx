@@ -4,7 +4,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useLocale } from "next-intl";
 
-export const TryNow = () => {
+export default function TryNow() {
   const locale = useLocale();
 
   return (

@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ContentSection } from "../ContentSection";
 import { WhyUsBlock } from "./components/whyUsBlock";
 
-export const WhyUs = () => {
+export default function WhyUs() {
   const t = useTranslations("HomePage");
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);

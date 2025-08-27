@@ -122,6 +122,7 @@ export const Footer = () => {
             />
             <button
               className="bg-deep-blue-gray text-white p-2 rounded-4xl font-bold leading-none cursor-pointer"
+              aria-label="Subscribe to our newsletter"
               type="submit"
               disabled={isPending}
             >
