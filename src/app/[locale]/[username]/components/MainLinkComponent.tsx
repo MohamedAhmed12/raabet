@@ -26,14 +26,6 @@ const MainLinkComponentContent = ({
     return link?.social_custom_logo_size ?? 0;
   }, [link?.social_custom_logo_size]);
 
-  const width = useMemo(() => {
-    return 25 + (190 - 25) * size;
-  }, [size]);
-
-  const height = useMemo(() => {
-    return 16 + (118 - 16) * size;
-  }, [size]);
-
   return (
     link?.id && (
       <div
@@ -66,7 +58,7 @@ const MainLinkComponentContent = ({
                 : link?.general_styles_primary_bgcolor,
             }}
           >
-            <LinksNavbar isSticky={isSticky} />
+            <LinksNavbar isSticky={isSticky} link={link} />
 
             <div
               className={cn(
@@ -74,9 +66,9 @@ const MainLinkComponentContent = ({
                 link?.general_styles_is_secondary_bgcolor && "mt-[25px]"
               )}
             >
-              <LinksHeader />
-              <LinksSocialIcons />
-              <LinksBlocks />
+              <LinksHeader link={link} />
+              <LinksSocialIcons link={link} />
+              <LinksBlocks link={link} />
             </div>
             <div className="flex justify-center">
               {!link.social_enable_hide_raabet_branding ? (
@@ -87,8 +79,8 @@ const MainLinkComponentContent = ({
                     src={link.social_custom_logo}
                     className="mt-7.5"
                     alt="Custom logo"
-                    width={width}
-                    height={height}
+                    width={25 + (190 - 25) * size}
+                    height={16 + (118 - 16) * size}
                   />
                 )
               )}

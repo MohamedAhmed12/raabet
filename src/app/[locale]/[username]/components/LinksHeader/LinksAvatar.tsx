@@ -1,5 +1,5 @@
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar } from "@/components/ui/avatar";
 import { cn } from "@/lib/cn";
 import { useLocale } from "next-intl";
 import Image from "next/image";
@@ -54,7 +54,6 @@ export function LinksAvatar() {
           fill
           priority
         />
-        <AvatarFallback>{user?.fullname}</AvatarFallback>
       </Avatar>
     </div>
   );

@@ -1,13 +1,17 @@
 "use client";
 
-import { useUpdateLink } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/hooks/useUpdateLink";
+import { Link } from "@/app/[locale]/store/use-link-store";
 import { ShareBtn } from "@/components/ShareBtn";
 import { cn } from "@/lib/cn";
 import { AddContactDialog } from "./AddContactDialog";
 
-export default function LinksNavbar({ isSticky }: { isSticky: boolean }) {
-  const { link } = useUpdateLink();
-
+export default function LinksNavbar({
+  isSticky,
+  link,
+}: {
+  isSticky: boolean;
+  link: Link;
+}) {
   return (
     <header
       className={cn(

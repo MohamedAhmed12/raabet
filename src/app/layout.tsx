@@ -45,6 +45,7 @@ const notoSans = localFont({
   ],
   variable: "--font-noto-sans-display",
   display: "swap",
+  preload: true,
 });
 
 const Cairo = localFont({
@@ -77,6 +78,7 @@ const Cairo = localFont({
   ],
   variable: "--font-cairo",
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {

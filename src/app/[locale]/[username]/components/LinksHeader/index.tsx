@@ -1,14 +1,12 @@
 "use client";
 
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Link } from "@/app/[locale]/store/use-link-store";
 import { cn } from "@/lib/cn";
 import { useState } from "react";
 import QRCodeDialog from "./QRCodeDialog";
-import { useShallow } from "zustand/react/shallow";
 
-export function LinksHeader() {
+export function LinksHeader({ link }: { link: Link }) {
   const [collapseBio, setCollapseBio] = useState<boolean>(true);
-  const link = useLinkStore(useShallow((state) => state.link));
 
   const handleToggleCollapseBio = () => {
     setCollapseBio((prev) => !prev);

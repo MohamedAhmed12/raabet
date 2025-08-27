@@ -1,15 +1,13 @@
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
 import { useLocale } from "next-intl";
-import { useShallow } from "zustand/react/shallow";
+import { Link } from "../../store/use-link-store";
 import { useIncrementSocialClicks } from "../hooks/useIncrementSocialClicks";
 
-export default function LinksSocialIcons() {
+export default function LinksSocialIcons({ link }: { link: Link }) {
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
-  const link = useLinkStore(useShallow((state) => state.link));
   const socialIconSize = (link?.header_styles_social_icons_size || 0) * 24;
 
   const { mutateAsync: incrementSocialClicks } = useIncrementSocialClicks();

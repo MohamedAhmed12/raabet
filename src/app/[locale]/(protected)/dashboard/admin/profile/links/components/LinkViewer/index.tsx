@@ -19,23 +19,7 @@ export function LinkViewer() {
     throttle: 16,
   });
 
-  const link = useLinkStore(
-    useShallow((state) => ({
-      id: state.link.id,
-      general_styles_desktop_bgcolor: state.link.general_styles_desktop_bgcolor,
-      general_styles_primary_text_color:
-        state.link.general_styles_primary_text_color,
-      general_styles_primary_bgcolor: state.link.general_styles_primary_bgcolor,
-      general_styles_is_secondary_bgcolor:
-        state.link.general_styles_is_secondary_bgcolor,
-      general_styles_secondary_bgcolor:
-        state.link.general_styles_secondary_bgcolor,
-      social_enable_hide_raabet_branding:
-        state.link.social_enable_hide_raabet_branding,
-      social_custom_logo: state.link.social_custom_logo,
-      social_custom_logo_size: state.link.social_custom_logo_size,
-    }))
-  );
+  const link = useLinkStore(useShallow((state) => state.link));
 
   const handleOnClick = useCallback((i: number) => setSelectedTab(i), []);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Link } from "@/app/[locale]/store/use-link-store";
 import { animationVariants } from "@/constants/animations";
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
@@ -9,7 +9,6 @@ import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { useShallow } from "zustand/react/shallow";
 import { EmbedInfo } from "../../(protected)/dashboard/admin/profile/links/components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/MediaBlock/generateEmbedInfo";
 import { BlockTextAlign } from "../../types/block";
 import { useIframeClickTracker } from "../hooks/useIframeClickTracker";
@@ -18,13 +17,12 @@ import useLinkStyles from "../hooks/useLinkStyles";
 
 type EmbedBlock = Block & Partial<EmbedInfo>;
 
-export default function LinksBlocks() {
+export default function LinksBlocks({ link }: { link: Link }) {
   const [blocksWithEmbedInfo, setBlocksWithEmbedInfo] = useState<EmbedBlock[]>(
     []
   );
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
-  const link = useLinkStore(useShallow((state) => state.link));
   const linkStyles = useLinkStyles(link);
 
   const { mutateAsync: incrementBlockClicks } = useIncrementBlockClicks();
@@ -203,7 +201,7 @@ export default function LinksBlocks() {
                       <div
                         className={cn(
                           "line-clamp-3 font-semibold",
-                          hasPrefixImage ?"line-clamp-2":"text-center",
+                          hasPrefixImage ? "line-clamp-2" : "text-center",
                           link?.title_font
                         )}
                         dangerouslySetInnerHTML={{ __html: block.title }}
@@ -211,7 +209,7 @@ export default function LinksBlocks() {
                       <div
                         className={cn(
                           "text-[12.6px] leading-[1.3em] line-clamp-3",
-                          hasPrefixImage ?"line-clamp-2":"text-center",
+                          hasPrefixImage ? "line-clamp-2" : "text-center",
                           link?.text_font
                         )}
                       >
