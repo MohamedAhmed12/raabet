@@ -1,7 +1,8 @@
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/cn";
 import { useLocale } from "next-intl";
+import Image from "next/image";
 import { useShallow } from "zustand/react/shallow";
 
 export function LinksAvatar() {
@@ -47,12 +48,11 @@ export function LinksAvatar() {
           borderColor: header_styles_profile_border_color,
         }}
       >
-        <AvatarImage
+        <Image
           src={user?.avatar || "/images/user-placeholder.png"}
-          alt={user?.fullname}
+          alt={user?.fullname || ""}
+          fill
           priority
-          fetchPriority="high"
-          loading="eager"
         />
         <AvatarFallback>{user?.fullname}</AvatarFallback>
       </Avatar>

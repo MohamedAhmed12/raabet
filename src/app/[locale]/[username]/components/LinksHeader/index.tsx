@@ -20,7 +20,7 @@ export function LinksHeader() {
         <QRCodeDialog />
         <div
           className={cn(
-            "mt-2 text-md capitalize",
+            "mt-2 text-3xl capitalize font-semibold",
             link.title_font && `${link.title_font}`
           )}
         >
@@ -29,8 +29,9 @@ export function LinksHeader() {
         {/* bio */}
         {link.bio && (
           <h2
+            dir="auto"
             className={cn(
-              "font-normal text-[13px] leading-[1.3] max-w-[300px] mt-[31px] break-words whitespace-pre-line",
+              "font-normal text-base leading-[1.3] max-w-[300px] mt-[31px] break-words whitespace-pre-line",
               link.text_font && `${link.text_font}`,
               link.header_styles_collapse_long_bio &&
                 collapseBio &&
