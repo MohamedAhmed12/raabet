@@ -1,4 +1,3 @@
-import { Avatar } from "@/components/ui/avatar";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Star } from "lucide-react";
