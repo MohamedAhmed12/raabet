@@ -2,7 +2,6 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import type { AuthOptions } from "next-auth";
-import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "./prisma";
 
@@ -12,8 +11,8 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: {label: "Email", type: "text"}, // Expecting email field
-        password: {label: "Password", type: "password"}, // Expecting password field
+        email: { label: "Email", type: "text" }, // Expecting email field
+        password: { label: "Password", type: "password" }, // Expecting password field
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -22,7 +21,7 @@ export const authOptions: AuthOptions = {
 
         // Fetch user from the Prisma database by email
         const user = await prisma.user.findUnique({
-          where: {email: credentials.email},
+          where: { email: credentials.email },
         });
 
         if (
@@ -41,7 +40,7 @@ export const authOptions: AuthOptions = {
     strategy: "jwt", // Using JWT for session management
   },
   callbacks: {
-    async jwt({token, user, trigger, session}) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user;
       }
@@ -61,7 +60,7 @@ export const authOptions: AuthOptions = {
 
       return token;
     },
-    async session({session, token}) {
+    async session({ session, token }) {
       if (token) {
         session.user = token;
       }
@@ -74,7 +73,3 @@ export const authOptions: AuthOptions = {
     error: "/auth/login", // Custom error page
   },
 };
-
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
-
