@@ -12,6 +12,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import arMessages from "../messages/ar.json";
 import enMessages from "../messages/en.json";
 import LazySentryInit from "./lazy-sentry-init";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 const notoSans = localFont({
   src: [
@@ -123,6 +125,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale: string = await customGetLocale();
+  const session = await getServerSession(authOptions);
   const currentLocalMessages = messages[locale];
   const isRTL = locale === "ar";
 
@@ -135,7 +138,7 @@ export default async function RootLayout({
         <LazySentryInit />
 
         <NextIntlClientProvider locale={locale} messages={currentLocalMessages}>
-          <Providers>
+          <Providers session={session}>
             <Toaster />
             {children}
             <ReactQueryDevtools initialIsOpen={false} />
