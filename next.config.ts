@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  optimizeCss: true,
+  cssChunking: "strict",
   turbopack: {
     rules: {
       "*.svg": {

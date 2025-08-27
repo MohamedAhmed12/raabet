@@ -50,6 +50,9 @@ export function LinksAvatar() {
         <AvatarImage
           src={user?.avatar || "/images/user-placeholder.png"}
           alt={user?.fullname}
+          priority
+          fetchPriority="high"
+          loading="eager"
         />
         <AvatarFallback>{user?.fullname}</AvatarFallback>
       </Avatar>
