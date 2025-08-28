@@ -1,7 +1,7 @@
 "use client";
 
 import { generateVCardAction } from "@/app/[locale]/[username]/actions/generateVCardAction";
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Link } from "@/app/[locale]/store/use-link-store";
 import { Icon } from "@/components/Icon";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -19,30 +19,26 @@ import { Check, Copy } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useShallow } from "zustand/react/shallow";
 
 export function ShareBtn({
+  link,
   isSticky = false,
   className = "",
   iconSize,
 }: {
+  link: Link;
   isSticky?: boolean;
   className?: string;
   iconSize?: number;
 }) {
+  const profileurl = link?.qrcodes?.[0]?.url || "";
+  const user = link?.user;
+
   const [isCopied, setIsCopied] = useState(false);
 
   const t = useTranslations("ShareBtn");
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
-
-  const { user, qrcodes } = useLinkStore(
-    useShallow((state) => ({
-      user: state.link.user,
-      qrcodes: state.link.qrcodes,
-    }))
-  );
-  const profileurl = qrcodes?.[0]?.url || "";
 
   if (!user) return;
 

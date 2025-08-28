@@ -26,11 +26,12 @@ export default function LinksNavbar({
         )}
       >
         {link.social_enable_add_contacts && (
-          <AddContactDialog isSticky={isSticky} />
+          <AddContactDialog isSticky={isSticky} link={link} />
         )}
         {link.social_enable_share_btn && (
           <ShareBtn
             isSticky={isSticky}
+            link={link}
             className="border-none hover:bg-unset !p-0 bg-transparent text-unset"
             iconSize={21}
           />

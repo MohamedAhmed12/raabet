@@ -2,22 +2,15 @@
 
 import "./style.css"; // TO DO: conditionally import it only in links page
 
-import { MainLinkComponent } from "@/app/[locale]/[username]/components/MainLinkComponent";
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { MainLinkScrollableContainer } from "@/components/ScrollableContainer";
 import { cn } from "@/lib/utils";
-import { useScroll } from "@reactuses/core";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { useShallow } from "zustand/shallow";
 import { LinkViewerTabs } from "./LinkViewerTabs";
 
 export function LinkViewer() {
   const [selectedTab, setSelectedTab] = useState(0);
-
-  const containerRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, y] = useScroll(containerRef, {
-    throttle: 16,
-  });
 
   const link = useLinkStore(useShallow((state) => state.link));
 
@@ -41,13 +34,7 @@ export function LinkViewer() {
               selectedTab == 0 && "lg:w-[64%] lg:max-w-[350px] h-[600px]"
             )}
           >
-            <div
-              ref={containerRef}
-              className="link-viewer-container w-full"
-              style={{ scrollBehavior: "smooth" }}
-            >
-              <MainLinkComponent link={link} isSticky={(y || 0) > 20} />
-            </div>
+            <MainLinkScrollableContainer link={link} />
           </div>
         </div>
       </div>

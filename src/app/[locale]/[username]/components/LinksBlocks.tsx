@@ -8,7 +8,6 @@ import { Block } from "@prisma/client";
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
 import { EmbedInfo } from "../../(protected)/dashboard/admin/profile/links/components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/MediaBlock/generateEmbedInfo";
 import { BlockTextAlign } from "../../types/block";
 import { useIframeClickTracker } from "../hooks/useIframeClickTracker";
@@ -18,46 +17,25 @@ import useLinkStyles from "../hooks/useLinkStyles";
 type EmbedBlock = Block & Partial<EmbedInfo>;
 
 export default function LinksBlocks({ link }: { link: Link }) {
-  const [blocksWithEmbedInfo, setBlocksWithEmbedInfo] = useState<EmbedBlock[]>(
-    []
-  );
+  const blocks = link?.blocks;
+
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
   const linkStyles = useLinkStyles(link);
-
   const { mutateAsync: incrementBlockClicks } = useIncrementBlockClicks();
 
   const handleBlockClick = (id: string) => {
-    const block = blocksWithEmbedInfo.find((b) => b.id === id);
+    const block: EmbedBlock | undefined = blocks?.find((b) => b.id === id);
 
     // make click analytics per block only once per mount/refresh
     if (!block || block.clicked) return;
 
-    setBlocksWithEmbedInfo((prevBlocks) =>
-      prevBlocks.map((b) => (b.id === block.id ? { ...b, clicked: true } : b))
-    );
+    block.clicked = true;
+
     incrementBlockClicks({ id, linkId: link.id });
   };
 
   useIframeClickTracker(handleBlockClick);
-
-  const fetchEmbedInfo = useCallback(
-    async (cancelled: boolean) => {
-      const blocksWithEmbedInfo = await Promise.all<EmbedBlock>(
-        (link.blocks || []).map(
-          async (rawBlock): Promise<EmbedBlock> => ({
-            ...rawBlock,
-            clicked: false,
-          })
-        )
-      );
-
-      if (!cancelled) {
-        setBlocksWithEmbedInfo(blocksWithEmbedInfo);
-      }
-    },
-    [link?.blocks]
-  );
 
   async function downloadFile(url: string) {
     const res = await fetch(url, { mode: "cors" });
@@ -70,30 +48,15 @@ export default function LinksBlocks({ link }: { link: Link }) {
     URL.revokeObjectURL(blobUrl);
   }
 
-  useEffect(() => {
-    if (!link?.blocks?.length) {
-      setBlocksWithEmbedInfo([]);
-      return;
-    }
-
-    let cancelled = false;
-
-    fetchEmbedInfo(cancelled);
-
-    return () => {
-      cancelled = true;
-    };
-  }, [link?.blocks, fetchEmbedInfo]);
-
   return (
-    blocksWithEmbedInfo && (
+    blocks && (
       <div
         className={cn(
           "block-icons-container flex flex-col justify-center items-center flex-wrap",
           fontClass
         )}
       >
-        {blocksWithEmbedInfo?.map((block) => {
+        {blocks?.map((block) => {
           if (["audio", "video"].includes(block.type)) {
             return (
               <div className="w-full aspect-video py-4" key={block.id}>
@@ -166,20 +129,14 @@ export default function LinksBlocks({ link }: { link: Link }) {
                     src={block.bg_image}
                     width={60}
                     height={60}
-                    alt="preview"
+                    alt="image"
                     className="object-cover w-full h-full max-h-[160px]"
                   />
                 ) : (
                   <>
                     {hasPrefixImage && (
-                      <div className="flex-shrink-0 w-1/3 h-full flex">
-                        <Image
-                          src={block.bg_image}
-                          width={60}
-                          height={60}
-                          alt="preview"
-                          className="object-cover w-full h-full"
-                        />
+                      <div className="relative flex-shrink-0 w-1/3 min-h-[100px] max-h-[160px] flex">
+                        <Image src={block.bg_image} fill alt="image" />
                       </div>
                     )}
                     <div

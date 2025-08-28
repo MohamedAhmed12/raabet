@@ -1,7 +1,7 @@
 "use client";
 
 import { generateVCardAction } from "@/app/[locale]/[username]/actions/generateVCardAction";
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { Link } from "@/app/[locale]/store/use-link-store";
 import { Icon } from "@/components/Icon";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,14 +16,21 @@ import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { useShallow } from "zustand/react/shallow";
 import { LinksNavbarIcon } from "./StickyLinksNavbar";
 
-export function AddContactDialog({ isSticky }: { isSticky: boolean }) {
+export function AddContactDialog({
+  isSticky,
+  link,
+}: {
+  isSticky: boolean;
+  link: Link;
+}) {
+  const user = link.user;
+
   const t = useTranslations("ShareBtn");
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
-  const user = useLinkStore(useShallow((state) => state.link.user));
+
   if (!user) return;
 
   const handleAddContact = async () => {

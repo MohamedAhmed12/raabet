@@ -1,10 +1,10 @@
 "use server";
 
+import { MainLinkScrollableContainer } from "@/components/ScrollableContainer";
 import { logError } from "@/lib/errorHandling";
 import { notFound } from "next/navigation";
 import { fetchSingleLink } from "../actions/fetchSingleLink";
 import { incrementViews } from "./actions/incrementViews";
-import { MainLinkComponent } from "./components/MainLinkComponent";
 
 interface UserPageProps {
   params: {
@@ -15,7 +15,7 @@ interface UserPageProps {
 
 export default async function UserName({ params }: UserPageProps) {
   let linkData;
-  const { username } = params;
+  const { username } = await params;
 
   try {
     linkData = await fetchSingleLink({ username });
@@ -40,5 +40,13 @@ export default async function UserName({ params }: UserPageProps) {
     return notFound();
   }
 
-  return <MainLinkComponent link={linkData} isSticky={false} />;
+  const processedLinkData = {
+    ...linkData,
+    blocks: linkData.blocks.map((block) => ({
+      ...block,
+      clicked: false,
+    })),
+  };
+
+  return <MainLinkScrollableContainer link={processedLinkData} />;
 }
