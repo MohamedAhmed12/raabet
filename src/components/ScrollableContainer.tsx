@@ -12,6 +12,7 @@ export function MainLinkScrollableContainer({
   link: Link | PrismaLink;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, y] = useScroll(containerRef, { throttle: 16 });
 
   return (

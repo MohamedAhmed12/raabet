@@ -24,7 +24,7 @@ export const MainHeaderSection = () => {
           {url}
         </a>
       </div>
-      <ShareBtn />
+      <ShareBtn link={link} />
     </div>
   );
 };

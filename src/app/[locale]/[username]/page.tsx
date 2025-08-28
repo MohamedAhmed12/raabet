@@ -7,10 +7,10 @@ import { fetchSingleLink } from "../actions/fetchSingleLink";
 import { incrementViews } from "./actions/incrementViews";
 
 interface UserPageProps {
-  params: {
+  params: Promise<{
     username: string;
     locale: string;
-  };
+  }>;
 }
 
 export default async function UserName({ params }: UserPageProps) {
