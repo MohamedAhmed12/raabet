@@ -16,11 +16,13 @@ export const signup = async ({
   email: string;
   password: string;
 }) => {
-  const t = await getTranslations('Auth');
+  const t = await getTranslations("Auth");
 
   try {
     // Check if user already exists
-    const existingUser = await prisma?.user?.findUnique({ where: { email } });
+    const existingUser = await prisma?.user?.findFirst({
+      where: { OR: [{ email }, { fullname }] },
+    });
 
     if (existingUser) {
       return { ok: false, error: t("userAlreadyExists") };

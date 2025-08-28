@@ -56,7 +56,7 @@ export default function SignUpForm({
           redirect: false,
         });
         if (logInResult?.ok) {
-          return router.replace("/dashboard/admin/profile/links");
+          return router.replace("/auth/verify");
         }
       } else {
         setIsLoading(false);

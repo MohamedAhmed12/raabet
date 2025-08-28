@@ -142,10 +142,10 @@ export default function CustomSidebar({
               isActive={isActive("logout")}
               onClick={() => signOut({ callbackUrl: "/auth/login" })}
             >
-              <Link href={"logout"} className="flex gap-2 p-[5.5px] rounded-sm">
+              <button className="flex gap-2 p-[5.5px] rounded-sm cursor-pointer">
                 <Icon name={"log-out"} size={20} />
                 <span className="text-xs">{t("tabs.logout")}</span>
-              </Link>
+              </button>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
