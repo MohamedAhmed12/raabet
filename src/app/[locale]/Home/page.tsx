@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import { PublicContainer } from "@/components/PublicContainer";
+import Loading from "@/app/loading";
 
 // Lazy load heavy components
 const AnimatedBar = lazy(() => import("./components/AnimatedBar/page"));
@@ -12,16 +13,16 @@ const WhyUs = lazy(() => import("./components/WhyUs"));
 export default function Home() {
   return (
     <PublicContainer>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <CentralizePresence />
       </Suspense>
-      <Suspense fallback={<div>Loading animation...</div>}>
+      <Suspense fallback={<Loading />}>
         <AnimatedBar />
       </Suspense>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <WhyUs />
       </Suspense>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <TryNow />
       </Suspense>
     </PublicContainer>

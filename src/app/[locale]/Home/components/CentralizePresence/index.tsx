@@ -3,7 +3,7 @@ import { ImageSection } from "./ImageSection";
 
 export default function CentralizePresence() {
   return (
-    <div className="flex flex-col lg:flex-row ">
+    <div className="flex flex-col lg:flex-row">
       <ContentSection />
       <ImageSection />
     </div>

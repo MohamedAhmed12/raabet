@@ -38,7 +38,7 @@ export const ContentSection = () => {
                 width={38}
                 height={38}
                 className="object-cover w-full h-full"
-                loading="lazy"
+                priority
                 sizes="(max-width: 768px) 38px, 38px"
               />
             </div>
@@ -62,44 +62,41 @@ export const ContentSection = () => {
       </div>
 
       {/* Heading */}
-
-      {locale == "ar" ? (
-        <h1
-          className={cn(
-            "text-[44px] leading-[1.3] text-deep-blue-gray font-extrabold text-center",
-            "lg:text-[62px] lg:text-right"
-          )}
-        >
-          <span className="ml-4">اجعل</span>
-          <span className="relative">
-            <span className="relative inline-block z-[1]"></span>
-            <span className="relative inline-block z-[1]">وجودك</span>
-            <div className="absolute inset-0 left-[-3%] right-[-3%] bg-[#7ed0ff] top-[1.05em] bottom-[0.5em]"></div>
-          </span>
-          <span className="mr-4">علي الانترنت مركزي</span>
-        </h1>
-      ) : (
-        <h1
-          className={cn(
-            "text-[44px] leading-none text-deep-blue-gray font-extrabold text-center",
-            "lg:text-[66px] lg:leading-[1.1]",
-            locale == "ar" ? "lg:text-right" : "lg:text-left"
-          )}
-        >
-          <span className="me-4">Centralize your online</span>
-          <span className="relative">
-            <span className="relative inline-block z-[1]">presence</span>
-            <div
-              className={cn(
-                "absolute inset-0 left-[-3%] right-[-3%] bg-[#7ed0ff]",
-                locale == "ar"
-                  ? "top-[1.05em] bottom-[0.52em]"
-                  : "top-[0.88em] bottom-[0.15em]"
-              )}
-            ></div>
-          </span>
-        </h1>
-      )}
+      <h1
+        className={cn(
+          "text-[44px] text-deep-blue-gray font-extrabold text-center",
+          locale == "ar"
+            ? "leading-[1.3] lg:text-[62px] lg:text-right"
+            : "leading-none lg:text-[66px] lg:leading-[1.1] lg:text-left"
+        )}
+      >
+        {locale == "ar" ? (
+          <>
+            <span className="ml-4">اجعل</span>
+            <span className="relative">
+              <span className="relative inline-block z-[1]"></span>
+              <span className="relative inline-block z-[1]">وجودك</span>
+              <div className="absolute inset-0 left-[-3%] right-[-3%] bg-[#7ed0ff] top-[1.05em] bottom-[0.5em]"></div>
+            </span>
+            <span className="mr-4">علي الانترنت مركزي</span>
+          </>
+        ) : (
+          <>
+            <span className="me-4">Centralize your online</span>
+            <span className="relative">
+              <span className="relative inline-block z-[1]">presence</span>
+              <div
+                className={cn(
+                  "absolute inset-0 left-[-3%] right-[-3%] bg-[#7ed0ff]",
+                  locale == "ar"
+                    ? "top-[1.05em] bottom-[0.52em]"
+                    : "top-[0.88em] bottom-[0.15em]"
+                )}
+              ></div>
+            </span>
+          </>
+        )}
+      </h1>
 
       {/* Description & Input Field */}
       <div className="lg:max-w-[90%] mt-8 mx-auto lg:mx-0">
