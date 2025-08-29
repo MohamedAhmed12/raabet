@@ -137,15 +137,13 @@ export default function CustomSidebar({
           {/* logout tab */}
           <SidebarMenuItem>
             <SidebarMenuButton
-              className="flex gap-2 p-[5.5px] mb-[6px] rounded-sm "
+              className="flex gap-2 p-[5.5px] mb-[6px] rounded-sm bg-red-400 cursor-pointer"
               variant="dashboardDefault"
               isActive={isActive("logout")}
               onClick={() => signOut({ callbackUrl: "/auth/login" })}
             >
-              <button className="flex gap-2 p-[5.5px] rounded-sm cursor-pointer">
-                <Icon name={"log-out"} size={20} />
-                <span className="text-xs">{t("tabs.logout")}</span>
-              </button>
+              <Icon name={"log-out"} size={20} />
+              <span className="text-xs">{t("tabs.logout")}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
