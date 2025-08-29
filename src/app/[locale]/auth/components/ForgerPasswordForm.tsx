@@ -65,13 +65,23 @@ export function ForgetPasswordForm({
         {...props}
       >
         <div className="flex flex-col justify-center items-center">
-          <div className="flex gap-5 mb-6 text-[64px] text-deep-blue-gray font-bold leading-[1.1] pb-3">
+          <div
+            className={cn(
+              "flex gap-5 mb-6 text-deep-blue-gray font-bold leading-[1.1] pb-3",
+              locale === "ar" ? "text-5xl" : "text-[64px]"
+            )}
+          >
             <span>{t("Shared.reset")}</span>
             <span className="relative">
               <span className="relative inline-block z-[1] capitalize">
                 {t("Auth.password")}
               </span>
-              <div className="h-[22px] absolute inset-0 z-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%] bg-purple-300"></div>
+              <div
+                className={cn(
+                  "h-[22px] absolute inset-0 z-0 bottom-[0.15em] left-[-3%] right-[-3%] bg-purple-300",
+                  locale === "ar" ? "top-[0.65em]" : "top-[0.85em]"
+                )}
+              ></div>
             </span>
           </div>
           <div className="mb-6 text-lg">
