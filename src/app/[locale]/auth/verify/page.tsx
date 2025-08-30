@@ -6,24 +6,15 @@ import { GalleryVerticalEnd } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useLocale } from "next-intl";
 import Image from "next/image";
-import { useRouter } from "@/i18n/navigation";
 import VerifyForm from "./verifyForm";
 
 export default function VerifyPage() {
   const session = useSession();
-  const router = useRouter();
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
 
   // @ts-expect-error: [to access user data in session it exists in id]
   const authUser = session?.data?.user?.id;
-
-  if (
-    session.status === "unauthenticated" ||
-    (session.status === "authenticated" && !authUser?.email)
-  ) {
-    router.replace("/auth/login");
-  }
 
   return (
     authUser && (

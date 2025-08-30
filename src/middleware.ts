@@ -8,23 +8,30 @@ export default async function middleware(
   req: NextRequestWithAuth,
   event: NextFetchEvent
 ) {
-  const {pathname} = req.nextUrl;
-
   const intlResponse = intlMiddleware(req);
-  const localeChanged = intlResponse.cookies.get("NEXT_LOCALE");
+  // const localeChanged = intlResponse.cookies.get("NEXT_LOCALE");
+  const isLocaleRedirect =
+    intlResponse.status === 307 && req.url !== intlResponse.url;
 
   // if needed to be redirect to path that has '[locale]/' in it or local changed
-  if (localeChanged || intlResponse.status == 307) return intlResponse;
+  if (isLocaleRedirect) {
+    return intlResponse;
+  }
+
+  const pathname = req?.nextUrl?.pathname;
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const routePath = `/${pathSegments.slice(1).join("/")}`; // Fixed: Add leading slash
 
   // Check if the path is protected
-  if (pathname.includes("dashboard")) {
-    // First, apply the authentication middleware
+  if (
+    routePath.startsWith("/dashboard") ||
+    routePath.startsWith("/auth/verify")
+  ) {
     const authResponse = await withAuth(req, event);
     if (authResponse) return authResponse;
 
     // Then, apply the verification middleware
     const verificationResponse = await withVerification(req);
-
     if (verificationResponse) return verificationResponse;
   }
 
