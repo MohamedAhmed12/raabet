@@ -10,7 +10,7 @@ export async function generatePromoCode(userId: string): Promise<string> {
   const expiresAt = getUnixTime(addDays(new Date(), 30));
 
   const coupon = await stripe.coupons.create({
-    percent_off: 50,
+    percent_off: Number(process.env.NEXT_PUBLIC_STRIPE_DISCOUNT) || 50,
     duration: "once",
   });
 
@@ -35,7 +35,7 @@ export async function generatePromoCode(userId: string): Promise<string> {
     data: {
       stripeId: promoCode.id,
       code: promoCode.code,
-      value: Number(process.env.NEXT_PUBLIC_STRIPE_DISCOUNT || 0),
+      value: Number(process.env.NEXT_PUBLIC_STRIPE_DISCOUNT) || 50,
       expiresAt: addDays(new Date(), 29),
       subscriptionId: subscription.id,
     } as any, // Type assertion to bypass TypeScript error

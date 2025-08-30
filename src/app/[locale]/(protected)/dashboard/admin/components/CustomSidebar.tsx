@@ -99,13 +99,13 @@ export default function CustomSidebar({
           {/* feedback tabs  */}
           <SidebarMenuItem>
             <SidebarMenuButton
-              className="flex gap-2 p-[11px] mb-[6px] rounded-sm cursor-pointer"
+              className="h-11 flex gap-2 p-[11px] mb-[6px] rounded-sm cursor-pointer break-words !leading-[1.25] text-[14px]"
               variant="dashboardDefault"
               isActive={false}
               onClick={onOpenFeedbackPopup}
             >
               <CirclePlus size={20} className="min-w-[20px] min-h-[20px]" />
-              <span>{t("tabs.requestFeature")}</span>
+              {t("tabs.requestFeature")}
             </SidebarMenuButton>
           </SidebarMenuItem>
 
@@ -137,7 +137,7 @@ export default function CustomSidebar({
           {/* logout tab */}
           <SidebarMenuItem>
             <SidebarMenuButton
-              className="flex gap-2 p-[5.5px] mb-[6px] rounded-sm cursor-pointer"
+              className="flex gap-2 p-[11px] mb-[6px] rounded-sm cursor-pointer"
               variant="dashboardDefault"
               isActive={isActive("logout")}
               onClick={() => signOut({ callbackUrl: "/auth/login" })}
