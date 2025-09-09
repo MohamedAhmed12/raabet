@@ -19,6 +19,22 @@ interface StripeInvoice extends Stripe.Invoice {
   discount: {
     id: string;
     promotion_code: string;
+    coupon: {
+      id: string;
+      object: string;
+      amount_off: null;
+      created: number;
+      currency: null;
+      duration: string;
+      duration_in_months: null;
+      livemode: false;
+      max_redemptions: null;
+      name: null;
+      percent_off: number;
+      redeem_by: null;
+      times_redeemed: number;
+      valid: boolean;
+    };
   };
 }
 
@@ -232,11 +248,12 @@ async function handlePaymentSucceeded(event: Stripe.Event) {
   const invoice = event.data.object as StripeInvoice;
   const customerId = invoice.customer as string;
   const couponStripeId = invoice?.discount?.promotion_code as string;
+  // const invoiceHasCoupon = invoice?.discount?.coupon;
 
   try {
     await updateSubscriptionInDatabase(customerId, invoice, "active");
 
-    // if coupon applied to this payment
+    // if coupon applied to this payment (invoice has coupon) update/expire it in Database
     if (couponStripeId) {
       await updateCouponInDatabase(couponStripeId);
     }

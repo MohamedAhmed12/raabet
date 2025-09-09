@@ -17,10 +17,6 @@ import { createStripeCustomerSession } from "./actions/createStripeCustomerSessi
 import { useCoupon } from "./hooks/useCoupon";
 import { useUploadScreenshot } from "./hooks/useUploadScreenshot";
 
-const feesToPay =
-  (parseFloat(process.env.NEXT_PUBLIC_STRIPE_DISCOUNT || "0") / 100) *
-  parseFloat(process.env.NEXT_PUBLIC_SUBSCRIPTION_VALUE || "0");
-
 interface SubscriptionFormProps {
   refetch: () => void;
 }
@@ -45,6 +41,12 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
   // @ts-expect-error: [to access user data in session it exists in id]
   const sessionUser = useMemo(() => session?.user?.id, [session?.user?.id]);
   const { data: coupon } = useCoupon(sessionUser?.id);
+  const feesToPay = useMemo(() => {
+    return (
+      ((coupon?.value || 0) / 100) *
+      parseFloat(process.env.NEXT_PUBLIC_SUBSCRIPTION_VALUE || "0")
+    );
+  }, [coupon?.value]);
 
   const { mutateAsync: uploadScreenshot, isPending } = useUploadScreenshot({
     onSuccess: () => {
