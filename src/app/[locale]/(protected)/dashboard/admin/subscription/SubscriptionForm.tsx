@@ -14,7 +14,12 @@ import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import { GCSFileLoader } from "../profile/links/components/LinkBuilderSidebar/GCSFileLoader";
 import { createStripeCustomerSession } from "./actions/createStripeCustomerSession";
+import { useCoupon } from "./hooks/useCoupon";
 import { useUploadScreenshot } from "./hooks/useUploadScreenshot";
+
+const feesToPay =
+  (parseFloat(process.env.NEXT_PUBLIC_STRIPE_DISCOUNT || "0") / 100) *
+  parseFloat(process.env.NEXT_PUBLIC_SUBSCRIPTION_VALUE || "0");
 
 interface SubscriptionFormProps {
   refetch: () => void;
@@ -27,9 +32,19 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
   const [isUploadingInvoice, setIsUploadingInvoice] = useState(false);
   const [uploadedInvoice, setUploadedInvoice] = useState<string | null>(null);
 
+  const t = useTranslations();
+  const locale = useLocale();
   const { data: session, update } = useSession();
+  const { linkId, userId } = useLinkStore(
+    useShallow((state) => ({
+      linkId: state.link.id,
+      userId: state.link.user?.id,
+    }))
+  );
+
   // @ts-expect-error: [to access user data in session it exists in id]
   const sessionUser = useMemo(() => session?.user?.id, [session?.user?.id]);
+  const { data: coupon } = useCoupon(sessionUser?.id);
 
   const { mutateAsync: uploadScreenshot, isPending } = useUploadScreenshot({
     onSuccess: () => {
@@ -45,16 +60,6 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
     },
   });
 
-  const t = useTranslations();
-  const locale = useLocale();
-
-  const { linkId, userId } = useLinkStore(
-    useShallow((state) => ({
-      linkId: state.link.id,
-      userId: state.link.user?.id,
-    }))
-  );
-
   // Cleanup on unmount
   useEffect(() => {
     return () => {
@@ -67,11 +72,13 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
   const fetchClientSecret = useCallback(async () => {
     try {
       const result = await createStripeCustomerSession();
+
       setClientSecret(result?.clientSecret);
 
       if (result?.user && sessionUser) {
         await update({
           ...sessionUser,
+          ...result?.user,
         });
       }
     } catch (error) {
@@ -150,6 +157,12 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
               className="hidden"
               onChange={handleFileUploader}
             />
+
+            {coupon && (
+              <p className="mt-1 ms-1 text-gray-400">
+                {t("Subscription.couponHelperTxt", { feesToPay })}
+              </p>
+            )}
           </div>
 
           {/* V-Cash & Instapay Preview Box */}
@@ -195,6 +208,7 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
             <Image
               src="/images/instapay-v-cash.png"
               alt="Instapay"
+              priority
               width={250}
               height={60}
               className="object-cover !w-full !h-full"

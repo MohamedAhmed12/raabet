@@ -2,12 +2,12 @@
 
 import useFetchLink from "@/app/[locale]/[username]/useFetchLink";
 import Loading from "@/app/loading";
-import { usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
 import { SubscriptionStatus } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
 import NoSubsContent from "../components/NoSubsContent";
 import SubscriptionBanner from "../components/SubscriptionBanner";
 import DashboardNotFound from "../not-found";
@@ -19,8 +19,14 @@ export const DashboardContainer = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const pathname = usePathname();
+  const locale = useLocale();
   const session = useSession();
+  const pathname = usePathname();
+  const fontClass = getFontClassClient(locale);
+  const cleanPath = pathname.replace(`/${locale}`, "");
+  const isSubscriptionPage = cleanPath.startsWith(
+    "/dashboard/admin/subscription"
+  );
 
   // @ts-expect-error: [to access user data in session it exists in id]
   const userId = session?.data?.user?.id?.id as string;
@@ -28,9 +34,6 @@ export const DashboardContainer = ({
   const { data: status, isLoading: isLoadingSubs } = useSubscriptionStatus({
     email: session?.data?.user?.email as string,
   });
-
-  const locale = useLocale();
-  const fontClass = getFontClassClient(locale);
 
   if (error) return <DashboardNotFound />;
 
@@ -44,11 +47,7 @@ export const DashboardContainer = ({
 
           {/* Show subscription banner and no subscription content if user is not subscribed */}
           {problemStatuses.includes(status as SubscriptionStatus) &&
-          ![
-            "/dashboard/admin/subscription",
-            "/dashboard/admin/subscription/manual-activate",
-            "/dashboard/admin/subscription/callback",
-          ].includes(pathname) ? (
+          !isSubscriptionPage ? (
             <NoSubsContent />
           ) : (
             <div

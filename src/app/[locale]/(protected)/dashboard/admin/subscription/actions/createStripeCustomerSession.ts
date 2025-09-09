@@ -1,10 +1,10 @@
 "use server";
 
-import Stripe from "stripe";
 import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
-import prisma from "@/lib/prisma";
 import { logError } from "@/lib/errorHandling";
+import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
+import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!);
 
@@ -36,7 +36,6 @@ export async function createStripeCustomerSession() {
 
   // Get the user's stripeCustomerId
   let stripeCustomerId = user.stripeCustomerId;
-
   // Create stripe customer if doesn't exist in our database
   if (!stripeCustomerId) {
     try {

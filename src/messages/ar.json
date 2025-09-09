@@ -297,7 +297,8 @@
     "uploadInvoice": "ارفع الفاتورة",
     "uploadInvoiceHelperTxt": "يرجى رفع screenshot من الفاتورة الخاصة بك هنا",
     "InvoiceUploadedSuccessfully": "تمَّ رفع الفاتورة بنجاح",
-    "InvoiceUploadFailed": "فشل في رفع الفاتورة"
+    "InvoiceUploadFailed": "فشل في رفع الفاتورة",
+    "couponHelperTxt": "تم تطبيق قسيمة صالحة. ادفع فقط ${feesToPay}"
   },
   "SocialsAndSharing": {
     "sectionTitle": "وسائل التواصل الاجتماعي والمشاركة",

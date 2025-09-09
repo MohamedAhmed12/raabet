@@ -2,7 +2,6 @@ import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
 import { giveFeedback } from "../actions/giveFeedback";
 
 export type CreateFeedbackParams = {
-  userStripeCustomerId: string | null;
   linkId: string;
   rating: number;
   highlight: string;
@@ -22,17 +21,15 @@ export function useGiveFeedback(
   return useMutation({
     mutationKey: ["useGiveFeedback"],
     mutationFn: async ({
-      userStripeCustomerId,
       linkId,
       rating,
       highlight,
       feedback,
     }: CreateFeedbackParams): Promise<GiveFeedbackResponse> => {
-      if (!userStripeCustomerId || !linkId) {
-        throw new Error("userStripeCustomerId and Link ID is required");
+      if (!linkId) {
+        throw new Error("Link ID is required");
       }
       const result = await giveFeedback({
-        userStripeCustomerId,
         linkId,
         rating,
         highlight,

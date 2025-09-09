@@ -29,7 +29,7 @@ export function LinksHeader({ link }: { link: Link }) {
           <h2
             dir="auto"
             className={cn(
-              "font-normal text-base leading-[1.3] max-w-[300px] mt-[31px] break-words whitespace-pre-line",
+              "font-normal text-base leading-[1.3] max-w-[300px] mt-[31px] break-words whitespace-pre-line text-center",
               link.text_font && `${link.text_font}`,
               link.header_styles_collapse_long_bio &&
                 collapseBio &&

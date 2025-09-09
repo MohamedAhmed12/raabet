@@ -17,7 +17,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { LoaderCircle, Star } from "lucide-react";
-import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -38,12 +37,7 @@ export default function FeedbackPopup({
   const locale = useLocale();
   const t = useTranslations();
   const fontClass = getFontClassClient(locale);
-  const session = useSession();
   const linkId = useLinkStore((state) => state.link.id);
-
-  // @ts-expect-error: [to access user data in session it exists in id]
-  const userStripeCustomerId = session?.data?.user?.id
-    ?.stripeCustomerId as string;
 
   const { mutate: updateFeedbackTimestamp } = useUpdateFeedbackTimestamp();
   const { mutateAsync: giveFeedback, isPending } = useGiveFeedback({
@@ -88,7 +82,6 @@ export default function FeedbackPopup({
 
     // If validation passes, submit the feedback
     const result = await giveFeedback({
-      userStripeCustomerId,
       linkId,
       rating,
       highlight,
