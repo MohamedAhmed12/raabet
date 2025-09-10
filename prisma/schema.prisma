@@ -191,7 +191,7 @@ model Coupon {
   value         Float      // The actual discount value (e.g., 10 for 10% or $10)
   usedAt        DateTime?
   expiresAt     DateTime
-  stripeId      String
+  stripeId      String     @unique
   subscription  Subscription? @relation(fields: [subscriptionId], references: [id])
   subscriptionId String?
   createdAt     DateTime   @default(now())

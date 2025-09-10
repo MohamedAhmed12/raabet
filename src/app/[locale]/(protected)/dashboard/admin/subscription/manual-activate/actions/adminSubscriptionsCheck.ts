@@ -6,8 +6,15 @@ import prisma from "@/lib/prisma";
 export async function adminSubscriptionsCheck(userId: string) {
   try {
     return await prisma.subscription.findFirst({
-      where: {
-        userId,
+      where: { userId },
+      include: {
+        coupons: {
+          where: {
+            expiresAt: { gte: new Date() },
+            usedAt: null,
+          },
+          take: 1,
+        },
       },
     });
   } catch (error) {

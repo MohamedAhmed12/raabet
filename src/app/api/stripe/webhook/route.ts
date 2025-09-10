@@ -160,19 +160,8 @@ async function updateSubscriptionInDatabase(
 
 async function updateCouponInDatabase(stripeId: string) {
   try {
-    const coupon = await prisma.coupon.findFirst({
-      where: { stripeId },
-    });
-    if (!coupon) {
-      const err = "Coupon not found for stripeId";
-      logError(`${err}: ${stripeId}`, {
-        action: "updateCouponInDatabase",
-        errorType: "ValidationError",
-      });
-      throw new Error(err);
-    }
     await prisma.coupon.update({
-      where: { id: coupon.id },
+      where: { stripeId },
       data: {
         usedAt: new Date(),
       },

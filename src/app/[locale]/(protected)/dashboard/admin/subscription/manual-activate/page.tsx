@@ -13,6 +13,7 @@ import { toast } from "sonner";
 
 export default function SubscriptionManualActivatePage() {
   const [userId, setUserId] = useState("");
+  const [hasValidCoupon, setHasValidCoupon] = useState(false);
   const session = useSession();
   const router = useRouter();
 
@@ -71,7 +72,7 @@ export default function SubscriptionManualActivatePage() {
         <button
           onClick={handleSearch}
           disabled={!userId || isFetching}
-          className="bg-primary text-primary-foreground px-4 py-2 rounded-md disabled:opacity-50 flex items-center gap-2"
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-md disabled:opacity-50 flex items-center gap-2 cursor-pointer"
         >
           {isFetching ? (
             <Loader2 className="w-4 h-4 animate-spin" />
@@ -81,9 +82,12 @@ export default function SubscriptionManualActivatePage() {
           Search
         </button>
         <button
-          onClick={() => handleManualActivate({ userId })}
+          onClick={() =>
+            subscription &&
+            handleManualActivate({ subscription, hasValidCoupon })
+          }
           disabled={!userId || isFetching}
-          className="bg-primary text-primary-foreground px-4 py-2 rounded-md disabled:opacity-50 flex items-center gap-2"
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-md disabled:opacity-50 flex items-center gap-2 cursor-pointer"
         >
           {isFetching ? (
             <Loader2 className="w-4 h-4 animate-spin" />
@@ -96,6 +100,22 @@ export default function SubscriptionManualActivatePage() {
       {error && (
         <div className="p-4 bg-destructive/10 text-destructive rounded-md">
           {(error as Error).message}
+        </div>
+      )}
+
+      {subscription?.coupons && subscription.coupons.length > 0 && (
+        <div className="flex items-center gap-2">
+          <label htmlFor="coupon" className="cursor-pointer">
+            Has valid Coupon
+          </label>
+          <input
+            type="checkbox"
+            name="coupon"
+            id="coupon"
+            checked={hasValidCoupon}
+            onChange={() => setHasValidCoupon(!hasValidCoupon)}
+            className="cursor-pointer"
+          />
         </div>
       )}
 
@@ -134,7 +154,7 @@ export default function SubscriptionManualActivatePage() {
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Stripe Session ID:</span>
-              <span className="font-mono text-sm">
+              <span className="font-mono text-sm truncate">
                 {subscription.stripeSessionId || "N/A"}
               </span>
             </div>
