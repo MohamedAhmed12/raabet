@@ -23,10 +23,7 @@ export const DashboardContainer = ({
   const session = useSession();
   const pathname = usePathname();
   const fontClass = getFontClassClient(locale);
-  const cleanPath = pathname.replace(`/${locale}`, "");
-  const isSubscriptionPage = cleanPath.startsWith(
-    "/dashboard/admin/subscription"
-  );
+  const isSubscriptionPage = pathname.includes("/subscription");
 
   // @ts-expect-error: [to access user data in session it exists in id]
   const userId = session?.data?.user?.id?.id as string;
