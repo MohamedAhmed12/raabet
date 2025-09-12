@@ -9,18 +9,29 @@ export default async function middleware(
   event: NextFetchEvent
 ) {
   const intlResponse = intlMiddleware(req);
-  // const localeChanged = intlResponse.cookies.get("NEXT_LOCALE");
-  const isLocaleRedirect =
+  // Check if this is a redirect response from intl middleware
+  const isIntlLocaleRedirect =
     intlResponse.status === 307 && req.url !== intlResponse.url;
 
-  // if needed to be redirect to path that has '[locale]/' in it or local changed
-  if (isLocaleRedirect) {
+  // If intl middleware wants to redirect, let it handle locale routing
+  if (isIntlLocaleRedirect) {
     return intlResponse;
   }
 
   const pathname = req?.nextUrl?.pathname;
   const pathSegments = pathname.split("/").filter(Boolean);
-  const routePath = `/${pathSegments.slice(1).join("/")}`; // Fixed: Add leading slash
+
+  // Extract locale from URL (first segment)
+  const localeFromUrl = pathSegments[0];
+  const isValidLocale = ["en", "ar"].includes(localeFromUrl);
+
+  // If no valid locale in URL, let intl middleware handle it
+  if (!isValidLocale) {
+    return intlResponse;
+  }
+
+  const routePath =
+    pathSegments.length > 1 ? `/${pathSegments.slice(1).join("/")}` : "/"; // Fixed: Add leading slash
 
   // Check if the path is protected
   if (
