@@ -12,13 +12,14 @@ export const metadata: Metadata = {
 
 export default async function ContactPage() {
   const locale = await getLocale();
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rabetlink.com';
 
   return (
     <>
       <Head>
         <link
           rel="canonical"
-          href={`${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/contact`}
+          href={`${baseUrl}/${locale}/contact`}
         />
       </Head>
       <PublicContainer>

@@ -10,11 +10,12 @@ export default async function Pricing() {
   const t = await getTranslations();
   const locale = await getLocale();
   const fontClass = getFontClassClient(locale);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rabetlink.com';
 
   return (
     <>
       <Head>
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/pricing`} />
+        <link rel="canonical" href={`${baseUrl}/${locale}/pricing`} />
       </Head>
       <PublicContainer>
       <div className="flex flex-col px-[7vw] pb-16">

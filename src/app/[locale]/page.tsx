@@ -4,13 +4,14 @@ import Home from "./Home/page";
 
 export default async function App() {
   const locale = await getLocale();
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rabetlink.com';
 
   return (
     <>
       <Head>
         <link
           rel="canonical"
-          href={`${process.env.NEXT_PUBLIC_BASE_URL}/${locale}`}
+          href={`${baseUrl}/${locale}`}
         />
       </Head>
       <Home />
