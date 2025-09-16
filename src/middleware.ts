@@ -1,9 +1,9 @@
 import { NextRequestWithAuth } from "next-auth/middleware";
+import { getLocale } from "next-intl/server";
 import { NextFetchEvent } from "next/server";
 import withAuth from "./middlewares/withAuthMiddleware";
 import intlMiddleware from "./middlewares/withI18nMiddleware";
 import { withVerification } from "./middlewares/withVerification";
-import { getLocale } from "next-intl/server";
 
 export default async function middleware(
   req: NextRequestWithAuth,

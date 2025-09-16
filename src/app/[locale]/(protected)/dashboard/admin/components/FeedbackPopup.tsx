@@ -17,12 +17,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { LoaderCircle, Star } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useGiveFeedback } from "../hooks/useGiveFeedback";
 import { useUpdateFeedbackTimestamp } from "../hooks/useUpdateFeedbackTimestamp";
+import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
 
 export default function FeedbackPopup({
   onOpenFeedbackPopup,
@@ -36,8 +38,13 @@ export default function FeedbackPopup({
 
   const locale = useLocale();
   const t = useTranslations();
+  const session = useSession();
   const fontClass = getFontClassClient(locale);
   const linkId = useLinkStore((state) => state.link.id);
+
+  const { data: sessionStatus } = useSubscriptionStatus({
+    email: session?.data?.user?.email || "",
+  });
 
   const { mutate: updateFeedbackTimestamp } = useUpdateFeedbackTimestamp();
   const { mutateAsync: giveFeedback, isPending } = useGiveFeedback({
@@ -99,17 +106,18 @@ export default function FeedbackPopup({
     }
   };
 
-  const handleOnOpenChange = (open: boolean) => {
+  const handleOnOpenChange = () => {
     updateFeedbackTimestamp({ linkId });
-    onOpenFeedbackPopup(open);
+    onOpenFeedbackPopup(false);
   };
 
   return (
     <Dialog open={true} onOpenChange={handleOnOpenChange}>
       <DialogContent
         className={cn(
-          "flex flex-col justify-center items-center max-w-md px-5",
-          fontClass
+          "flex flex-col justify-center items-center px-5 gap-0",
+          fontClass,
+          promoCode ? "!max-w-2xl" : ""
         )}
       >
         {!promoCode && (
@@ -124,7 +132,7 @@ export default function FeedbackPopup({
         )}
 
         {!promoCode ? (
-          <div className="flex flex-col w-full gap-y-2">
+          <div className="flex flex-col w-full my-4">
             <div className="mb-4">
               <Label className="text-sm font-semibold uppercase">
                 {t("FeedbackPopup.rateExperience")}
@@ -184,17 +192,31 @@ export default function FeedbackPopup({
             </div>
           </div>
         ) : (
-          <div className="flex flex-col w-full gap-y-2 justify-center items-center px-20 py-6">
-            <Label className="text-sm font-semibold uppercase mb-5 text-2xl">
-              {t("FeedbackPopup.promoCode")}
-            </Label>
-            <div className="flex justify-center items-center">
-              <Input
-                value={promoCode}
-                readOnly
-                className="text-center py-8 !text-2xl"
-              />
-            </div>
+          <div
+            className={cn(
+              "text-center flex flex-col w-full gap-y-2 justify-center items-center ",
+              sessionStatus !== "active" ? "px-20 py-6" : "px-5 py-6"
+            )}
+          >
+            {sessionStatus !== "active" ? (
+              <>
+                <Label className="font-semibold uppercase text-2xl">
+                  {t("FeedbackPopup.promoCode")}
+                </Label>
+
+                <div className="flex justify-center items-center">
+                  <Input
+                    value={promoCode}
+                    readOnly
+                    className="text-center py-8 !text-2xl"
+                  />
+                </div>
+              </>
+            ) : (
+              <span className="text-xl">
+                {t("FeedbackPopup.discountAlreadyApplied")}
+              </span>
+            )}
           </div>
         )}
 
