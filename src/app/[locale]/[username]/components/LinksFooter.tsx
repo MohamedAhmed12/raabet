@@ -7,7 +7,7 @@ export default function LinksFooter() {
   const fontClass = getFontClassClient(locale);
 
   return (
-    <div className="flex w-full items-center justify-center text-[#6B5B71] font-bold h-[100px]">
+    <div className="flex w-full items-center justify-center text-[#6B5B71] font-bold h-[70px]">
       <a
         className={cn("flex flex-col space-2 items-center w-max", fontClass)}
         href="https://rabetlink.com"

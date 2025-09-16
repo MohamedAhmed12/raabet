@@ -37,7 +37,7 @@ const MainLinkComponentContent = ({
       >
         <div
           className={cn(
-            "w-full flex flex-col max-w-[530px] min-h-[calc(100vh+60px)] max-w-[530px]",
+            "w-full flex flex-col max-w-[530px] min-h-[calc(100vh)] max-w-[530px]",
             "shadow-[0px_7px_29px_0px_rgba(100,100,111,0.15)]"
           )}
           style={{

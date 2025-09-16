@@ -4,10 +4,10 @@ import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { addDays, isBefore } from "date-fns";
 import { useMemo, useState } from "react";
+import { useShallow } from "zustand/shallow";
 import CustomSidebar from "./components/CustomSidebar";
 import { DashboardContainer } from "./components/DashboardContainer";
 import FeedbackPopup from "./components/FeedbackPopup";
-import { useShallow } from "zustand/shallow";
 
 export default function DashboardLayout({
   children,

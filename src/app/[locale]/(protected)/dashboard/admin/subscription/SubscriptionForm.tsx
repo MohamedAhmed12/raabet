@@ -90,7 +90,7 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
 
   useEffect(() => {
     // Only fetch client secret if subscription is not active
-    if (!sessionUser.stripeCustomerId || !clientSecret) {
+    if (!clientSecret) {
       fetchClientSecret();
     }
   }, [sessionUser, fetchClientSecret, clientSecret]);
