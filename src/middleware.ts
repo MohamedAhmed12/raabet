@@ -3,21 +3,23 @@ import { NextFetchEvent } from "next/server";
 import withAuth from "./middlewares/withAuthMiddleware";
 import intlMiddleware from "./middlewares/withI18nMiddleware";
 import { withVerification } from "./middlewares/withVerification";
+import { getLocale } from "next-intl/server";
 
 export default async function middleware(
   req: NextRequestWithAuth,
   event: NextFetchEvent
 ) {
   const intlResponse = intlMiddleware(req);
+
   // Check if this is a redirect response from intl middleware
   const isIntlLocaleRedirect =
     intlResponse.status === 307 && req.url !== intlResponse.url;
-
   // If intl middleware wants to redirect, let it handle locale routing
   if (isIntlLocaleRedirect) {
     return intlResponse;
   }
 
+  const currentLocale = await getLocale();
   const pathname = req?.nextUrl?.pathname;
   const pathSegments = pathname.split("/").filter(Boolean);
 
@@ -26,7 +28,7 @@ export default async function middleware(
   const isValidLocale = ["en", "ar"].includes(localeFromUrl);
 
   // If no valid locale in URL, let intl middleware handle it
-  if (!isValidLocale) {
+  if (!isValidLocale || currentLocale !== localeFromUrl) {
     return intlResponse;
   }
 
