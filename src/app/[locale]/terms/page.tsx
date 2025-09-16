@@ -1,14 +1,21 @@
 "use server";
 
 import { getFontClass } from "@/lib/fonts";
+import { getLocale } from "next-intl/server";
+import Head from "next/head";
 
 export default async function TermsPage() {
   const fontClass = await getFontClass();
+  const locale = await getLocale();
 
   return (
-    <div
-      className={`bg-gray-200 py-15 flex items-center justify-center ${fontClass}`}
-    >
+    <>
+      <Head>
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/terms`} />
+      </Head>
+      <div
+        className={`bg-gray-200 py-15 flex items-center justify-center ${fontClass}`}
+      >
       <div className="bg-white py-10 px-20 flex flex-col items-start max-w-4xl rounded-sm gap-4">
         <div>
           <div className="text-2xl mb-4"> Terms Of Service</div>
@@ -488,6 +495,7 @@ export default async function TermsPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

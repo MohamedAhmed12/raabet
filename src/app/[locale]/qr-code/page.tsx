@@ -1,14 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { trackQRCodeView } from "../(protected)/dashboard/admin/qr-codes/actions/trackQRCodeView";
-import { redirect } from "next/navigation";
 import Loading from "@/app/loading";
+import { useLocale } from "next-intl";
+import Head from "next/head";
+import { redirect, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { trackQRCodeView } from "../(protected)/dashboard/admin/qr-codes/actions/trackQRCodeView";
 
 export default function QRCodePage() {
   const searchParams = useSearchParams();
   const url = searchParams?.get("url") || "";
+  const locale = useLocale();
 
   useEffect(() => {
     if (!url) {
@@ -34,5 +36,15 @@ export default function QRCodePage() {
     handleRedirect();
   }, [url]);
 
-  return <Loading />;
+  return (
+    <>
+      <Head>
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/qr-code`}
+        />
+      </Head>
+      <Loading />
+    </>
+  );
 }

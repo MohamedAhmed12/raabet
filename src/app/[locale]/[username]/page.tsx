@@ -2,6 +2,7 @@
 
 import { MainLinkScrollableContainer } from "@/components/ScrollableContainer";
 import { logError } from "@/lib/errorHandling";
+import Head from "next/head";
 import { notFound } from "next/navigation";
 import { fetchSingleLink } from "../actions/fetchSingleLink";
 import { incrementViews } from "./actions/incrementViews";
@@ -15,7 +16,7 @@ interface UserPageProps {
 
 export default async function UserName({ params }: UserPageProps) {
   let linkData;
-  const { username } = await params;
+  const { username, locale } = await params;
 
   try {
     linkData = await fetchSingleLink({ username });
@@ -48,5 +49,15 @@ export default async function UserName({ params }: UserPageProps) {
     })),
   };
 
-  return <MainLinkScrollableContainer link={processedLinkData} />;
+  return (
+    <>
+      <Head>
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/${username}`}
+        />
+      </Head>
+      <MainLinkScrollableContainer link={processedLinkData} />
+    </>
+  );
 }

@@ -2,6 +2,7 @@ import { PublicContainer } from "@/components/PublicContainer";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { getLocale, getTranslations } from "next-intl/server";
+import Head from "next/head";
 import { FeaturesCard } from "./FeaturesCard";
 import { PlansCard } from "./PlansCard";
 
@@ -11,7 +12,11 @@ export default async function Pricing() {
   const fontClass = getFontClassClient(locale);
 
   return (
-    <PublicContainer>
+    <>
+      <Head>
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/pricing`} />
+      </Head>
+      <PublicContainer>
       <div className="flex flex-col px-[7vw] pb-16">
         <div
           className={cn(
@@ -51,6 +56,7 @@ export default async function Pricing() {
           <PlansCard />
         </div>
       </div>
-    </PublicContainer>
+      </PublicContainer>
+    </>
   );
 }

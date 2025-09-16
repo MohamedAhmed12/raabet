@@ -1,5 +1,7 @@
 import { PublicContainer } from "@/components/PublicContainer";
 import { Metadata } from "next";
+import { getLocale } from "next-intl/server";
+import Head from "next/head";
 import { ContactSection } from "./_components/ContactSection";
 
 export const metadata: Metadata = {
@@ -8,10 +10,20 @@ export const metadata: Metadata = {
     "Get in touch with the Rabet team for support, feedback, or inquiries.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const locale = await getLocale();
+
   return (
-    <PublicContainer>
-      <ContactSection />
-    </PublicContainer>
+    <>
+      <Head>
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/contact`}
+        />
+      </Head>
+      <PublicContainer>
+        <ContactSection />
+      </PublicContainer>
+    </>
   );
 }
