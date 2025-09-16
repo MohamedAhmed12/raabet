@@ -114,6 +114,9 @@ export const metadata: Metadata = {
     images: ["/images/meta-data-screenshot.png"], // Same image as above
   },
   metadataBase: new URL("https://rabetlink.com"),
+  verification:{
+    google: 'X9DZNAFjoMyz0Ay4MWtYCpklkge3YepY635dRKuCr-M'
+  }
 };
 
 const messages: Record<string, any> = {
