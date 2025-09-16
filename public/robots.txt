@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# Allow all search engines to crawl the site
+Allow: /en/
+Allow: /ar/
+
+# Block admin and dashboard pages from being indexed
+Disallow: /en/dashboard/
+Disallow: /ar/dashboard/
+Disallow: /dashboard/
+
+# Block API routes from being indexed
+Disallow: /api/
+
+# Block auth pages from being indexed (optional - you might want to allow these)
+# Disallow: /en/auth/
+# Disallow: /ar/auth/
+# Disallow: /auth/
+
+# Block debug and test pages
+Disallow: /debug/
+Disallow: /test/
+
+# Sitemap location
+Sitemap: https://rabetlink.com/sitemap.xml

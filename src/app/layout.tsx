@@ -9,7 +9,6 @@ import { Toaster } from "sonner";
 import { Providers } from "@/components/providers/Providers";
 import { authOptions } from "@/lib/auth";
 import { customGetLocale } from "@/lib/customGetLocale";
-import { getSiteUrl } from "@/lib/site-config";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getServerSession } from "next-auth";
 import arMessages from "../messages/ar.json";
@@ -104,7 +103,7 @@ export async function generateMetadata({
     openGraph: {
       title: metadata.openGraph.title,
       description: metadata.openGraph.description,
-      url: getSiteUrl(),
+      url: process.env.NEXT_PUBLIC_BASE_URL || 'https://rabetlink.com',
       siteName: metadata.openGraph.siteName,
       images: [
         {
@@ -126,7 +125,7 @@ export async function generateMetadata({
       description: metadata.twitter.description,
       images: ["/images/meta-data-screenshot.png"],
     },
-    metadataBase: new URL(getSiteUrl()),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://rabetlink.com'),
     verification: {
       google: process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_KEY,
     },
