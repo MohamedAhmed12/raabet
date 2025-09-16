@@ -7,13 +7,14 @@ import localFont from "next/font/local";
 import { Toaster } from "sonner";
 
 import { Providers } from "@/components/providers/Providers";
+import { authOptions } from "@/lib/auth";
 import { customGetLocale } from "@/lib/customGetLocale";
+import { getSiteUrl } from "@/lib/site-config";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { getServerSession } from "next-auth";
 import arMessages from "../messages/ar.json";
 import enMessages from "../messages/en.json";
 import LazySentryInit from "./lazy-sentry-init";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 
 const notoSans = localFont({
   src: [
@@ -81,43 +82,56 @@ const Cairo = localFont({
   preload: true,
 });
 
-export const metadata: Metadata = {
-  title: "Rabet",
-  description:
-    "Your link in bio tool to share all your important links in one place",
-  icons: {
-    icon: [
-      "/svg/mainLogo.svg",
-      { url: "/svg/mainLogo.svg", media: "(prefers-color-scheme: dark)" },
-    ],
-  },
-  openGraph: {
-    title: "Rabet - Your Link in Bio Tool",
-    description: "Share all your important links in one beautiful profile",
-    url: "https://rabetlink.com",
-    siteName: "Rabet",
-    images: [
-      {
-        url: "/images/meta-data-screenshot.png", // You need to add this image to your public folder
-        width: 1200,
-        height: 630,
-        alt: "Rabet - Your Link in Bio",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Rabet - Your Link in Bio Tool",
-    description: "Share all your important links in one beautiful profile",
-    images: ["/images/meta-data-screenshot.png"], // Same image as above
-  },
-  metadataBase: new URL("https://rabetlink.com"),
-  verification:{
-    google: process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_KEY
-  }
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const locale: string = await customGetLocale();
+  const currentLocalMessages = messages[locale];
+  const metadata = currentLocalMessages.Metadata;
+
+  return {
+    title: metadata.title,
+    description: metadata.description,
+    keywords: metadata.keywords,
+    icons: {
+      icon: [
+        "/svg/mainLogo.svg",
+        { url: "/svg/mainLogo.svg", media: "(prefers-color-scheme: dark)" },
+      ],
+    },
+    openGraph: {
+      title: metadata.openGraph.title,
+      description: metadata.openGraph.description,
+      url: getSiteUrl(),
+      siteName: metadata.openGraph.siteName,
+      images: [
+        {
+          url: "/images/meta-data-screenshot.png",
+          width: 1200,
+          height: 630,
+          alt:
+            locale === "ar"
+              ? "رابط لينك - لوحة تحكم أداة رابط في السيرة الذاتية"
+              : "RabetLink - Link in Bio Tool Dashboard",
+        },
+      ],
+      locale: locale === "ar" ? "ar_SA" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: metadata.twitter.title,
+      description: metadata.twitter.description,
+      images: ["/images/meta-data-screenshot.png"],
+    },
+    metadataBase: new URL(getSiteUrl()),
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_KEY,
+    },
+  };
+}
 
 const messages: Record<string, any> = {
   en: enMessages,

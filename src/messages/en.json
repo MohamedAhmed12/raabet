@@ -12,6 +12,7 @@
     "messagePlaceholder": "Share more details with us...",
     "submit": "Submit",
     "submitSuccess": "Thank you for your feedback!",
+    "discountAlreadyApplied": "You're now enjoying a 75% discount on your subscription",
     "validation": {
       "ratingRequired": "Please select a rating",
       "highlightRequired": "Please select an option",
@@ -413,6 +414,20 @@
     "twitter": "Twitter",
     "linkedin": "Linkedin",
     "youtube": "Youtube"
+  },
+  "Metadata": {
+    "title": "RabetLink - Link in Bio Tool | Social Media Link Management",
+    "description": "Create a beautiful link-in-bio page to showcase all your social media, music, videos and more. Trusted by 10,000+ users. Free & premium plans available.",
+    "keywords": "link in bio, social media links, bio link, linktree alternative, social media management, instagram bio link",
+    "openGraph": {
+      "title": "RabetLink - Link in Bio Tool | Social Media Link Management",
+      "description": "Create a beautiful link-in-bio page to showcase all your social media, music, videos and more. Trusted by 10,000+ users.",
+      "siteName": "RabetLink"
+    },
+    "twitter": {
+      "title": "RabetLink - Link in Bio Tool",
+      "description": "Create a beautiful link-in-bio page to showcase all your social media, music, videos and more."
+    }
   },
   "HomePage": {
     "CentralizePresence": {
