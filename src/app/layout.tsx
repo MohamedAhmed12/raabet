@@ -115,7 +115,7 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://rabetlink.com"),
   verification:{
-    google: 'X9DZNAFjoMyz0Ay4MWtYCpklkge3YepY635dRKuCr-M'
+    google: process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_KEY
   }
 };
 
