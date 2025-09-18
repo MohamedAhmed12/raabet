@@ -94,96 +94,99 @@ export async function generateMetadata({
   const locale: string = await customGetLocale();
   const currentLocalMessages = messages[locale];
   const metadata = currentLocalMessages.Metadata;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rabetlink.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rabetlink.com";
 
   // Organization Schema
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "RabetLink",
-    "alternateName": "رابط لينك",
-    "url": baseUrl,
-    "logo": `${baseUrl}/svg/mainLogo.svg`,
-    "description": locale === "ar" 
-      ? "أداة رابط في السيرة الذاتية لإدارة روابط وسائل التواصل الاجتماعي. اجمع حساباتك الاجتماعية، والموسيقى، ومقاطع الفيديو، والمزيد في صفحة جميلة."
-      : "Link in Bio Tool for Social Media Link Management. Gather your socials, music, videos, and more on a beautiful link-in-bio page.",
-    "foundingDate": "2025",
-    "sameAs": [
+    name: "RabetLink",
+    alternateName: "رابط لينك",
+    url: baseUrl,
+    logo: `${baseUrl}/svg/mainLogo.svg`,
+    description:
+      locale === "ar"
+        ? "أداة رابط في السيرة الذاتية لإدارة روابط وسائل التواصل الاجتماعي. اجمع حساباتك الاجتماعية، والموسيقى، ومقاطع الفيديو، والمزيد في صفحة جميلة."
+        : "Link in Bio Tool for Social Media Link Management. Gather your socials, music, videos, and more on a beautiful link-in-bio page.",
+    foundingDate: "2025",
+    sameAs: [
       "https://www.instagram.com/rabetlink",
       "https://www.youtube.com/@rabetlink",
-      "https://twitter.com/rabetlink"
+      "https://twitter.com/rabetlink",
     ],
-    "contactPoint": {
+    contactPoint: {
       "@type": "ContactPoint",
-      "contactType": "customer service",
-      "email": "support@rabet-link.com",
-      "availableLanguage": ["English", "Arabic"]
-    }
+      contactType: "customer service",
+      email: "support@rabet-link.com",
+      availableLanguage: ["English", "Arabic"],
+    },
   };
 
   // Website Schema
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "RabetLink",
-    "alternateName": "رابط لينك",
-    "url": baseUrl,
-    "description": organizationSchema.description,
-    "publisher": {
+    name: "RabetLink",
+    alternateName: "رابط لينك",
+    url: baseUrl,
+    description: organizationSchema.description,
+    publisher: {
       "@type": "Organization",
-      "name": "RabetLink",
-      "url": baseUrl
+      name: "RabetLink",
+      url: baseUrl,
     },
-    "potentialAction": {
+    potentialAction: {
       "@type": "SearchAction",
-      "target": `${baseUrl}/${locale}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string"
-    }
+      target: `${baseUrl}/${locale}/search?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
   };
 
   // Software Application Schema
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "RabetLink",
-    "alternateName": "رابط لينك",
-    "url": baseUrl,
-    "description": organizationSchema.description,
-    "applicationCategory": "WebApplication",
-    "operatingSystem": "Web Browser",
-    "author": {
+    name: "RabetLink",
+    alternateName: "رابط لينك",
+    url: baseUrl,
+    description: organizationSchema.description,
+    applicationCategory: "WebApplication",
+    operatingSystem: "Web Browser",
+    author: {
       "@type": "Organization",
-      "name": "RabetLink"
+      name: "RabetLink",
     },
-    "offers": [
+    offers: [
       {
         "@type": "Offer",
-        "name": locale === "ar" ? "خطة مجانية" : "Free Plan",
-        "price": "0",
-        "priceCurrency": "USD",
-        "description": locale === "ar" 
-          ? "خطة مجانية مع ميزات أساسية لإدارة الروابط"
-          : "Free plan with basic link management features",
-        "availability": "https://schema.org/InStock"
+        name: locale === "ar" ? "خطة مجانية" : "Free Plan",
+        price: "0",
+        priceCurrency: "USD",
+        description:
+          locale === "ar"
+            ? "خطة مجانية مع ميزات أساسية لإدارة الروابط"
+            : "Free plan with basic link management features",
+        availability: "https://schema.org/InStock",
       },
       {
-        "@type": "Offer", 
-        "name": locale === "ar" ? "خطة متميزة" : "Premium Plan",
-        "price": "9.99",
-        "priceCurrency": "USD",
-        "description": locale === "ar" 
-          ? "خطة متميزة مع ميزات متقدمة وتخصيص كامل"
-          : "Premium plan with advanced features and full customization",
-        "availability": "https://schema.org/InStock"
-      }
+        "@type": "Offer",
+        name: locale === "ar" ? "خطة متميزة" : "Premium Plan",
+        price: "9.99",
+        priceCurrency: "USD",
+        description:
+          locale === "ar"
+            ? "خطة متميزة مع ميزات متقدمة وتخصيص كامل"
+            : "Premium plan with advanced features and full customization",
+        availability: "https://schema.org/InStock",
+      },
     ],
-    "aggregateRating": {
+    aggregateRating: {
       "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "150",
-      "bestRating": "5",
-      "worstRating": "1"
-    }
+      ratingValue: "4.8",
+      reviewCount: "150",
+      bestRating: "5",
+      worstRating: "1",
+    },
   };
 
   // Combine all schemas into a single JSON-LD script
@@ -230,8 +233,8 @@ export async function generateMetadata({
     },
     // Schema.org structured data using Next.js Metadata API
     other: {
-      'application/ld+json': JSON.stringify(combinedSchema)
-    }
+      "application/ld+json": JSON.stringify(combinedSchema),
+    },
   };
 }
 
