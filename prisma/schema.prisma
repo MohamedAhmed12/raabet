@@ -287,3 +287,25 @@ model ProfileView {
 
   @@index([linkId])
 }
+
+model Blog {
+  id            String   @id @default(uuid())
+  slug          String
+  title         String
+  excerpt       String
+  content       String   @db.Text
+  author        String
+  publishedAt   DateTime
+  updatedAt     DateTime @updatedAt
+  featuredImage String?
+  tags          String[] // Array of tags
+  readTime      Int?     // Reading time in minutes
+  locale        String   // 'ar' or 'en'
+  viewCount     Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  @@unique([slug, locale])
+  @@index([slug])
+  @@index([locale])
+  @@index([publishedAt])
+}

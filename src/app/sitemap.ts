@@ -1,7 +1,30 @@
 import { MetadataRoute } from 'next'
+import { getBlogPosts } from './[locale]/blog/actions/blog'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rabetlink.com'
+  
+  // Get blog posts for both locales
+  const [enPosts, arPosts] = await Promise.all([
+    getBlogPosts('en'),
+    getBlogPosts('ar')
+  ])
+  
+  // Create blog post URLs
+  const blogUrls = [
+    ...enPosts.map(post => ({
+      url: `${baseUrl}/en/blog/${post.slug}`,
+      lastModified: new Date(post.publishedAt),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    })),
+    ...arPosts.map(post => ({
+      url: `${baseUrl}/ar/blog/${post.slug}`,
+      lastModified: new Date(post.publishedAt),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }))
+  ]
   
   return [
     {
@@ -21,6 +44,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
+    },
+    {
+      url: `${baseUrl}/en/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/ar/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/en/pricing`,
@@ -70,5 +105,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.5,
     },
+    ...blogUrls,
   ]
 }
