@@ -1,6 +1,11 @@
 import { MetadataRoute } from 'next'
 import { getBlogPosts } from './[locale]/blog/actions/blog'
 
+// This tells Next.js to generate the sitemap at request time instead of build time, so DB will be available.
+export const dynamic = 'force-dynamic'
+// revalidate cache after 48 hours in seconds (2 days)
+export const revalidate = 172800 
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rabetlink.com'
   
