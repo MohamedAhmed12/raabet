@@ -5,7 +5,7 @@ import { getBlogPosts } from "./actions/blog";
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rabetlink.com";
@@ -40,7 +40,7 @@ export async function generateMetadata({
 export default async function BlogPage({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   const posts = await getBlogPosts(locale);

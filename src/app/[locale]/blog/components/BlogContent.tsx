@@ -24,7 +24,7 @@ export default function BlogContent({ post, locale }: BlogContentProps) {
           </div>
           <div className="flex items-center space-x-2">
             <Calendar className="h-5 w-5" />
-            <span>{formatBlogDate(post.publishedAt)}</span>
+            <span>{formatBlogDate(post.publishedAt, locale)}</span>
           </div>
           {post.readTime && (
             <div className="flex items-center space-x-2">

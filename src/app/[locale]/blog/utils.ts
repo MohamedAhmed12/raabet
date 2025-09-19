@@ -1,5 +1,4 @@
-export const formatBlogDate = (dateString: string, locale: string) => {
-  const date = new Date(dateString);
+export const formatBlogDate = (date: Date, locale: string) => {
   return date.toLocaleDateString(locale === "ar" ? "ar-SA" : "en-US", {
     year: "numeric",
     month: "long",

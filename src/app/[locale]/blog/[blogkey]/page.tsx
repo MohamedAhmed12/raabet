@@ -5,10 +5,10 @@ import BlogNavigation from "../components/BlogNavigation";
 import { getBlogPost } from "../actions/blog";
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     locale: string;
     blogkey: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({
@@ -41,8 +41,8 @@ export async function generateMetadata({
       siteName: "Rabet Link",
       locale: locale,
       type: "article",
-      publishedTime: post.publishedAt,
-      modifiedTime: post.updatedAt,
+      publishedTime: post.publishedAt.toISOString(),
+      modifiedTime: post.updatedAt.toISOString(),
       authors: [post.author],
       tags: post.tags,
       images: post.featuredImage
@@ -105,8 +105,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         url: `${baseUrl}/logo.png`,
       },
     },
-    datePublished: post.publishedAt,
-    dateModified: post.updatedAt,
+    datePublished: post.publishedAt.toISOString(),
+    dateModified: post.updatedAt.toISOString(),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${baseUrl}/${locale}/blog/${decodedBlogkey}`,
