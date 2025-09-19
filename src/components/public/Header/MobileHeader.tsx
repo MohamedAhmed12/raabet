@@ -56,6 +56,16 @@ export const MobileHeader = () => {
             </NextLink>
 
             <NextLink
+              href="/contact"
+              className={cn(
+                "mt-[3px] hidden lg:block",
+                locale === "ar" ? "mr-4" : "ml-4"
+              )}
+            >
+              {`${t("Contact.contact")} ${t("Contact.us")}`}
+            </NextLink>
+
+            <NextLink
               href="/auth/login"
               className="text-gray-600 hover:text-deep-blue-gray transition-colors"
             >

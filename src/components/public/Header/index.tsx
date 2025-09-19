@@ -40,22 +40,10 @@ export const Header = () => {
             {t("Shared.rabet")}
           </span>
         </NextLink>
-        <NextLink
-          href="/pricing"
-          className={cn(
-            "mt-[3px] hidden lg:block",
-            locale === "ar" ? "mr-4" : "ml-4"
-          )}
-        >
+        <NextLink href="/pricing" className="mt-[3px] hidden lg:block ms-4">
           {t("Shared.pricing")}
         </NextLink>
-        <NextLink
-          href="/contact"
-          className={cn(
-            "mt-[3px] hidden lg:block",
-            locale === "ar" ? "mr-4" : "ml-4"
-          )}
-        >
+        <NextLink href="/contact" className="mt-[3px] hidden lg:block ms-4">
           {`${t("Contact.contact")} ${t("Contact.us")}`}
         </NextLink>
       </div>
