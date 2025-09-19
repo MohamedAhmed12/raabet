@@ -1,7 +1,6 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
-import { BlogPost } from "@/types/blog";
+import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 export interface CreateBlogPostData {
@@ -53,7 +52,11 @@ export async function createBlogPost(data: CreateBlogPostData) {
   }
 }
 
-export async function updateBlogPost(slug: string, locale: string, data: UpdateBlogPostData) {
+export async function updateBlogPost(
+  slug: string,
+  locale: string,
+  data: UpdateBlogPostData
+) {
   try {
     const blogPost = await prisma.blog.update({
       where: {
@@ -142,7 +145,7 @@ export async function getBlogStats() {
     });
 
     const postsByLocale = await prisma.blog.groupBy({
-      by: ['locale'],
+      by: ["locale"],
       _count: {
         id: true,
       },

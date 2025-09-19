@@ -86,11 +86,7 @@ const messages: Record<string, any> = {
   ar: arMessages,
 };
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string };
-}): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   const locale: string = await customGetLocale();
   const currentLocalMessages = messages[locale];
   const metadata = currentLocalMessages.Metadata;
