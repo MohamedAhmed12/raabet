@@ -227,6 +227,14 @@ export async function generateMetadata({
       description: metadata.twitter.description,
       images: ["/images/meta-data-screenshot.png"],
     },
+    alternates: {
+      canonical: `${baseUrl}/${locale}`,
+      languages: {
+        en: `${baseUrl}/en`,
+        ar: `${baseUrl}/ar`,
+        "x-default": `${baseUrl}/en`,
+      },
+    },
     metadataBase: new URL(baseUrl),
     verification: {
       google: process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_KEY,

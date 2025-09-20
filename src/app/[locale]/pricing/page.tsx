@@ -3,8 +3,45 @@ import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { getLocale, getTranslations } from "next-intl/server";
 import Head from "next/head";
+import { Metadata } from "next";
 import { FeaturesCard } from "./FeaturesCard";
 import { PlansCard } from "./PlansCard";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rabetlink.com";
+
+  return {
+    title: locale === "ar" ? "الأسعار والخطط - رابط" : "Pricing & Plans - Rabet Link",
+    description:
+      locale === "ar"
+        ? "اختر الخطة المناسبة لك من خطط رابط لينك. خطط مجانية ومتميزة لإدارة روابطك الشخصية"
+        : "Choose the right plan for you from Rabet Link plans. Free and premium plans for managing your personal links",
+    openGraph: {
+      title: locale === "ar" ? "الأسعار والخطط - رابط" : "Pricing & Plans - Rabet Link",
+      description:
+        locale === "ar"
+          ? "اختر الخطة المناسبة لك من خطط رابط لينك. خطط مجانية ومتميزة لإدارة روابطك الشخصية"
+          : "Choose the right plan for you from Rabet Link plans. Free and premium plans for managing your personal links",
+      url: `${baseUrl}/${locale}/pricing`,
+      siteName: "Rabet Link",
+      locale: locale,
+      type: "website",
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}/pricing`,
+      languages: {
+        en: `${baseUrl}/en/pricing`,
+        ar: `${baseUrl}/ar/pricing`,
+        "x-default": `${baseUrl}/en/pricing`,
+      },
+    },
+  };
+}
 
 export default async function Pricing() {
   const t = await getTranslations();
