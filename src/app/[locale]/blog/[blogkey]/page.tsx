@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import BlogContent from "../components/BlogContent";
 import BlogNavigation from "../components/BlogNavigation";
 import { getBlogPost } from "../actions/blog";
+import "./blog-post.css";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -34,12 +35,24 @@ export async function generateMetadata({
     description: post.excerpt,
     keywords: post.tags?.join(", "),
     authors: [{ name: post.author }],
+    category: "Technology",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       url: `${baseUrl}/${locale}/blog/${decodedBlogkey}`,
       siteName: "Rabet Link",
-      locale: locale,
+      locale: locale === "ar" ? "ar_SA" : "en_US",
       type: "article",
       publishedTime: post.publishedAt.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
@@ -123,8 +136,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div className="min-h-screen bg-white">
-        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="blog-post-container">
+        <article className="blog-post-article">
           <BlogContent post={post} locale={locale} />
           <BlogNavigation currentSlug={decodedBlogkey} locale={locale} />
         </article>

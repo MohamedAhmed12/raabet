@@ -1,6 +1,9 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import BlogCard from "./components/BlogCard";
 import { getBlogPosts } from "./actions/blog";
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 
 export async function generateMetadata({
   params,
@@ -8,20 +11,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Blog" });
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rabetlink.com";
 
   return {
-    title: locale === "ar" ? "المدونة - رابط" : "Blog - Rabet Link",
-    description:
-      locale === "ar"
-        ? "اكتشف أحدث المقالات والنصائح حول إنشاء الروابط الشخصية وتحسين حضورك الرقمي"
-        : "Discover the latest articles and tips about creating personal links and improving your digital presence",
+    title: t("pageTitle"),
+    description: t("description"),
     openGraph: {
-      title: locale === "ar" ? "المدونة - رابط" : "Blog - Rabet Link",
-      description:
-        locale === "ar"
-          ? "اكتشف أحدث المقالات والنصائح حول إنشاء الروابط الشخصية وتحسين حضورك الرقمي"
-          : "Discover the latest articles and tips about creating personal links and improving your digital presence",
+      title: t("pageTitle"),
+      description: t("description"),
       url: `${baseUrl}/${locale}/blog`,
       siteName: "Rabet Link",
       locale: locale,
@@ -44,20 +42,20 @@ export default async function BlogPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Blog" });
   const posts = await getBlogPosts(locale);
+  const fontClass = getFontClassClient(locale);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className={cn("min-h-screen bg-gray-50 py-12", fontClass)}>
+      <div className="max-w-[95rem] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {locale === "ar" ? "المدونة" : "Blog"}
+            {t("title")}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {locale === "ar"
-              ? "اكتشف أحدث المقالات والنصائح حول إنشاء الروابط الشخصية وتحسين حضورك الرقمي"
-              : "Discover the latest articles and tips about creating personal links and improving your digital presence"}
+            {t("description")}
           </p>
         </div>
 
@@ -71,9 +69,7 @@ export default async function BlogPage({
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">
-              {locale === "ar"
-                ? "لا توجد مقالات متاحة حالياً"
-                : "No blog posts available yet"}
+              {t("noPostsAvailable")}
             </p>
           </div>
         )}

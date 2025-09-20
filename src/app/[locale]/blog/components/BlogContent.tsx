@@ -10,7 +10,7 @@ interface BlogContentProps {
 
 export default function BlogContent({ post, locale }: BlogContentProps) {
   return (
-    <article className="prose prose-lg max-w-none">
+    <article className="blog-post-content prose prose-lg max-w-none">
       {/* Header */}
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-4 leading-tight">
@@ -67,25 +67,7 @@ export default function BlogContent({ post, locale }: BlogContentProps) {
       <div
         className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:text-gray-700 prose-ol:text-gray-700"
         dangerouslySetInnerHTML={{
-          __html: post.content
-            .replace(
-              /^# (.*$)/gim,
-              '<h1 class="text-3xl font-bold text-gray-900 mt-8 mb-4">$1</h1>'
-            )
-            .replace(
-              /^## (.*$)/gim,
-              '<h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">$1</h2>'
-            )
-            .replace(
-              /^### (.*$)/gim,
-              '<h3 class="text-xl font-bold text-gray-900 mt-4 mb-2">$1</h3>'
-            )
-            .replace(/^\- (.*$)/gim, '<li class="ml-4">$1</li>')
-            .replace(/^\* (.*$)/gim, '<li class="ml-4">$1</li>')
-            .replace(/\*\*(.*?)\*\*/gim, "<strong>$1</strong>")
-            .replace(/\*(.*?)\*/gim, "<em>$1</em>")
-            .replace(/\n\n/gim, '</p><p class="mb-4">')
-            .replace(/^(?!<[h|l])(.*$)/gim, '<p class="mb-4">$1</p>'),
+          __html: post.content,
         }}
       />
     </article>
