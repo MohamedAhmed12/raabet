@@ -3,6 +3,43 @@
 import { getFontClass } from "@/lib/fonts";
 import { getLocale } from "next-intl/server";
 import Head from "next/head";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rabetlink.com";
+
+  return {
+    title: locale === "ar" ? "سياسة الخصوصية - رابط" : "Privacy Policy - Rabet Link",
+    description:
+      locale === "ar"
+        ? "سياسة الخصوصية لرابط لينك - تعرف على كيفية جمعنا واستخدامنا لمعلوماتك"
+        : "Privacy Policy for Rabet Link - Learn how we collect and use your information",
+    openGraph: {
+      title: locale === "ar" ? "سياسة الخصوصية - رابط" : "Privacy Policy - Rabet Link",
+      description:
+        locale === "ar"
+          ? "سياسة الخصوصية لرابط لينك - تعرف على كيفية جمعنا واستخدامنا لمعلوماتك"
+          : "Privacy Policy for Rabet Link - Learn how we collect and use your information",
+      url: `${baseUrl}/${locale}/privacy`,
+      siteName: "Rabet Link",
+      locale: locale,
+      type: "website",
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}/privacy`,
+      languages: {
+        en: `${baseUrl}/en/privacy`,
+        ar: `${baseUrl}/ar/privacy`,
+        "x-default": `${baseUrl}/en/privacy`,
+      },
+    },
+  };
+}
 
 export default async function PrivacyPage() {
   const fontClass = await getFontClass();

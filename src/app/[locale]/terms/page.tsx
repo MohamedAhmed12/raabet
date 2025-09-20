@@ -3,6 +3,43 @@
 import { getFontClass } from "@/lib/fonts";
 import { getLocale } from "next-intl/server";
 import Head from "next/head";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rabetlink.com";
+
+  return {
+    title: locale === "ar" ? "شروط الخدمة - رابط" : "Terms of Service - Rabet Link",
+    description:
+      locale === "ar"
+        ? "شروط الخدمة لرابط لينك - تعرف على الشروط و الاحكام لاستخدام خدماتنا"
+        : "Terms of Service for Rabet Link - Learn about the rules and conditions for using our services",
+    openGraph: {
+      title: locale === "ar" ? "شروط الخدمة - رابط" : "Terms of Service - Rabet Link",
+      description:
+        locale === "ar"
+          ? "شروط الخدمة لرابط لينك - تعرف على الشروط و الاحكام لاستخدام خدماتنا"
+          : "Terms of Service for Rabet Link - Learn about the rules and conditions for using our services",
+      url: `${baseUrl}/${locale}/terms`,
+      siteName: "Rabet Link",
+      locale: locale,
+      type: "website",
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}/terms`,
+      languages: {
+        en: `${baseUrl}/en/terms`,
+        ar: `${baseUrl}/ar/terms`,
+        "x-default": `${baseUrl}/en/terms`,
+      },
+    },
+  };
+}
 
 export default async function TermsPage() {
   const fontClass = await getFontClass();
