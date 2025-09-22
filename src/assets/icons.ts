@@ -99,8 +99,8 @@ import cardDesign4 from "../../public/svg/cardDesign4";
 import btnBlockStyle1 from "../../public/svg/BtnBlockLayout1";
 import btnBlockStyle2 from "../../public/svg/BtnBlockLayout2";
 import btnBlockStyle3 from "../../public/svg/BtnBlockLayout3";
-import ar from "../../public/svg/SaFlag";
-import en from "../../public/svg/UkFlag";
+import arFlag from "../../public/svg/SaFlag.svg";
+import enFlag from "../../public/svg/UkFlag.svg";
 import LinkedIn from "../../public/svg/LinkedIn";
 
 export const socialIcons = {
@@ -183,8 +183,6 @@ const icons = {
   "btn-block-style-1": btnBlockStyle1,
   "btn-block-style-2": btnBlockStyle2,
   "btn-block-style-3": btnBlockStyle3,
-  ar,
-  en,
   "grip-vertical": GripVertical,
   pencil: Pencil,
   delete: Trash2,
@@ -203,6 +201,8 @@ const icons = {
   upload: Upload,
   stickyNote: StickyNote,
   badgeCheck: BadgeCheck,
+  ar: arFlag,
+  en: enFlag,
   ...socialIcons,
 };
 

@@ -1,9 +1,10 @@
 interface LanguageInfo {
   label: string;
   code: string;
+  flag: string;
 }
 
-export const languageMeta: Record<string, LanguageInfo> = {
-  ar: {label: "العربية", code: "ar"},
-  en: {label: "English", code: "en"},
-};
+export const languageMeta: LanguageInfo[] = [
+  {label: "العربية", code: "ar", flag: "🇸🇦"},
+  {label: "English", code: "en", flag: "🇺🇸"},
+];

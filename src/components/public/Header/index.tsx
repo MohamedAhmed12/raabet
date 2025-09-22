@@ -7,6 +7,7 @@ import { Link } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import NextLink from "next/link";
+import { LanguageSwitch } from "../LanguageSwitch";
 import { MobileHeader } from "./MobileHeader";
 import { RabetAvatar } from "./RabetAvatar";
 import { WebHeader } from "./WebHeader";
@@ -54,13 +55,21 @@ export const Header = () => {
           <Skeleton className="h-10 w-25 rounded-full" />
         </div>
       ) : (
-        <div className="flex gap-4 items-center">
+        <div
+          className={cn("flex gap-2.5 items-center justify-center", "lg:gap-4")}
+        >
+          <LanguageSwitch />
           {session ? (
             <RabetAvatar />
           ) : (
             <>
               <WebHeader />
-              <button className="bg-deep-blue-gray text-white px-6 py-4 rounded-4xl font-bold leading-none">
+              <button
+                className={cn(
+                  "bg-deep-blue-gray text-white px-4.5 py-3 rounded-4xl font-bold leading-none",
+                  "lg:px-6 lg:py-4"
+                )}
+              >
                 <NextLink href="/auth/sign-up">{t("Shared.signup")}</NextLink>
               </button>
               <MobileHeader />

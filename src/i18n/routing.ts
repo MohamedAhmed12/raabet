@@ -1,7 +1,7 @@
 import {languageMeta} from "@/constants";
 import {defineRouting} from "next-intl/routing";
 
-const locales = Object.keys(languageMeta);
+const locales = languageMeta.map(lang => lang.code);
 
 export const defaultLocale = "ar";
 export const routing = defineRouting({

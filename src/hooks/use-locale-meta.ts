@@ -7,27 +7,31 @@ export function useLocaleMeta() {
   const router = useRouter();
   const pathname = usePathname();
 
+  const getCurrentLang = () => {
+    return languageMeta.find((lang) => lang.code === locale) ?? languageMeta[1]; // fallback to English
+  };
+
   const getCurrentLangCode = (): string => {
-    return languageMeta[locale]?.code ?? "en";
+    return getCurrentLang().code;
   };
 
   const getCurrentLangLabel = (): string => {
-    return languageMeta[locale]?.label ?? "English";
+    return getCurrentLang().label;
   };
 
   const getOppositeLang = () => {
-    const other = Object.keys(languageMeta).find((key) => key !== locale);
-    return languageMeta[other!]; // force non-null since we only have 2 langs
+    return languageMeta.find((lang) => lang.code !== locale) ?? languageMeta[0]; // fallback to Arabic
   };
 
   const switchLocale = () => {
     const oppositeLang = getOppositeLang();
-    router.push(pathname, {locale: oppositeLang.code});
+    router.push(pathname, { locale: oppositeLang.code });
     router.refresh();
   };
 
   return {
     locale,
+    currentLang: getCurrentLang(),
     currentLangCode: getCurrentLangCode(),
     currentLangLabel: getCurrentLangLabel(),
     getOppositeLang: getOppositeLang(),

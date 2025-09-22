@@ -24,8 +24,8 @@ export const MobileHeader = () => {
   return (
     <Drawer direction="left">
       <DrawerTrigger asChild>
-        <button className="lg:hidden p-2 rounded-full text-white bg-deep-blue-gray focus:outline-none cursor-pointer">
-          <Menu className="w-6 h-6" />
+        <button className="lg:hidden p-1.5 rounded-full text-white bg-deep-blue-gray focus:outline-none cursor-pointer">
+          <Menu className="w-5 h-5" />
         </button>
       </DrawerTrigger>
       <DrawerContent className={cn("bg-white", fontClass)}>
