@@ -1,5 +1,5 @@
 import { BlogPostSummary } from "@/types/blog";
-import { Calendar, ChevronRight, Clock, User } from "lucide-react";
+import { Calendar, Clock, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { formatBlogDate } from "../utils";

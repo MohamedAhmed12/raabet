@@ -1,7 +1,6 @@
 "use client";
 
 import { useLocaleMeta } from "@/hooks/use-locale-meta";
-import { usePathname, useRouter } from "@/i18n/navigation";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { useLocale } from "next-intl";
@@ -10,8 +9,6 @@ import { Icon, iconNameType } from "../Icon";
 
 export const LanguageSwitch = () => {
   const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
   const fontClass = getFontClassClient(locale);
   const [isOpen, setIsOpen] = useState(false);
   const { switchLocale } = useLocaleMeta();
@@ -47,7 +44,7 @@ export const LanguageSwitch = () => {
 
           {/* Dropdown */}
           <div className="absolute right-0 flex flex-col items-center justify-center mt-2 w-14 bg-white rounded-lg shadow-lg border border-gray-200 z-20 min-h-[80px]">
-            {languages.map((language, index) => {
+            {languages.map((language) => {
               return (
                 <button
                   key={language.code}
