@@ -1,10 +1,10 @@
 "use client";
 
 import { Prosbar } from "@/components/Prosbar";
-import { Button } from "@/components/ui/button";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
+import Link from "next/link";
 import { reviews1, reviews2 } from "../../../../../../public/data/reviews";
 import { ReviewsSlider } from "./ReviewsSlider";
 
@@ -46,9 +46,12 @@ export default function AnimatedBar() {
           <ReviewsSlider reviews={reviews1} speed={15} />
           <ReviewsSlider reviews={reviews2} speed={25} />
         </div>
-        <Button className="text-white px-7 py-6 rounded-4xl font-bold mt-10 bg-deep-blue-gray hover:bg-deep-blue-gray">
+        <Link
+          href="/auth/sign-up"
+          className="text-white px-7 py-6 rounded-4xl font-bold mt-10 bg-deep-blue-gray hover:bg-deep-blue-gray"
+        >
           {t("getStarted")}
-        </Button>
+        </Link>
       </div>
     </>
   );

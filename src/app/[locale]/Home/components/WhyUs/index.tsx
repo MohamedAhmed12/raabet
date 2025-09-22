@@ -27,7 +27,7 @@ export default function WhyUs() {
           "w-full md:w-1/2 py-8",
           locale === "ar" ? "border-l-[#1d1d28]" : "border-t-[#1d1d28]"
         )}
-        redirectUrl="/Signup"
+        redirectUrl="/auth/sign-up"
       />
 
       <WhyUsBlock />

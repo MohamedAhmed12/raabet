@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
+import Link from "next/link";
 
 export const Claim = () => {
   const t = useTranslations("HomePage");
@@ -32,13 +33,14 @@ export const Claim = () => {
         )}
       />
 
-      <button
+      <Link
+        href="/auth/sign-up"
         className={cn(
           "bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold"
         )}
       >
         {t("claim")}
-      </button>
+      </Link>
     </div>
   );
 };
