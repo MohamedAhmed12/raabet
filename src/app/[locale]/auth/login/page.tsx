@@ -1,8 +1,33 @@
 "use client";
 import { GalleryVerticalEnd } from "lucide-react";
+import { Metadata } from "next";
+import Image from "next/image";
 
 import { LoginForm } from "@/app/[locale]/auth/components/LoginForm";
-import Image from "next/image";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rabetlink.com";
+
+  return {
+    title: locale === "ar" ? "تسجيل الدخول - رابط" : "Login - Rabet Link",
+    description: locale === "ar" 
+      ? "سجل الدخول إلى حسابك في رابط لإدارة روابطك الشخصية"
+      : "Sign in to your Rabet account to manage your personal links",
+    alternates: {
+      canonical: `${baseUrl}/${locale}/auth/login`,
+      languages: {
+        en: `${baseUrl}/en/auth/login`,
+        ar: `${baseUrl}/ar/auth/login`,
+        "x-default": `${baseUrl}/en/auth/login`,
+      },
+    },
+  };
+}
 
 export default function LoginPage() {
   return (

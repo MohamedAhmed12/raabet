@@ -1,4 +1,5 @@
 "use client";
+import { Metadata } from "next";
 
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
@@ -7,6 +8,30 @@ import { useSession } from "next-auth/react";
 import { useLocale } from "next-intl";
 import Image from "next/image";
 import VerifyForm from "./verifyForm";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://rabetlink.com";
+
+  return {
+    title: locale === "ar" ? "تأكيد الحساب - رابط" : "Verify Account - Rabet Link",
+    description: locale === "ar" 
+      ? "أكد حسابك في رابط"
+      : "Verify your Rabet account email",
+    alternates: {
+      canonical: `${baseUrl}/${locale}/auth/verify`,
+      languages: {
+        en: `${baseUrl}/en/auth/verify`,
+        ar: `${baseUrl}/ar/auth/verify`,
+        "x-default": `${baseUrl}/en/auth/verify`,
+      },
+    },
+  };
+}
 
 export default function VerifyPage() {
   const session = useSession();
