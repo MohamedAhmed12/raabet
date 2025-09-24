@@ -23,6 +23,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // For build bundle
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+    return config;
+  },
+  // For dev bundle
   turbopack: {
     rules: {
       "*.svg": {
