@@ -1,3 +1,5 @@
+"use client";
+
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { useLocale } from "next-intl";

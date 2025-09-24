@@ -1,8 +1,7 @@
 import { PublicContainer } from "@/components/PublicContainer";
-import { getFontClassClient } from "@/lib/fonts";
+import { getFontClass } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { getLocale, getTranslations } from "next-intl/server";
-import Head from "next/head";
 import { Metadata } from "next";
 import { FeaturesCard } from "./FeaturesCard";
 import { PlansCard } from "./PlansCard";
@@ -46,15 +45,11 @@ export async function generateMetadata({
 export default async function Pricing() {
   const t = await getTranslations();
   const locale = await getLocale();
-  const fontClass = getFontClassClient(locale);
+  const fontClass = await getFontClass(locale);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rabetlink.com';
 
   return (
-    <>
-      <Head>
-        <link rel="canonical" href={`${baseUrl}/${locale}/pricing`} />
-      </Head>
-      <PublicContainer>
+    <PublicContainer>
       <div className="flex flex-col px-[7vw] pb-16">
         <div
           className={cn(
@@ -94,7 +89,6 @@ export default async function Pricing() {
           <PlansCard />
         </div>
       </div>
-      </PublicContainer>
-    </>
+    </PublicContainer>
   );
 }
