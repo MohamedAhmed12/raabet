@@ -40,7 +40,12 @@ export const Footer = () => {
               fontWeight={800}
               className="text-[#1b97f5]"
             />
-            <span className="text-3xl font-bold capitalize">
+            <span
+              className={cn(
+                "font-bold capitalize",
+                locale === "ar" ? "text-4xl" : "text-3xl"
+              )}
+            >
               {t("Shared.rabet")}
             </span>
           </NextLink>

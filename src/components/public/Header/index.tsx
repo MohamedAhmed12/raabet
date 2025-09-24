@@ -37,7 +37,12 @@ export const Header = () => {
             fontWeight={800}
             className="text-[#1b97f5]"
           />
-          <span className="text-2xl font-bold text-deep-blue-gray capitalize">
+          <span
+            className={cn(
+              "font-bold text-deep-blue-gray capitalize",
+              locale === "ar" ? "text-3xl" : "text-2xl"
+            )}
+          >
             {t("Shared.rabet")}
           </span>
         </NextLink>
@@ -46,6 +51,9 @@ export const Header = () => {
         </NextLink>
         <NextLink href="/contact" className="mt-[3px] hidden lg:block ms-4">
           {`${t("Contact.contact")} ${t("Contact.us")}`}
+        </NextLink>
+        <NextLink href="/blog" className="mt-[3px] hidden lg:block ms-4">
+          {t("Blog.blog")}
         </NextLink>
       </div>
 
