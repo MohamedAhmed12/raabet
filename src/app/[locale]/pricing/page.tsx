@@ -46,7 +46,6 @@ export default async function Pricing() {
   const t = await getTranslations();
   const locale = await getLocale();
   const fontClass = await getFontClass(locale);
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rabetlink.com';
 
   return (
     <PublicContainer>
