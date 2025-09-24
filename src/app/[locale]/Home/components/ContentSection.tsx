@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
-import { getFontClassClient } from "@/lib/fonts";
-import { useLocale } from "next-intl";
+import { getFontClass } from "@/lib/fonts";
+import { getLocale } from "next-intl/server";
 import Link from "next/link";
 
-export const ContentSection = ({
+export const ContentSection = async ({
   titleLabel,
   coloredLabel,
   mainLabel,
@@ -23,13 +23,13 @@ export const ContentSection = ({
   widthClass?: string;
   redirectUrl: string;
 }) => {
-  const locale = useLocale();
-  const fontClass = getFontClassClient(locale);
+  const locale = await getLocale();
+  const fontClass = await getFontClass(locale);
 
   return (
     <div
       className={cn(
-        'flex justify-center items-center w-full md:w-1/2 ${fontClass} py-[32px] px-[7vw] border border-t-[#1d1d28]',
+        "flex justify-center items-center w-full md:w-1/2 ${fontClass} py-[32px] px-[7vw] border border-t-[#1d1d28]",
         className
       )}
     >

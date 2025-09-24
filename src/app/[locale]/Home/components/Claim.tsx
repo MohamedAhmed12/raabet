@@ -1,3 +1,5 @@
+"use client";
+
 import { Icon } from "@/components/Icon";
 import { Input } from "@/components/ui/input";
 import { getFontClassClient } from "@/lib/fonts";

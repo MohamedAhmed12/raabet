@@ -1,9 +1,9 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { ContentSection } from "../ContentSection";
 import Image from "next/image";
 
-export const GroubBlock = () => {
-  const t = useTranslations("HomePage");
+export const GroubBlock = async () => {
+  const t = await getTranslations("HomePage");
   return (
     <div className="flex flex-col-reverse md:flex-row w-full h-full">
       <div className="relative w-full md:flex-1/2 !min-h-full">
@@ -12,8 +12,6 @@ export const GroubBlock = () => {
           alt="third Section"
           width={650}
           height={650}
-          
-          // className="min-h-full w-full"
         />
       </div>
       <ContentSection

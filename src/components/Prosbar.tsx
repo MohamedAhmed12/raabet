@@ -1,3 +1,5 @@
+"use client";
+
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { AppWindow, Clock8, HandHelping, LucideIcon } from "lucide-react";

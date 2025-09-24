@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useLocale } from "next-intl";
+import { getLocale } from "next-intl/server";
 
-export const ImageSection = () => {
-  const locale = useLocale();
+export const ImageSection = async () => {
+  const locale = await getLocale();
   const isArabic = locale === "ar";
 
   return (

@@ -1,8 +1,8 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { FeatureCard } from "./FeatureCard";
 
-export const WhyUsBlock = () => {
-  const t = useTranslations("HomePage.WhyUs.block");
+export const WhyUsBlock = async () => {
+  const t = await getTranslations("HomePage.WhyUs.block");
   return (
     <div className="flex flex-col md:flex-row flex-wrap w-full md:w-1/2">
       <div className="w-full md:w-1/2">

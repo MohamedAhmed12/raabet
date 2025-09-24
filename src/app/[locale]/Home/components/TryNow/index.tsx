@@ -1,3 +1,5 @@
+"use client";
+
 import { Prosbar } from "@/components/Prosbar";
 import { ContentSection } from "./ContentSection";
 import Image from "next/image";

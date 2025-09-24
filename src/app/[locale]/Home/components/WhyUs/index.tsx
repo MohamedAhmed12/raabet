@@ -1,13 +1,13 @@
-import { getFontClassClient } from "@/lib/fonts";
+import { getFontClass } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { useLocale, useTranslations } from "next-intl";
+import { getLocale, getTranslations } from "next-intl/server";
 import { ContentSection } from "../ContentSection";
 import { WhyUsBlock } from "./components/whyUsBlock";
 
-export default function WhyUs() {
-  const t = useTranslations("HomePage");
-  const locale = useLocale();
-  const fontClass = getFontClassClient(locale);
+export default async function WhyUs() {
+  const t = await getTranslations("HomePage");
+  const locale = await getLocale();
+  const fontClass = await getFontClass(locale);
 
   return (
     <div
@@ -33,4 +33,4 @@ export default function WhyUs() {
       <WhyUsBlock />
     </div>
   );
-};
+}
