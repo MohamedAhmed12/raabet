@@ -42,8 +42,8 @@ export async function generateMetadata({
 }
 
 export default async function TermsPage() {
-  const fontClass = await getFontClass();
   const locale = await getLocale();
+  const fontClass = await getFontClass(locale);
 
   return (
     <>
