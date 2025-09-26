@@ -20,6 +20,7 @@ import { Award, CirclePlus } from "lucide-react";
 import { signOut, useSession } from "next-auth/react"; // Import signOut from NextAuth.js
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
+import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
 
 export default function CustomSidebar({
   onOpenFeedbackPopup,
@@ -34,10 +35,8 @@ export default function CustomSidebar({
   const queryClient = useQueryClient();
   const { getOppositeLang, switchLocale } = useLocaleMeta();
 
-  const subscriptionStatus = queryClient.getQueryData<SubscriptionStatus>([
-    "subscriptionStatus",
-    { email: session?.data?.user?.email as string },
-  ]);
+  const { data: subscriptionStatus, isLoading: isLoadingSubs } =
+    useSubscriptionStatus({ email: session?.data?.user?.email as string });
 
   const sidebarTabs: { text: string; url: string; icon: iconNameType }[] = [
     {
@@ -150,6 +149,7 @@ export default function CustomSidebar({
       </SidebarContent>
       {subscriptionStatus !== SubscriptionStatus.active && (
         <SidebarFooter className={cn("p-[11px]", fontClass)}>
+          {subscriptionStatus}
           <Link
             href="/dashboard/admin/subscription"
             className="flex cursor-pointer flex-col h-auto w- p-[11px] items-center text-center text-white bg-[linear-gradient(45deg,_#dd76ff,_#097cd4)] rounded-md"
