@@ -20,6 +20,8 @@ const badgeVariants = cva(
         success:
           "border-transparent bg-green-300 text-white [a&]:hover:bg-green-300/90 focus-visible:ring-green-300/20 dark:focus-visible:ring-green-300/40 dark:bg-green-300/70",
         gray: "border-transparent bg-gray-300 text-white [a&]:hover:bg-gray-300/90 focus-visible:ring-gray-300/20 dark:focus-visible:ring-gray-300/40 dark:bg-gray-300/70",
+        gradient:
+          "border-transparent bg-[linear-gradient(45deg,_#dd76ff,_#097cd4)] text-white [a&]:hover:bg-[linear-gradient(45deg,_#dd76ff,_#097cd4)] focus-visible:ring-[linear-gradient(45deg,_#dd76ff,_#097cd4)] dark:focus-visible:ring-[linear-gradient(45deg,_#dd76ff,_#097cd4)] dark:bg-[linear-gradient(45deg,_#dd76ff,_#097cd4)]",
       },
     },
     defaultVariants: {

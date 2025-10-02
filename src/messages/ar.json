@@ -304,9 +304,11 @@
     "restricted": "تحتاج إلى اشتراك فعّال لمشاهدة هذا المحتوى",
     "uploadInvoice": "ارفع الفاتورة",
     "uploadInvoiceHelperTxt": "يرجى رفع screenshot من الفاتورة الخاصة بك هنا",
+    "paymentMethod": "إنستاباي أو فودافون كاش",
     "InvoiceUploadedSuccessfully": "تمَّ رفع الفاتورة بنجاح",
     "InvoiceUploadFailed": "فشل في رفع الفاتورة",
-    "couponHelperTxt": "تم تطبيق قسيمة صالحة. ادفع فقط ${feesToPay}"
+    "couponHelperTxt": "تم تطبيق قسيمة صالحة. ادفع فقط ${feesToPay}",
+    "noCouponHelperTxt": "ادفع فقط ${feesToPay}"
   },
   "SocialsAndSharing": {
     "sectionTitle": "وسائل التواصل الاجتماعي والمشاركة",
@@ -488,5 +490,69 @@
     "claim": "سجل",
     "getStarted": "ابدأ الآن",
     "moreFeatures": "المزيد من المميزات"
+  },
+  "Mockups": {
+    "title": "النماذج",
+    "headerTitle": "معرض النماذج",
+    "subtitle": "مجموعة <strong>مجانية</strong> من <strong>2630</strong> نموذج جهاز تم إنشاؤه بالذكاء الاصطناعي، مع نماذج جديدة يتم إنشاؤها <strong>أسبوعياً</strong>.<br/>أسقط لقطة شاشة لموقعك/تطبيقك لرؤيته في النماذج.<br/><br/>صُنع بـ ❤️ بواسطة فريق liinks.co.",
+    "navigation": {
+      "generator": "المولد",
+      "admin": "الإدارة"
+    },
+    "search": {
+      "placeholder": "البحث في النماذج بالاسم أو العلامات...",
+      "filterByCategory": "تصفية حسب الفئة",
+      "clearAll": "مسح الكل",
+      "resultsFound": "نموذج موجود",
+      "resultsFoundPlural": "نماذج موجودة",
+      "categories": "الفئات",
+      "selected": "المحدد"
+    },
+    "card": {
+      "viewDetails": "عرض التفاصيل",
+      "download": "تحميل",
+      "addToFavorites": "إضافة للمفضلة"
+    },
+    "gallery": {
+      "loading": "جاري تحميل النماذج...",
+      "noMoreMockups": "لقد وصلت للنهاية! لا توجد نماذج أخرى للتحميل.",
+      "noMockupsFound": "لم يتم العثور على نماذج",
+      "tryAdjustingSearch": "حاول تعديل البحث أو المرشحات",
+      "noMockupsAvailable": "لا توجد نماذج متاحة حالياً"
+    },
+    "deviceTypes": {
+      "iphone": "آيفون",
+      "samsung": "سامسونج",
+      "googlePixel": "جوجل بكسل",
+      "oneplus": "وان بلس",
+      "huawei": "هواوي",
+      "xiaomi": "شاومي",
+      "oppo": "أوبو",
+      "vivo": "فيفو",
+      "realme": "ريلمي",
+      "nothing": "ناثينج"
+    },
+    "styles": {
+      "modern": "عصري",
+      "classic": "كلاسيكي",
+      "minimalist": "بسيط",
+      "premium": "متميز",
+      "futuristic": "مستقبلي",
+      "vintage": "عتيق",
+      "gaming": "ألعاب",
+      "business": "أعمال",
+      "creative": "إبداعي",
+      "luxury": "فاخر"
+    },
+    "angles": {
+      "front": "أمامي",
+      "angled": "مائل",
+      "side": "جانبي",
+      "3d": "ثلاثي الأبعاد",
+      "isometric": "إيزومتري",
+      "perspective": "منظوري",
+      "flat": "مسطح",
+      "layered": "طبقي"
+    }
   }
 }

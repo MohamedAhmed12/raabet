@@ -304,9 +304,11 @@
     "restricted": "You need an active subscription to access this content.",
     "uploadInvoice": "upload the invoice",
     "uploadInvoiceHelperTxt": "Please upload screenshot of the invoice here",
+    "paymentMethod": "InstaPay or Vodafone Cash",
     "InvoiceUploadedSuccessfully": "Invoice uploaded successfully",
     "InvoiceUploadFailed": "Invoice upload failed",
-    "couponHelperTxt": "A valid coupon has been applied. Pay only ${feesToPay}"
+    "couponHelperTxt": "A valid coupon has been applied. Pay only ${feesToPay}",
+    "noCouponHelperTxt": "Pay only ${feesToPay}"
   },
   "SocialsAndSharing": {
     "sectionTitle": "Socials & Sharing",
@@ -488,5 +490,69 @@
     "claim": "Claim",
     "getStarted": "Get Started",
     "moreFeatures": "More Features"
+  },
+  "Mockups": {
+    "title": "Mockups",
+    "headerTitle": "Mockup Gallery",
+    "subtitle": "A <strong>free</strong> collection of <strong>2630</strong> AI generated device mockups, with new mockups generated <strong>weekly</strong>.<br/>Drop a screenshot of your website/app to see it in the mockups.<br/><br/>Made with ❤️ by the liinks.co team.",
+    "navigation": {
+      "generator": "Generator",
+      "admin": "Admin"
+    },
+    "search": {
+      "placeholder": "Search mockups by name or tags...",
+      "filterByCategory": "Filter by Category",
+      "clearAll": "Clear all",
+      "resultsFound": "mockup found",
+      "resultsFoundPlural": "mockups found",
+      "categories": "Categories",
+      "selected": "Selected"
+    },
+    "card": {
+      "viewDetails": "View Details",
+      "download": "Download",
+      "addToFavorites": "Add to Favorites"
+    },
+    "gallery": {
+      "loading": "Loading mockups...",
+      "noMoreMockups": "You've reached the end! No more mockups to load.",
+      "noMockupsFound": "No mockups found",
+      "tryAdjustingSearch": "Try adjusting your search or filters",
+      "noMockupsAvailable": "No mockups available at the moment"
+    },
+    "deviceTypes": {
+      "iphone": "iPhone",
+      "samsung": "Samsung",
+      "googlePixel": "Google Pixel",
+      "oneplus": "OnePlus",
+      "huawei": "Huawei",
+      "xiaomi": "Xiaomi",
+      "oppo": "Oppo",
+      "vivo": "Vivo",
+      "realme": "Realme",
+      "nothing": "Nothing"
+    },
+    "styles": {
+      "modern": "Modern",
+      "classic": "Classic",
+      "minimalist": "Minimalist",
+      "premium": "Premium",
+      "futuristic": "Futuristic",
+      "vintage": "Vintage",
+      "gaming": "Gaming",
+      "business": "Business",
+      "creative": "Creative",
+      "luxury": "Luxury"
+    },
+    "angles": {
+      "front": "Front",
+      "angled": "Angled",
+      "side": "Side",
+      "3d": "3D",
+      "isometric": "Isometric",
+      "perspective": "Perspective",
+      "flat": "Flat",
+      "layered": "Layered"
+    }
   }
 }
