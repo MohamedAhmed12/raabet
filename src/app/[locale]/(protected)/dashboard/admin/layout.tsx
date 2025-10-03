@@ -2,6 +2,7 @@
 
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { logError } from "@/lib/errorHandling";
 import { addDays, isBefore } from "date-fns";
 import { useMemo, useState } from "react";
 import { useShallow } from "zustand/shallow";
@@ -38,8 +39,12 @@ export default function DashboardLayout({
 
       const fourteenDaysAgo = addDays(new Date(), -14);
       return isBefore(feedbackDate, fourteenDaysAgo);
-    } catch {
-      return true; // On error, show feedback
+    } catch (err) {
+      logError(err, {
+        action: "shouldShowFeedback",
+        errorType: "UnknownError",
+      });
+      return false; // On error, show feedback
     }
   }, [isManuallyOpened, linkID, lastFeedbackTimestamp]);
 
