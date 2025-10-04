@@ -62,7 +62,7 @@ export default function Settings({
               id="size-setting"
               type="number"
               min="100"
-              max="1000"
+              max="600"
               value={qrSize}
               onChange={(e) => setQrSize(Number(e.target.value))}
             />
