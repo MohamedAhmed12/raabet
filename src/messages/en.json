@@ -388,11 +388,6 @@
     "rubberBand": "Rubber Band",
     "animation": "Animation"
   },
-  "Header": {
-    "home": "Home",
-    "dashboard": "Dashboard",
-    "logout": "Logout"
-  },
   "Footer": {
     "CentralizePresence": "Centralizing your online presence since 2025.",
     "BuiltWith": "Built with ❤️ by",
@@ -492,9 +487,8 @@
     "moreFeatures": "More Features"
   },
   "Mockups": {
-    "title": "Mockups",
-    "headerTitle": "Mockup Gallery",
-    "subtitle": "A <strong>free</strong> collection of <strong>2630</strong> AI generated device mockups, with new mockups generated <strong>weekly</strong>.<br/>Drop a screenshot of your website/app to see it in the mockups.<br/><br/>Made with ❤️ by the liinks.co team.",
+    "title": "Mockup Gallery",
+    "subtitle": "A free collection of {count} AI generated device mockups, with new mockups generated weekly.<br/>Drop a screenshot of your website/app to see it in the mockups.Made with ❤️ by {team} team.",
     "navigation": {
       "generator": "Generator",
       "admin": "Admin"
@@ -519,6 +513,12 @@
       "noMockupsFound": "No mockups found",
       "tryAdjustingSearch": "Try adjusting your search or filters",
       "noMockupsAvailable": "No mockups available at the moment"
+    },
+    "single": {
+      "backToGallery": "Back to Gallery",
+      "categories": "Categories",
+      "uploadImage": "Upload Your Design",
+      "downloadMockup": "Download Mockup"
     },
     "deviceTypes": {
       "iphone": "iPhone",
@@ -553,6 +553,110 @@
       "perspective": "Perspective",
       "flat": "Flat",
       "layered": "Layered"
+    }
+  },
+  "Header": {
+    "freeTools": "Free Tools",
+    "qrGenerator": "QR Generator",
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "logout": "Logout"
+  },
+  "QRGenerator": {
+    "title": "QR Code Generator",
+    "description": "Create beautiful QR codes for any URL instantly. Free, fast, and easy to use.",
+    "form": {
+      "title": "Generate QR Code",
+      "description": "Enter a URL to create a QR code",
+      "urlLabel": "Website URL",
+      "urlPlaceholder": "https://example.com",
+      "sizeLabel": "Size (px)",
+      "levelLabel": "Error Correction",
+      "levels": {
+        "low": "Low (7%)",
+        "medium": "Medium (15%)",
+        "quartile": "Quartile (25%)",
+        "high": "High (30%)"
+      },
+      "includeMargin": "Include margin",
+      "generateButton": "Generate QR Code"
+    },
+    "preview": {
+      "title": "QR Code Preview",
+      "description": "Your generated QR code",
+      "urlLabel": "Target URL:",
+      "placeholder": "Enter a URL above to generate your QR code"
+    },
+    "actions": {
+      "download": "Download PNG",
+      "copyUrl": "Copy URL",
+      "copyQRCode": "Copy QR Code",
+      "openUrl": "Open URL"
+    },
+    "features": {
+      "title": "Why Choose Our QR Generator?",
+      "fast": {
+        "title": "Lightning Fast",
+        "description": "Generate QR codes instantly with our optimized generator"
+      },
+      "download": {
+        "title": "High Quality",
+        "description": "Download your QR codes in high resolution PNG format"
+      },
+      "copy": {
+        "title": "Easy Sharing",
+        "description": "Copy QR codes as SVG or share URLs directly"
+      }
+    },
+    "validation": {
+      "urlRequired": "Please enter a URL",
+      "invalidUrl": "Please enter a valid URL"
+    },
+    "tabs": {
+      "generator": "Generator",
+      "customize": "Customize",
+      "settings": "Settings"
+    },
+    "customize": {
+      "title": "Customize QR Code",
+      "description": "Customize the appearance of your QR code",
+      "foregroundLabel": "Foreground Color",
+      "backgroundLabel": "Background Color",
+      "preview": "Preview",
+      "shapeLabel": "Shape",
+      "shapeSquare": "Square",
+      "shapeCircle": "Circle"
+    },
+    "settings": {
+      "title": "QR Code Settings",
+      "description": "Configure advanced QR code settings",
+      "sizeLabel": "Size (pixels)",
+      "sizeHelper": "Recommended: 256px for web, 512px for print",
+      "errorCorrectionLabel": "Error Correction Level",
+      "marginLabel": "Include quiet zone (margin)",
+      "marginHelper": "The quiet zone is the white space around the QR code. It's recommended to keep this enabled for better scanning."
+    },
+    "errorCorrection": {
+      "explanation": {
+        "title": "About Error Correction",
+        "description": "Error correction makes QR codes more reliable by adding redundant data. Higher levels can recover from damage, dirt, or poor scanning conditions, but result in larger QR codes. Choose based on your use case."
+      },
+      "low": {
+        "title": "Low (7%) - Smallest size",
+        "description": "Best for: Digital displays, clean indoor environments, business cards with high-quality printing"
+      },
+      "medium": {
+        "title": "Medium (15%) - Balanced",
+        "description": "Best for: General web links, social media profiles, most common use cases"
+      },
+      "quartile": {
+        "title": "Quartile (25%) - Good for damaged codes",
+        "description": "Best for: Product packaging, outdoor signage, materials that may get dirty or worn"
+      },
+      "high": {
+        "title": "High (30%) - Maximum error correction",
+        "description": "Best for: Industrial labels, medical equipment, critical applications, extreme conditions"
+      }
     }
   }
 }

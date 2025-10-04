@@ -20,7 +20,7 @@ export const LanguageSwitch = () => {
   const { currentLangCode, allLanguages: languages } = useLocaleMeta();
 
   return (
-    <div className="relative lg:mt-1">
+    <div className="relative outline-none">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(

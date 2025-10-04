@@ -1,9 +1,15 @@
 "use client";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { Link } from "lucide-react";
+import { ChevronDown, Link, Palette, QrCode } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import NextLink from "next/link";
@@ -39,7 +45,7 @@ export const Header = () => {
           />
           <span
             className={cn(
-              "font-bold text-deep-blue-gray capitalize",
+              "font-bold text-deep-blue-gray capitalize outline-none",
               locale === "ar" ? "text-3xl" : "text-2xl"
             )}
           >
@@ -49,11 +55,44 @@ export const Header = () => {
         <NextLink href="/pricing" className="mt-[3px] hidden lg:block ms-4">
           {t("Shared.pricing")}
         </NextLink>
-        <NextLink href="/contact" className="mt-[3px] hidden lg:block ms-4">
-          {`${t("Contact.contact")} ${t("Contact.us")}`}
-        </NextLink>
         <NextLink href="/blog" className="mt-[3px] hidden lg:block ms-4">
           {t("Blog.blog")}
+        </NextLink>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            asChild
+            className="mt-[3px] hidden lg:block ms-4 cursor-pointer outline-none"
+          >
+            <button className="mt-[3px] hidden lg:flex items-center gap-1 text-gray-700 hover:text-deep-blue-gray transition-colors">
+              {t("Header.freeTools")}
+              <ChevronDown className="w-4 h-4" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-48">
+            {/* <DropdownMenuItem asChild>
+              <NextLink
+                href="/mockups"
+                className="flex items-center gap-2 w-full cursor-pointer"
+              >
+                <Palette className="w-4 h-4" />
+                {t("Mockups.title")}
+              </NextLink>
+            </DropdownMenuItem> */}
+            <DropdownMenuItem asChild>
+              <NextLink
+                href="/qr-generator"
+                className="flex items-center gap-2 w-full cursor-pointer"
+              >
+                <QrCode className="w-4 h-4" />
+                {t("Header.qrGenerator")}
+              </NextLink>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <NextLink href="/contact" className="mt-[3px] hidden lg:block ms-4">
+          {`${t("Contact.contact")} ${t("Contact.us")}`}
         </NextLink>
       </div>
 
@@ -64,7 +103,7 @@ export const Header = () => {
         </div>
       ) : (
         <div
-          className={cn("flex gap-2.5 items-center justify-center", "lg:gap-4")}
+          className={cn("flex gap-1.5 items-center justify-center", "lg:gap-3")}
         >
           <LanguageSwitch />
           {session ? (
@@ -74,15 +113,17 @@ export const Header = () => {
               <WebHeader />
               <button
                 className={cn(
-                  "bg-deep-blue-gray text-white px-4.5 py-3 rounded-4xl font-bold leading-none",
+                  "bg-deep-blue-gray text-white px-3 py-2 rounded-4xl font-bold leading-none",
                   "lg:px-6 lg:py-4"
                 )}
               >
-                <NextLink href="/auth/sign-up">{t("Shared.signup")}</NextLink>
+                <NextLink href="/auth/sign-up" className="text-xs lg:text-base">
+                  {t("Shared.signup")}
+                </NextLink>
               </button>
-              <MobileHeader />
             </>
           )}
+          <MobileHeader />
         </div>
       )}
     </header>

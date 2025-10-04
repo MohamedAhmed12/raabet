@@ -62,8 +62,11 @@ export const RabetAvatar = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className=" h-10 w-10 rounded-full p-0">
-          <Avatar className="h-10 w-10">
+        <Button
+          variant="ghost"
+          className="h-8.5 w-8.5 lg:h-9 lg:w-9 rounded-full p-0"
+        >
+          <Avatar className="h-8.5 w-8.5 lg:h-9 lg:w-9">
             <AvatarImage src={image} alt={fullName} />
             <AvatarFallback className="bg-deep-blue-gray text-white">
               {fullName ? getInitials(fullName) : "U"}
