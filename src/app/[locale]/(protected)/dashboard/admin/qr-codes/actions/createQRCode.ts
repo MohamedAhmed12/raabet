@@ -6,7 +6,21 @@ import { QRType } from "@prisma/client";
 import { logError } from "@/lib/errorHandling";
 import { getTranslations } from "next-intl/server";
 
-export async function createQRCode(url: string, linkId: string) {
+interface QRCodeCustomization {
+  qrSize?: number;
+  qrLevel?: "L" | "M" | "Q" | "H";
+  includeMargin?: boolean;
+  foregroundColor?: string;
+  backgroundColor?: string;
+  qrShape?: "square" | "circle";
+  logoUrl?: string;
+}
+
+export async function createQRCode(
+  url: string, 
+  linkId: string, 
+  customization?: QRCodeCustomization
+) {
   const t = await getTranslations("QR");
 
   try {
@@ -31,6 +45,14 @@ export async function createQRCode(url: string, linkId: string) {
         display_url: createTrackedQRcodeURL(url),
         linkId,
         type: QRType.url,
+        // Add customization options with defaults
+        qrSize: customization?.qrSize ?? 200,
+        qrLevel: customization?.qrLevel ?? "M",
+        includeMargin: customization?.includeMargin ?? true,
+        foregroundColor: customization?.foregroundColor ?? "#000000",
+        backgroundColor: customization?.backgroundColor ?? "#ffffff",
+        qrShape: customization?.qrShape ?? "square",
+        logoUrl: customization?.logoUrl ?? null,
       },
     });
 
