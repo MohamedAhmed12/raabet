@@ -579,6 +579,11 @@
         "high": "High (30%)"
       },
       "includeMargin": "Include margin",
+      "logoLabel": "Logo (Optional)",
+      "uploadLogo": "Upload Logo",
+      "changeLogo": "Change Logo",
+      "removeLogo": "Remove",
+      "logoPreview": "Logo preview",
       "generateButton": "Generate QR Code"
     },
     "preview": {
@@ -592,6 +597,15 @@
       "copyUrl": "Copy URL",
       "copyQRCode": "Copy QR Code",
       "openUrl": "Open URL"
+    },
+    "toast": {
+      "downloadSuccess": "QR Code downloaded successfully!",
+      "downloadError": "Failed to download QR Code",
+      "copySuccess": "URL copied to clipboard!",
+      "invalidFileType": "Please select an image file",
+      "fileTooLarge": "Image size should be less than 5MB",
+      "logoUploadSuccess": "Logo uploaded successfully!",
+      "logoRemoved": "Logo removed successfully!"
     },
     "features": {
       "title": "Why Choose Our QR Generator?",

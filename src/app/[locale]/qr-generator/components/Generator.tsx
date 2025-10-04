@@ -54,7 +54,9 @@ export default function Generator({
   const qrCodeInstanceRef = useRef<QRCodeStyling | null>(null);
 
   const [url, setUrl] = useState("");
+  const [logoUrl, setLogoUrl] = useState("");
   const [generatedUrl, setGeneratedUrl] = useState("https://example.com");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Get the current URL to display (user input or default)
   const getCurrentUrl = () => {
@@ -89,34 +91,68 @@ export default function Generator({
   // Regenerate QR code when settings change
   useEffect(() => {
     if (qrCodeRef.current) {
-      // Extension to add border for circular QR codes
+      // Extension to add border for circular QR codes and logo overlay
       const extension = (svg: SVGElement, options: Options) => {
-        if (qrShape !== "circle") return;
-
         const { width = qrSize, height = qrSize } = options;
         const size = Math.min(width, height);
-        const borderWidth = size === 200 ? 2 : 4; // Thinner border for preview
 
-        const borderAttributes = {
-          fill: "none",
-          x: (width - size + borderWidth) / 2,
-          y: (height - size + borderWidth) / 2,
-          width: size - borderWidth,
-          height: size - borderWidth,
-          stroke: foregroundColor,
-          "stroke-width": borderWidth,
-          rx: size / 2, // Makes it circular
-        };
+        // Add border for circular QR codes
+        if (qrShape === "circle") {
+          const borderWidth = size === 200 ? 2 : 4; // Thinner border for preview
 
-        const border = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "rect"
-        );
-        Object.entries(borderAttributes).forEach(([key, value]) => {
-          border.setAttribute(key, value.toString());
-        });
+          const borderAttributes = {
+            fill: "none",
+            x: (width - size + borderWidth) / 2,
+            y: (height - size + borderWidth) / 2,
+            width: size - borderWidth,
+            height: size - borderWidth,
+            stroke: foregroundColor,
+            "stroke-width": borderWidth,
+            rx: size / 2, // Makes it circular
+          };
 
-        svg.appendChild(border);
+          const border = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "rect"
+          );
+          Object.entries(borderAttributes).forEach(([key, value]) => {
+            border.setAttribute(key, value.toString());
+          });
+
+          svg.appendChild(border);
+        }
+
+        if (logoUrl) {
+          // NOTE: Logo should be 20% of QR size, max 60px
+          const logoSize = Math.min(size * 0.2, 60);
+          const logoX = (width - logoSize) / 2;
+          const logoY = (height - logoSize) / 2;
+
+          // Create a white background circle for the logo
+          const logoBackground = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "circle"
+          );
+          logoBackground.setAttribute("cx", (width / 2).toString());
+          logoBackground.setAttribute("cy", (height / 2).toString());
+          logoBackground.setAttribute("r", (logoSize / 2 + 4).toString());
+          logoBackground.setAttribute("fill", "white");
+
+          // Create the logo image
+          const logoImage = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "image"
+          );
+          logoImage.setAttribute("href", logoUrl);
+          logoImage.setAttribute("x", logoX.toString());
+          logoImage.setAttribute("y", logoY.toString());
+          logoImage.setAttribute("width", logoSize.toString());
+          logoImage.setAttribute("height", logoSize.toString());
+          logoImage.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+          svg.appendChild(logoBackground);
+          svg.appendChild(logoImage);
+        }
       };
 
       const options: Partial<Options> = {
@@ -149,10 +185,7 @@ export default function Generator({
 
       const qrCodeInstance = new QRCodeStyling(options);
 
-      // Apply border extension for circular QR codes
-      if (qrShape === "circle") {
-        qrCodeInstance.applyExtension(extension);
-      }
+      qrCodeInstance.applyExtension(extension);
 
       qrCodeRef.current.innerHTML = "";
       qrCodeInstance.append(qrCodeRef.current);
@@ -167,6 +200,7 @@ export default function Generator({
     foregroundColor,
     backgroundColor,
     qrShape,
+    logoUrl,
     getCurrentUrl,
   ]);
 
@@ -177,15 +211,48 @@ export default function Generator({
         name: `qr-code-${Date.now()}`,
         extension: "png",
       });
-      toast.success("QR Code downloaded!");
+      toast.success(t("toast.downloadSuccess"));
     } catch (error) {
-      toast.error("Failed to download QR Code");
+      toast.error(t("toast.downloadError"));
     }
   };
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(getCurrentUrl());
-    toast.success("URL copied to clipboard!");
+    toast.success(t("toast.copySuccess"));
+  };
+
+  const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith("image/")) {
+        toast.error(t("toast.invalidFileType"));
+        return;
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error(t("toast.fileTooLarge"));
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setLogoUrl(result);
+        toast.success(t("toast.logoUploadSuccess"));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeLogo = () => {
+    setLogoUrl("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    toast.success(t("toast.logoRemoved"));
   };
 
   return (
@@ -284,6 +351,52 @@ export default function Generator({
                   ))}
                 </TabsList>
               </Tabs>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="mb-3">{t("form.logoLabel")}</Label>
+            <div className="space-y-3">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleLogoUpload}
+                className="hidden"
+                id="logo-upload"
+              />
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="flex-1"
+                >
+                  {logoUrl ? t("form.changeLogo") : t("form.uploadLogo")}
+                </Button>
+                {logoUrl && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={removeLogo}
+                    className="px-3"
+                  >
+                    {t("form.removeLogo")}
+                  </Button>
+                )}
+              </div>
+              {logoUrl && (
+                <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
+                  <img
+                    src={logoUrl}
+                    alt="Logo preview"
+                    className="w-8 h-8 object-cover rounded"
+                  />
+                  <span className="text-sm text-gray-600">
+                    {t("form.logoPreview")}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 

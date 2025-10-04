@@ -579,6 +579,11 @@
         "high": "عالي (30%)"
       },
       "includeMargin": "تضمين الهوامش",
+      "logoLabel": "الشعار (اختياري)",
+      "uploadLogo": "رفع الشعار",
+      "changeLogo": "تغيير الشعار",
+      "removeLogo": "إزالة",
+      "logoPreview": "معاينة الشعار",
       "generateButton": "إنشاء رمز QR"
     },
     "preview": {
@@ -592,6 +597,15 @@
       "copyUrl": "نسخ الرابط",
       "copyQRCode": "نسخ رمز QR",
       "openUrl": "فتح الرابط"
+    },
+    "toast": {
+      "downloadSuccess": "تم تحميل رمز QR بنجاح!",
+      "downloadError": "فشل في تحميل رمز QR",
+      "copySuccess": "تم نسخ الرابط إلى الحافظة!",
+      "invalidFileType": "يرجى اختيار ملف صورة",
+      "fileTooLarge": "يجب أن يكون حجم الصورة أقل من 5 ميجابايت",
+      "logoUploadSuccess": "تم رفع الشعار بنجاح!",
+      "logoRemoved": "تم إزالة الشعار بنجاح!"
     },
     "features": {
       "title": "لماذا تختار مولد QR الخاص بنا؟",
