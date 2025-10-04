@@ -63,26 +63,54 @@ export const NewQRCodeDialog = () => {
 
   const { mutateAsync, isPending, reset } = useCreateQRCode();
 
-  // Generate QR code with customizations
-  useEffect(() => {
-    // Extension to add border for circular QR codes and logo overlay
-    const extension = (svg: SVGElement, options: Options) => {
-      const { width = qrSize, height = qrSize } = options;
-      const size = Math.min(width, height);
+  // Create QR code options
+  const createQROptions = (size: number): Partial<Options> => ({
+    width: size,
+    height: size,
+    type: "svg",
+    data: showProfileQR ? profileurl : url,
+    shape: qrShape === "circle" ? "circle" : "square",
+    qrOptions: {
+      errorCorrectionLevel: qrLevel,
+      typeNumber: 0,
+    },
+    dotsOptions: {
+      type: qrShape === "circle" ? "dots" : "square",
+      color: foregroundColor,
+      roundSize: qrShape === "circle",
+    },
+    cornersSquareOptions: {
+      type: "square",
+      color: foregroundColor,
+    },
+    cornersDotOptions: {
+      type: "square",
+      color: foregroundColor,
+    },
+    backgroundOptions: {
+      color: backgroundColor,
+      round: qrShape === "circle" ? 10 : 0,
+    },
+  });
+
+  // Create extension for logo and border
+  const createQRExtension =
+    (size: number) => (svg: SVGElement, options: Options) => {
+      const { width = size, height = size } = options;
+      const qrSize = Math.min(width, height);
 
       // Add border for circular QR codes
       if (qrShape === "circle") {
-        const borderWidth = size === 200 ? 3 : 4;
-
+        const borderWidth = qrSize === 200 ? 3 : 4;
         const borderAttributes = {
           fill: "none",
-          x: (width - size + borderWidth) / 2,
-          y: (height - size + borderWidth) / 2,
-          width: size - borderWidth,
-          height: size - borderWidth,
+          x: (width - qrSize + borderWidth) / 2,
+          y: (height - qrSize + borderWidth) / 2,
+          width: qrSize - borderWidth,
+          height: qrSize - borderWidth,
           stroke: foregroundColor,
           "stroke-width": borderWidth,
-          rx: size / 2,
+          rx: qrSize / 2,
           display: url.trim().length == 0 ? "none" : "block",
         };
 
@@ -93,17 +121,15 @@ export const NewQRCodeDialog = () => {
         Object.entries(borderAttributes).forEach(([key, value]) => {
           border.setAttribute(key, value.toString());
         });
-
         svg.appendChild(border);
       }
 
       // Add logo overlay if logoUrl exists
       if (logoUrl) {
-        const logoSize = Math.min(size * 0.2, 60); // Logo should be 20% of QR size, max 60px
+        const logoSize = Math.min(qrSize * 0.2, 60);
         const logoX = (width - logoSize) / 2;
         const logoY = (height - logoSize) / 2;
 
-        // Create a white background circle for the logo
         const logoBackground = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "circle"
@@ -113,7 +139,6 @@ export const NewQRCodeDialog = () => {
         logoBackground.setAttribute("r", (logoSize / 2 + 4).toString());
         logoBackground.setAttribute("fill", "white");
 
-        // Create the logo image
         const logoImage = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "image"
@@ -122,45 +147,20 @@ export const NewQRCodeDialog = () => {
         logoImage.setAttribute("x", logoX.toString());
         logoImage.setAttribute("y", logoY.toString());
         logoImage.setAttribute("width", logoSize.toString());
+        logoImage.setAttribute("height", logoSize.toString());
+        logoImage.setAttribute("preserveAspectRatio", "xMidYMid meet");
 
         svg.appendChild(logoBackground);
         svg.appendChild(logoImage);
       }
     };
 
-    const options: Partial<Options> = {
-      width: qrSize,
-      height: qrSize,
-      type: "svg",
-      data: showProfileQR ? profileurl : url,
-      shape: qrShape === "circle" ? "circle" : "square",
-      qrOptions: {
-        errorCorrectionLevel: qrLevel,
-        typeNumber: 0,
-      },
-      dotsOptions: {
-        type: qrShape === "circle" ? "dots" : "square",
-        color: foregroundColor,
-        roundSize: qrShape === "circle",
-      },
-      cornersSquareOptions: {
-        type: "square",
-        color: foregroundColor,
-      },
-      cornersDotOptions: {
-        type: "square",
-        color: foregroundColor,
-      },
-      backgroundOptions: {
-        color: backgroundColor,
-        round: qrShape === "circle" ? 10 : 0,
-      },
-    };
-
+  // Generate QR code with customizations
+  useEffect(() => {
+    const displaySize = qrSize > 320 ? 320 : qrSize;
+    const options = createQROptions(displaySize);
     const qrCodeInstance = new QRCodeStyling(options);
-
-    // Always apply extension for both circle border and logo
-    qrCodeInstance.applyExtension(extension);
+    qrCodeInstance.applyExtension(createQRExtension(displaySize));
 
     if (qrCodeRef.current) {
       qrCodeRef.current.innerHTML = "";
@@ -185,7 +185,18 @@ export const NewQRCodeDialog = () => {
       // Reset cancellation flag
       isCancelledRef.current = false;
 
-      await mutateAsync({ url });
+      await mutateAsync({
+        url,
+        customization: {
+          qrSize,
+          qrLevel,
+          includeMargin,
+          foregroundColor,
+          backgroundColor,
+          qrShape,
+          logoUrl,
+        },
+      });
 
       // Check if cancelled after the request
       if (isCancelledRef.current) {
@@ -206,6 +217,24 @@ export const NewQRCodeDialog = () => {
     }
   };
 
+  const handleDownload = () => {
+    if (!qrCodeInstanceRef.current) return;
+    try {
+      // Create a new instance for download using full size
+      const downloadOptions = createQROptions(qrSize);
+      const downloadInstance = new QRCodeStyling(downloadOptions);
+      downloadInstance.applyExtension(createQRExtension(qrSize));
+
+      downloadInstance.download({
+        name: `qr-code-${Date.now()}`,
+        extension: "png",
+      });
+      toast.success(t("downloadSuccess"));
+    } catch (error) {
+      toast.error(t("downloadError"));
+    }
+  };
+
   const handleProfileQRSelected = () => {
     setShowProfileQR(true);
     setUrl(profileurl);
@@ -220,8 +249,8 @@ export const NewQRCodeDialog = () => {
         return;
       }
 
-      // Validate file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
+      // Validate file size (max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
         toast.error(t("fileTooLarge"));
         return;
       }
@@ -229,8 +258,27 @@ export const NewQRCodeDialog = () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const result = e.target?.result as string;
-        setLogoUrl(result);
-        toast.success(t("logoUploadSuccess"));
+
+        // Compress the image to reduce size
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+
+          // Resize to max 200x200 for QR code logos
+          const maxSize = 200;
+          const ratio = Math.min(maxSize / img.width, maxSize / img.height);
+          canvas.width = img.width * ratio;
+          canvas.height = img.height * ratio;
+
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.8); // 80% quality
+            setLogoUrl(compressedDataUrl);
+            toast.success(t("logoUploadSuccess"));
+          }
+        };
+        img.src = result;
       };
       reader.readAsDataURL(file);
     }
@@ -279,7 +327,13 @@ export const NewQRCodeDialog = () => {
                     min="100"
                     max="1000"
                     value={qrSize}
-                    onChange={(e) => setQrSize(Number(e.target.value))}
+                    onChange={(e) =>
+                      setQrSize(
+                        Number(e.target.value) > 600
+                          ? 600
+                          : Number(e.target.value)
+                      )
+                    }
                   />
                 </div>
                 <div className="space-y-2">
@@ -445,9 +499,8 @@ export const NewQRCodeDialog = () => {
                   <div
                     ref={qrCodeRef}
                     style={{
-                      width: qrSize,
-                      height: qrSize,
-                      display: url.trim().length == 0 ? "none" : "block",
+                      width: qrSize > 320 ? 320 : qrSize,
+                      height: qrSize > 320 ? 320 : qrSize,
                     }}
                   />
 
@@ -553,7 +606,7 @@ export const NewQRCodeDialog = () => {
       </DialogTrigger>
       <DialogContent
         className={cn(
-          "flex justify-center items-center flex-col gap-2 !max-w-3xl",
+          "flex justify-center items-center flex-col gap-2 !max-w-3xl overflow-y-auto",
           fontClass
         )}
       >

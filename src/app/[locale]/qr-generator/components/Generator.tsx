@@ -88,104 +88,92 @@ export default function Generator({
     setGeneratedUrl(validUrl);
   };
 
+  // Create QR code options
+  const createQROptions = (size: number): Partial<Options> => ({
+    width: size,
+    height: size,
+    type: "svg",
+    data: getCurrentUrl(),
+    shape: qrShape === "circle" ? "circle" : "square",
+    qrOptions: {
+      errorCorrectionLevel: qrLevel,
+      typeNumber: 0,
+    },
+    dotsOptions: {
+      type: qrShape === "circle" ? "dots" : "square",
+      color: foregroundColor,
+      roundSize: qrShape === "circle",
+    },
+    cornersSquareOptions: {
+      type: "square",
+      color: foregroundColor,
+    },
+    cornersDotOptions: {
+      type: "square",
+      color: foregroundColor,
+    },
+    backgroundOptions: {
+      color: backgroundColor,
+    },
+  });
+
+  // Create extension for logo and border
+  const createQRExtension = (size: number) => (svg: SVGElement, options: Options) => {
+    const { width = size, height = size } = options;
+    const qrSize = Math.min(width, height);
+
+    // Add border for circular QR codes
+    if (qrShape === "circle") {
+      const borderWidth = qrSize === 200 ? 3 : 4;
+      const borderAttributes = {
+        fill: "none",
+        x: (width - qrSize + borderWidth) / 2,
+        y: (height - qrSize + borderWidth) / 2,
+        width: qrSize - borderWidth,
+        height: qrSize - borderWidth,
+        stroke: foregroundColor,
+        "stroke-width": borderWidth,
+        rx: qrSize / 2,
+      };
+
+      const border = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      Object.entries(borderAttributes).forEach(([key, value]) => {
+        border.setAttribute(key, value.toString());
+      });
+      svg.appendChild(border);
+    }
+
+    if (logoUrl) {
+      const logoSize = Math.min(qrSize * 0.2, 60);
+      const logoX = (width - logoSize) / 2;
+      const logoY = (height - logoSize) / 2;
+
+      const logoBackground = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      logoBackground.setAttribute("cx", (width / 2).toString());
+      logoBackground.setAttribute("cy", (height / 2).toString());
+      logoBackground.setAttribute("r", (logoSize / 2 + 4).toString());
+      logoBackground.setAttribute("fill", "white");
+
+      const logoImage = document.createElementNS("http://www.w3.org/2000/svg", "image");
+      logoImage.setAttribute("href", logoUrl);
+      logoImage.setAttribute("x", logoX.toString());
+      logoImage.setAttribute("y", logoY.toString());
+      logoImage.setAttribute("width", logoSize.toString());
+      logoImage.setAttribute("height", logoSize.toString());
+      logoImage.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+      svg.appendChild(logoBackground);
+      svg.appendChild(logoImage);
+    }
+  };
+
   // Regenerate QR code when settings change
   useEffect(() => {
     if (qrCodeRef.current) {
-      // Extension to add border for circular QR codes and logo overlay
-      const extension = (svg: SVGElement, options: Options) => {
-        const { width = qrSize, height = qrSize } = options;
-        const size = Math.min(width, height);
-
-        // Add border for circular QR codes
-        if (qrShape === "circle") {
-          const borderWidth = size === 200 ? 3 : 4;
-
-          const borderAttributes = {
-            fill: "none",
-            x: (width - size + borderWidth) / 2,
-            y: (height - size + borderWidth) / 2,
-            width: size - borderWidth,
-            height: size - borderWidth,
-            stroke: foregroundColor,
-            "stroke-width": borderWidth,
-            rx: size / 2, // Makes it circular
-          };
-
-          const border = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "rect"
-          );
-          Object.entries(borderAttributes).forEach(([key, value]) => {
-            border.setAttribute(key, value.toString());
-          });
-
-          svg.appendChild(border);
-        }
-
-        if (logoUrl) {
-          // NOTE: Logo should be 20% of QR size, max 60px
-          const logoSize = Math.min(size * 0.2, 60);
-          const logoX = (width - logoSize) / 2;
-          const logoY = (height - logoSize) / 2;
-
-          // Create a white background circle for the logo
-          const logoBackground = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "circle"
-          );
-          logoBackground.setAttribute("cx", (width / 2).toString());
-          logoBackground.setAttribute("cy", (height / 2).toString());
-          logoBackground.setAttribute("r", (logoSize / 2 + 4).toString());
-          logoBackground.setAttribute("fill", "white");
-
-          // Create the logo image
-          const logoImage = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "image"
-          );
-          logoImage.setAttribute("href", logoUrl);
-          logoImage.setAttribute("x", logoX.toString());
-          logoImage.setAttribute("y", logoY.toString());
-          logoImage.setAttribute("width", logoSize.toString());
-          logoImage.setAttribute("height", logoSize.toString());
-          logoImage.setAttribute("preserveAspectRatio", "xMidYMid meet");
-
-          svg.appendChild(logoBackground);
-          svg.appendChild(logoImage);
-        }
-      };
-
-      const options: Partial<Options> = {
-        width: qrSize,
-        height: qrSize,
-        type: "svg",
-        data: getCurrentUrl(),
-        shape: qrShape === "circle" ? "circle" : "square",
-        qrOptions: {
-          errorCorrectionLevel: qrLevel,
-          typeNumber: 0,
-        },
-        dotsOptions: {
-          type: qrShape === "circle" ? "dots" : "square",
-          color: foregroundColor,
-          roundSize: qrShape === "circle",
-        },
-        cornersSquareOptions: {
-          type: "square",
-          color: foregroundColor,
-        },
-        cornersDotOptions: {
-          type: "square",
-          color: foregroundColor,
-        },
-        backgroundOptions: {
-          color: backgroundColor,
-        },
-      };
-
+      const displaySize = qrSize > 450 ? 450 : qrSize;
+      const options = createQROptions(displaySize);
       const qrCodeInstance = new QRCodeStyling(options);
-
-      qrCodeInstance.applyExtension(extension);
+      qrCodeInstance.applyExtension(createQRExtension(displaySize));
 
       qrCodeRef.current.innerHTML = "";
       qrCodeInstance.append(qrCodeRef.current);
@@ -207,7 +195,12 @@ export default function Generator({
   const handleDownload = () => {
     if (!qrCodeInstanceRef.current) return;
     try {
-      qrCodeInstanceRef.current.download({
+      // Create a new instance for download using full size
+      const downloadOptions = createQROptions(qrSize);
+      const downloadInstance = new QRCodeStyling(downloadOptions);
+      downloadInstance.applyExtension(createQRExtension(qrSize));
+
+      downloadInstance.download({
         name: `qr-code-${Date.now()}`,
         extension: "png",
       });
@@ -289,7 +282,11 @@ export default function Generator({
                 min="100"
                 max="600"
                 value={qrSize}
-                onChange={(e) => setQrSize(Number(e.target.value))}
+                onChange={(e) =>
+                  setQrSize(
+                    Number(e.target.value) > 600 ? 600 : Number(e.target.value)
+                  )
+                }
               />
             </div>
             <div className="space-y-2 w-full">
@@ -424,8 +421,8 @@ export default function Generator({
                 <div
                   ref={qrCodeRef}
                   style={{
-                    width: qrSize,
-                    height: qrSize,
+                    width: qrSize > 450 ? 450 : qrSize,
+                    height: qrSize > 450 ? 450 : qrSize,
                   }}
                 />
               </div>

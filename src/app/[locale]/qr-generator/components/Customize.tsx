@@ -203,6 +203,8 @@ export default function Customize({
               style={{
                 width: 200,
                 height: 200,
+                maxHeight: 200,
+                maxWidth: 200,
               }}
             />
           </div>

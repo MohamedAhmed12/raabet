@@ -64,7 +64,11 @@ export default function Settings({
               min="100"
               max="600"
               value={qrSize}
-              onChange={(e) => setQrSize(Number(e.target.value))}
+              onChange={(e) =>
+                setQrSize(
+                  Number(e.target.value) > 600 ? 600 : Number(e.target.value)
+                )
+              }
             />
             <p className="text-sm text-gray-500">{t("settings.sizeHelper")}</p>
           </div>
