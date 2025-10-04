@@ -282,18 +282,50 @@
     }
   },
   "QR": {
-    "title": "الرموز المرجعية",
-    "subTitle": "قم بإنشاء رموز مرجعية ديناميكية غير محدودة وتابع استخدامها.",
-    "newQR": "إنشاء رمز مرجعي جديد",
-    "profileQRTitle": "رمز مرجعي لملفك الشخصي",
+    "title": "رموز الQR",
+    "subTitle": "أنشئ رموز QR ديناميكية وتتبع عدد الـ scans والزيارات",
+    "newQR": "إنشاء رمز QR جديد",
+    "profileQRTitle": "رمز QR لملفك الشخصي",
     "delete": "حذف",
     "download": "تحميل",
-    "successDelete": "تم حذف الرمز المرجعي بنجاح",
-    "errorDelete": "فشل في حذف الرمز المرجعي",
+    "successDelete": "تم حذف الرمز الQR بنجاح",
+    "errorDelete": "فشل في حذف الرمز الQR",
     "urlLabel": "رابط الموقع",
-    "createQRCode": "إنشاء رمز مرجعي جديد",
+    "createQRCode": "إنشاء رمز QR جديد",
     "profile": "ملف",
-    "url": "رابط"
+    "url": "رابط",
+    "sizeLabel": "الحجم (بكسل)",
+    "levelLabel": "مستوى تصحيح الخطأ",
+    "levels": {
+      "low": "منخفض (7%)",
+      "medium": "متوسط (15%)",
+      "quartile": "ربعي (25%)",
+      "high": "عالي (30%)"
+    },
+    "foregroundLabel": "لون المقدمة",
+    "backgroundLabel": "لون الخلفية",
+    "shapeLabel": "الشكل",
+    "shapeSquare": "مربع",
+    "shapeCircle": "دائرة",
+    "includeMargin": "تضمين الهوامش",
+    "previewDescription": "معاينة كيف سيبدو رمز الQR بالإعدادات الحالية",
+    "yourQRCode": "الرمز QR الخاص بك",
+    "preview": {
+      "placeholder": "أدخل رابط لإنشاء رمز QR"
+    },
+    "logoLabel": "الشعار (اختياري)",
+    "uploadLogo": "رفع شعار",
+    "changeLogo": "تغيير الشعار",
+    "removeLogo": "إزالة",
+    "logoPreview": "معاينة الشعار",
+    "invalidFileType": "يرجى اختيار ملف صورة",
+    "fileTooLarge": "يجب أن يكون حجم الصورة أقل من 5 ميجابايت",
+    "logoUploadSuccess": "تم رفع الشعار بنجاح!",
+    "logoRemoved": "تم إزالة الشعار بنجاح!",
+    "createSuccess": "تم إنشاء رمز QR بنجاح!",
+    "createError": "فشل في إنشاء رمز QR",
+    "duplicateError": "يوجد رمز QR لهذا الرابط بالفعل",
+    "cancel": "إلغاء"
   },
   "Subscription": {
     "paymentStatus": {

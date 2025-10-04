@@ -48,7 +48,7 @@ export default function Customize({
 
         const { width = 200, height = 200 } = options;
         const size = Math.min(width, height);
-        const borderWidth = 3; // Thinner border for preview
+        const borderWidth = size === 200 ? 3 : 4;
 
         const borderAttributes = {
           fill: "none",
@@ -97,6 +97,7 @@ export default function Customize({
         },
         backgroundOptions: {
           color: backgroundColor,
+          round: qrShape === "circle" ? 10 : 0,
         },
       };
 
@@ -123,40 +124,48 @@ export default function Customize({
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <Label htmlFor="foreground" className="mb-3">{t("customize.foregroundLabel")}</Label>
-            <div className="flex items-center space-x-2">
+            <Label htmlFor="foreground" className="mb-3">
+              {t("customize.foregroundLabel")}
+            </Label>
+            <div className="flex items-center space-x-2 w-1/2">
               <Input
                 id="foreground"
                 type="color"
                 value={foregroundColor}
                 onChange={(e) => setForegroundColor(e.target.value)}
-                className="w-16 h-10 p-1 border rounded"
+                className="h-9 p-1 border rounded w-full"
+                containerClassName="w-1/4"
               />
               <Input
                 type="text"
                 value={foregroundColor}
                 onChange={(e) => setForegroundColor(e.target.value)}
-                className="flex-1"
+                className="h-9 flex-1"
                 placeholder="#000000"
+                dir="ltr"
               />
             </div>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="background" className="mb-3">{t("customize.backgroundLabel")}</Label>
-            <div className="flex items-center space-x-2">
+            <Label htmlFor="background" className="mb-3">
+              {t("customize.backgroundLabel")}
+            </Label>
+            <div className="flex items-center space-x-2 w-1/2">
               <Input
                 id="background"
                 type="color"
                 value={backgroundColor}
                 onChange={(e) => setBackgroundColor(e.target.value)}
-                className="w-16 h-10 p-1 border rounded"
+                className="h-9 p-1 border rounded w-full"
+                containerClassName="w-1/4"
               />
               <Input
                 type="text"
                 value={backgroundColor}
                 onChange={(e) => setBackgroundColor(e.target.value)}
-                className="flex-1"
+                className="h-9 flex-1"
                 placeholder="#ffffff"
+                dir="ltr"
               />
             </div>
           </div>

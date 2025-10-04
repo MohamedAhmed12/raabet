@@ -293,7 +293,39 @@
     "urlLabel": "Website URL",
     "createQRCode": "Create QR Code",
     "profile": "Profile",
-    "url": "URL"
+    "url": "URL",
+    "sizeLabel": "Size (pixels)",
+    "levelLabel": "Error Correction Level",
+    "levels": {
+      "low": "Low (7%)",
+      "medium": "Medium (15%)",
+      "quartile": "Quartile (25%)",
+      "high": "High (30%)"
+    },
+    "foregroundLabel": "Foreground Color",
+    "backgroundLabel": "Background Color",
+    "shapeLabel": "QR Code Shape",
+    "shapeSquare": "Square",
+    "shapeCircle": "Circle",
+    "includeMargin": "Include Margin",
+    "previewDescription": "Preview how your QR code will look with current settings",
+    "yourQRCode": "Your QR Code",
+    "preview": {
+      "placeholder": "Enter a URL to generate QR code"
+    },
+    "logoLabel": "Logo (Optional)",
+    "uploadLogo": "Upload Logo",
+    "changeLogo": "Change Logo",
+    "removeLogo": "Remove",
+    "logoPreview": "Logo preview",
+    "invalidFileType": "Please select an image file",
+    "fileTooLarge": "Image size should be less than 5MB",
+    "logoUploadSuccess": "Logo uploaded successfully!",
+    "logoRemoved": "Logo removed successfully!",
+    "createSuccess": "QR code created successfully!",
+    "createError": "Failed to create QR code",
+    "duplicateError": "This QR code already exists",
+    "cancel": "Cancel"
   },
   "Subscription": {
     "paymentStatus": {

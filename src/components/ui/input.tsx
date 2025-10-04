@@ -6,10 +6,11 @@ function Input({
   className,
   icon,
   type,
+  containerClassName,
   ...props
-}: React.ComponentProps<"input"> & { icon?: React.ReactNode }) {
+}: React.ComponentProps<"input"> & { icon?: React.ReactNode, containerClassName?: string }) {
   return (
-    <div className="relative w-full">
+    <div className={cn("relative w-full", containerClassName)}  >
       <input
         type={type}
         className={cn(

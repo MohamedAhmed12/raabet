@@ -98,7 +98,7 @@ export default function Generator({
 
         // Add border for circular QR codes
         if (qrShape === "circle") {
-          const borderWidth = size === 200 ? 2 : 4; // Thinner border for preview
+          const borderWidth = size === 200 ? 3 : 4;
 
           const borderAttributes = {
             fill: "none",
