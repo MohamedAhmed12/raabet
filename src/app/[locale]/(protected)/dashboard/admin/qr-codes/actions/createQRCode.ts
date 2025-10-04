@@ -4,8 +4,11 @@ import { createTrackedQRcodeURL } from "@/lib/createTrackedQRcodeURL";
 import prisma from "@/lib/prisma";
 import { QRType } from "@prisma/client";
 import { logError } from "@/lib/errorHandling";
+import { getTranslations } from "next-intl/server";
 
 export async function createQRCode(url: string, linkId: string) {
+  const t = await getTranslations("QR");
+
   try {
     // Check if QR code with this URL already exists
     const existingQRCode = await prisma.qRCode.findFirst({
@@ -13,13 +16,13 @@ export async function createQRCode(url: string, linkId: string) {
     });
 
     if (existingQRCode) {
-      const err = `QR code with this URL already exists`;
+      const err = t("duplicateError");
       logError(err, {
         action: "createQRCode",
         errorType: "DuplicationError",
         existingQRCode,
       });
-      throw new Error(err);
+      throw new Error(err, { cause: "DuplicationError" });
     }
 
     const qrCode = await prisma.qRCode.create({
@@ -32,12 +35,18 @@ export async function createQRCode(url: string, linkId: string) {
     });
 
     return qrCode;
-  } catch (error) {
-    const err = `Failed to create QR code:${error}`;
+  } catch (error: unknown) {
+    // If it's a duplicate error we threw, just re-throw it
+    if (error instanceof Error && error.cause === "DuplicationError") {
+      throw error;
+    }
+
+    // For other errors, show the general error message
+    const err = t("createError") + (error instanceof Error ? error.message : String(error));
     logError(err, {
       action: "createQRCode",
       errorType: "ValidationError",
     });
-    throw error;
+    throw new Error(err);
   }
 }
