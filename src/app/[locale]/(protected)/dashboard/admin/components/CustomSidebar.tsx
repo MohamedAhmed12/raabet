@@ -74,7 +74,7 @@ export default function CustomSidebar({
       className={cn("font-medium", fontClass)}
       side={locale === "ar" ? "right" : "left"}
     >
-      <SidebarContent className="p-[11px] pt-[55px]">
+      <SidebarContent className="p-[11px] pt-[30px]">
         <SidebarMenu className="capitalize text-sm font-bold">
           {/* tabs  */}
           {sidebarTabs.map((tab, index) => (
@@ -149,7 +149,6 @@ export default function CustomSidebar({
       </SidebarContent>
       {subscriptionStatus !== SubscriptionStatus.active && (
         <SidebarFooter className={cn("p-[11px]", fontClass)}>
-          {subscriptionStatus}
           <Link
             href="/dashboard/admin/subscription"
             className="flex cursor-pointer flex-col h-auto w- p-[11px] items-center text-center text-white bg-[linear-gradient(45deg,_#dd76ff,_#097cd4)] rounded-md"
