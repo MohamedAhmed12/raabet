@@ -13,7 +13,7 @@ export default function QRCodes() {
 
   return (
     <div className="flex flex-col gap-6 justify-between items-center w-full max-w-[1200px]">
-      <MainTitle title={t("title")} subTitle={t("subTitle")}></MainTitle>
+      <MainTitle title={t("title")} subTitle={t("subTitle")} className="!pb-1"></MainTitle>
       <NewQRCodeDialog />
 
       {error && (
