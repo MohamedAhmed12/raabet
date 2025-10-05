@@ -34,7 +34,7 @@ export default function Settings({
   includeMargin,
   setIncludeMargin,
 }: SettingsProps) {
-  const t = useTranslations("QRGenerator");
+  const t = useTranslations("QR");
 
   return (
     <Card>

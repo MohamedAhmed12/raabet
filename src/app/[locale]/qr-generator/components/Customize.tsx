@@ -36,7 +36,7 @@ export default function Customize({
   qrLevel,
   includeMargin,
 }: CustomizeProps) {
-  const t = useTranslations("QRGenerator");
+  const t = useTranslations("QR");
   const previewQrCodeRef = useRef<HTMLDivElement>(null);
 
   // Regenerate preview QR code when settings change

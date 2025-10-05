@@ -18,8 +18,12 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Copy, Download, ExternalLink, QrCode } from "lucide-react";
 import { useTranslations } from "next-intl";
-import QRCodeStyling from "qr-code-styling";
-import { createQRCodeInstance, QRCodeConfig, handleLogoUpload as uploadLogo, removeLogo as removeLogoUtil } from "@/lib/qrCodeUtils";
+import {
+  createQRCodeInstance,
+  QRCodeConfig,
+  handleLogoUpload as uploadLogo,
+  removeLogo as removeLogoUtil,
+} from "@/lib/qrCodeUtils";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -50,9 +54,8 @@ export default function Generator({
   setIncludeMargin,
   setQrShape,
 }: GeneratorProps) {
-  const t = useTranslations("QRGenerator");
+  const t = useTranslations("QR");
   const qrCodeRef = useRef<HTMLDivElement>(null);
-  const qrCodeInstanceRef = useRef<QRCodeStyling | null>(null);
 
   const [url, setUrl] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
@@ -89,7 +92,6 @@ export default function Generator({
     setGeneratedUrl(validUrl);
   };
 
-
   // Regenerate QR code when settings change
   useEffect(() => {
     if (qrCodeRef.current) {
@@ -98,16 +100,20 @@ export default function Generator({
         qrSize,
         qrShape,
         qrLevel,
+        includeMargin,
         foregroundColor,
         backgroundColor,
         logoUrl,
       };
 
-      const qrCodeInstance = createQRCodeInstance(getCurrentUrl(), displaySize, config);
+      const qrCodeInstance = createQRCodeInstance(
+        getCurrentUrl(),
+        displaySize,
+        config
+      );
 
       qrCodeRef.current.innerHTML = "";
       qrCodeInstance.append(qrCodeRef.current);
-      qrCodeInstanceRef.current = qrCodeInstance;
     }
   }, [
     url,
@@ -123,19 +129,23 @@ export default function Generator({
   ]);
 
   const handleDownload = () => {
-    if (!qrCodeInstanceRef.current) return;
     try {
       // Create a new instance for download using full size
       const config: QRCodeConfig = {
         qrSize,
         qrShape,
         qrLevel,
+        includeMargin,
         foregroundColor,
         backgroundColor,
         logoUrl,
       };
 
-      const downloadInstance = createQRCodeInstance(getCurrentUrl(), qrSize, config);
+      const downloadInstance = createQRCodeInstance(
+        getCurrentUrl(),
+        qrSize,
+        config
+      );
 
       downloadInstance.download({
         name: `qr-code-${Date.now()}`,
@@ -166,13 +176,10 @@ export default function Generator({
   };
 
   const removeLogo = () => {
-    removeLogoUtil(
-      fileInputRef,
-      () => {
-        setLogoUrl("");
-        toast.success(t("toast.logoRemoved"));
-      }
-    );
+    removeLogoUtil(fileInputRef, () => {
+      setLogoUrl("");
+      toast.success(t("toast.logoRemoved"));
+    });
   };
 
   return (
@@ -186,7 +193,7 @@ export default function Generator({
         <CardContent className="space-y-6">
           <div className="space-y-2">
             <Label htmlFor="url" className="mb-3">
-              {t("form.urlLabel")}
+              {t("urlLabel")}
             </Label>
             <Input
               id="url"
@@ -201,7 +208,7 @@ export default function Generator({
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="size" className="mb-3">
-                {t("form.sizeLabel")}
+                {t("sizeLabel")}
               </Label>
               <Input
                 id="size"
@@ -218,7 +225,7 @@ export default function Generator({
             </div>
             <div className="space-y-2 w-full">
               <Label htmlFor="level" className="mb-3 w-full">
-                {t("form.levelLabel")}
+                {t("levelLabel")}
               </Label>
               <Select
                 value={qrLevel}
@@ -230,17 +237,17 @@ export default function Generator({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="L">{t("form.levels.low")}</SelectItem>
-                  <SelectItem value="M">{t("form.levels.medium")}</SelectItem>
-                  <SelectItem value="Q">{t("form.levels.quartile")}</SelectItem>
-                  <SelectItem value="H">{t("form.levels.high")}</SelectItem>
+                  <SelectItem value="L">{t("levels.low")}</SelectItem>
+                  <SelectItem value="M">{t("levels.medium")}</SelectItem>
+                  <SelectItem value="Q">{t("levels.quartile")}</SelectItem>
+                  <SelectItem value="H">{t("levels.high")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
           <div className="space-y-4">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               <input
                 type="checkbox"
                 id="margin"
@@ -248,13 +255,13 @@ export default function Generator({
                 onChange={(e) => setIncludeMargin(e.target.checked)}
                 className="rounded"
               />
-              <Label htmlFor="margin" className="mb-3">
-                {t("form.includeMargin")}
+              <Label htmlFor="margin">
+                {t("includeMargin")}
               </Label>
             </div>
 
             <div className="space-y-2">
-              <Label className="mb-3">{t("customize.shapeLabel")}</Label>
+              <Label className="mb-3">{t("shapeLabel")}</Label>
               <Tabs
                 value={qrShape}
                 onValueChange={(value) =>
@@ -270,7 +277,7 @@ export default function Generator({
                       className="flex items-center space-x-2"
                     >
                       <div className="w-3 h-3 border-2 border-current rounded-sm" />
-                      <span>{t(`customize.shape${style}`)}</span>
+                      <span>{t(`shape${style}`)}</span>
                     </TabsTrigger>
                   ))}
                 </TabsList>
@@ -279,7 +286,7 @@ export default function Generator({
           </div>
 
           <div className="space-y-2">
-            <Label className="mb-3">{t("form.logoLabel")}</Label>
+            <Label className="mb-3">{t("logoLabel")}</Label>
             <div className="space-y-3">
               <input
                 ref={fileInputRef}
@@ -296,7 +303,7 @@ export default function Generator({
                   onClick={() => fileInputRef.current?.click()}
                   className="flex-1"
                 >
-                  {logoUrl ? t("form.changeLogo") : t("form.uploadLogo")}
+                  {logoUrl ? t("changeLogo") : t("uploadLogo")}
                 </Button>
                 {logoUrl && (
                   <Button
@@ -305,7 +312,7 @@ export default function Generator({
                     onClick={removeLogo}
                     className="px-3"
                   >
-                    {t("form.removeLogo")}
+                    {t("removeLogo")}
                   </Button>
                 )}
               </div>
@@ -317,7 +324,7 @@ export default function Generator({
                     className="w-8 h-8 object-cover rounded"
                   />
                   <span className="text-sm text-gray-600">
-                    {t("form.logoPreview")}
+                    {t("logoPreview")}
                   </span>
                 </div>
               )}

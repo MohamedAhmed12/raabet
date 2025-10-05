@@ -13,7 +13,7 @@ import Settings from "./components/Settings";
 import WhyOurQR from "./components/WhyOurQR";
 
 export default function QRGeneratorPage() {
-  const t = useTranslations("QRGenerator");
+  const t = useTranslations("QR");
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
 
@@ -39,14 +39,14 @@ export default function QRGeneratorPage() {
         <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50">
           <div className="max-w-6xl mx-auto px-4 py-6">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center ">
-                <QrCode className="w-6 h-6 text-white" />
+              <div className="w-11 h-11 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center ">
+                <QrCode className="w-7 h-7 text-white" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">
                   {t("title")}
                 </h1>
-                <p className="text-sm text-gray-600">{t("description")}</p>
+                <p className="text-sm text-gray-600 leading-7.5">{t("description")}</p>
               </div>
             </div>
           </div>

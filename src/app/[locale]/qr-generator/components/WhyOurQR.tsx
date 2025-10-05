@@ -26,7 +26,7 @@ const features = [
 ];
 
 export default function WhyOurQR() {
-  const t = useTranslations("QRGenerator");
+  const t = useTranslations("QR");
 
   return (
     <div className="mt-16">
