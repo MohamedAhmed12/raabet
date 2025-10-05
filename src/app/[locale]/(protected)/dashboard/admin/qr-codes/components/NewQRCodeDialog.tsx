@@ -18,11 +18,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DashboardChromPicker } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/components/DashboardChromPicker";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { FileUser, Link, Loader2, Plus, QrCode } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import QRCodeStyling, { Options } from "qr-code-styling";
+import QRCodeStyling from "qr-code-styling";
+import {
+  createQRCodeInstance,
+  QRCodeConfig,
+  handleLogoUpload as uploadLogo,
+  removeLogo as removeLogoUtil,
+} from "@/lib/qrCodeUtils";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
@@ -54,113 +61,34 @@ export const NewQRCodeDialog = () => {
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
 
-  const { qrcodes } = useLinkStore(
+  const { fullname } = useLinkStore(
     useShallow((state) => ({
-      qrcodes: state.link.qrcodes,
+      fullname: state.link.user?.fullname,
     }))
   );
-  const profileurl = qrcodes?.[0]?.url || "";
+  const profileurl = fullname
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}/${fullname}`
+    : "";
 
   const { mutateAsync, isPending, reset } = useCreateQRCode();
-
-  // Create QR code options
-  const createQROptions = (size: number): Partial<Options> => ({
-    width: size,
-    height: size,
-    type: "svg",
-    data: showProfileQR ? profileurl : url,
-    shape: qrShape === "circle" ? "circle" : "square",
-    qrOptions: {
-      errorCorrectionLevel: qrLevel,
-      typeNumber: 0,
-    },
-    dotsOptions: {
-      type: qrShape === "circle" ? "dots" : "square",
-      color: foregroundColor,
-      roundSize: qrShape === "circle",
-    },
-    cornersSquareOptions: {
-      type: "square",
-      color: foregroundColor,
-    },
-    cornersDotOptions: {
-      type: "square",
-      color: foregroundColor,
-    },
-    backgroundOptions: {
-      color: backgroundColor,
-      round: qrShape === "circle" ? 10 : 0,
-    },
-  });
-
-  // Create extension for logo and border
-  const createQRExtension =
-    (size: number) => (svg: SVGElement, options: Options) => {
-      const { width = size, height = size } = options;
-      const qrSize = Math.min(width, height);
-
-      // Add border for circular QR codes
-      if (qrShape === "circle") {
-        const borderWidth = qrSize === 200 ? 3 : 4;
-        const borderAttributes = {
-          fill: "none",
-          x: (width - qrSize + borderWidth) / 2,
-          y: (height - qrSize + borderWidth) / 2,
-          width: qrSize - borderWidth,
-          height: qrSize - borderWidth,
-          stroke: foregroundColor,
-          "stroke-width": borderWidth,
-          rx: qrSize / 2,
-          display: url.trim().length == 0 ? "none" : "block",
-        };
-
-        const border = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "rect"
-        );
-        Object.entries(borderAttributes).forEach(([key, value]) => {
-          border.setAttribute(key, value.toString());
-        });
-        svg.appendChild(border);
-      }
-
-      // Add logo overlay if logoUrl exists
-      if (logoUrl) {
-        const logoSize = Math.min(qrSize * 0.2, 60);
-        const logoX = (width - logoSize) / 2;
-        const logoY = (height - logoSize) / 2;
-
-        const logoBackground = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "circle"
-        );
-        logoBackground.setAttribute("cx", (width / 2).toString());
-        logoBackground.setAttribute("cy", (height / 2).toString());
-        logoBackground.setAttribute("r", (logoSize / 2 + 4).toString());
-        logoBackground.setAttribute("fill", "white");
-
-        const logoImage = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "image"
-        );
-        logoImage.setAttribute("href", logoUrl);
-        logoImage.setAttribute("x", logoX.toString());
-        logoImage.setAttribute("y", logoY.toString());
-        logoImage.setAttribute("width", logoSize.toString());
-        logoImage.setAttribute("height", logoSize.toString());
-        logoImage.setAttribute("preserveAspectRatio", "xMidYMid meet");
-
-        svg.appendChild(logoBackground);
-        svg.appendChild(logoImage);
-      }
-    };
 
   // Generate QR code with customizations
   useEffect(() => {
     const displaySize = qrSize > 320 ? 320 : qrSize;
-    const options = createQROptions(displaySize);
-    const qrCodeInstance = new QRCodeStyling(options);
-    qrCodeInstance.applyExtension(createQRExtension(displaySize));
+    const config: QRCodeConfig = {
+      qrSize,
+      qrShape,
+      qrLevel,
+      foregroundColor,
+      backgroundColor,
+      logoUrl,
+    };
+
+    const qrCodeInstance = createQRCodeInstance(
+      showProfileQR ? profileurl : url,
+      displaySize,
+      config
+    );
 
     if (qrCodeRef.current) {
       qrCodeRef.current.innerHTML = "";
@@ -169,7 +97,7 @@ export const NewQRCodeDialog = () => {
     }
   }, [
     url,
-    profileurl,
+    fullname,
     showProfileQR,
     qrSize,
     qrLevel,
@@ -217,79 +145,29 @@ export const NewQRCodeDialog = () => {
     }
   };
 
-  const handleDownload = () => {
-    if (!qrCodeInstanceRef.current) return;
-    try {
-      // Create a new instance for download using full size
-      const downloadOptions = createQROptions(qrSize);
-      const downloadInstance = new QRCodeStyling(downloadOptions);
-      downloadInstance.applyExtension(createQRExtension(qrSize));
-
-      downloadInstance.download({
-        name: `qr-code-${Date.now()}`,
-        extension: "png",
-      });
-      toast.success(t("downloadSuccess"));
-    } catch (error) {
-      toast.error(t("downloadError"));
-    }
-  };
-
   const handleProfileQRSelected = () => {
     setShowProfileQR(true);
     setUrl(profileurl);
   };
 
   const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      // Validate file type
-      if (!file.type.startsWith("image/")) {
-        toast.error(t("invalidFileType"));
-        return;
+    uploadLogo(
+      event,
+      (logoUrl) => {
+        setLogoUrl(logoUrl);
+        toast.success(t("logoUploadSuccess"));
+      },
+      (errorMessage) => {
+        toast.error(errorMessage);
       }
-
-      // Validate file size (max 2MB)
-      if (file.size > 2 * 1024 * 1024) {
-        toast.error(t("fileTooLarge"));
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-
-        // Compress the image to reduce size
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-
-          // Resize to max 200x200 for QR code logos
-          const maxSize = 200;
-          const ratio = Math.min(maxSize / img.width, maxSize / img.height);
-          canvas.width = img.width * ratio;
-          canvas.height = img.height * ratio;
-
-          if (ctx) {
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.8); // 80% quality
-            setLogoUrl(compressedDataUrl);
-            toast.success(t("logoUploadSuccess"));
-          }
-        };
-        img.src = result;
-      };
-      reader.readAsDataURL(file);
-    }
+    );
   };
 
   const removeLogo = () => {
-    setLogoUrl("");
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-    toast.success(t("logoRemoved"));
+    removeLogoUtil(fileInputRef, () => {
+      setLogoUrl("");
+      toast.success(t("logoRemoved"));
+    });
   };
 
   const renderDialogContent = () => {
@@ -361,48 +239,18 @@ export const NewQRCodeDialog = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-2">
-                  <Label htmlFor="foreground" className="mb-2.5">
-                    {t("foregroundLabel")}
-                  </Label>
-                  <div className="flex items-center space-x-1">
-                    <Input
-                      id="foreground"
-                      type="color"
-                      value={foregroundColor}
-                      onChange={(e) => setForegroundColor(e.target.value)}
-                      className="h-9 p-1 border rounded w-full"
-                    />
-                    <Input
-                      type="text"
-                      value={foregroundColor}
-                      onChange={(e) => setForegroundColor(e.target.value)}
-                      className="h-9 flex-1"
-                      placeholder="#000000"
-                      dir="ltr"
-                    />
-                  </div>
+                  <DashboardChromPicker
+                    label={t("foregroundLabel")}
+                    currentColor={foregroundColor}
+                    onChangeComplete={({ hex }) => setForegroundColor(hex)}
+                  />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="background" className="mb-2.5">
-                    {t("backgroundLabel")}
-                  </Label>
-                  <div className="flex items-center space-x-1">
-                    <Input
-                      id="background"
-                      type="color"
-                      value={backgroundColor}
-                      onChange={(e) => setBackgroundColor(e.target.value)}
-                      className="h-9 p-1 border rounded w-full"
-                    />
-                    <Input
-                      type="text"
-                      value={backgroundColor}
-                      onChange={(e) => setBackgroundColor(e.target.value)}
-                      className="h-9 flex-1"
-                      placeholder="#ffffff"
-                      dir="ltr"
-                    />
-                  </div>
+                  <DashboardChromPicker
+                    label={t("backgroundLabel")}
+                    currentColor={backgroundColor}
+                    onChangeComplete={({ hex }) => setBackgroundColor(hex)}
+                  />
                 </div>
               </div>
 
@@ -501,11 +349,16 @@ export const NewQRCodeDialog = () => {
                     style={{
                       width: qrSize > 320 ? 320 : qrSize,
                       height: qrSize > 320 ? 320 : qrSize,
+                      display:
+                        !showProfileQR && url.trim().length == 0
+                          ? "none"
+                          : "block",
+                      backgroundColor: "white",
                     }}
                   />
 
                   {url.trim().length == 0 && !showProfileQR && (
-                    <div className="flex flex-col items-center justify-center p-12 text-center">
+                    <div className="flex flex-col items-center justify-center text-center">
                       <QrCode className="w-16 h-16 text-gray-300 mb-4" />
                       <p className="text-gray-500">
                         {t("preview.placeholder")}
@@ -518,33 +371,35 @@ export const NewQRCodeDialog = () => {
           </div>
 
           {/* action buttons */}
-          <div className="flex justify-end space-x-1">
-            <Button
-              variant="outline"
-              className="!text-base"
-              onClick={() => {
-                // Cancel any ongoing request
-                isCancelledRef.current = true;
-                // Reset the mutation state
-                reset();
-                handleOnOpenChange(false);
-              }}
-            >
-              {t("cancel")}
-            </Button>
-            <Button
-              variant={"dashboard-default"}
-              className="!text-base bg-deep-blue-gray hover:bg-deep-blue-gray min-w-[150px]"
-              onClick={async () => handleCreateQRCode()}
-              disabled={isPending || !url}
-            >
-              {isPending ? (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              ) : (
-                t("createQRCode")
-              )}
-            </Button>
-          </div>
+          {!showProfileQR && (
+            <div className="flex justify-end space-x-1">
+              <Button
+                variant="outline"
+                className="!text-base"
+                onClick={() => {
+                  // Cancel any ongoing request
+                  isCancelledRef.current = true;
+                  // Reset the mutation state
+                  reset();
+                  handleOnOpenChange(false);
+                }}
+              >
+                {t("cancel")}
+              </Button>
+              <Button
+                variant={"dashboard-default"}
+                className="!text-base bg-deep-blue-gray hover:bg-deep-blue-gray min-w-[150px]"
+                onClick={async () => handleCreateQRCode()}
+                disabled={isPending || !url}
+              >
+                {isPending ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  t("createQRCode")
+                )}
+              </Button>
+            </div>
+          )}
         </div>
       );
     }
@@ -607,6 +462,7 @@ export const NewQRCodeDialog = () => {
       <DialogContent
         className={cn(
           "flex justify-center items-center flex-col gap-2 !max-w-3xl overflow-y-auto",
+          !showProfileQR ? "p-6" : "p-7",
           fontClass
         )}
       >

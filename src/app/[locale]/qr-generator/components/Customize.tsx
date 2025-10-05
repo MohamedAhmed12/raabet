@@ -5,9 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DashboardChromPicker } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/components/DashboardChromPicker";
 import { Circle, Palette, Square } from "lucide-react";
 import { useTranslations } from "next-intl";
 import QRCodeStyling, { Options } from "qr-code-styling";
@@ -124,50 +124,18 @@ export default function Customize({
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <Label htmlFor="foreground" className="mb-3">
-              {t("customize.foregroundLabel")}
-            </Label>
-            <div className="flex items-center space-x-2 w-1/2">
-              <Input
-                id="foreground"
-                type="color"
-                value={foregroundColor}
-                onChange={(e) => setForegroundColor(e.target.value)}
-                className="h-9 p-1 border rounded w-full"
-                containerClassName="w-1/4"
-              />
-              <Input
-                type="text"
-                value={foregroundColor}
-                onChange={(e) => setForegroundColor(e.target.value)}
-                className="h-9 flex-1"
-                placeholder="#000000"
-                dir="ltr"
-              />
-            </div>
+            <DashboardChromPicker
+              label={t("customize.foregroundLabel")}
+              currentColor={foregroundColor}
+              onChangeComplete={({ hex }) => setForegroundColor(hex)}
+            />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="background" className="mb-3">
-              {t("customize.backgroundLabel")}
-            </Label>
-            <div className="flex items-center space-x-2 w-1/2">
-              <Input
-                id="background"
-                type="color"
-                value={backgroundColor}
-                onChange={(e) => setBackgroundColor(e.target.value)}
-                className="h-9 p-1 border rounded w-full"
-                containerClassName="w-1/4"
-              />
-              <Input
-                type="text"
-                value={backgroundColor}
-                onChange={(e) => setBackgroundColor(e.target.value)}
-                className="h-9 flex-1"
-                placeholder="#ffffff"
-                dir="ltr"
-              />
-            </div>
+            <DashboardChromPicker
+              label={t("customize.backgroundLabel")}
+              currentColor={backgroundColor}
+              onChangeComplete={({ hex }) => setBackgroundColor(hex)}
+            />
           </div>
         </div>
 

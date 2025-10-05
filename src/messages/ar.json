@@ -282,8 +282,9 @@
     }
   },
   "QR": {
-    "title": "رموز الQR",
-    "subTitle": "أنشئ رموز QR ديناميكية وتتبع عدد الـ scans والزيارات",
+    "title": "مولد رمز الQR",
+    "subTitle": "أنشئ رموز QR جميلة لأي رابط فوراً. مجاني وسريع وسهل الاستخدام.",
+    "description": "أنشئ رموز QR ديناميكية وتتبع عدد الـ scans والزيارات",
     "newQR": "إنشاء رمز QR جديد",
     "profileQRTitle": "رمز QR لملفك الشخصي",
     "delete": "حذف",
@@ -292,7 +293,7 @@
     "errorDelete": "فشل في حذف الرمز الQR",
     "urlLabel": "رابط الموقع",
     "createQRCode": "إنشاء رمز QR جديد",
-    "profile": "ملف",
+    "profile": "الملف الشخصي",
     "url": "رابط",
     "sizeLabel": "الحجم (بكسل)",
     "levelLabel": "مستوى تصحيح الخطأ",
@@ -311,7 +312,10 @@
     "previewDescription": "معاينة كيف سيبدو رمز الQR بالإعدادات الحالية",
     "yourQRCode": "الرمز QR الخاص بك",
     "preview": {
-      "placeholder": "أدخل رابط لإنشاء رمز QR"
+      "title": "معاينة رمز QR",
+      "description": "رمز QR المُنشأ",
+      "urlLabel": "الرابط المستهدف:",
+      "placeholder": "أدخل رابط أعلاه لإنشاء رمز QR"
     },
     "logoLabel": "الشعار (اختياري)",
     "uploadLogo": "رفع شعار",
@@ -325,7 +329,98 @@
     "createSuccess": "تم إنشاء رمز QR بنجاح!",
     "createError": "فشل في إنشاء رمز QR",
     "duplicateError": "يوجد رمز QR لهذا الرابط بالفعل",
-    "cancel": "إلغاء"
+    "profileDeleteError": "لا يمكنك حذف رمز QR الرئيسي لملفك الشخصي",
+    "notFoundError": "رمز QR غير موجود",
+    "cancel": "إلغاء",
+    "form": {
+      "title": "إنشاء رمز QR",
+      "description": "أدخل رابط لإنشاء رمز QR",
+      "urlPlaceholder": "https://example.com",
+      "sizeLabel": "الحجم (بكسل)",
+      "levelLabel": "تصحيح الخطأ",
+      "includeMargin": "تضمين الهوامش",
+      "generateButton": "إنشاء رمز QR"
+    },
+    "actions": {
+      "download": "تحميل PNG",
+      "copyUrl": "نسخ الرابط",
+      "copyQRCode": "نسخ رمز QR",
+      "openUrl": "فتح الرابط"
+    },
+    "toast": {
+      "downloadSuccess": "تم تحميل رمز QR بنجاح!",
+      "downloadError": "فشل في تحميل رمز QR",
+      "copySuccess": "تم نسخ الرابط إلى الحافظة!",
+      "invalidFileType": "يرجى اختيار ملف صورة",
+      "fileTooLarge": "يجب أن يكون حجم الصورة أقل من 5 ميجابايت",
+      "logoUploadSuccess": "تم رفع الشعار بنجاح!",
+      "logoRemoved": "تم إزالة الشعار بنجاح!"
+    },
+    "features": {
+      "title": "لماذا تختار مولد QR الخاص بنا؟",
+      "fast": {
+        "title": "سريع جداً",
+        "description": "أنشئ رموز QR فوراً مع مولدنا المحسّن"
+      },
+      "download": {
+        "title": "جودة عالية",
+        "description": "حمل رموز QR بجودة عالية بصيغة PNG"
+      },
+      "copy": {
+        "title": "مشاركة سهلة",
+        "description": "انسخ رموز QR كـ SVG أو شارك الروابط مباشرة"
+      }
+    },
+    "validation": {
+      "urlRequired": "الرجاء إدخال رابط",
+      "invalidUrl": "الرجاء إدخال رابط صحيح"
+    },
+    "tabs": {
+      "generator": "المولد",
+      "customize": "التخصيص",
+      "settings": "الإعدادات"
+    },
+    "customize": {
+      "title": "تخصيص رمز QR",
+      "description": "قم بتخصيص مظهر رمز QR الخاص بك",
+      "foregroundLabel": "لون المقدمة",
+      "backgroundLabel": "لون الخلفية",
+      "preview": "معاينة",
+      "shapeLabel": "الشكل",
+      "shapeSquare": "مربع",
+      "shapeCircle": "دائرة"
+    },
+    "settings": {
+      "title": "إعدادات رمز QR",
+      "description": "تكوين إعدادات رمز QR المتقدمة",
+      "sizeLabel": "الحجم (بكسل)",
+      "sizeHelper": "موصى به: 256 بكسل للويب، 512 بكسل للطباعة",
+      "errorCorrectionLabel": "مستوى تصحيح الخطأ",
+      "marginLabel": "تضمين المنطقة الهادئة (الهوامش)",
+      "marginHelper": "المنطقة الهادئة هي المساحة البيضاء حول رمز QR. يُنصح بتركها مفعلة لمسح أفضل."
+    },
+    "errorCorrection": {
+      "explanation": {
+        "title": "حول تصحيح الخطأ",
+        "description": "تصحيح الخطأ يجعل رموز QR أكثر موثوقية من خلال إضافة بيانات احتياطية. المستويات الأعلى يمكنها التعافي من التلف أو الأوساخ أو ظروف المسح الضوئي السيئة، لكنها تؤدي إلى رموز QR أكبر. اختر بناءً على حالة الاستخدام."
+      },
+      "low": {
+        "title": "منخفض (7%) - أصغر حجماً",
+        "description": "الأفضل لـ: الشاشات الرقمية، البيئات الداخلية النظيفة، بطاقات العمل عالية الجودة"
+      },
+      "medium": {
+        "title": "متوسط (15%) - متوازن",
+        "description": "الأفضل لـ: الروابط العامة، ملفات التواصل الاجتماعي، معظم الاستخدامات الشائعة"
+      },
+      "quartile": {
+        "title": "ربعي (25%) - جيد للرموز التالفة",
+        "description": "الأفضل لـ: تغليف المنتجات، اللافتات الخارجية، المواد التي قد تتسخ أو تبلى"
+      },
+      "high": {
+        "title": "عالي (30%) - أقصى تصحيح للخطأ",
+        "description": "الأفضل لـ: الملصقات الصناعية، المعدات الطبية، التطبيقات الحرجة، الظروف القاسية"
+      }
+    }
   },
   "Subscription": {
     "paymentStatus": {
@@ -593,116 +688,5 @@
     "home": "الرئيسية",
     "dashboard": "لوحة التحكم",
     "logout": "تسجيل الخروج"
-  },
-  "QRGenerator": {
-    "title": "مولد رمز الاستجابة السريعة",
-    "description": "أنشئ رموز QR جميلة لأي رابط فوراً. مجاني وسريع وسهل الاستخدام.",
-    "form": {
-      "title": "إنشاء رمز QR",
-      "description": "أدخل رابط لإنشاء رمز QR",
-      "urlLabel": "رابط الموقع",
-      "urlPlaceholder": "https://example.com",
-      "sizeLabel": "الحجم (بكسل)",
-      "levelLabel": "تصحيح الخطأ",
-      "levels": {
-        "low": "منخفض (7%)",
-        "medium": "متوسط (15%)",
-        "quartile": "ربعي (25%)",
-        "high": "عالي (30%)"
-      },
-      "includeMargin": "تضمين الهوامش",
-      "logoLabel": "الشعار (اختياري)",
-      "uploadLogo": "رفع الشعار",
-      "changeLogo": "تغيير الشعار",
-      "removeLogo": "إزالة",
-      "logoPreview": "معاينة الشعار",
-      "generateButton": "إنشاء رمز QR"
-    },
-    "preview": {
-      "title": "معاينة رمز QR",
-      "description": "رمز QR المُنشأ",
-      "urlLabel": "الرابط المستهدف:",
-      "placeholder": "أدخل رابط أعلاه لإنشاء رمز QR"
-    },
-    "actions": {
-      "download": "تحميل PNG",
-      "copyUrl": "نسخ الرابط",
-      "copyQRCode": "نسخ رمز QR",
-      "openUrl": "فتح الرابط"
-    },
-    "toast": {
-      "downloadSuccess": "تم تحميل رمز QR بنجاح!",
-      "downloadError": "فشل في تحميل رمز QR",
-      "copySuccess": "تم نسخ الرابط إلى الحافظة!",
-      "invalidFileType": "يرجى اختيار ملف صورة",
-      "fileTooLarge": "يجب أن يكون حجم الصورة أقل من 5 ميجابايت",
-      "logoUploadSuccess": "تم رفع الشعار بنجاح!",
-      "logoRemoved": "تم إزالة الشعار بنجاح!"
-    },
-    "features": {
-      "title": "لماذا تختار مولد QR الخاص بنا؟",
-      "fast": {
-        "title": "سريع جداً",
-        "description": "أنشئ رموز QR فوراً مع مولدنا المحسّن"
-      },
-      "download": {
-        "title": "جودة عالية",
-        "description": "حمل رموز QR بجودة عالية بصيغة PNG"
-      },
-      "copy": {
-        "title": "مشاركة سهلة",
-        "description": "انسخ رموز QR كـ SVG أو شارك الروابط مباشرة"
-      }
-    },
-    "validation": {
-      "urlRequired": "الرجاء إدخال رابط",
-      "invalidUrl": "الرجاء إدخال رابط صحيح"
-    },
-    "tabs": {
-      "generator": "المولد",
-      "customize": "التخصيص",
-      "settings": "الإعدادات"
-    },
-    "customize": {
-      "title": "تخصيص رمز QR",
-      "description": "قم بتخصيص مظهر رمز QR الخاص بك",
-      "foregroundLabel": "لون المقدمة",
-      "backgroundLabel": "لون الخلفية",
-      "preview": "معاينة",
-      "shapeLabel": "الشكل",
-      "shapeSquare": "مربع",
-      "shapeCircle": "دائرة"
-    },
-    "settings": {
-      "title": "إعدادات رمز QR",
-      "description": "تكوين إعدادات رمز QR المتقدمة",
-      "sizeLabel": "الحجم (بكسل)",
-      "sizeHelper": "موصى به: 256 بكسل للويب، 512 بكسل للطباعة",
-      "errorCorrectionLabel": "مستوى تصحيح الخطأ",
-      "marginLabel": "تضمين المنطقة الهادئة (الهوامش)",
-      "marginHelper": "المنطقة الهادئة هي المساحة البيضاء حول رمز QR. يُنصح بتركها مفعلة لمسح أفضل."
-    },
-    "errorCorrection": {
-      "explanation": {
-        "title": "حول تصحيح الخطأ",
-        "description": "تصحيح الخطأ يجعل رموز QR أكثر موثوقية من خلال إضافة بيانات احتياطية. المستويات الأعلى يمكنها التعافي من التلف أو الأوساخ أو ظروف المسح الضوئي السيئة، لكنها تؤدي إلى رموز QR أكبر. اختر بناءً على حالة الاستخدام."
-      },
-      "low": {
-        "title": "منخفض (7%) - أصغر حجماً",
-        "description": "الأفضل لـ: الشاشات الرقمية، البيئات الداخلية النظيفة، بطاقات العمل عالية الجودة"
-      },
-      "medium": {
-        "title": "متوسط (15%) - متوازن",
-        "description": "الأفضل لـ: الروابط العامة، ملفات التواصل الاجتماعي، معظم الاستخدامات الشائعة"
-      },
-      "quartile": {
-        "title": "ربعي (25%) - جيد للرموز التالفة",
-        "description": "الأفضل لـ: تغليف المنتجات، اللافتات الخارجية، المواد التي قد تتسخ أو تبلى"
-      },
-      "high": {
-        "title": "عالي (30%) - أقصى تصحيح للخطأ",
-        "description": "الأفضل لـ: الملصقات الصناعية، المعدات الطبية، التطبيقات الحرجة، الظروف القاسية"
-      }
-    }
   }
 }

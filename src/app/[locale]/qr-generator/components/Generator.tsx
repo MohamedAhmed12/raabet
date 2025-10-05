@@ -18,7 +18,8 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Copy, Download, ExternalLink, QrCode } from "lucide-react";
 import { useTranslations } from "next-intl";
-import QRCodeStyling, { Options } from "qr-code-styling";
+import QRCodeStyling from "qr-code-styling";
+import { createQRCodeInstance, QRCodeConfig, handleLogoUpload as uploadLogo, removeLogo as removeLogoUtil } from "@/lib/qrCodeUtils";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -88,92 +89,21 @@ export default function Generator({
     setGeneratedUrl(validUrl);
   };
 
-  // Create QR code options
-  const createQROptions = (size: number): Partial<Options> => ({
-    width: size,
-    height: size,
-    type: "svg",
-    data: getCurrentUrl(),
-    shape: qrShape === "circle" ? "circle" : "square",
-    qrOptions: {
-      errorCorrectionLevel: qrLevel,
-      typeNumber: 0,
-    },
-    dotsOptions: {
-      type: qrShape === "circle" ? "dots" : "square",
-      color: foregroundColor,
-      roundSize: qrShape === "circle",
-    },
-    cornersSquareOptions: {
-      type: "square",
-      color: foregroundColor,
-    },
-    cornersDotOptions: {
-      type: "square",
-      color: foregroundColor,
-    },
-    backgroundOptions: {
-      color: backgroundColor,
-    },
-  });
-
-  // Create extension for logo and border
-  const createQRExtension = (size: number) => (svg: SVGElement, options: Options) => {
-    const { width = size, height = size } = options;
-    const qrSize = Math.min(width, height);
-
-    // Add border for circular QR codes
-    if (qrShape === "circle") {
-      const borderWidth = qrSize === 200 ? 3 : 4;
-      const borderAttributes = {
-        fill: "none",
-        x: (width - qrSize + borderWidth) / 2,
-        y: (height - qrSize + borderWidth) / 2,
-        width: qrSize - borderWidth,
-        height: qrSize - borderWidth,
-        stroke: foregroundColor,
-        "stroke-width": borderWidth,
-        rx: qrSize / 2,
-      };
-
-      const border = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-      Object.entries(borderAttributes).forEach(([key, value]) => {
-        border.setAttribute(key, value.toString());
-      });
-      svg.appendChild(border);
-    }
-
-    if (logoUrl) {
-      const logoSize = Math.min(qrSize * 0.2, 60);
-      const logoX = (width - logoSize) / 2;
-      const logoY = (height - logoSize) / 2;
-
-      const logoBackground = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      logoBackground.setAttribute("cx", (width / 2).toString());
-      logoBackground.setAttribute("cy", (height / 2).toString());
-      logoBackground.setAttribute("r", (logoSize / 2 + 4).toString());
-      logoBackground.setAttribute("fill", "white");
-
-      const logoImage = document.createElementNS("http://www.w3.org/2000/svg", "image");
-      logoImage.setAttribute("href", logoUrl);
-      logoImage.setAttribute("x", logoX.toString());
-      logoImage.setAttribute("y", logoY.toString());
-      logoImage.setAttribute("width", logoSize.toString());
-      logoImage.setAttribute("height", logoSize.toString());
-      logoImage.setAttribute("preserveAspectRatio", "xMidYMid meet");
-
-      svg.appendChild(logoBackground);
-      svg.appendChild(logoImage);
-    }
-  };
 
   // Regenerate QR code when settings change
   useEffect(() => {
     if (qrCodeRef.current) {
       const displaySize = qrSize > 450 ? 450 : qrSize;
-      const options = createQROptions(displaySize);
-      const qrCodeInstance = new QRCodeStyling(options);
-      qrCodeInstance.applyExtension(createQRExtension(displaySize));
+      const config: QRCodeConfig = {
+        qrSize,
+        qrShape,
+        qrLevel,
+        foregroundColor,
+        backgroundColor,
+        logoUrl,
+      };
+
+      const qrCodeInstance = createQRCodeInstance(getCurrentUrl(), displaySize, config);
 
       qrCodeRef.current.innerHTML = "";
       qrCodeInstance.append(qrCodeRef.current);
@@ -196,9 +126,16 @@ export default function Generator({
     if (!qrCodeInstanceRef.current) return;
     try {
       // Create a new instance for download using full size
-      const downloadOptions = createQROptions(qrSize);
-      const downloadInstance = new QRCodeStyling(downloadOptions);
-      downloadInstance.applyExtension(createQRExtension(qrSize));
+      const config: QRCodeConfig = {
+        qrSize,
+        qrShape,
+        qrLevel,
+        foregroundColor,
+        backgroundColor,
+        logoUrl,
+      };
+
+      const downloadInstance = createQRCodeInstance(getCurrentUrl(), qrSize, config);
 
       downloadInstance.download({
         name: `qr-code-${Date.now()}`,
@@ -216,36 +153,26 @@ export default function Generator({
   };
 
   const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      // Validate file type
-      if (!file.type.startsWith("image/")) {
-        toast.error(t("toast.invalidFileType"));
-        return;
-      }
-
-      // Validate file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error(t("toast.fileTooLarge"));
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        setLogoUrl(result);
+    uploadLogo(
+      event,
+      (logoUrl) => {
+        setLogoUrl(logoUrl);
         toast.success(t("toast.logoUploadSuccess"));
-      };
-      reader.readAsDataURL(file);
-    }
+      },
+      (errorMessage) => {
+        toast.error(errorMessage);
+      }
+    );
   };
 
   const removeLogo = () => {
-    setLogoUrl("");
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-    toast.success(t("toast.logoRemoved"));
+    removeLogoUtil(
+      fileInputRef,
+      () => {
+        setLogoUrl("");
+        toast.success(t("toast.logoRemoved"));
+      }
+    );
   };
 
   return (
@@ -414,7 +341,7 @@ export default function Generator({
           <CardTitle>{t("preview.title")}</CardTitle>
           <CardDescription>{t("preview.description")}</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 h-full">
           {url.trim() ? (
             <>
               <div className="flex justify-center p-6 bg-white rounded-lg border-2 border-dashed border-gray-200">
@@ -467,7 +394,7 @@ export default function Generator({
               </div>
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center p-12 text-center">
+            <div className="flex flex-col items-center justify-center p-12 text-center h-full">
               <QrCode className="w-16 h-16 text-gray-300 mb-4" />
               <p className="text-gray-500">{t("preview.placeholder")}</p>
             </div>

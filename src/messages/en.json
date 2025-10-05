@@ -282,8 +282,9 @@
     }
   },
   "QR": {
-    "title": "QR Codes",
-    "subTitle": "Create unlimited dynamic QR codes and track their usage.",
+    "title": "QR Code Generator",
+    "subTitle": "Create beautiful QR codes for any URL instantly. Free, fast, and easy to use.",
+    "description": "Create unlimited dynamic QR codes and track their usage.",
     "newQR": "Create QR Code",
     "profileQRTitle": "Your profile QR Code",
     "delete": "Delete",
@@ -311,7 +312,10 @@
     "previewDescription": "Preview how your QR code will look with current settings",
     "yourQRCode": "Your QR Code",
     "preview": {
-      "placeholder": "Enter a URL to generate QR code"
+      "title": "QR Code Preview",
+      "description": "Your generated QR code",
+      "urlLabel": "Target URL:",
+      "placeholder": "Enter a URL above to generate your QR code"
     },
     "logoLabel": "Logo (Optional)",
     "uploadLogo": "Upload Logo",
@@ -325,7 +329,98 @@
     "createSuccess": "QR code created successfully!",
     "createError": "Failed to create QR code",
     "duplicateError": "This QR code already exists",
-    "cancel": "Cancel"
+    "profileDeleteError": "You can't delete your main profile QR code",
+    "notFoundError": "QR code not found",
+    "cancel": "Cancel",
+    "form": {
+      "title": "Generate QR Code",
+      "description": "Enter a URL to create a QR code",
+      "urlPlaceholder": "https://example.com",
+      "sizeLabel": "Size (px)",
+      "levelLabel": "Error Correction",
+      "includeMargin": "Include margin",
+      "generateButton": "Generate QR Code"
+    },
+    "actions": {
+      "download": "Download PNG",
+      "copyUrl": "Copy URL",
+      "copyQRCode": "Copy QR Code",
+      "openUrl": "Open URL"
+    },
+    "toast": {
+      "downloadSuccess": "QR Code downloaded successfully!",
+      "downloadError": "Failed to download QR Code",
+      "copySuccess": "URL copied to clipboard!",
+      "invalidFileType": "Please select an image file",
+      "fileTooLarge": "Image size should be less than 5MB",
+      "logoUploadSuccess": "Logo uploaded successfully!",
+      "logoRemoved": "Logo removed successfully!"
+    },
+    "features": {
+      "title": "Why Choose Our QR Generator?",
+      "fast": {
+        "title": "Lightning Fast",
+        "description": "Generate QR codes instantly with our optimized generator"
+      },
+      "download": {
+        "title": "High Quality",
+        "description": "Download your QR codes in high resolution PNG format"
+      },
+      "copy": {
+        "title": "Easy Sharing",
+        "description": "Copy QR codes as SVG or share URLs directly"
+      }
+    },
+    "validation": {
+      "urlRequired": "Please enter a URL",
+      "invalidUrl": "Please enter a valid URL"
+    },
+    "tabs": {
+      "generator": "Generator",
+      "customize": "Customize",
+      "settings": "Settings"
+    },
+    "customize": {
+      "title": "Customize QR Code",
+      "description": "Customize the appearance of your QR code",
+      "foregroundLabel": "Foreground Color",
+      "backgroundLabel": "Background Color",
+      "preview": "Preview",
+      "shapeLabel": "Shape",
+      "shapeSquare": "Square",
+      "shapeCircle": "Circle"
+    },
+    "settings": {
+      "title": "QR Code Settings",
+      "description": "Configure advanced QR code settings",
+      "sizeLabel": "Size (pixels)",
+      "sizeHelper": "Recommended: 256px for web, 512px for print",
+      "errorCorrectionLabel": "Error Correction Level",
+      "marginLabel": "Include quiet zone (margin)",
+      "marginHelper": "The quiet zone is the white space around the QR code. It's recommended to keep this enabled for better scanning."
+    },
+    "errorCorrection": {
+      "explanation": {
+        "title": "About Error Correction",
+        "description": "Error correction makes QR codes more reliable by adding redundant data. Higher levels can recover from damage, dirt, or poor scanning conditions, but result in larger QR codes. Choose based on your use case."
+      },
+      "low": {
+        "title": "Low (7%) - Smallest size",
+        "description": "Best for: Digital displays, clean indoor environments, business cards with high-quality printing"
+      },
+      "medium": {
+        "title": "Medium (15%) - Balanced",
+        "description": "Best for: General web links, social media profiles, most common use cases"
+      },
+      "quartile": {
+        "title": "Quartile (25%) - Good for damaged codes",
+        "description": "Best for: Product packaging, outdoor signage, materials that may get dirty or worn"
+      },
+      "high": {
+        "title": "High (30%) - Maximum error correction",
+        "description": "Best for: Industrial labels, medical equipment, critical applications, extreme conditions"
+      }
+    }
   },
   "Subscription": {
     "paymentStatus": {
@@ -593,116 +688,5 @@
     "home": "Home",
     "dashboard": "Dashboard",
     "logout": "Logout"
-  },
-  "QRGenerator": {
-    "title": "QR Code Generator",
-    "description": "Create beautiful QR codes for any URL instantly. Free, fast, and easy to use.",
-    "form": {
-      "title": "Generate QR Code",
-      "description": "Enter a URL to create a QR code",
-      "urlLabel": "Website URL",
-      "urlPlaceholder": "https://example.com",
-      "sizeLabel": "Size (px)",
-      "levelLabel": "Error Correction",
-      "levels": {
-        "low": "Low (7%)",
-        "medium": "Medium (15%)",
-        "quartile": "Quartile (25%)",
-        "high": "High (30%)"
-      },
-      "includeMargin": "Include margin",
-      "logoLabel": "Logo (Optional)",
-      "uploadLogo": "Upload Logo",
-      "changeLogo": "Change Logo",
-      "removeLogo": "Remove",
-      "logoPreview": "Logo preview",
-      "generateButton": "Generate QR Code"
-    },
-    "preview": {
-      "title": "QR Code Preview",
-      "description": "Your generated QR code",
-      "urlLabel": "Target URL:",
-      "placeholder": "Enter a URL above to generate your QR code"
-    },
-    "actions": {
-      "download": "Download PNG",
-      "copyUrl": "Copy URL",
-      "copyQRCode": "Copy QR Code",
-      "openUrl": "Open URL"
-    },
-    "toast": {
-      "downloadSuccess": "QR Code downloaded successfully!",
-      "downloadError": "Failed to download QR Code",
-      "copySuccess": "URL copied to clipboard!",
-      "invalidFileType": "Please select an image file",
-      "fileTooLarge": "Image size should be less than 5MB",
-      "logoUploadSuccess": "Logo uploaded successfully!",
-      "logoRemoved": "Logo removed successfully!"
-    },
-    "features": {
-      "title": "Why Choose Our QR Generator?",
-      "fast": {
-        "title": "Lightning Fast",
-        "description": "Generate QR codes instantly with our optimized generator"
-      },
-      "download": {
-        "title": "High Quality",
-        "description": "Download your QR codes in high resolution PNG format"
-      },
-      "copy": {
-        "title": "Easy Sharing",
-        "description": "Copy QR codes as SVG or share URLs directly"
-      }
-    },
-    "validation": {
-      "urlRequired": "Please enter a URL",
-      "invalidUrl": "Please enter a valid URL"
-    },
-    "tabs": {
-      "generator": "Generator",
-      "customize": "Customize",
-      "settings": "Settings"
-    },
-    "customize": {
-      "title": "Customize QR Code",
-      "description": "Customize the appearance of your QR code",
-      "foregroundLabel": "Foreground Color",
-      "backgroundLabel": "Background Color",
-      "preview": "Preview",
-      "shapeLabel": "Shape",
-      "shapeSquare": "Square",
-      "shapeCircle": "Circle"
-    },
-    "settings": {
-      "title": "QR Code Settings",
-      "description": "Configure advanced QR code settings",
-      "sizeLabel": "Size (pixels)",
-      "sizeHelper": "Recommended: 256px for web, 512px for print",
-      "errorCorrectionLabel": "Error Correction Level",
-      "marginLabel": "Include quiet zone (margin)",
-      "marginHelper": "The quiet zone is the white space around the QR code. It's recommended to keep this enabled for better scanning."
-    },
-    "errorCorrection": {
-      "explanation": {
-        "title": "About Error Correction",
-        "description": "Error correction makes QR codes more reliable by adding redundant data. Higher levels can recover from damage, dirt, or poor scanning conditions, but result in larger QR codes. Choose based on your use case."
-      },
-      "low": {
-        "title": "Low (7%) - Smallest size",
-        "description": "Best for: Digital displays, clean indoor environments, business cards with high-quality printing"
-      },
-      "medium": {
-        "title": "Medium (15%) - Balanced",
-        "description": "Best for: General web links, social media profiles, most common use cases"
-      },
-      "quartile": {
-        "title": "Quartile (25%) - Good for damaged codes",
-        "description": "Best for: Product packaging, outdoor signage, materials that may get dirty or worn"
-      },
-      "high": {
-        "title": "High (30%) - Maximum error correction",
-        "description": "Best for: Industrial labels, medical equipment, critical applications, extreme conditions"
-      }
-    }
   }
 }

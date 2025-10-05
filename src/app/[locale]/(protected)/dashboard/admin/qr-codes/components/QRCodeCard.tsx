@@ -24,8 +24,12 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
   const { data: profileViews } = useProfileViewsList();
   const { canvasRef, handleDownload } = useQRCode({
     url: qr.display_url,
-    width: 160,
-    height: 160,
+    qrSize: qr.qrSize,
+    qrShape: qr.qrShape as "square" | "circle",
+    qrLevel: qr.qrLevel as "L" | "M" | "Q" | "H",
+    foregroundColor: qr.foregroundColor,
+    backgroundColor: qr.backgroundColor,
+    logoUrl: qr.logoUrl || undefined,
   });
 
   const { mutateAsync, isPending } = useDeleteQRCode();
@@ -44,7 +48,7 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
   return (
     <Card>
       <CardContent className={cn("flex justify-between w-full", fontClass)}>
-        <div className="flex flex-col gap-3  max-w-[65%]">
+        <div className="flex flex-col gap-3 max-w-[65%] me-3">
           <div className="flex flex-col gap-1 justify-center items-start">
             <div className="flex justify-center items-center gap-2">
               <p className="text-xs text-dark-foreground font-semibold ">
