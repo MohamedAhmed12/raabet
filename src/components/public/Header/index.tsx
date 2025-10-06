@@ -9,7 +9,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { ChevronDown, Link, Palette, QrCode } from "lucide-react";
+import { ChevronDown, Link, QrCode } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import NextLink from "next/link";

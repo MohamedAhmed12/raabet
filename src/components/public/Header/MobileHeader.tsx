@@ -27,7 +27,7 @@ export const MobileHeader = () => {
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
   const pathname = usePathname();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   return (
     <Drawer direction="left">
