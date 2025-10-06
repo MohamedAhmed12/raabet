@@ -24,8 +24,9 @@ import {
   handleLogoUpload as uploadLogo,
   removeLogo as removeLogoUtil,
 } from "@/lib/qrCodeUtils";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const QRCodesStyles = ["Square", "Circle"] as const;
 
@@ -63,9 +64,9 @@ export default function Generator({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Get the current URL to display (user input or default)
-  const getCurrentUrl = () => {
+  const getCurrentUrl = useCallback(() => {
     return url.trim() ? generatedUrl : "";
-  };
+  }, [url, generatedUrl]);
 
   const handleGenerate = () => {
     if (!url.trim()) {
@@ -152,7 +153,7 @@ export default function Generator({
         extension: "png",
       });
       toast.success(t("toast.downloadSuccess"));
-    } catch (error) {
+    } catch {
       toast.error(t("toast.downloadError"));
     }
   };
@@ -255,9 +256,7 @@ export default function Generator({
                 onChange={(e) => setIncludeMargin(e.target.checked)}
                 className="rounded"
               />
-              <Label htmlFor="margin">
-                {t("includeMargin")}
-              </Label>
+              <Label htmlFor="margin">{t("includeMargin")}</Label>
             </div>
 
             <div className="space-y-2">
@@ -318,7 +317,7 @@ export default function Generator({
               </div>
               {logoUrl && (
                 <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-                  <img
+                  <Image
                     src={logoUrl}
                     alt="Logo preview"
                     className="w-8 h-8 object-cover rounded"

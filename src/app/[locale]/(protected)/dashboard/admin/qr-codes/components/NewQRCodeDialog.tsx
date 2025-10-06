@@ -34,6 +34,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import { useCreateQRCode } from "../hooks/useCreateQRCode";
+import Image from "next/image";
 
 const QRCodesStyles = ["Square", "Circle"] as const;
 
@@ -79,6 +80,7 @@ export const NewQRCodeDialog = () => {
       qrSize,
       qrShape,
       qrLevel,
+      includeMargin,
       foregroundColor,
       backgroundColor,
       logoUrl,
@@ -106,6 +108,7 @@ export const NewQRCodeDialog = () => {
     backgroundColor,
     qrShape,
     logoUrl,
+    profileurl,
   ]);
 
   const handleCreateQRCode = async () => {
@@ -322,7 +325,7 @@ export const NewQRCodeDialog = () => {
                   </div>
                   {logoUrl && (
                     <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-                      <img
+                      <Image
                         src={logoUrl}
                         alt="Logo preview"
                         className="w-8 h-8 object-cover rounded"

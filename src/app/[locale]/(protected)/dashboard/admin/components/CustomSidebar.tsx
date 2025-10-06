@@ -15,7 +15,6 @@ import { usePathname } from "@/i18n/navigation";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { SubscriptionStatus } from "@prisma/client";
-import { useQueryClient } from "@tanstack/react-query";
 import { Award, CirclePlus } from "lucide-react";
 import { signOut, useSession } from "next-auth/react"; // Import signOut from NextAuth.js
 import { useLocale, useTranslations } from "next-intl";
@@ -32,11 +31,11 @@ export default function CustomSidebar({
   const fontClass = getFontClassClient(locale);
   const session = useSession();
   const pathname = usePathname();
-  const queryClient = useQueryClient();
   const { getOppositeLang, switchLocale } = useLocaleMeta();
 
-  const { data: subscriptionStatus, isLoading: isLoadingSubs } =
-    useSubscriptionStatus({ email: session?.data?.user?.email as string });
+  const { data: subscriptionStatus } = useSubscriptionStatus({
+    email: session?.data?.user?.email as string,
+  });
 
   const sidebarTabs: { text: string; url: string; icon: iconNameType }[] = [
     {

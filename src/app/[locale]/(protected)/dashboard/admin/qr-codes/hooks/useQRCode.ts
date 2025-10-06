@@ -1,12 +1,13 @@
+import { createQRCodeInstance, QRCodeConfig } from "@/lib/qrCodeUtils";
 import { useEffect, useRef } from "react";
 import { toast } from "sonner";
-import { createQRCodeInstance, QRCodeConfig } from "@/lib/qrCodeUtils";
 
 interface UseQRCodeProps {
   url: string;
   qrSize?: number;
   qrShape?: "circle" | "square";
   qrLevel?: "L" | "M" | "Q" | "H";
+  includeMargin?: boolean;
   foregroundColor?: string;
   backgroundColor?: string;
   logoUrl?: string;
@@ -18,6 +19,7 @@ export function useQRCode({
   qrSize = 600,
   qrShape = "square",
   qrLevel = "M",
+  includeMargin = true,
   foregroundColor = "#000000",
   backgroundColor = "#ffffff",
   logoUrl,
@@ -39,6 +41,7 @@ export function useQRCode({
         qrSize,
         qrShape,
         qrLevel,
+        includeMargin,
         foregroundColor,
         backgroundColor,
         logoUrl,
@@ -59,6 +62,7 @@ export function useQRCode({
     qrSize,
     qrShape,
     qrLevel,
+    includeMargin,
     foregroundColor,
     backgroundColor,
     logoUrl,
@@ -71,6 +75,7 @@ export function useQRCode({
         qrSize,
         qrShape,
         qrLevel,
+        includeMargin,
         foregroundColor,
         backgroundColor,
         logoUrl,
