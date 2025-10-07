@@ -178,6 +178,15 @@ model QRCode {
   linkId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  
+  // QR Code customization options
+  qrSize          Int     @default(200)
+  qrLevel         String  @default("M") // L, M, Q, H
+  includeMargin   Boolean @default(true)
+  foregroundColor String  @default("#000000")
+  backgroundColor String  @default("#ffffff")
+  qrShape         String  @default("square") // square, circle
+  logoUrl         String? // Base64 encoded logo image
 }
 
 enum QRType {
