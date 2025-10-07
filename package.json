@@ -5,10 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "dev:turbo": "next dev --turbopack",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "sync-mockups": "ts-node scripts/sync-mockups.ts"
+    "sync-mockups": "ts-node --project tsconfig.scripts.json scripts/sync-mockups.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
