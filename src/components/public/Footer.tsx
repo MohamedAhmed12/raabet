@@ -157,15 +157,15 @@ export const Footer = () => {
           <NextLink
             className="flex justify-center items-center hover:transform hover:scale-110 text-deep-blue-gray bg-green-200 w-10 h-10 rounded-full"
             title="X (Twitter)"
-            href="https://twitter.com/rabet"
+            href="https://www.tiktok.com/@rabetlink?_t=ZS-90R2oaQBTHd&_r=1&utm_source=rabetlink.com&utm_medium=website&utm_campaign=tiktok_profile"
             target="_blank"
           >
-            <Icon name="linkedin" className="!w-5 !h-5" />
+            <Icon name="tiktok" className="!w-5 !h-5" />
           </NextLink>
           <NextLink
             className="flex justify-center items-center hover:transform hover:scale-110 text-deep-blue-gray bg-orange-200 w-10 h-10 rounded-full"
             title="X (Twitter)"
-            href="https://twitter.com/rabet"
+            href="https://x.com/RabetLink?utm_source=rabetlink.com&utm_medium=website&utm_campaign=twitter_profile"
             target="_blank"
           >
             <Icon name="twitter" className="!w-5 !h-5" />
@@ -173,18 +173,18 @@ export const Footer = () => {
           <NextLink
             className="flex justify-center items-center hover:transform hover:scale-110 text-deep-blue-gray bg-red-200 w-10 h-10 rounded-full"
             title="Instagram"
-            href="https://www.instagram.com/rabet/"
+            href="https://www.instagram.com/rabetlink?igsh=Z291c2RnOWF2M2F0&utm_source=rabetlink.com&utm_medium=website&utm_campaign=instagram_profile"
           >
             <Icon name="instagram" className="!w-5 !h-5" />
           </NextLink>
-          <NextLink
+          {/* <NextLink
             className="flex justify-center items-center hover:transform hover:scale-110 text-deep-blue-gray bg-stone-200 w-10 h-10 rounded-full"
             title="Linkedin"
             href="https://www.youtube.com/@rabet"
             target="_blank"
           >
             <Icon name="youtube" className="!w-5 !h-5" />
-          </NextLink>
+          </NextLink> */}
         </div>
       </div>
     </footer>
