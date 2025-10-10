@@ -69,7 +69,10 @@ export const createQRExtension = (size: number, config: QRCodeConfig) => {
         rx: qrSize / 2,
       };
 
-      const border = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      const border = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "rect"
+      );
       Object.entries(borderAttributes).forEach(([key, value]) => {
         border.setAttribute(key, value.toString());
       });
@@ -84,22 +87,25 @@ export const createQRExtension = (size: number, config: QRCodeConfig) => {
 
       // Create a circular white background for the logo
       const logoBackground = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      logoBackground.setAttribute("cx", (width / 2).toString());
-      logoBackground.setAttribute("cy", (height / 2).toString());
-      logoBackground.setAttribute("r", ((logoSize + 8) / 2).toString()); // Larger radius for better coverage
+      logoBackground.setAttribute("cx", (logoX + logoSize / 2).toString());
+      logoBackground.setAttribute("cy", (logoY + logoSize / 2).toString());
+      logoBackground.setAttribute("r", ((logoSize + 8) / 2).toString());
       logoBackground.setAttribute("fill", "#ffffff");
+      svg.appendChild(logoBackground);
 
-      const logoImage = document.createElementNS("http://www.w3.org/2000/svg", "image");
+      // Create the logo image with circular clipping
+      const logoImage = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "image"
+      );
       logoImage.setAttribute("href", config.logoUrl);
       logoImage.setAttribute("x", logoX.toString());
       logoImage.setAttribute("y", logoY.toString());
       logoImage.setAttribute("width", logoSize.toString());
       logoImage.setAttribute("height", logoSize.toString());
-      logoImage.setAttribute("r", (logoSize / 2).toString()); // Larger radius for better coverage
-      logoImage.setAttribute("fill", "white");
+
       logoImage.setAttribute("preserveAspectRatio", "xMidYMid meet");
 
-      svg.appendChild(logoBackground);
       svg.appendChild(logoImage);
     }
   };
@@ -120,35 +126,110 @@ export const createQRCodeInstance = (
 };
 
 /**
+ * Compresses an image file to reduce its size
+ */
+const compressImage = (
+  file: File,
+  maxWidth: number = 200,
+  quality: number = 0.8,
+  t?: (key: string) => string
+): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+
+    img.onload = () => {
+      // Calculate new dimensions
+      let { width, height } = img;
+      if (width > maxWidth) {
+        height = (height * maxWidth) / width;
+        width = maxWidth;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      // Fill canvas with white background (JPEG doesn't support transparency)
+      if (ctx) {
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+
+        // Draw and compress
+        ctx.drawImage(img, 0, 0, width, height);
+      }
+
+      const compressedDataUrl = canvas.toDataURL("image/jpeg", quality);
+      resolve(compressedDataUrl);
+    };
+
+    img.onerror = () => {
+      const errorMessage = t
+        ? t("QR.validation.failedToLoadImage")
+        : "Failed to load image";
+      reject(new Error(errorMessage));
+    };
+    img.src = URL.createObjectURL(file);
+  });
+};
+
+/**
  * Handles logo upload and returns the data URL
  */
-export const handleLogoUpload = (
+export const handleLogoUpload = async (
   event: React.ChangeEvent<HTMLInputElement>,
   onSuccess: (logoUrl: string) => void,
-  onError: (message: string) => void
+  onError: (message: string) => void,
+  t?: (key: string, params?: any) => string
 ) => {
   const file = event.target.files?.[0];
   if (!file) return;
 
   // Validate file type
   if (!file.type.startsWith("image/")) {
-    onError("Invalid file type. Please upload an image file.");
+    const errorMessage = t
+      ? t("QR.validation.invalidFileType")
+      : "Invalid file type. Please upload an image file.";
+    onError(errorMessage);
     return;
   }
 
-  // Validate file size (2MB max for all components)
-  const maxSizeMB = 2;
+  // Validate file size (5MB max before compression)
+  const maxSizeMB = 5;
   if (file.size > maxSizeMB * 1024 * 1024) {
-    onError(`File too large. Maximum size is ${maxSizeMB}MB.`);
+    const errorMessage = t
+      ? t("QR.validation.fileTooLarge", { maxSizeMB })
+      : `File too large. Maximum size is ${maxSizeMB}MB.`;
+    onError(errorMessage);
     return;
   }
 
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const result = e.target?.result as string;
-    onSuccess(result);
-  };
-  reader.readAsDataURL(file);
+  try {
+    // Compress the image to reduce base64 size
+    const compressedDataUrl = await compressImage(file, 200, 0.8, t);
+
+    // Validate compressed size (should be much smaller)
+    const base64Size = compressedDataUrl.length;
+    const maxBase64Size = 500000; // ~500KB base64 string
+
+    if (base64Size > maxBase64Size) {
+      const errorMessage = t
+        ? t("QR.validation.imageTooLargeAfterCompression")
+        : "Image is too large even after compression. Please try a smaller image.";
+      onError(errorMessage);
+      return;
+    }
+
+    onSuccess(compressedDataUrl);
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : t
+        ? t("QR.validation.failedToProcessImage")
+        : "Failed to process image. Please try a different file.";
+    onError(errorMessage);
+  }
 };
 
 /**

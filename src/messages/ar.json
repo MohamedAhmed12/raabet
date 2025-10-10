@@ -373,7 +373,13 @@
     },
     "validation": {
       "urlRequired": "الرجاء إدخال رابط",
-      "invalidUrl": "الرجاء إدخال رابط صحيح"
+      "invalidUrl": "الرجاء إدخال رابط صحيح",
+      "invalidFileType": "نوع الملف غير صحيح. يرجى رفع ملف صورة.",
+      "fileTooLarge": "الملف كبير جداً. الحد الأقصى للحجم هو {maxSizeMB} ميجابايت.",
+      "imageTooLargeAfterCompression": "الصورة كبيرة جداً حتى بعد الضغط. يرجى تجربة صورة أصغر.",
+      "failedToProcessImage": "فشل في معالجة الصورة. يرجى تجربة ملف آخر.",
+      "failedToUploadLogo": "فشل في رفع الشعار. يرجى المحاولة مرة أخرى.",
+      "failedToLoadImage": "فشل في تحميل الصورة"
     },
     "tabs": {
       "generator": "المولد",

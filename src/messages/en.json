@@ -373,7 +373,13 @@
     },
     "validation": {
       "urlRequired": "Please enter a URL",
-      "invalidUrl": "Please enter a valid URL"
+      "invalidUrl": "Please enter a valid URL",
+      "invalidFileType": "Invalid file type. Please upload an image file.",
+      "fileTooLarge": "File too large. Maximum size is {maxSizeMB}MB.",
+      "imageTooLargeAfterCompression": "Image is too large even after compression. Please try a smaller image.",
+      "failedToProcessImage": "Failed to process image. Please try a different file.",
+      "failedToUploadLogo": "Failed to upload logo. Please try again.",
+      "failedToLoadImage": "Failed to load image"
     },
     "tabs": {
       "generator": "Generator",

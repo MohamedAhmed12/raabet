@@ -27,6 +27,7 @@ import {
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
+import { logError } from "@/lib/errorHandling";
 
 const QRCodesStyles = ["Square", "Circle"] as const;
 
@@ -163,8 +164,10 @@ export default function Generator({
     toast.success(t("toast.copySuccess"));
   };
 
-  const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    uploadLogo(
+  const handleLogoUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    await uploadLogo(
       event,
       (logoUrl) => {
         setLogoUrl(logoUrl);
@@ -172,7 +175,8 @@ export default function Generator({
       },
       (errorMessage) => {
         toast.error(errorMessage);
-      }
+      },
+      t
     );
   };
 
@@ -318,9 +322,11 @@ export default function Generator({
               {logoUrl && (
                 <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
                   <Image
+                    width={32}
+                    height={32}
                     src={logoUrl}
                     alt="Logo preview"
-                    className="w-8 h-8 object-cover rounded"
+                    className="object-cover rounded"
                   />
                   <span className="text-sm text-gray-600">
                     {t("logoPreview")}
