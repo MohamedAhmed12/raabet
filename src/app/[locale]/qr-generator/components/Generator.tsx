@@ -27,7 +27,6 @@ import {
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
-import { logError } from "@/lib/errorHandling";
 
 const QRCodesStyles = ["Square", "Circle"] as const;
 
