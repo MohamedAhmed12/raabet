@@ -1,70 +1,46 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  output          = "../node_modules/.prisma/client"
   previewFeatures = ["driverAdapters"]
-  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
-enum UserRole {
-  USER
-  ADMIN
-}
-
-model User {  
-  id                  String  @id @default(uuid())
-  fullname            String  @unique
-  email               String  @unique
-  password            String
-  role                UserRole @default(USER)
-  avatar              String @default("/images/user-placeholder.png")
-  links               Link[]
-  is_confirmed        Boolean  @default(false)
-  activationCodes     ActivationCode[] // One-to-many relationship
-  passwordResetToken  PasswordResetToken?
-  resetToken          String?  @unique
-  resetTokenExpires   DateTime?
-  stripeCustomerId    String?  @unique
-  subscriptions  Subscription[]  // One-to-many relationship
-  newsletterSubscribers NewsletterSubscriber[]    // One-to-many relationship with NewsletterSubscriber
-}
-
-enum PaymentMethod {
-  stripe
-  manual
-}
-
-enum SubscriptionStatus {
-  active
-  pending
-  failed
-  canceled
-  trialing
-  none
+model User {
+  id                    String                 @id @default(uuid())
+  fullname              String                 @unique
+  email                 String                 @unique
+  password              String
+  avatar                String                 @default("/images/user-placeholder.png")
+  is_confirmed          Boolean                @default(false)
+  resetToken            String?                @unique
+  resetTokenExpires     DateTime?
+  stripeCustomerId      String?                @unique
+  role                  UserRole               @default(USER)
+  activationCodes       ActivationCode[]
+  links                 Link[]
+  newsletterSubscribers NewsletterSubscriber[]
+  passwordResetToken    PasswordResetToken?
+  subscriptions         Subscription?
 }
 
 model Subscription {
-  id                     String          @id @default(uuid())
-  userId                 String          @unique
-  status                 SubscriptionStatus @default(trialing)
-  paymentMethod          PaymentMethod
-  paymentScreenshot     String?         // For manual payments
-  amount                Float
-  expiresAt             DateTime?
-  stripeSessionId       String?         @unique
-  createdAt             DateTime        @default(now())
-  updatedAt             DateTime        @updatedAt
-  user                  User            @relation(fields: [userId], references: [id])
-  coupons               Coupon[]        // Relation to Coupon model
+  id                String             @id @default(uuid())
+  userId            String             @unique
+  status            SubscriptionStatus @default(trialing)
+  paymentMethod     PaymentMethod
+  paymentScreenshot String?
+  amount            Float
+  expiresAt         DateTime?
+  stripeSessionId   String?            @unique
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  coupons           Coupon[]
+  user              User               @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }
@@ -74,9 +50,9 @@ model ActivationCode {
   code      String   @unique
   expiresAt DateTime
   used      Boolean  @default(false)
-  createdAt DateTime @default(now()) // Add this line
+  createdAt DateTime @default(now())
+  userId    String
   user      User     @relation(fields: [userId], references: [id])
-  userId    String // Allows multiple activation codes per user
 }
 
 model PasswordResetToken {
@@ -89,82 +65,63 @@ model PasswordResetToken {
 }
 
 model Link {
-  id             String  @id @default(uuid())
-  phone        String
-  website      String
-  instagram    String
-  twitter      String
-  displayname  String
-  bio          String
-
-  // Relationships
-  blocks                           Block[]    // One-to-many relationship with Block
-  socials                          Social[]    // One-to-many relationship with social
-  qrcodes                          QRCode[]    // One-to-many relationship with QRCode
-  analytics                        Analytics[] // One-to-many relationship with Analytics
-  profileViews                     ProfileView[] // One-to-many relationship with ProfileView
-  userName     String
-  userId       String
-  user         User   @relation(fields: [userId], references: [id]) // Reference `id` in User
- 
-  // Feedback relationship
-  feedbacks     Feedback[]
-  last_feedback_ts DateTime @default(now())
-
-  // Styling and design fields
-  general_styles_desktop_bgcolor   String
-  general_styles_primary_text_color String
-  general_styles_primary_bgcolor   String
+  id                                  String        @id @default(uuid())
+  phone                               String
+  website                             String
+  instagram                           String
+  twitter                             String
+  displayname                         String
+  bio                                 String
+  userName                            String
+  userId                              String
+  last_feedback_ts                    DateTime      @default(now())
+  general_styles_desktop_bgcolor      String
+  general_styles_primary_text_color   String
+  general_styles_primary_bgcolor      String
   general_styles_is_secondary_bgcolor Boolean
-  general_styles_is_label_exist    Boolean
-  general_styles_secondary_bgcolor String
-  general_styles_soft_shadow       Boolean
-  header_styles_profile_shadow     Float
-  header_styles_profile_border_width Float
-  header_styles_profile_border_color String
-  header_styles_collapse_long_bio  Boolean
-  header_styles_social_icons_size  Float
-  card_styles_design               Int     // options [0, 1, 2, 3, 4]
-  card_styles_card_color           String
-  card_styles_text_color           String
-  card_styles_label_color          String
-  card_styles_card_corner          Float
-  card_styles_card_border_width    Float
-  card_styles_card_border_color    String
-  card_styles_card_shadow          Float
-  card_styles_card_spacing         Float
-  title_font                       String
-  text_font                        String
-  social_enable_add_contacts       Boolean
-  social_enable_share_btn          Boolean
-  social_enable_search             Boolean
-  social_enable_qr_code            Boolean
-  social_enable_hide_raabet_branding Boolean @default(false)
-  // social_enable_enable_verified_badge Boolean @default(false)
-  social_custom_logo               String   @default("")
-  social_custom_logo_size          Float   @default(0)
+  general_styles_is_label_exist       Boolean
+  general_styles_secondary_bgcolor    String
+  general_styles_soft_shadow          Boolean
+  header_styles_profile_shadow        Float
+  header_styles_profile_border_width  Float
+  header_styles_profile_border_color  String
+  header_styles_collapse_long_bio     Boolean
+  header_styles_social_icons_size     Float
+  card_styles_design                  Int
+  card_styles_card_color              String
+  card_styles_text_color              String
+  card_styles_label_color             String
+  card_styles_card_corner             Float
+  card_styles_card_border_width       Float
+  card_styles_card_border_color       String
+  card_styles_card_shadow             Float
+  card_styles_card_spacing            Float
+  title_font                          String
+  text_font                           String
+  social_enable_add_contacts          Boolean
+  social_enable_share_btn             Boolean
+  social_enable_search                Boolean
+  social_enable_qr_code               Boolean
+  social_enable_hide_raabet_branding  Boolean       @default(false)
+  social_custom_logo                  String        @default("")
+  social_custom_logo_size             Float         @default(0)
+  analytics                           Analytics[]
+  blocks                              Block[]
+  feedbacks                           Feedback[]
+  user                                User          @relation(fields: [userId], references: [id])
+  profileViews                        ProfileView[]
+  qrcodes                             QRCode[]
+  socials                             Social[]
 }
 
 model Feedback {
   id        String   @id @default(uuid())
-  link      Link     @relation(fields: [linkId], references: [id])
   linkId    String
-  rating    Int      // 1 to 5
-  highlight String   // 'feature', 'error', 'other'
+  rating    Int
+  highlight String
   feedback  String
   createdAt DateTime @default(now())
-}
-
-// Define the enum
-enum BlockType {
-  text
-  url
-  email
-  file
-  image
-  separator
-  audio
-  video
+  link      Link     @relation(fields: [linkId], references: [id])
 }
 
 model QRCode {
@@ -189,22 +146,17 @@ model QRCode {
   logoUrl         String? // Base64 encoded logo image
 }
 
-enum QRType {
-  url
-  profile
-}
-
 model Coupon {
-  id            String     @id @default(uuid())
-  code          String     @unique
-  value         Float      // The actual discount value (e.g., 10 for 10% or $10)
-  usedAt        DateTime?
-  expiresAt     DateTime
-  stripeId      String     @unique
-  subscription  Subscription? @relation(fields: [subscriptionId], references: [id])
+  id             String        @id @default(uuid())
+  code           String        @unique
+  value          Float
+  usedAt         DateTime?
+  expiresAt      DateTime
   subscriptionId String?
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  stripeId       String        @unique
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
 
   @@index([code])
   @@index([stripeId])
@@ -212,29 +164,27 @@ model Coupon {
 }
 
 model Block {
-  id                     String      @id @default(uuid())
-  style                  Int         @default(0)
-  type                   BlockType
-  title                  String      @default("")
-  description            String      @default("")
-  text_align             String      @default("left")
-  text_color             String      @default("")
-  animation              String      @default("none")
-  bg_image               String      @default("")
-  custom_text_color      String      @default("")             
-  url                    String
-  order                  Int
-  corner                 Int         @default(0) // Corner value (e.g., rounded corners) max value is 28px
-  layout                 String      @default("0") // it has to be string although it only have strings as value
-  views                  Int      @default(0)
-  analytics Analytics[] @relation("BlockAnalytics", fields: [], references: [])
+  id                String      @id @default(uuid())
+  style             Int         @default(0)
+  type              BlockType
+  title             String      @default("")
+  description       String      @default("")
+  text_align        String      @default("left")
+  text_color        String      @default("")
+  animation         String      @default("none")
+  bg_image          String      @default("")
+  custom_text_color String      @default("")
+  url               String
+  order             Int
+  corner            Int         @default(0)
+  layout            String      @default("0")
+  views             Int         @default(0)
+  linkId            String
+  created_at        DateTime    @default(now())
+  updated_at        DateTime    @updatedAt
+  analytics         Analytics[] @relation("BlockAnalytics")
+  link              Link        @relation(fields: [linkId], references: [id])
 
-  linkId                String
-  link                  Link        @relation(fields: [linkId], references: [id])
-  
-  created_at            DateTime    @default(now())
-  updated_at            DateTime    @updatedAt
-  
   @@index([linkId])
 }
 
@@ -244,43 +194,33 @@ model Social {
   url       String
   order     Int
   label     String?
-  
   linkId    String
+  analytics Analytics[] @relation("SocialAnalytics")
   link      Link        @relation(fields: [linkId], references: [id])
-  
-  analytics Analytics[] @relation("SocialAnalytics", fields: [], references: [])
 
   @@index([linkId])
 }
 
 model NewsletterSubscriber {
-  id        String   @id @default(uuid())
-  email     String   @unique
+  id           String   @id @default(uuid())
+  email        String   @unique
   subscribedAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
 
   @@index([email])
 }
 
 model Analytics {
-  id          String   @id @default(uuid())
-  
-  // Relations to Block or Social
-  blockId     String?
-  block       Block?   @relation("BlockAnalytics", fields: [blockId], references: [id])
-  
-  socialId    String?
-  social      Social?  @relation("SocialAnalytics", fields: [socialId], references: [id])
-  
-  // Link reference
-  linkId      String
-  link        Link     @relation(fields: [linkId], references: [id])
+  id         String   @id @default(uuid())
+  blockId    String?
+  socialId   String?
+  linkId     String
+  created_at DateTime @default(now())
+  block      Block?   @relation("BlockAnalytics", fields: [blockId], references: [id])
+  link       Link     @relation(fields: [linkId], references: [id])
+  social     Social?  @relation("SocialAnalytics", fields: [socialId], references: [id])
 
-  
-  created_at  DateTime @default(now())
-
-  // Indexes for better query performance
   @@index([blockId])
   @@index([socialId])
   @@index([created_at])
@@ -288,17 +228,16 @@ model Analytics {
 }
 
 model ProfileView {
-  id        String   @id @default(uuid())
-  linkId    String
-  link      Link     @relation(fields: [linkId], references: [id])
-
+  id         String   @id @default(uuid())
+  linkId     String
   created_at DateTime @default(now())
+  link       Link     @relation(fields: [linkId], references: [id])
 
   @@index([linkId])
 }
 
 model Blog {
-  id            String   @id @default(uuid())
+  id            String   @id @default(dbgenerated("gen_random_uuid()"))
   slug          String
   title         String
   excerpt       String
@@ -317,4 +256,39 @@ model Blog {
   @@index([slug])
   @@index([locale])
   @@index([publishedAt])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum PaymentMethod {
+  stripe
+  manual
+}
+
+enum SubscriptionStatus {
+  active
+  pending
+  failed
+  canceled
+  trialing
+  none
+}
+
+enum BlockType {
+  text
+  url
+  email
+  file
+  image
+  separator
+  audio
+  video
+}
+
+enum QRType {
+  url
+  profile
 }

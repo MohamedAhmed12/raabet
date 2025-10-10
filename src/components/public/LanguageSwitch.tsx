@@ -31,7 +31,7 @@ export const LanguageSwitch = () => {
         aria-label="Switch Language"
         title={currentLangCode === "en" ? "English" : "العربية"}
       >
-        <Icon name={currentLangCode as iconNameType} size={1} />
+        <Icon name={currentLangCode as iconNameType} size={1} className="max-h-full"/>
       </button>
 
       {isOpen && (
