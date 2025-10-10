@@ -12,21 +12,23 @@ export async function fetchSubscription(
 
   const user = await prisma.user.findUnique({
     where: { email },
-    include: {
-      subscriptions: {
-        orderBy: {
-          createdAt: "desc",
-        },
-        take: 1, // Only get the most recent one (last subscription)
-      },
-    },
   });
 
-  if (!user?.subscriptions?.[0]) {
+  if (!user) {
     return null;
   }
 
-  const [currentSubscription] = user.subscriptions;
+  // Then get the most recent subscription for this user
+  const currentSubscription = await prisma.subscription.findFirst({
+    where: { userId: user.id },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  if (!currentSubscription) {
+    return null;
+  }
   // Check if subscription has expired
   const isSubscriptionExpired =
     currentSubscription?.expiresAt &&

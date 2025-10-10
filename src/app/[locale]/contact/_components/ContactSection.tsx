@@ -8,7 +8,6 @@ import {
 } from "@icons-pack/react-simple-icons";
 import { Mail, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import LinkedIn from "../../../../../public/svg/LinkedIn";
 import { ContactCard } from "./ContactCard";
 
 export const ContactSection = () => {
