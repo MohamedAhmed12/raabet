@@ -1,7 +1,12 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { updateFeedbackTimestamp } from "../actions/updateFeedbackTimestamp";
 
-export function useUpdateFeedbackTimestamp() {
+export function useUpdateFeedbackTimestamp(
+  options?: Omit<
+    UseMutationOptions<{ success: boolean }, Error, { linkId: string }>,
+    "mutationKey" | "mutationFn"
+  >
+) {
   return useMutation({
     mutationKey: ["useUpdateFeedbackTimestamp"],
     mutationFn: async ({ linkId }: { linkId: string }) => {
@@ -9,7 +14,8 @@ export function useUpdateFeedbackTimestamp() {
         throw new Error("Link ID is required");
       }
 
-      return updateFeedbackTimestamp({ linkId });
+      return await updateFeedbackTimestamp({ linkId });
     },
+    ...options,
   });
 }

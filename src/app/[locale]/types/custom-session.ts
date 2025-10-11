@@ -1,3 +1,5 @@
+import { SessionContextValue } from "next-auth/react";
+
 export type CustomServerSession = {
   user: {
     email: string;
@@ -17,4 +19,8 @@ export type CustomServerSession = {
     exp: number;
     jti: string;
   };
+};
+
+export type CustomClientSession = SessionContextValue & {
+  data?: { user?: { id: string } };
 };

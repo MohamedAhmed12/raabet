@@ -1,6 +1,8 @@
 "use client";
 
+import useFetchLink from "@/app/[locale]/[username]/useFetchLink";
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { CustomClientSession } from "@/app/[locale]/types/custom-session";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -25,6 +27,7 @@ import { z } from "zod";
 import { useGiveFeedback } from "../hooks/useGiveFeedback";
 import { useUpdateFeedbackTimestamp } from "../hooks/useUpdateFeedbackTimestamp";
 import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
+import { useShallow } from "zustand/shallow";
 
 export default function FeedbackPopup({
   onOpenFeedbackPopup,
@@ -38,15 +41,27 @@ export default function FeedbackPopup({
 
   const locale = useLocale();
   const t = useTranslations();
-  const session = useSession();
+  const session = useSession() as CustomClientSession;
   const fontClass = getFontClassClient(locale);
-  const linkId = useLinkStore((state) => state.link.id);
+  const { linkId, lastFeedbackTimestamp, username } = useLinkStore(
+    useShallow((state) => {
+      return {
+        linkId: state.link.id,
+        username: state.link.userName,
+        lastFeedbackTimestamp: state.link.last_feedback_ts,
+      };
+    })
+  );
 
   const { data: sessionStatus } = useSubscriptionStatus({
     email: session?.data?.user?.email || "",
   });
 
-  const { mutate: updateFeedbackTimestamp } = useUpdateFeedbackTimestamp();
+  const { mutate: updateFeedbackTimestamp } = useUpdateFeedbackTimestamp({
+    onSuccess: () => {
+      useFetchLink({ username });
+    },
+  });
   const { mutateAsync: giveFeedback, isPending } = useGiveFeedback({
     onSuccess: () => {
       toast.success(t("FeedbackPopup.submitSuccess"));
@@ -122,7 +137,7 @@ export default function FeedbackPopup({
       >
         {!promoCode && (
           <DialogHeader>
-            <DialogTitle className="text-center text-2xl mb-1">
+            <DialogTitle className="text-center text-2xl">
               {t("FeedbackPopup.title")}
             </DialogTitle>
             <DialogDescription className="text-center px-10 mb-4">
