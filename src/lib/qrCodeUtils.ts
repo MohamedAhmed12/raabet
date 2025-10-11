@@ -85,10 +85,13 @@ export const createQRExtension = (size: number, config: QRCodeConfig) => {
       const logoX = (width - logoSize) / 2;
       const logoY = (height - logoSize) / 2;
 
-      // Create a circular white background for the logo
-      const logoBackground = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      logoBackground.setAttribute("cx", (logoX + logoSize / 2).toString());
-      logoBackground.setAttribute("cy", (logoY + logoSize / 2).toString());
+      // ✅ UNCOMMENT THIS - Create a circular white background for the logo
+      const logoBackground = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
+      );
+      logoBackground.setAttribute("cx", (width / 2).toString());
+      logoBackground.setAttribute("cy", (height / 2).toString());
       logoBackground.setAttribute("r", ((logoSize + 8) / 2).toString());
       logoBackground.setAttribute("fill", "#ffffff");
       svg.appendChild(logoBackground);
@@ -103,8 +106,28 @@ export const createQRExtension = (size: number, config: QRCodeConfig) => {
       logoImage.setAttribute("y", logoY.toString());
       logoImage.setAttribute("width", logoSize.toString());
       logoImage.setAttribute("height", logoSize.toString());
-
       logoImage.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+      // ✅ ADD THIS - Clip the logo to a circle
+      const clipPathId = `logo-clip-${Math.random().toString(36).substr(2, 9)}`;
+      const clipPath = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "clipPath"
+      );
+      clipPath.setAttribute("id", clipPathId);
+
+      const clipCircle = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
+      );
+      clipCircle.setAttribute("cx", (width / 2).toString());
+      clipCircle.setAttribute("cy", (height / 2).toString());
+      clipCircle.setAttribute("r", (logoSize / 2).toString());
+
+      clipPath.appendChild(clipCircle);
+      svg.appendChild(clipPath);
+
+      logoImage.setAttribute("clip-path", `url(#${clipPathId})`);
 
       svg.appendChild(logoImage);
     }
@@ -147,16 +170,29 @@ const compressImage = (
         width = maxWidth;
       }
 
-      canvas.width = width;
-      canvas.height = height;
+      // Make canvas square for perfect circle
+      const size = Math.min(width, height);
+      canvas.width = size;
+      canvas.height = size;
 
-      // Fill canvas with white background (JPEG doesn't support transparency)
       if (ctx) {
+        // Fill entire canvas with white first
         ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, width, height);
+        ctx.fillRect(0, 0, size, size);
 
-        // Draw and compress
-        ctx.drawImage(img, 0, 0, width, height);
+        // Save context state
+        ctx.save();
+
+        // Create circular clipping path
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
+        ctx.clip();
+
+        // Draw image inside the circle
+        ctx.drawImage(img, 0, 0, size, size);
+
+        // Restore context
+        ctx.restore();
       }
 
       const compressedDataUrl = canvas.toDataURL("image/jpeg", quality);

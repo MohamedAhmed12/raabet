@@ -43,12 +43,11 @@ export default function FeedbackPopup({
   const t = useTranslations();
   const session = useSession() as CustomClientSession;
   const fontClass = getFontClassClient(locale);
-  const { linkId, lastFeedbackTimestamp, username } = useLinkStore(
+  const { linkId, username } = useLinkStore(
     useShallow((state) => {
       return {
         linkId: state.link.id,
         username: state.link.userName,
-        lastFeedbackTimestamp: state.link.last_feedback_ts,
       };
     })
   );
