@@ -56,9 +56,11 @@ export default function FeedbackPopup({
     email: session?.data?.user?.email || "",
   });
 
+  const { refetch: fetchLink } = useFetchLink({ username });
+
   const { mutate: updateFeedbackTimestamp } = useUpdateFeedbackTimestamp({
     onSuccess: () => {
-      useFetchLink({ username });
+      fetchLink();
     },
   });
   const { mutateAsync: giveFeedback, isPending } = useGiveFeedback({
