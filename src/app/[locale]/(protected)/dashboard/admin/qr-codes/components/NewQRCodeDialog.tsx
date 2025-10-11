@@ -328,7 +328,9 @@ export const NewQRCodeDialog = () => {
                       <Image
                         src={logoUrl}
                         alt="Logo preview"
-                        className="w-8 h-8 object-cover rounded"
+                        width={32}
+                        height={32}
+                        className="object-cover rounded"
                       />
                       <span className="text-sm text-gray-600">
                         {t("logoPreview")}
