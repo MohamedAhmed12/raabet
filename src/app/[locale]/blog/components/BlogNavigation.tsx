@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import Link from "next/link";
 import { getRelatedPosts } from "../actions/blog";
 
@@ -51,7 +51,12 @@ export default async function BlogNavigation({
           href={`/${locale}/blog`}
           className="inline-flex items-center px-4 py-2 bg-sky-900 text-white rounded-lg hover:bg-sky-900 transition-colors duration-200"
         >
-          <ArrowLeft className="h-4 w-4 mr-2" />
+          {locale === "ar" ? (
+            <ArrowBigRight className="h-4 w-4 me-1" />
+          ) : (
+            <ArrowBigLeft className="h-4 w-4 me-1" />
+          )}
+
           {locale === "ar" ? "العودة إلى مدونة رابط" : "Back to Rabet Blog"}
         </Link>
 

@@ -1,3 +1,7 @@
+"use server";
+
+import { getFontClassClient } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 import { BlogPost } from "@/types/blog";
 import { Calendar, Clock, User } from "lucide-react";
 import Image from "next/image";
@@ -8,9 +12,12 @@ interface BlogContentProps {
   locale: string;
 }
 
-export default function BlogContent({ post, locale }: BlogContentProps) {
+export default async function BlogContent({ post, locale }: BlogContentProps) {
+  const fontClass = await getFontClassClient(locale);
   return (
-    <article className="blog-post-content prose prose-lg max-w-none">
+    <article
+      className={cn("blog-post-content prose prose-lg max-w-none", fontClass)}
+    >
       {/* Header */}
       <header className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-4 leading-tight">
