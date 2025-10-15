@@ -9,6 +9,7 @@ import { Block } from "@prisma/client";
 import { format } from "date-fns";
 import { useTranslations } from "next-intl";
 import { FieldController } from "../../../components/FieldController";
+import { exportBlockInteractionsToCSV } from "../utils/exportUtils";
 
 export type Interactions = Block & {
   _count?: { analytics: number };
@@ -124,7 +125,12 @@ export function BlockInteractions({ data }: { data: Interactions[] }) {
     <FieldController
       title={t("Analytics.Metrics.blockInteractions.title")}
       titleIcon={
-        <Button variant="outline" className="cursor-pointer !text-base">
+        <Button 
+          variant="outline" 
+          className="cursor-pointer text-xs" 
+          size="sm"
+          onClick={() => exportBlockInteractionsToCSV(data)}
+        >
           {t("Shared.export")}
         </Button>
       }
