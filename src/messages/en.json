@@ -426,7 +426,12 @@
         "title": "High (30%) - Maximum error correction",
         "description": "Best for: Industrial labels, medical equipment, critical applications, extreme conditions"
       }
-    }
+    },
+    "editQR": "Edit QR Code",
+    "save": "Save",
+    "updateSuccess": "QR code updated successfully!",
+    "updateError": "Failed to update QR code",
+    "notFound": "QR code not found"
   },
   "Subscription": {
     "paymentStatus": {

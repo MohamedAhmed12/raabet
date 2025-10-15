@@ -251,7 +251,7 @@ export default function Generator({
           </div>
 
           <div className="space-y-4">
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2 my-6">
               <input
                 type="checkbox"
                 id="margin"
@@ -298,12 +298,12 @@ export default function Generator({
                 className="hidden"
                 id="logo-upload"
               />
-              <div className="flex gap-2">
+              <div className="flex gap-2 w-3">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => fileInputRef.current?.click()}
-                  className="flex-1"
+                  className="!text-sm"
                 >
                   {logoUrl ? t("changeLogo") : t("uploadLogo")}
                 </Button>
@@ -312,7 +312,7 @@ export default function Generator({
                     type="button"
                     variant="outline"
                     onClick={removeLogo}
-                    className="px-3"
+                    className="!text-sm"
                   >
                     {t("removeLogo")}
                   </Button>

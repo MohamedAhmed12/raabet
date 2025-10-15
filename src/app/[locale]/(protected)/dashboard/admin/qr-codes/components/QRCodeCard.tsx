@@ -5,12 +5,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { QRCode, QRType } from "@prisma/client";
-import { Download, Loader2, Trash2 } from "lucide-react";
+import { Download, Edit, Loader2, Trash2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useProfileViewsList } from "../../analytics/metrics/hooks/useProfileViewsList";
 import { useDeleteQRCode } from "../hooks/useDeleteQRCode";
 import { useQRCode } from "../hooks/useQRCode";
+import { useState } from "react";
+import { EditQRCodeDialog } from "./EditQRCodeDialog";
 
 interface QRCodeCardProps {
   qr: QRCode;
@@ -20,6 +22,8 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
   const locale = useLocale();
   const t = useTranslations();
   const fontClass = getFontClassClient(locale);
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   const { data: profileViews } = useProfileViewsList();
   const { canvasRef, handleDownload } = useQRCode({
@@ -43,6 +47,10 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
       console.error(error);
       toast.error("Failed to delete QR code");
     }
+  };
+
+  const handleEdit = () => {
+    setIsEditOpen(true);
   };
 
   return (
@@ -86,6 +94,13 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
             >
               <Download className="w-4 h-4 " />
             </Button>
+            <Button
+              variant="outline"
+              onClick={handleEdit}
+              className="cursor-pointer"
+            >
+              <Edit className="w-4 h-4" />
+            </Button>
             {!qr.isMain ? (
               <Button
                 variant="outline"
@@ -105,6 +120,9 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
 
         <div ref={canvasRef} />
       </CardContent>
+      {isEditOpen ? (
+        <EditQRCodeDialog open={isEditOpen} onOpenChange={setIsEditOpen} qr={qr as any} />
+      ) : null}
     </Card>
   );
 }
