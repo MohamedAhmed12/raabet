@@ -30,10 +30,10 @@ export const ProfileAnalyticsChart = ({
 
   return (
     <ResponsiveContainer width="100%" height={300} className="mb-5 space-y-3">
-      <LineChart data={data} style={{ padding: 5 }} className="dsfa">
-        <CartesianGrid strokeDasharray="3 3" className="ffff" />
+      <LineChart data={data} margin={{ left: 20, right: 20, top: 20, bottom: 20 }}>
+        <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
-        <YAxis width={10} tickMargin={10} />
+        <YAxis width={60} tickMargin={10} />
         <Tooltip />
 
         <Legend
