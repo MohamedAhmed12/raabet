@@ -24,16 +24,20 @@ export default function Analyticsmetrics() {
 
   // Calculate total analytics for blocks
   const totalBlockClicks = useMemo(() => {
-    return data?.blocks?.reduce((sum, block) => {
-      return sum + (block._count?.analytics || 0);
-    }, 0) || 0;
+    return (
+      data?.blocks?.reduce((sum, block) => {
+        return sum + (block._count?.analytics || 0);
+      }, 0) || 0
+    );
   }, [data]);
 
   // Calculate total analytics for socials
   const totalSocialClicks = useMemo(() => {
-    return data?.socials?.reduce((sum, social) => {
-      return sum + (social._count?.analytics || 0);
-    }, 0) || 0;
+    return (
+      data?.socials?.reduce((sum, social) => {
+        return sum + (social._count?.analytics || 0);
+      }, 0) || 0
+    );
   }, [data]);
 
   return isLoading ? (

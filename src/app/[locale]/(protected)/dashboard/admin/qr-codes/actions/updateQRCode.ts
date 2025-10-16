@@ -6,7 +6,7 @@ import { createTrackedQRcodeURL } from "@/lib/createTrackedQRcodeURL";
 
 interface UpdateQRCodeInput {
   id: string;
-  url?: string;
+  destination_url?: string;
   customization?: {
     qrSize?: number;
     qrLevel?: "L" | "M" | "Q" | "H";
@@ -18,7 +18,7 @@ interface UpdateQRCodeInput {
   };
 }
 
-export async function updateQRCode({ id, url, customization }: UpdateQRCodeInput) {
+export async function updateQRCode({ id, destination_url, customization }: UpdateQRCodeInput) {
   const t = await getTranslations("QR");
 
   try {
@@ -29,9 +29,8 @@ export async function updateQRCode({ id, url, customization }: UpdateQRCodeInput
 
     const data: any = {};
 
-    if (typeof url === "string") {
-      data.url = url;
-      data.display_url = createTrackedQRcodeURL(url);
+    if (typeof destination_url === "string") {
+      data.destination_url = destination_url;
     }
 
     if (customization) {

@@ -5,7 +5,7 @@ import { updateQRCode } from "../actions/updateQRCode";
 
 interface MutationVars {
   id: string;
-  url?: string;
+  destination_url?: string;
   customization?: {
     qrSize?: number;
     qrLevel?: "L" | "M" | "Q" | "H";
