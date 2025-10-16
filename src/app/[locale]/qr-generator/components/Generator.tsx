@@ -16,17 +16,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Copy, Download, ExternalLink, QrCode } from "lucide-react";
-import { useTranslations } from "next-intl";
 import {
   createQRCodeInstance,
   QRCodeConfig,
-  handleLogoUpload as uploadLogo,
   removeLogo as removeLogoUtil,
+  handleLogoUpload as uploadLogo,
 } from "@/lib/qrCodeUtils";
+import { Copy, Download, ExternalLink, QrCode } from "lucide-react";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import Image from "next/image";
 
 const QRCodesStyles = ["Square", "Circle"] as const;
 
@@ -117,7 +117,6 @@ export default function Generator({
       qrCodeInstance.append(qrCodeRef.current);
     }
   }, [
-    url,
     generatedUrl,
     qrSize,
     qrLevel,
@@ -204,7 +203,10 @@ export default function Generator({
               type="url"
               placeholder={t("form.urlPlaceholder")}
               value={url}
-              onChange={(e) => setUrl(e.target.value)}
+              onChange={(e) => {
+                setUrl(e.target.value);
+                handleGenerate();
+              }}
               className="w-full"
             />
           </div>

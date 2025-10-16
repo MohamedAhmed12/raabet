@@ -431,7 +431,12 @@
     "save": "حفظ",
     "updateSuccess": "تم تحديث رمز QR بنجاح!",
     "updateError": "فشل في تحديث رمز QR",
-    "notFound": "رمز QR غير موجود"
+    "notFound": "رمز QR غير موجود",
+    "analytics": "تحليلات رمز QR",
+    "analyticsError": "فشل في تحميل بيانات التحليلات",
+    "totalScans": "إجمالي المسح",
+    "thisWeek": "هذا الأسبوع",
+    "today": "اليوم"
   },
   "Subscription": {
     "paymentStatus": {

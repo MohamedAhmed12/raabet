@@ -5,14 +5,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { QRCode, QRType } from "@prisma/client";
-import { Download, Edit, Loader2, Trash2 } from "lucide-react";
+import { Download, Edit, Loader2, Trash2, ChartLine } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { useProfileViewsList } from "../../analytics/metrics/hooks/useProfileViewsList";
 import { useDeleteQRCode } from "../hooks/useDeleteQRCode";
 import { useQRCode } from "../hooks/useQRCode";
 import { useState } from "react";
 import { EditQRCodeDialog } from "./EditQRCodeDialog";
+import { QRAnalyticsDialog } from "./QRAnalyticsDialog";
 
 interface QRCodeCardProps {
   qr: QRCode;
@@ -24,8 +24,8 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
   const fontClass = getFontClassClient(locale);
 
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isAnalyticsOpen, setIsAnalyticsOpen] = useState(false);
 
-  const { data: profileViews } = useProfileViewsList();
   const { canvasRef, handleDownload } = useQRCode({
     url: qr.display_url,
     qrSize: qr.qrSize,
@@ -53,6 +53,10 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
     setIsEditOpen(true);
   };
 
+  const handleAnalytics = () => {
+    setIsAnalyticsOpen(true);
+  };
+
   return (
     <Card>
       <CardContent className={cn("flex justify-between w-full", fontClass)}>
@@ -64,14 +68,7 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
               </p>
               <p className="text-sm">{qr.type}</p>
             </div>
-            <div className="flex justify-center items-center gap-2">
-              <p className="text-xs text-dark-foreground font-semibold">
-                {t("Shared.views")}:
-              </p>
-              <p className="text-sm">
-                {qr.type === QRType.profile ? profileViews?.length : qr.views}
-              </p>
-            </div>
+
             {qr.type === QRType.url && (
               <div
                 className={cn(
@@ -94,6 +91,7 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
             >
               <Download className="w-4 h-4 " />
             </Button>
+
             <Button
               variant="outline"
               onClick={handleEdit}
@@ -102,27 +100,49 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
               <Edit className="w-4 h-4" />
             </Button>
             {!qr.isMain ? (
-              <Button
-                variant="outline"
-                onClick={handleDelete}
-                disabled={isPending}
-                className="cursor-pointer"
-              >
-                {isPending ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Trash2 className="w-4 h-4" color="red" />
-                )}
-              </Button>
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleAnalytics}
+                  className="cursor-pointer flex items-center gap-2"
+                >
+                  <ChartLine className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleDelete}
+                  disabled={isPending}
+                  className="cursor-pointer"
+                >
+                  {isPending ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Trash2 className="w-4 h-4" color="red" />
+                  )}
+                </Button>
+              </>
             ) : null}
           </div>
         </div>
 
         <div ref={canvasRef} />
       </CardContent>
-      {isEditOpen ? (
-        <EditQRCodeDialog open={isEditOpen} onOpenChange={setIsEditOpen} qr={qr as any} />
+      {isEditOpen && qr ? (
+        <EditQRCodeDialog
+          open={isEditOpen}
+          onOpenChange={setIsEditOpen}
+          qr={qr}
+        />
       ) : null}
+
+      {isAnalyticsOpen && (
+        <QRAnalyticsDialog
+          open={isAnalyticsOpen}
+          onOpenChange={setIsAnalyticsOpen}
+          qrCodeId={qr.id}
+        />
+      )}
     </Card>
   );
 }

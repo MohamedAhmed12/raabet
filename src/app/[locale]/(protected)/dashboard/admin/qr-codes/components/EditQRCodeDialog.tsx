@@ -8,8 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { logError } from "@/lib/errorHandling";
 import {
-  QRCodeConfig,
-  createQRCodeInstance,
   removeLogo as removeLogoUtil,
   handleLogoUpload as uploadLogo,
 } from "@/lib/qrCodeUtils";
@@ -17,28 +15,25 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import QRCodeStyling from "qr-code-styling";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useUpdateQRCode } from "../hooks/useUpdateQRCode";
+import { useQRCode } from "../hooks/useQRCode";
+import { QRCode } from "@prisma/client";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Shape = "square" | "circle";
 
 interface EditQRCodeDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  qr: {
-    id: string;
-    url: string;
-    qrSize: number;
-    qrLevel: "L" | "M" | "Q" | "H";
-    includeMargin: boolean;
-    foregroundColor: string;
-    backgroundColor: string;
-    qrShape: Shape;
-    logoUrl: string | null;
-    display_url: string;
-  };
+  qr: QRCode;
 }
 
 export function EditQRCodeDialog({
@@ -48,50 +43,38 @@ export function EditQRCodeDialog({
 }: EditQRCodeDialogProps) {
   const t = useTranslations("QR");
 
-  const [url, setUrl] = useState(qr.url);
+  const [websiteUrl, setWebsiteUrl] = useState(qr.display_url);
+  const [displayUrl, setDisplayUrl] = useState(qr.destination_url);
   const [qrSize, setQrSize] = useState(qr.qrSize);
-  const [qrLevel, setQrLevel] = useState<"L" | "M" | "Q" | "H">(qr.qrLevel);
+  const [qrLevel, setQrLevel] = useState<"L" | "M" | "Q" | "H">(
+    qr.qrLevel as "L" | "M" | "Q" | "H"
+  );
   const [includeMargin, setIncludeMargin] = useState(qr.includeMargin);
   const [foregroundColor, setForegroundColor] = useState(qr.foregroundColor);
   const [backgroundColor, setBackgroundColor] = useState(qr.backgroundColor);
-  const [qrShape, setQrShape] = useState<Shape>(qr.qrShape);
+  const [qrShape, setQrShape] = useState<Shape>(
+    qr.qrShape as "square" | "circle"
+  );
   const [logoUrl, setLogoUrl] = useState<string>(qr.logoUrl ?? "");
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const qrCodeRef = useRef<HTMLDivElement>(null);
-  const qrCodeInstanceRef = useRef<QRCodeStyling | null>(null);
 
   const { mutateAsync, isPending, reset } = useUpdateQRCode();
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const displaySize = qrSize > 320 ? 320 : qrSize;
-    const config: QRCodeConfig = {
-      qrSize,
-      qrShape,
-      qrLevel,
-      includeMargin,
-      foregroundColor,
-      backgroundColor,
-      logoUrl,
-    };
-
-    const instance = createQRCodeInstance(url, displaySize, config);
-    if (qrCodeRef.current) {
-      qrCodeRef.current.innerHTML = "";
-      instance.append(qrCodeRef.current);
-      qrCodeInstanceRef.current = instance;
-    }
-  }, [
-    url,
-    qrSize,
+  const { canvasRef } = useQRCode({
+    url: displayUrl, // Use the destination URL for live preview
+    qrSize, // Use the state values for live preview
     qrShape,
     qrLevel,
-    includeMargin,
     foregroundColor,
     backgroundColor,
-    logoUrl,
-  ]);
+    logoUrl: logoUrl || undefined,
+  });
+
+  useEffect(() => {
+    setDisplayUrl(qr.display_url);
+  }, [qr.display_url]);
 
   const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     uploadLogo(
@@ -117,7 +100,7 @@ export function EditQRCodeDialog({
     try {
       const res = await mutateAsync({
         id: qr.id,
-        url,
+        destination_url: websiteUrl,
         customization: {
           qrSize,
           qrLevel,
@@ -167,8 +150,8 @@ export function EditQRCodeDialog({
               <Input
                 id="url"
                 type="url"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
+                value={websiteUrl}
+                onChange={(e) => setWebsiteUrl(e.target.value)}
               />
             </div>
 
@@ -187,18 +170,25 @@ export function EditQRCodeDialog({
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="level">{t("levelLabel")}</Label>
-                <select
-                  id="level"
-                  className="border rounded h-10 px-2"
+                <Label htmlFor="level" className="mb-2.5">
+                  {t("levelLabel")}
+                </Label>
+                <Select
                   value={qrLevel}
-                  onChange={(e) => setQrLevel(e.target.value as any)}
+                  onValueChange={(value) =>
+                    setQrLevel(value as "L" | "M" | "Q" | "H")
+                  }
                 >
-                  <option value="L">L</option>
-                  <option value="M">M</option>
-                  <option value="Q">Q</option>
-                  <option value="H">H</option>
-                </select>
+                  <SelectTrigger className="w-full" dir="inherit">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="L">{t("levels.low")}</SelectItem>
+                    <SelectItem value="M">{t("levels.medium")}</SelectItem>
+                    <SelectItem value="Q">{t("levels.quartile")}</SelectItem>
+                    <SelectItem value="H">{t("levels.high")}</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
@@ -300,9 +290,10 @@ export function EditQRCodeDialog({
             <Label className="text-sm font-medium text-gray-700 mb-2">
               {t("yourQRCode")}
             </Label>
+
             <div className="flex-1 flex justify-center items-center p-6 bg-white rounded-lg border-2 border-dashed border-gray-200">
               <div
-                ref={qrCodeRef}
+                ref={canvasRef}
                 style={{
                   width: qrSize > 320 ? 320 : qrSize,
                   height: qrSize > 320 ? 320 : qrSize,

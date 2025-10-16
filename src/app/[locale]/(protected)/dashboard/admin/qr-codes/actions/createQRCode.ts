@@ -42,6 +42,7 @@ export async function createQRCode(
     const qrCode = await prisma.qRCode.create({
       data: {
         url: url,
+        destination_url: url,
         display_url: createTrackedQRcodeURL(url),
         linkId,
         type: QRType.url,

@@ -431,7 +431,12 @@
     "save": "Save",
     "updateSuccess": "QR code updated successfully!",
     "updateError": "Failed to update QR code",
-    "notFound": "QR code not found"
+    "notFound": "QR code not found",
+    "analytics": "QR Code Analytics",
+    "analyticsError": "Failed to load analytics data",
+    "totalScans": "Total Scans",
+    "thisWeek": "This Week",
+    "today": "Today"
   },
   "Subscription": {
     "paymentStatus": {

@@ -153,6 +153,7 @@ export const createQRCode = async (url: string, linkId: string) => {
       data: {
         type: "profile",
         url: url,
+        destination_url: url,
         display_url: createTrackedQRcodeURL(url),
         isMain: true,
         link: {
