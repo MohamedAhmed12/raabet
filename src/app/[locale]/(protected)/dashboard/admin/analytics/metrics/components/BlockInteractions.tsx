@@ -9,16 +9,12 @@ import { Block } from "@prisma/client";
 import { format } from "date-fns";
 import { useTranslations } from "next-intl";
 import { FieldController } from "../../../components/FieldController";
-import { exportBlockInteractionsToCSV } from "../utils/exportUtils";
+import { exportBlockInteractionsToCSV, BlockInteractionData } from "../utils/exportUtils";
 
-export type Interactions = Block & {
-  _count?: { analytics: number };
-  added?: string;
-};
 
-export function BlockInteractions({ data }: { data: Interactions[] }) {
+export function BlockInteractions({ data }: { data: BlockInteractionData[] }) {
   const t = useTranslations();
-  const columns: ColumnDef<Interactions>[] = [
+  const columns: ColumnDef<BlockInteractionData>[] = [
     {
       accessorKey: "type",
       header: ({ column }) => {
@@ -112,7 +108,7 @@ export function BlockInteractions({ data }: { data: Interactions[] }) {
     },
   ];
 
-  const parseDate = (data: Interactions[]) => {
+  const parseDate = (data: BlockInteractionData[]) => {
     return (
       data?.map((row) => {
         row.added = format(row.created_at, "MM/dd/yyyy");
