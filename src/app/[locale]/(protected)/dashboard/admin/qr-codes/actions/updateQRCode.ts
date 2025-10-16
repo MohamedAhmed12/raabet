@@ -2,7 +2,6 @@
 
 import prisma from "@/lib/prisma";
 import { getTranslations } from "next-intl/server";
-import { createTrackedQRcodeURL } from "@/lib/createTrackedQRcodeURL";
 
 interface UpdateQRCodeInput {
   id: string;
@@ -18,7 +17,11 @@ interface UpdateQRCodeInput {
   };
 }
 
-export async function updateQRCode({ id, destination_url, customization }: UpdateQRCodeInput) {
+export async function updateQRCode({
+  id,
+  destination_url,
+  customization,
+}: UpdateQRCodeInput) {
   const t = await getTranslations("QR");
 
   try {
@@ -34,13 +37,20 @@ export async function updateQRCode({ id, destination_url, customization }: Updat
     }
 
     if (customization) {
-      if (typeof customization.qrSize !== "undefined") data.qrSize = customization.qrSize;
-      if (typeof customization.qrLevel !== "undefined") data.qrLevel = customization.qrLevel;
-      if (typeof customization.includeMargin !== "undefined") data.includeMargin = customization.includeMargin;
-      if (typeof customization.foregroundColor !== "undefined") data.foregroundColor = customization.foregroundColor;
-      if (typeof customization.backgroundColor !== "undefined") data.backgroundColor = customization.backgroundColor;
-      if (typeof customization.qrShape !== "undefined") data.qrShape = customization.qrShape;
-      if (typeof customization.logoUrl !== "undefined") data.logoUrl = customization.logoUrl;
+      if (typeof customization.qrSize !== "undefined")
+        data.qrSize = customization.qrSize;
+      if (typeof customization.qrLevel !== "undefined")
+        data.qrLevel = customization.qrLevel;
+      if (typeof customization.includeMargin !== "undefined")
+        data.includeMargin = customization.includeMargin;
+      if (typeof customization.foregroundColor !== "undefined")
+        data.foregroundColor = customization.foregroundColor;
+      if (typeof customization.backgroundColor !== "undefined")
+        data.backgroundColor = customization.backgroundColor;
+      if (typeof customization.qrShape !== "undefined")
+        data.qrShape = customization.qrShape;
+      if (typeof customization.logoUrl !== "undefined")
+        data.logoUrl = customization.logoUrl;
     }
 
     const updated = await prisma.qRCode.update({ where: { id }, data });
@@ -50,5 +60,3 @@ export async function updateQRCode({ id, destination_url, customization }: Updat
     throw new Error(message);
   }
 }
-
-

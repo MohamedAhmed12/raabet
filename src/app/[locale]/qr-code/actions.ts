@@ -6,6 +6,8 @@ import { trackQRAnalytics } from "@/app/[locale]/(protected)/dashboard/admin/ana
 import { logError } from "@/lib/errorHandling";
 
 export async function handleQRCodeRedirect(trackedUrl: string) {
+  let urlWithProtocol: string = "/";
+
   try {
     // Find the QR code by its tracked URL
     const qrCode = await prisma.qRCode.findUnique({
@@ -32,7 +34,7 @@ export async function handleQRCodeRedirect(trackedUrl: string) {
     }
 
     // Add https:// if URL doesn't have a protocol
-    var urlWithProtocol = qrCode.destination_url.startsWith("http")
+    urlWithProtocol = qrCode.destination_url.startsWith("http")
       ? qrCode.destination_url
       : `https://${qrCode.destination_url}`;
   } catch (error) {
