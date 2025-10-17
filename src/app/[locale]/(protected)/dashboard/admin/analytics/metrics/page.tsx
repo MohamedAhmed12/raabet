@@ -60,7 +60,10 @@ export default function Analyticsmetrics() {
         chartData={data?.dateStats}
       />
       <SocialClicks data={data?.socials} />
-      <BlockInteractions data={data?.blocks || []} />
+      <BlockInteractions
+        data={data?.blocks || []}
+        profileViews={data?.profileViews?.length || 0}
+      />
     </div>
   );
 }

@@ -1,8 +1,7 @@
 "use server";
 
-import prisma from "@/lib/prisma";
 import { logError } from "@/lib/errorHandling";
-import { QRScan } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
 interface QRAnalyticsData {
   totalScans: number;
@@ -78,7 +77,7 @@ export async function getQRAnalytics(
       },
     });
 
-    const chartData = qrScanData.map((item:QRScan) => ({
+    const chartData = qrScanData.map((item) => ({
       date: new Date(item.created_at).toLocaleDateString(),
       qrCodeScans: item._count.created_at,
     }));

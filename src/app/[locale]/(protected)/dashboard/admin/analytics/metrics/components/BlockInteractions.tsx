@@ -5,20 +5,23 @@ import { ArrowUpDown } from "lucide-react";
 
 import { CustomDateTable } from "@/components/CustomDateTable";
 import { Button } from "@/components/ui/button";
-import { Block } from "@prisma/client";
 import { format } from "date-fns";
 import { useTranslations } from "next-intl";
 import { FieldController } from "../../../components/FieldController";
-import { exportBlockInteractionsToCSV } from "../utils/exportUtils";
+import {
+  BlockInteractionData,
+  exportBlockInteractionsToCSV,
+} from "../utils/exportUtils";
 
-export type Interactions = Block & {
-  _count?: { analytics: number };
-  added?: string;
-};
-
-export function BlockInteractions({ data }: { data: Interactions[] }) {
+export function BlockInteractions({
+  data,
+  profileViews,
+}: {
+  data: BlockInteractionData[];
+  profileViews: number;
+}) {
   const t = useTranslations();
-  const columns: ColumnDef<Interactions>[] = [
+  const columns: ColumnDef<BlockInteractionData>[] = [
     {
       accessorKey: "type",
       header: ({ column }) => {
@@ -88,9 +91,7 @@ export function BlockInteractions({ data }: { data: Interactions[] }) {
           </Button>
         );
       },
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("views")}</div>
-      ),
+      cell: () => <div className="capitalize">{profileViews}</div>,
     },
     {
       accessorKey: "added",
@@ -112,12 +113,12 @@ export function BlockInteractions({ data }: { data: Interactions[] }) {
     },
   ];
 
-  const parseDate = (data: Interactions[]) => {
+  const parseDate = (data: BlockInteractionData[]) => {
     return (
-      data?.map((row) => {
-        row.added = format(row.created_at, "MM/dd/yyyy");
-        return row;
-      }) || []
+      data?.map((row) => ({
+        ...row,
+        added: format(row.created_at, "MM/dd/yyyy"),
+      })) || []
     );
   };
 
@@ -125,11 +126,11 @@ export function BlockInteractions({ data }: { data: Interactions[] }) {
     <FieldController
       title={t("Analytics.Metrics.blockInteractions.title")}
       titleIcon={
-        <Button 
-          variant="outline" 
-          className="cursor-pointer text-xs" 
+        <Button
+          variant="outline"
+          className="cursor-pointer text-xs"
           size="sm"
-          onClick={() => exportBlockInteractionsToCSV(data)}
+          onClick={() => exportBlockInteractionsToCSV(data, profileViews)}
         >
           {t("Shared.export")}
         </Button>
