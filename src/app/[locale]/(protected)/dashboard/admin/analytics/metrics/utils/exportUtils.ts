@@ -8,10 +8,10 @@ export interface ChartData {
 export interface BlockInteractionData {
   type: string;
   title: string;
-  clicks: number;
   views: number;
-  added: string;
+  created_at: Date;
   _count?: { analytics: number };
+  analytics?: any[];
 }
 
 export interface SocialClickData {
@@ -58,15 +58,16 @@ export const exportAnalyticsToCSV = (
 
 export const exportBlockInteractionsToCSV = (
   data: BlockInteractionData[],
+  profileViews: number,
   filename?: string
 ) => {
   const csvHeader = "Type,Name,Clicks,Views,Added,\n";
 
   const csvRows = data
     .map((item) => {
-      return `${item.type},${item.title},${item?._count?.analytics || 0},${
-        item.views
-      },${item.added},${item._count?.analytics || 0}`;
+      return `${item.type},${item.title},${
+        item?._count?.analytics || 0
+      },${profileViews},${new Date(item.created_at).toLocaleDateString()}`;
     })
     .join("\n");
 
