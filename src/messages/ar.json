@@ -426,7 +426,17 @@
         "title": "عالي (30%) - أقصى تصحيح للخطأ",
         "description": "الأفضل لـ: الملصقات الصناعية، المعدات الطبية، التطبيقات الحرجة، الظروف القاسية"
       }
-    }
+    },
+    "editQR": "تعديل رمز QR",
+    "save": "حفظ",
+    "updateSuccess": "تم تحديث رمز QR بنجاح!",
+    "updateError": "فشل في تحديث رمز QR",
+    "notFound": "رمز QR غير موجود",
+    "analytics": "تحليلات رمز QR",
+    "analyticsError": "فشل في تحميل بيانات التحليلات",
+    "totalScans": "إجمالي المسح",
+    "thisWeek": "هذا الأسبوع",
+    "today": "اليوم"
   },
   "Subscription": {
     "paymentStatus": {

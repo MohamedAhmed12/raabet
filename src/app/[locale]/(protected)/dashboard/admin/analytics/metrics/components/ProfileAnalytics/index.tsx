@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { FieldController } from "../../../../components/FieldController";
+import { exportAnalyticsToCSV } from "../../utils/exportUtils";
 import { ProfileAnalyticsChart } from "./ProfileAnalyticsChart";
 
 export type ChartData = {
@@ -59,7 +60,12 @@ export default function ProfileAnalytics({
     <FieldController
       title={t("Analytics.Metrics.profile.title")}
       titleIcon={
-        <Button variant="outline" className="cursor-pointer">
+        <Button
+          variant="outline"
+          className="cursor-pointer"
+          size="sm"
+          onClick={() => exportAnalyticsToCSV(chartData)}
+        >
           {t("Shared.export")}
         </Button>
       }

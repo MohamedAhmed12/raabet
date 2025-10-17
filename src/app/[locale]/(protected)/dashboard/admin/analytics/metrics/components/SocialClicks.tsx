@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Social } from "@prisma/client";
 import { useTranslations } from "next-intl";
 import { FieldController } from "../../../components/FieldController";
+import { exportSocialClicksToCSV } from "../utils/exportUtils";
 
 export type Payment = Social & {
   _count: { analytics: number };
@@ -103,7 +104,12 @@ export function SocialClicks({ data: rawData }: { data?: Payment[] }) {
     <FieldController
       title={t("Analytics.Metrics.socialClicks.title")}
       titleIcon={
-        <Button variant="outline" className="cursor-pointer !text-base">
+        <Button 
+          variant="outline" 
+          className="cursor-pointer text-xs" 
+          size="sm"
+          onClick={() => exportSocialClicksToCSV(data || [])}
+        >
           {t("Shared.export")}
         </Button>
       }

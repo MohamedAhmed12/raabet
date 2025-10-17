@@ -281,7 +281,7 @@ export const NewQRCodeDialog = () => {
                 </Tabs>
               </div>
 
-              <div className="flex items-center gap-1 my-5">
+              <div className="flex items-center gap-2 my-6">
                 <input
                   type="checkbox"
                   id="margin"
@@ -303,12 +303,12 @@ export const NewQRCodeDialog = () => {
                     className="hidden"
                     id="logo-upload"
                   />
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 w-3">
                     <Button
                       type="button"
                       variant="outline"
                       onClick={() => fileInputRef.current?.click()}
-                      className="flex-1"
+                      className="!text-sm"
                     >
                       {logoUrl ? t("changeLogo") : t("uploadLogo")}
                     </Button>
@@ -317,7 +317,7 @@ export const NewQRCodeDialog = () => {
                         type="button"
                         variant="outline"
                         onClick={removeLogo}
-                        className="px-3"
+                        className="!text-sm"
                       >
                         {t("removeLogo")}
                       </Button>

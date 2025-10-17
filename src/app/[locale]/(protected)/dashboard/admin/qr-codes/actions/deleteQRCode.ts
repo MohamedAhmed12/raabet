@@ -5,6 +5,12 @@ import { logError } from "@/lib/errorHandling";
 
 export const deleteQRCode = async (id: string) => {
   try {
+    // First delete all related QR scans
+    await prisma.qRScan.deleteMany({
+      where: { qrCodeId: id },
+    });
+    
+    // Then delete the QR code
     await prisma.qRCode.delete({
       where: { id },
     });

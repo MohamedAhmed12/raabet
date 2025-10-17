@@ -13,21 +13,17 @@ import {
   YAxis,
 } from "recharts";
 
-interface ProfileAnalyticsChartProps {
+interface QRAnalyticsChartProps {
   data: Array<{
     date: string;
-    profileViews: number;
-    blockClicks: number;
-    socialClicks: number;
+    qrCodeScans: number;
   }>;
 }
 
-export const ProfileAnalyticsChart = ({
-  data = [],
-}: ProfileAnalyticsChartProps) => {
+export function QRAnalyticsChart({ data = [] }: QRAnalyticsChartProps) {
   const locale = useLocale();
-  const t = useTranslations("Analytics.Metrics.profile");
-
+  const t = useTranslations("QR");
+  
   return (
     <ResponsiveContainer width="100%" height={300} className="mb-5 space-y-3">
       <LineChart data={data} margin={{ left: 20, right: 20, top: 20, bottom: 20 }}>
@@ -50,29 +46,13 @@ export const ProfileAnalyticsChart = ({
 
         <Line
           type="monotone"
-          name={t("profileViews")}
-          dataKey="profileViews"
-          stroke="#50bd81"
+          name={t("totalScans")}
+          dataKey="qrCodeScans"
+          stroke="#3b82f6"
           activeDot={{ r: 8 }}
-          dot={{ fill: "#50bd81" }}
-        />
-        <Line
-          type="monotone"
-          name={t("blockClicks")}
-          dataKey="blockClicks"
-          stroke="#ebb46c"
-          activeDot={{ r: 8 }}
-          dot={{ fill: "#ebb46c" }}
-        />
-        <Line
-          type="monotone"
-          name={t("socialClicks")}
-          dataKey="socialClicks"
-          stroke="#097cd4"
-          activeDot={{ r: 8 }}
-          dot={{ fill: "#097cd4" }}
+          dot={{ fill: "#3b82f6" }}
         />
       </LineChart>
     </ResponsiveContainer>
   );
-};
+}
