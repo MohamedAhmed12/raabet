@@ -79,7 +79,7 @@ export default function QRCodeCard({ qr }: QRCodeCardProps) {
                 <p className="text-xs text-dark-foreground font-semibold">
                   {t("Shared.url")}:
                 </p>
-                <p className="text-sm truncate">{qr.url}</p>
+                <p className="text-sm truncate">{qr.destination_url}</p>
               </div>
             )}
           </div>
