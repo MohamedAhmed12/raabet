@@ -43,8 +43,8 @@ export function EditQRCodeDialog({
 }: EditQRCodeDialogProps) {
   const t = useTranslations("QR");
 
-  const [websiteUrl, setWebsiteUrl] = useState(qr.display_url);
-  const [displayUrl, setDisplayUrl] = useState(qr.destination_url);
+  const [websiteUrl, setWebsiteUrl] = useState(qr.destination_url);
+  const [displayUrl, setDisplayUrl] = useState();
   const [qrSize, setQrSize] = useState(qr.qrSize);
   const [qrLevel, setQrLevel] = useState<"L" | "M" | "Q" | "H">(
     qr.qrLevel as "L" | "M" | "Q" | "H"
