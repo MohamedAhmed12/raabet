@@ -33,10 +33,13 @@ export async function handleQRCodeRedirect(trackedUrl: string) {
       });
     }
 
+    // Use destination_url if available, otherwise fall back to url
+    const destinationUrl = qrCode.destination_url || qrCode.url;
+    
     // Add https:// if URL doesn't have a protocol
-    urlWithProtocol = qrCode.destination_url.startsWith("http")
-      ? qrCode.destination_url
-      : `https://${qrCode.destination_url}`;
+    urlWithProtocol = destinationUrl.startsWith("http")
+      ? destinationUrl
+      : `https://${destinationUrl}`;
   } catch (error) {
     logError(error, {
       action: "handleQRCodeRedirect",

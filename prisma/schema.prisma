@@ -128,7 +128,7 @@ model QRCode {
   id          String   @id @default(uuid())
   type        QRType   // enum for URL or TEXT
   url         String   @unique // Only for URL type
-  destination_url String   // Actual destination URL (can be updated)
+  destination_url  String?   // Actual destination URL (can be updated)
   display_url String   @unique
   views       Int      @default(0)
   isMain      Boolean  @default(false)
