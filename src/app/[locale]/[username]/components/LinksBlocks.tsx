@@ -136,7 +136,14 @@ export default function LinksBlocks({ link }: { link: Link }) {
                   <>
                     {hasPrefixImage && (
                       <div className="relative flex-shrink-0 w-1/3 min-h-[100px] max-h-[160px] flex">
-                        <Image src={block.bg_image} fill alt="image" />
+                        <Image
+                          src={block.bg_image}
+                          fill
+                          alt="image"
+                          style={{
+                            borderRadius: linkStyles.borderRadius,
+                          }}
+                        />
                       </div>
                     )}
                     <div
