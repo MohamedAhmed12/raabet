@@ -8,9 +8,12 @@ interface UserWithLinks extends Omit<User, 'links'> {
     instagram?: string;
     twitter?: string;
     socials?: Array<{
-      icon: string;
+      id: string;
+      linkId: string;
       url: string;
-      label?: string;
+      order: number;
+      icon: string;
+      label: string | null;
     }>;
   }>;
 }
