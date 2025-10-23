@@ -12,7 +12,15 @@ export async function generateVCardAction(fullname: string) {
         fullname, // Filter by the `userName` foreign key
       },
       include: {
-        links: true, // Optionally include user details in the response
+        links: {
+          include: {
+            socials: {
+              orderBy: {
+                order: 'asc'
+              }
+            }
+          }
+        }, // Include social media data
       },
     });
 
