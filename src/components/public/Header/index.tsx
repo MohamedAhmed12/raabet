@@ -37,11 +37,11 @@ export const Header = () => {
       <div className="flex items-center">
         <NextLink href="/" className="flex items-center gap-1">
           <Link
-            size={21}
-            width={21}
+            size={30}
+            width={30}
             strokeWidth={3.5}
             fontWeight={800}
-            className="text-[#1b97f5]"
+            className="text-[#1b97f5] me-0.5"
           />
           <span
             className={cn(

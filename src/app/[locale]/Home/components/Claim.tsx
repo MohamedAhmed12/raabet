@@ -1,9 +1,9 @@
 "use client";
 
-import { Icon } from "@/components/Icon";
 import { Input } from "@/components/ui/input";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { LinkIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 
@@ -17,14 +17,13 @@ export const Claim = () => {
       dir="ltr"
       className={`flex items-center rounded-[100px] border border-[#1d1d28] shadow-[3px_3px_0px_#1d1d28] bg-white cursor-text p-2 mt-8 ${fontClass} font-semibold`}
     >
-      <Icon
-        name="link"
-        size={40}
+      <LinkIcon
+        size={25}
         strokeWidth={3}
         fontWeight={800}
-        className="mx-4 text-[#1b97f5]"
+        className="mx-2 text-[#1b97f5] min-w-max"
       />
-      <span className="mr-[2px] min-w-max">rabetlink.com/</span>
+      <span className="text-lg mr-[2px]">rabetlink.com/</span>
       <Input
         type="text"
         placeholder="name"
