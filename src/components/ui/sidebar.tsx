@@ -187,7 +187,7 @@ function Sidebar({
           data-sidebar="sidebar"
           data-slot="sidebar"
           data-mobile="true"
-          className="bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
+          className="bg-sidebar text-white w-(--sidebar-width) p-0 [&>button]:hidden border-transparent group-data-[variant=floating]:border-sidebar-border "
           style={
             {
               "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
@@ -273,7 +273,7 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <PanelLeftIcon />
+      <PanelLeftIcon className="size-7" />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );
