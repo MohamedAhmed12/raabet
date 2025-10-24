@@ -103,7 +103,6 @@ export const Header = () => {
           accept="image/*"
           className="w-full cursor-pointer"
           onChange={handlePhotoChange}
-          capture="user"
           disabled={uploading}
         />
         {uploading && <span>{t("uploading")}</span>}
