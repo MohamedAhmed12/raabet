@@ -7,6 +7,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Separator } from "@/components/ui/separator";
+import { useRouter } from "@/i18n/navigation";
 import { createAndSendActivation } from "@/lib/activation";
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
@@ -14,7 +15,6 @@ import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
-import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -107,13 +107,19 @@ export default function VerifyForm({ email }: { email: string }) {
   return (
     <div className="flex flex-col justify-center items-center h-full mx-auto px-[7vw] py-4">
       <div className={fontClass}>
-        <div className="flex gap-4 mb-6 text-[40px] text-deep-blue-gray font-bold leading-[1.1] pb-3">
+        <div className="flex flex-col md:flex-row gap-4 mb-6 text-[40px] text-deep-blue-gray font-bold leading-[1.1] pb-3 items-center">
           <span>{t("Auth.confirmYour")}</span>
           <span className="relative ml-1">
             <span className="relative inline-block z-[1]">
               {t("Auth.email")}
             </span>
-            <div className="h-[15px] absolute inset-0 top-[0.85em] bottom-[0.15em] left-[-3%] right-[-3%] bg-sky-300"></div>
+            <div
+              className={cn(
+                "h-[15px] absolute inset-0 bottom-[0.15em] left-[-3%] right-[-3%] bg-sky-300",
+                "md:top-[0.85em]",
+                locale === "ar" ? "top-[0.85em]" : "top-[0.75em]"
+              )}
+            ></div>
           </span>
         </div>
         <div className="mb-6 text-lg text-center">
@@ -165,8 +171,16 @@ export default function VerifyForm({ email }: { email: string }) {
       )}
 
       {/* Support Links */}
-      <div className="flex flex-col gap-2 items-center text-sm">
-        <div className="inline-flex gap-1">
+      <div
+        className={cn("flex flex-col gap-4.5 items-center text-sm", "md:gap-2")}
+      >
+        <div
+          className={cn(
+            "inline-flex gap-1 items-center",
+            locale === "en" && "flex-col",
+            "md:flex-row"
+          )}
+        >
           <span> {t("Auth.cantFindEmail")}</span>
           <Link
             href=""
@@ -179,7 +193,13 @@ export default function VerifyForm({ email }: { email: string }) {
             )}
           </Link>
         </div>
-        <div className="inline-flex gap-1">
+        <div
+          className={cn(
+            "inline-flex gap-1 items-center",
+            locale === "ar" && "flex-col",
+            "md:flex-row"
+          )}
+        >
           <span> {t("Auth.enteredWrongEmail")}</span>
           <Link href="/auth/sign-up" className="underline underline-offset-1">
             {t("Auth.changeEmail")}
