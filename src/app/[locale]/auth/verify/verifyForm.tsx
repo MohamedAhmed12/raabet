@@ -134,6 +134,8 @@ export default function VerifyForm({ email }: { email: string }) {
           maxLength={4}
           value={code}
           onChange={(value) => setCode(value)}
+          pattern="[A-Z0-9]"
+          inputMode="text"
         >
           <InputOTPGroup>
             {[...Array(4)].map((_, i) => (
