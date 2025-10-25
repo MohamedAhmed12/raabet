@@ -136,6 +136,8 @@ export default function VerifyForm({ email }: { email: string }) {
           onChange={(value) => setCode(value)}
           pattern="[A-Z0-9]"
           inputMode="text"
+          autoComplete="one-time-code"
+          name="otp"
         >
           <InputOTPGroup>
             {[...Array(4)].map((_, i) => (
