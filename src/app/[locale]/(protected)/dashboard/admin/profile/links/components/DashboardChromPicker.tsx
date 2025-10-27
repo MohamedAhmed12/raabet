@@ -92,10 +92,9 @@ const DashboardChromPickerContent = ({
             <LinksPageFieldLabel>{label}</LinksPageFieldLabel>
           </span>
           <div
-            className={cn("rounded-full w-5 h-5")}
+            className="rounded-full w-6 h-6 border border-gray-300"
             style={{
               backgroundColor: localColor,
-              border: "1px solid oklch(.85 .006 264.531)",
             }}
           ></div>
         </div>

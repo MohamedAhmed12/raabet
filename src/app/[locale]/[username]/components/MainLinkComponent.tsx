@@ -26,6 +26,38 @@ const MainLinkComponentContent = ({
     return link?.social_custom_logo_size ?? 0;
   }, [link?.social_custom_logo_size]);
 
+  // Determine background style based on gradient settings
+  const getBackgroundStyle = () => {
+    const direction = link?.general_styles_gradient_direction || 145;
+    const offset = link?.general_styles_gradient_offset || 50;
+    
+    // Check if gradient is enabled (gradient mode)
+    if (link?.general_styles_enable_gradient === true) {
+      // Create smooth gradient with controlled transition point
+      const startPercent = Math.max(0, offset - 25);
+      const endPercent = Math.min(100, offset + 25);
+      
+      return {
+        background: `linear-gradient(${direction}deg, ${link?.general_styles_primary_bgcolor} ${startPercent}%, ${link?.general_styles_gradient_color} ${endPercent}%)`,
+      };
+    }
+    
+    // Check if split mode (gradient disabled but offset exists)
+    if (link?.general_styles_enable_gradient === false && link?.general_styles_gradient_offset !== undefined) {
+      // Create hard split - both colors meet at offset point
+      return {
+        background: `linear-gradient(${direction}deg, ${link?.general_styles_primary_bgcolor} 0%, ${link?.general_styles_primary_bgcolor} ${offset}%, ${link?.general_styles_gradient_color} ${offset}%, ${link?.general_styles_gradient_color} 100%)`,
+      };
+    }
+    
+    // Solid color mode
+    return {
+      backgroundColor: link?.general_styles_is_secondary_bgcolor
+        ? link?.general_styles_secondary_bgcolor
+        : link?.general_styles_primary_bgcolor,
+    };
+  };
+
   return (
     link?.id && (
       <div
@@ -42,7 +74,32 @@ const MainLinkComponentContent = ({
           )}
           style={{
             color: link?.general_styles_primary_text_color,
-            backgroundColor: link?.general_styles_primary_bgcolor,
+            ...(() => {
+                const direction = link?.general_styles_gradient_direction || 145;
+                const offset = link?.general_styles_gradient_offset || 50;
+                
+                if (link?.general_styles_enable_gradient === true) {
+                  // Smooth gradient
+                  const startPercent = Math.max(0, offset - 25);
+                  const endPercent = Math.min(100, offset + 25);
+                  
+                  return {
+                    background: `linear-gradient(${direction}deg, ${link?.general_styles_primary_bgcolor} ${startPercent}%, ${link?.general_styles_gradient_color} ${endPercent}%)`,
+                  };
+                }
+                
+                if (link?.general_styles_enable_gradient === false && link?.general_styles_gradient_offset !== undefined) {
+                  // Hard split
+                  return {
+                    background: `linear-gradient(${direction}deg, ${link?.general_styles_primary_bgcolor} 0%, ${link?.general_styles_primary_bgcolor} ${offset}%, ${link?.general_styles_gradient_color} ${offset}%, ${link?.general_styles_gradient_color} 100%)`,
+                  };
+                }
+                
+                // Solid
+                return {
+                  backgroundColor: link?.general_styles_primary_bgcolor,
+                };
+              })(),
             borderRadius: "inherit",
           }}
         >
@@ -52,11 +109,7 @@ const MainLinkComponentContent = ({
               link?.general_styles_is_secondary_bgcolor &&
                 "pt-[18px] mt-[175px]"
             )}
-            style={{
-              backgroundColor: link?.general_styles_is_secondary_bgcolor
-                ? link?.general_styles_secondary_bgcolor
-                : link?.general_styles_primary_bgcolor,
-            }}
+            style={getBackgroundStyle()}
           >
             <LinksNavbar isSticky={isSticky} link={link} />
 

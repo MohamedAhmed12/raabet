@@ -5,6 +5,7 @@ export const DashboardSlider = ({
   label,
   defaultValue,
   max,
+  min,
   step,
   labelClassName,
   onValueChange,
@@ -13,6 +14,7 @@ export const DashboardSlider = ({
   label?: string;
   defaultValue?: number[] | undefined;
   max?: number | undefined;
+  min?: number | undefined;
   step?: number | undefined;
   labelClassName?: string;
   onValueChange: (value: number) => void;
@@ -26,6 +28,7 @@ export const DashboardSlider = ({
       <Slider
         defaultValue={defaultValue}
         max={max}
+        min={min}
         step={step}
         className="w-[120px] cursor-grab active:cursor-grabbing"
         progressbarcolor="bg-dashboard-primary"

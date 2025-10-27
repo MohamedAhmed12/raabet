@@ -5,6 +5,7 @@ import { Link } from "../../../../../../../../store/use-link-store";
 import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSwitch } from "../../DashboardSwitch";
+import { PrimaryBackgroundTypePicker } from "./PrimaryBackgroundTypePicker";
 
 interface GeneralStylesProps {
   t: ReturnType<typeof useTranslations>;
@@ -115,16 +116,12 @@ const MemoizedGeneralStyles = memo(
             handleOnChange("general_styles_primary_text_color", hex)
           }
         />
-        <DashboardChromPicker
-          label={t("primaryBgColor")}
-          currentColorLabel="general_styles_primary_bgcolor"
-          onColorChange={({ hex }: { hex: string }) =>
-            handleOnChange("general_styles_primary_bgcolor", hex, false)
-          }
-          onChangeComplete={({ hex }: { hex: string }) =>
-            handleOnChange("general_styles_primary_bgcolor", hex)
-          }
+
+        <PrimaryBackgroundTypePicker
+          link={link}
+          onColorChange={handleOnChange}
         />
+
         <MemoizedDashboardSwitch
           label={t("secondaryBgColor")}
           checked={link?.general_styles_is_secondary_bgcolor || false}

@@ -82,6 +82,10 @@ model Link {
   general_styles_is_label_exist       Boolean
   general_styles_secondary_bgcolor    String
   general_styles_soft_shadow          Boolean
+  general_styles_enable_gradient      Boolean
+  general_styles_gradient_color       String
+  general_styles_gradient_direction   Float
+  general_styles_gradient_offset      Float
   header_styles_profile_shadow        Float
   header_styles_profile_border_width  Float
   header_styles_profile_border_color  String
