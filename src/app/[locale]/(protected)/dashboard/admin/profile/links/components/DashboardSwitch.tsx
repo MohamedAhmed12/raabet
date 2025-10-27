@@ -23,6 +23,7 @@ export const DashboardSwitch = ({
       </span>
       <Switch
         id="show-deleted"
+        dir={locale == "ar" ? "rtl" : "ltr"}
         checked={checked}
         thumbClassName={
           locale == "ar"

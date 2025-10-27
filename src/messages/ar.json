@@ -186,6 +186,11 @@
     "gradientEndColor": "لون نهاية التدرج",
     "gradientDirection": "اتجاه التدرج (بالدرجات)",
     "gradientOffset": "نقطة الانتقال بين اللونين (%)",
+    "image": "صورة",
+    "uploadImage": "رفع صورة الخلفية",
+    "chooseImage": "...اختر صورة",
+    "removeImage": "إزالة الصورة",
+    "enableBlur": "تفعيل الضبابية",
     "headerStyles": {
       "title": "أنماط الرأس",
       "profilePictureShadow": "ظل صورة الملف الشخصي",
@@ -522,7 +527,7 @@
       "subscribe": "الاشتراك",
       "qr": "QR كود",
       "logout": "تسجيل الخروج",
-      "requestFeature": "طلب ميزة",
+      "requestFeature": "أقترح ميزة",
       "rewards": "المكافآت"
     },
     "activateProfile": "تفعيل الملف الشخصي",

@@ -33,10 +33,12 @@ export interface Link {
   general_styles_is_secondary_bgcolor?: boolean;
   general_styles_is_label_exist?: boolean;
   general_styles_secondary_bgcolor?: string;
-  general_styles_enable_gradient?: boolean;
+  general_styles_background_type?: string;
   general_styles_gradient_color?: string;
   general_styles_gradient_direction?: number;
   general_styles_gradient_offset?: number;
+  general_styles_bg_image?: string;
+  general_styles_bg_image_blur?: boolean;
   // implement in link viewer
   general_styles_soft_shadow?: boolean;
   header_styles_profile_shadow?: number;

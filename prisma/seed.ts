@@ -47,7 +47,7 @@ async function main() {
       general_styles_is_label_exist: false,
       general_styles_secondary_bgcolor: "#000000",
       general_styles_soft_shadow: true,
-      general_styles_enable_gradient: false,
+      general_styles_background_type: "solid",
       general_styles_gradient_color: "#FF6B6B",
       general_styles_gradient_direction: 145.0,
       general_styles_gradient_offset: 50.0,

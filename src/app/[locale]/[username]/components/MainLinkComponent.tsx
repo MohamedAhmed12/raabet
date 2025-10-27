@@ -22,39 +22,57 @@ const MainLinkComponentContent = ({
   isSticky,
   className = "",
 }: MainLinkComponentProps) => {
-  const size = useMemo(() => {
-    return link?.social_custom_logo_size ?? 0;
-  }, [link?.social_custom_logo_size]);
+  const {
+    size,
+    bgType,
+    primaryBgColor,
+    gradientColor,
+    gradientDirection,
+    gradientOffset,
+    isSecondaryBgColor,
+    secondaryBgColor,
+    bgImage,
+    bgImageBlur,
+  } = useMemo(
+    () => ({
+      size: link?.social_custom_logo_size ?? 0,
+      bgType: link?.general_styles_background_type || "solid",
+      primaryBgColor: link?.general_styles_primary_bgcolor,
+      gradientColor: link?.general_styles_gradient_color,
+      gradientDirection: link?.general_styles_gradient_direction || 145,
+      gradientOffset: link?.general_styles_gradient_offset || 50,
+      isSecondaryBgColor: link?.general_styles_is_secondary_bgcolor,
+      secondaryBgColor: link?.general_styles_secondary_bgcolor,
+      bgImage: link?.general_styles_bg_image,
+      bgImageBlur: link?.general_styles_bg_image_blur,
+    }),
+    [link]
+  );
 
-  // Determine background style based on gradient settings
+  // Determine background style based on background_type
   const getBackgroundStyle = () => {
-    const direction = link?.general_styles_gradient_direction || 145;
-    const offset = link?.general_styles_gradient_offset || 50;
-    
-    // Check if gradient is enabled (gradient mode)
-    if (link?.general_styles_enable_gradient === true) {
+    // Check background type
+    if (bgType === "gradient") {
       // Create smooth gradient with controlled transition point
-      const startPercent = Math.max(0, offset - 25);
-      const endPercent = Math.min(100, offset + 25);
-      
+      const startPercent = Math.max(0, gradientOffset - 25);
+      const endPercent = Math.min(100, gradientOffset + 25);
+
       return {
-        background: `linear-gradient(${direction}deg, ${link?.general_styles_primary_bgcolor} ${startPercent}%, ${link?.general_styles_gradient_color} ${endPercent}%)`,
+        background: `linear-gradient(${gradientDirection}deg, ${primaryBgColor} ${startPercent}%, ${gradientColor} ${endPercent}%)`,
       };
     }
-    
-    // Check if split mode (gradient disabled but offset exists)
-    if (link?.general_styles_enable_gradient === false && link?.general_styles_gradient_offset !== undefined) {
+
+    // Check if split mode
+    if (bgType === "split") {
       // Create hard split - both colors meet at offset point
       return {
-        background: `linear-gradient(${direction}deg, ${link?.general_styles_primary_bgcolor} 0%, ${link?.general_styles_primary_bgcolor} ${offset}%, ${link?.general_styles_gradient_color} ${offset}%, ${link?.general_styles_gradient_color} 100%)`,
+        background: `linear-gradient(${gradientDirection}deg, ${primaryBgColor} 0%, ${primaryBgColor} ${gradientOffset}%, ${gradientColor} ${gradientOffset}%, ${gradientColor} 100%)`,
       };
     }
-    
-    // Solid color mode
+
+    // Solid color mode (default)
     return {
-      backgroundColor: link?.general_styles_is_secondary_bgcolor
-        ? link?.general_styles_secondary_bgcolor
-        : link?.general_styles_primary_bgcolor,
+      backgroundColor: isSecondaryBgColor ? secondaryBgColor : primaryBgColor,
     };
   };
 
@@ -70,59 +88,56 @@ const MainLinkComponentContent = ({
         <div
           className={cn(
             "w-full flex flex-col max-w-[530px] min-h-[calc(100vh)] max-w-[530px]",
-            "shadow-[0px_7px_29px_0px_rgba(100,100,111,0.15)]"
+            "shadow-[0px_7px_29px_0px_rgba(100,100,111,0.15)]",
+            "relative"
           )}
           style={{
             color: link?.general_styles_primary_text_color,
-            ...(() => {
-                const direction = link?.general_styles_gradient_direction || 145;
-                const offset = link?.general_styles_gradient_offset || 50;
-                
-                if (link?.general_styles_enable_gradient === true) {
-                  // Smooth gradient
-                  const startPercent = Math.max(0, offset - 25);
-                  const endPercent = Math.min(100, offset + 25);
-                  
-                  return {
-                    background: `linear-gradient(${direction}deg, ${link?.general_styles_primary_bgcolor} ${startPercent}%, ${link?.general_styles_gradient_color} ${endPercent}%)`,
-                  };
-                }
-                
-                if (link?.general_styles_enable_gradient === false && link?.general_styles_gradient_offset !== undefined) {
-                  // Hard split
-                  return {
-                    background: `linear-gradient(${direction}deg, ${link?.general_styles_primary_bgcolor} 0%, ${link?.general_styles_primary_bgcolor} ${offset}%, ${link?.general_styles_gradient_color} ${offset}%, ${link?.general_styles_gradient_color} 100%)`,
-                  };
-                }
-                
-                // Solid
-                return {
-                  backgroundColor: link?.general_styles_primary_bgcolor,
-                };
-              })(),
             borderRadius: "inherit",
           }}
         >
+          {/* Background layer for solid/gradient/split colors */}
+          <div className="absolute inset-0 z-0" style={getBackgroundStyle()} />
+
+          {/* Blurred image background layer - only when background_type is "image" and blur is enabled */}
+          {bgType === "image" && bgImage && (
+            <div
+              className="absolute inset-0 z-[1]"
+              style={{
+                backgroundImage: `url(${bgImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                filter: bgImageBlur ? "blur(10px) brightness(0.8)" : "none",
+                borderRadius: "inherit",
+                transform: "scale(1.1)", // Scale up slightly to avoid edges showing
+              }}
+            />
+          )}
+
+          {/* Content layer - always on top */}
           <div
             className={cn(
-              "flex flex-col h-full p-[33px]",
-              link?.general_styles_is_secondary_bgcolor &&
-                "pt-[18px] mt-[175px]"
+              "flex flex-col h-full p-[33px] relative z-10",
+              isSecondaryBgColor && "pt-[18px] mt-[175px]"
             )}
-            style={getBackgroundStyle()}
+            style={{
+              backgroundColor: "transparent", // Transparent so background layers show through
+            }}
           >
             <LinksNavbar isSticky={isSticky} link={link} />
 
             <div
               className={cn(
                 "flex flex-col flex-1 mt-[15px]",
-                link?.general_styles_is_secondary_bgcolor && "mt-[25px]"
+                isSecondaryBgColor && "mt-[25px]"
               )}
             >
               <LinksHeader link={link} />
               <LinksSocialIcons link={link} />
               <LinksBlocks link={link} />
             </div>
+
+            {/* footer */}
             <div className="flex justify-center">
               {!link.social_enable_hide_raabet_branding ? (
                 <LinksFooter />

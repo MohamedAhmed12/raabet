@@ -186,6 +186,11 @@
     "gradientEndColor": "Gradient End Color",
     "gradientDirection": "Gradient Direction (degrees)",
     "gradientOffset": "Color Transition Point (%)",
+    "image": "Image",
+    "uploadImage": "Upload Background Image",
+    "chooseImage": "Choose an image...",
+    "removeImage": "Remove Image",
+    "enableBlur": "Enable Blur",
     "headerStyles": {
       "title": "Header Styles",
       "profilePictureShadow": "Profile Picture Shadow",
