@@ -97,7 +97,7 @@ const MainLinkComponentContent = ({
           }}
         >
           {/* Background layer for solid/gradient/split colors */}
-          <div className="absolute inset-0 z-0" style={getBackgroundStyle()} />
+          <div className="absolute inset-0 z-0" />
 
           {/* Blurred image background layer - only when background_type is "image" and blur is enabled */}
           {bgType === "image" && bgImage && (
@@ -120,9 +120,7 @@ const MainLinkComponentContent = ({
               "flex flex-col h-full p-[33px] relative z-10",
               isSecondaryBgColor && "pt-[18px] mt-[175px]"
             )}
-            style={{
-              backgroundColor: "transparent", // Transparent so background layers show through
-            }}
+            style={getBackgroundStyle()}
           >
             <LinksNavbar isSticky={isSticky} link={link} />
 

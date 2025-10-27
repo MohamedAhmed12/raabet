@@ -30,8 +30,8 @@ export function LinkViewer() {
           <div
             className={cn(
               "absolute top-0 rounded-3xl flex h-[565px] shadow-lg bg-white rounded-3xl border-3 border-[#333] rounded-[35px] overflow-hidden mt-1.5",
-              "lg:w-[100%] lg:h-full",
-              selectedTab == 0 && "lg:w-[64%] lg:max-w-[350px] h-[600px]"
+              "md:w-[100%] md:h-full",
+              selectedTab == 0 && "md:w-[64%] md:max-w-[500px] h-[600px]"
             )}
           >
             <MainLinkScrollableContainer link={link} />
