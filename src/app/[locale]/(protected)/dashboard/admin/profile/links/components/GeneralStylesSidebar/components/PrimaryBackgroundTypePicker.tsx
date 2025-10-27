@@ -164,16 +164,19 @@ export function PrimaryBackgroundTypePicker({
                     min={1}
                     step={1}
                     onValueChange={(value) => {
+                      const clampedValue = Math.max(1, value);
                       handleOnChange(
                         "general_styles_gradient_direction",
-                        value,
-                        false
+                        clampedValue,
+                        true
                       );
                     }}
                     onValueCommit={(value) => {
+                      const clampedValue = Math.max(1, value);
                       handleOnChange(
                         "general_styles_gradient_direction",
-                        value
+                        clampedValue,
+                        true
                       );
                     }}
                   />
@@ -187,11 +190,11 @@ export function PrimaryBackgroundTypePicker({
                       handleOnChange(
                         "general_styles_gradient_offset",
                         value,
-                        false
+                        true
                       )
                     }
                     onValueCommit={(value) =>
-                      handleOnChange("general_styles_gradient_offset", value)
+                      handleOnChange("general_styles_gradient_offset", value, true)
                     }
                   />
                 </div>
@@ -235,16 +238,19 @@ export function PrimaryBackgroundTypePicker({
                     min={1}
                     step={1}
                     onValueChange={(value) => {
+                      const clampedValue = Math.max(1, value);
                       handleOnChange(
                         "general_styles_gradient_direction",
-                        value,
-                        false
+                        clampedValue,
+                        true
                       );
                     }}
                     onValueCommit={(value) => {
+                      const clampedValue = Math.max(1, value);
                       handleOnChange(
                         "general_styles_gradient_direction",
-                        value
+                        clampedValue,
+                        true
                       );
                     }}
                   />
@@ -258,11 +264,11 @@ export function PrimaryBackgroundTypePicker({
                       handleOnChange(
                         "general_styles_gradient_offset",
                         value,
-                        false
+                        true
                       )
                     }
                     onValueCommit={(value) =>
-                      handleOnChange("general_styles_gradient_offset", value)
+                      handleOnChange("general_styles_gradient_offset", value, true)
                     }
                   />
                 </div>
