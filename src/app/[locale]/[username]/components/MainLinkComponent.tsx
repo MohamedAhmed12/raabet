@@ -64,9 +64,10 @@ const MainLinkComponentContent = ({
 
     // Check if split mode
     if (bgType === "split") {
-      // Create hard split - both colors meet at offset point
+      // Create hard split with minimal transition to prevent aliasing
+      const transitionZone = 0.15; // 0.1% minimal smooth transition
       return {
-        background: `linear-gradient(${gradientDirection}deg, ${primaryBgColor} 0%, ${primaryBgColor} ${gradientOffset}%, ${gradientColor} ${gradientOffset}%, ${gradientColor} 100%)`,
+        background: `linear-gradient(${gradientDirection}deg, ${primaryBgColor} 0%, ${primaryBgColor} ${gradientOffset - transitionZone}%, ${gradientColor} ${gradientOffset + transitionZone}%, ${gradientColor} 100%)`,
       };
     }
 
@@ -105,7 +106,9 @@ const MainLinkComponentContent = ({
             className="absolute inset-0 z-0"
             style={{
               backgroundColor:
-               bgType === "image" ? "transparent" : link?.general_styles_primary_bgcolor || "transparent",
+                bgType === "image"
+                  ? "transparent"
+                  : link?.general_styles_primary_bgcolor || "transparent",
             }}
           />
 
@@ -137,7 +140,6 @@ const MainLinkComponentContent = ({
             style={getBackgroundStyle()}
           >
             <LinksNavbar isSticky={isSticky} link={link} />
-
             <div
               className={cn(
                 "flex flex-col flex-1 mt-[15px]",
@@ -149,21 +151,24 @@ const MainLinkComponentContent = ({
               <LinksBlocks link={link} />
             </div>
 
-            {/* footer */}
             <div className="flex justify-center">
-              {!link.social_enable_hide_raabet_branding ? (
-                <LinksFooter />
-              ) : (
-                link.social_custom_logo && (
+              {!link.social_enable_hide_raabet_branding && <LinksFooter />}
+
+              {link.social_enable_hide_raabet_branding &&
+                link.social_custom_logo &&
+                size && (
                   <Image
-                    src={link.social_custom_logo}
+                    src={link.social_custom_logo || ""}
                     className="mt-7.5"
                     alt="Custom logo"
                     width={25 + (190 - 25) * size}
                     height={16 + (118 - 16) * size}
+                    style={{
+                      width: `${25 + (190 - 25) * size}px`,
+                      height: `${16 + (118 - 16) * size}px`,
+                    }}
                   />
-                )
-              )}
+                )}
             </div>
           </div>
         </div>
