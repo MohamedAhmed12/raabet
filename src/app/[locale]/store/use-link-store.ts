@@ -11,10 +11,10 @@ type SetLinkProps = {
 };
 export interface LinkSocial {
   id: string;
-  icon: iconNameType;
+  icon: iconNameType | string;
   url: string;
   order: number;
-  label: string;
+  label: string | null;
 }
 
 export interface Link {

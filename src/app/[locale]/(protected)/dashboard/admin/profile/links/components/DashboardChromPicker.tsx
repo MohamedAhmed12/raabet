@@ -82,12 +82,7 @@ const DashboardChromPickerContent = ({
         );
       }
     },
-    [
-      setLocalColor,
-      handleLinkPropertyValChange,
-      currentColorLabel,
-      debouncedHandleLinkPropertyValChange,
-    ]
+    [setLocalColor, currentColorLabel, debouncedHandleLinkPropertyValChange]
   );
 
   // Call onChangeComplete when user stops dragging which apply the changes to the database

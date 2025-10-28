@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -278,15 +279,17 @@ export function PrimaryBackgroundTypePicker() {
                   </div>
                   {link?.general_styles_bg_image && (
                     <div className="space-y-2">
-                      <div className="relative w-full h-32 border border-gray-300 rounded overflow-hidden">
-                        <img
-                          src={link.general_styles_bg_image}
-                          alt="Background"
-                          className={`w-full h-full object-cover ${
-                            link.general_styles_bg_image_blur ? "blur-sm" : ""
-                          }`}
-                        />
-                      </div>
+                    <div className="relative w-full h-32 border border-gray-300 rounded overflow-hidden">
+                      <Image
+                        src={link.general_styles_bg_image}
+                        alt="Background"
+                        fill
+                        className={`object-cover ${
+                          link.general_styles_bg_image_blur ? "blur-sm" : ""
+                        }`}
+                        unoptimized
+                      />
+                    </div>
                       <button
                         onClick={() => {
                           handleOnChange("general_styles_bg_image", "", true);

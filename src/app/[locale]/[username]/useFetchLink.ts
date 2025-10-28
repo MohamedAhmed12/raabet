@@ -1,4 +1,4 @@
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { useLinkStore, type Link } from "@/app/[locale]/store/use-link-store";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSingleLink } from "../actions/fetchSingleLink";
 import { useShallow } from "zustand/shallow";
@@ -29,9 +29,10 @@ const useFetchLink = ({
         throw new Error("No link attached to this userId");
       }
 
-      // @ts-expect-error - We're ignoring this line because we trust the response matches the Link type
-      replaceLink(response);
-      setLinkRaw(response);
+      // @ts-expect-error - response structure differs from Link type (qrcodes field is partial)
+      const linkData = response as Link;
+      replaceLink(linkData);
+      setLinkRaw(linkData);
 
       return response;
     },

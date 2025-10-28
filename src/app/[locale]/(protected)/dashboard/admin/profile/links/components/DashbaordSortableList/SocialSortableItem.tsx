@@ -1,6 +1,7 @@
 "use client";
 
 import { LinkSocial, useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { iconNameType } from "@/assets/icons";
 import { Icon } from "@/components/Icon";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -136,7 +137,7 @@ const SocialSortableItemComponent = ({ item }: SocialSortableItemProps) => {
               id="website"
               {...register("website")}
               placeholder="Enter website URL"
-              icon={<Icon name={item?.icon} sizeClass="sm" />}
+              icon={<Icon name={item?.icon as iconNameType} sizeClass="sm" />}
               onFocus={handleFocus}
               onBlur={() => {
                 handleBlur();
@@ -159,7 +160,7 @@ const SocialSortableItemComponent = ({ item }: SocialSortableItemProps) => {
         {!isSeparator && (
           <EditSocialLabelDialog
             placeholder="Icon Label"
-            initialValue={item.label}
+            initialValue={item.label || ""}
             onSubmit={handleUpdateLabel}
           />
         )}
