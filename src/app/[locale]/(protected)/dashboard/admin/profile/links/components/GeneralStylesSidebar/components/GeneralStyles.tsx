@@ -1,7 +1,10 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "next-intl";
 import { memo, useCallback } from "react";
-import { Link } from "../../../../../../../../store/use-link-store";
+import {
+  Link,
+  useLinkStore,
+} from "../../../../../../../../store/use-link-store";
 import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSwitch } from "../../DashboardSwitch";
@@ -9,12 +12,12 @@ import { PrimaryBackgroundTypePicker } from "./PrimaryBackgroundTypePicker";
 
 interface GeneralStylesProps {
   t: ReturnType<typeof useTranslations>;
-  link: Link;
+  linkRaw: Link;
   handleLinkPropertyValChange: (
     key: keyof Link,
     value: string | boolean | number,
     shouldPersistToDatabase?: boolean
-  ) => Promise<void>;
+  ) => void;
 }
 
 // Memoized version of DashboardSwitch
@@ -88,7 +91,7 @@ MemoizedTabs.displayName = "MemoizedTabs";
 
 // Memoized version of GeneralStyles
 const MemoizedGeneralStyles = memo(
-  ({ t, link, handleLinkPropertyValChange }: GeneralStylesProps) => {
+  ({ t, linkRaw, handleLinkPropertyValChange }: GeneralStylesProps) => {
     // Memoize handlers only once when component mounts
     const handleOnChange = useCallback(
       (
@@ -96,11 +99,12 @@ const MemoizedGeneralStyles = memo(
         value: string | boolean | number,
         shouldPersistToDatabase?: boolean
       ) => {
+        console.log("aaa", value);
+
         handleLinkPropertyValChange(key, value, shouldPersistToDatabase);
       },
       [handleLinkPropertyValChange]
     );
-
     return (
       <div className="section">
         <div className="section-title text-[.82rem] font-bold mb-[22px]">
@@ -117,20 +121,17 @@ const MemoizedGeneralStyles = memo(
           }
         />
 
-        <PrimaryBackgroundTypePicker
-          link={link}
-          onColorChange={handleOnChange}
-        />
+        <PrimaryBackgroundTypePicker />
 
         <MemoizedDashboardSwitch
           label={t("secondaryBgColor")}
-          checked={link?.general_styles_is_secondary_bgcolor || false}
+          checked={linkRaw?.general_styles_is_secondary_bgcolor || false}
           onCheckedChange={(checked) =>
             handleOnChange("general_styles_is_secondary_bgcolor", checked)
           }
         />
 
-        {link.general_styles_is_secondary_bgcolor && (
+        {linkRaw.general_styles_is_secondary_bgcolor && (
           <DashboardChromPicker
             label={t("secondaryPrimaryBgColor")}
             currentColorLabel="general_styles_secondary_bgcolor"
@@ -162,7 +163,7 @@ const MemoizedGeneralStyles = memo(
               val === "1"
             )
           }
-          defaultValue={link.general_styles_soft_shadow ? "1" : "0"}
+          defaultValue={linkRaw.general_styles_soft_shadow ? "1" : "0"}
           className="w-full"
         />
       </div>
@@ -173,13 +174,14 @@ MemoizedGeneralStyles.displayName = "MemoizedGeneralStyles";
 
 export default function GeneralStyles() {
   const t = useTranslations("LinksPage");
-  const { link, handleLinkPropertyValChange } = useUpdateLink();
+  const { handleLinkPropertyValChange } = useUpdateLink();
+  const linkRaw = useLinkStore((state) => state.linkRaw);
 
   return (
-    link && (
+    linkRaw && (
       <MemoizedGeneralStyles
         t={t}
-        link={link}
+        linkRaw={linkRaw}
         handleLinkPropertyValChange={handleLinkPropertyValChange}
       />
     )

@@ -1,4 +1,5 @@
 import { useTranslations } from "use-intl";
+import { useLinkStore } from "../../../../../../../../store/use-link-store";
 import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { CardDesignToggleGroup } from "../../CardDesignToggleGroup";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
@@ -7,7 +8,8 @@ import { cardDesigns } from "../constants";
 
 export default function CardStyles() {
   const t = useTranslations("LinksPage.cardStyles");
-  const { link, handleLinkPropertyValChange } = useUpdateLink();
+  const { handleLinkPropertyValChange } = useUpdateLink();
+  const linkRaw = useLinkStore((state) => state.linkRaw);
 
   return (
     <div className="section">
@@ -16,7 +18,7 @@ export default function CardStyles() {
       </div>
 
       <CardDesignToggleGroup
-        initialVal={link?.card_styles_design?.toString()}
+        initialVal={linkRaw?.card_styles_design?.toString()}
         title={t("designGroupTitle")}
         hasTooltip
         tooltipContent={t("designGrouptooltipContent")}
@@ -27,7 +29,7 @@ export default function CardStyles() {
         }}
       />
 
-      {link?.card_styles_design === 0 && (
+      {linkRaw?.card_styles_design === 0 && (
         <DashboardChromPicker
           label={t("cardColor")}
           currentColorLabel="card_styles_card_color"
@@ -62,7 +64,7 @@ export default function CardStyles() {
       />
       <DashboardSlider
         label={t("cardCorner")}
-        defaultValue={[link?.card_styles_card_corner || 0]}
+        defaultValue={[linkRaw?.card_styles_card_corner || 0]}
         max={1}
         step={0.001}
         onValueChange={(value) =>
@@ -72,11 +74,11 @@ export default function CardStyles() {
           handleLinkPropertyValChange("card_styles_card_corner", value)
         }
       />
-      {link?.card_styles_design === 0 && (
+      {linkRaw?.card_styles_design === 0 && (
         <>
           <DashboardSlider
             label={t("cardBorder")}
-            defaultValue={[link?.card_styles_card_border_width || 0]}
+            defaultValue={[linkRaw?.card_styles_card_border_width || 0]}
             max={1}
             step={0.001}
             onValueChange={(value) =>
@@ -93,8 +95,8 @@ export default function CardStyles() {
               )
             }
           />
-          {link?.card_styles_card_border_width &&
-          link?.card_styles_card_border_width > 0 ? (
+          {linkRaw?.card_styles_card_border_width &&
+          linkRaw?.card_styles_card_border_width > 0 ? (
             <DashboardChromPicker
               label={t("cardBorderColor")}
               currentColorLabel="card_styles_card_border_color"
@@ -115,7 +117,7 @@ export default function CardStyles() {
           ) : null}
           <DashboardSlider
             label={t("cardShadow")}
-            defaultValue={[link?.card_styles_card_shadow || 0]}
+            defaultValue={[linkRaw?.card_styles_card_shadow || 0]}
             max={1}
             step={0.001}
             onValueChange={(value) =>
@@ -131,7 +133,7 @@ export default function CardStyles() {
           />
           <DashboardSlider
             label={t("cardSpacing")}
-            defaultValue={[link?.card_styles_card_spacing || 0]}
+            defaultValue={[linkRaw?.card_styles_card_spacing || 0]}
             max={1}
             step={0.001}
             onValueChange={(value) =>

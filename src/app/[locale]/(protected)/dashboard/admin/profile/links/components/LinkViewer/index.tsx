@@ -12,7 +12,9 @@ import { LinkViewerTabs } from "./LinkViewerTabs";
 export function LinkViewer() {
   const [selectedTab, setSelectedTab] = useState(0);
 
-  const link = useLinkStore(useShallow((state) => state.link));
+  const link = useLinkStore(
+    useShallow((state) => state.link)
+  );
 
   const handleOnClick = useCallback((i: number) => setSelectedTab(i), []);
 

@@ -75,12 +75,17 @@ export interface Link {
 
 interface LinkState {
   link: Link;
+  linkRaw: Link;
   setLink: (props: SetLinkProps) => void;
   replaceLink: (link: Link | ((prev: Link) => Link)) => void;
 }
 
 const createLinkSlice: StateCreator<LinkState> = (set) => ({
   link: {
+    id: "",
+  },
+
+  linkRaw: {
     id: "",
   },
 
@@ -97,6 +102,15 @@ const createLinkSlice: StateCreator<LinkState> = (set) => ({
     set((state) => ({
       link: typeof update === "function" ? update(state.link) : update,
     })),
+
+  setLinkRaw: (update: Link | ((prev: Link) => Link)) => {
+    set(
+      (state) => ({
+        linkRaw: typeof update === "function" ? update(state.linkRaw) : update,
+      }),
+      false // Skip store equality check for performance
+    );
+  },
 });
 
 export const useLinkStore = create<LinkState>()(

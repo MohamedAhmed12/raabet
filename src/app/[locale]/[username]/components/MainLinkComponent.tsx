@@ -160,4 +160,14 @@ const MainLinkComponentContent = ({
 
 MainLinkComponentContent.displayName = "MainLinkComponent";
 
-export const MainLinkComponent = memo(MainLinkComponentContent);
+export const MainLinkComponent = memo(
+  MainLinkComponentContent,
+  (prevProps, nextProps) => {
+    // Skip re-render only if all props are the same (including object references)
+    return (
+      prevProps.link === nextProps.link &&
+      prevProps.isSticky === nextProps.isSticky &&
+      prevProps.className === nextProps.className
+    );
+  }
+);

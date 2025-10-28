@@ -6,6 +6,7 @@ import { GCSFileLoader } from "../../LinkBuilderSidebar/GCSFileLoader";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Share2, Upload, User } from "lucide-react";
+import { useLinkStore } from "../../../../../../../../store/use-link-store";
 
 type ContentProps = {
   t: (key: string) => string;
@@ -60,7 +61,8 @@ export const content: Record<string, ContentFunction> = {
 
 export default function SocialsAndSharing() {
   const t = useTranslations("SocialsAndSharing");
-  const { link, handleLinkPropertyValChange } = useUpdateLink();
+  const { handleLinkPropertyValChange } = useUpdateLink();
+  const linkRaw = useLinkStore((state) => state.linkRaw);
 
   const getTooltipContent = (key: string) => {
     const contentFunction = content[key];
@@ -90,7 +92,7 @@ export default function SocialsAndSharing() {
       </div>
       <DashboardSwitch
         label={t("enableAddContact")}
-        checked={link.social_enable_add_contacts}
+        checked={linkRaw.social_enable_add_contacts}
         tooltipContent={getTooltipContent("Enable Add Contact")}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange("social_enable_add_contacts", checked)
@@ -99,7 +101,7 @@ export default function SocialsAndSharing() {
 
       <DashboardSwitch
         label={t("enableShareButton")}
-        checked={link.social_enable_share_btn}
+        checked={linkRaw.social_enable_share_btn}
         tooltipContent={getTooltipContent("Enable Share Button")}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange("social_enable_share_btn", checked)
@@ -107,7 +109,7 @@ export default function SocialsAndSharing() {
       />
       <DashboardSwitch
         label={t("clickForQRCode")}
-        checked={link.social_enable_qr_code}
+        checked={linkRaw.social_enable_qr_code}
         tooltipContent={getTooltipContent("Click For QR Code")}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange("social_enable_qr_code", checked)
@@ -115,7 +117,7 @@ export default function SocialsAndSharing() {
       />
       <DashboardSwitch
         label={t("hideRaabetBranding")}
-        checked={link.social_enable_hide_raabet_branding}
+        checked={linkRaw.social_enable_hide_raabet_branding}
         tooltipContent={getTooltipContent("hide raabet branding")}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange(
@@ -124,18 +126,18 @@ export default function SocialsAndSharing() {
           )
         }
       />
-      {link.social_enable_hide_raabet_branding && (
+      {linkRaw.social_enable_hide_raabet_branding && (
         <div className="flex flex-col gap-2">
           <label
             htmlFor="custom_logo"
             className="file-upload-label text-sm flex items-center justify-between gap-2 mb-2 px-4 p-3 relative border rounded-lg bg-white shadow-sm"
           >
             <span>{t("customLogo")}</span>
-            {!link.social_custom_logo ? (
+            {!linkRaw.social_custom_logo ? (
               <Upload className="size-5 border" />
             ) : (
               <Image
-                src={link.social_custom_logo}
+                src={linkRaw.social_custom_logo}
                 alt="Custom logo"
                 width={60}
                 height={60}
@@ -147,9 +149,9 @@ export default function SocialsAndSharing() {
             id="custom_logo"
             type="file"
             className="mb-[14px] hidden"
-            onChange={(e) => handleFileUploader(e, link.id)}
+            onChange={(e) => handleFileUploader(e, linkRaw.id)}
           />
-          {link.social_custom_logo && (
+          {linkRaw.social_custom_logo && (
             <DashboardSlider
               label="custom_logo_size"
               defaultValue={[0.02]}
