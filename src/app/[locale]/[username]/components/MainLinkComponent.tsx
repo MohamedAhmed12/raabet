@@ -97,7 +97,13 @@ const MainLinkComponentContent = ({
           }}
         >
           {/* Background layer for solid/gradient/split colors */}
-          <div className="absolute inset-0 z-0" />
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundColor:
+                link?.general_styles_primary_bgcolor || "transparent",
+            }}
+          />
 
           {/* Blurred image background layer - only when background_type is "image" and blur is enabled */}
           {bgType === "image" && bgImage && (
