@@ -1,7 +1,8 @@
-import {Switch} from "@/components/ui/switch";
-import {useLocale} from "next-intl";
-import {HelperTooltip} from "../../../components/HelperTooltip";
-import {LinksPageFieldLabel} from "./LinksPageFieldLabel";
+import { Switch } from "@/components/ui/switch";
+import { useLocale } from "next-intl";
+import { useState } from "react";
+import { HelperTooltip } from "../../../components/HelperTooltip";
+import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
 
 export const DashboardSwitch = ({
   label,
@@ -11,10 +12,17 @@ export const DashboardSwitch = ({
 }: Readonly<{
   label?: string;
   checked: boolean | undefined;
-  tooltipContent?: string |React.ReactNode;
+  tooltipContent?: string | React.ReactNode;
   onCheckedChange: (checked: boolean) => void;
 }>) => {
   const locale = useLocale();
+  // Initialize from prop once; then local state is the source of truth
+  const [isChecked, setIsChecked] = useState<boolean>(() => !!checked);
+
+  const handleChange = (value: boolean) => {
+    setIsChecked(value);
+    onCheckedChange(value);
+  };
   return (
     <div className="dashboard-general-style-controller">
       <span className="flex gap-2 justify-center items-center">
@@ -24,13 +32,13 @@ export const DashboardSwitch = ({
       <Switch
         id="show-deleted"
         dir={locale == "ar" ? "rtl" : "ltr"}
-        checked={checked}
+        checked={isChecked}
         thumbClassName={
           locale == "ar"
             ? "data-[state=checked]:translate-x-[calc(-100%+2px)] data-[state=unchecked]:translate-x-0"
             : ""
         }
-        onCheckedChange={onCheckedChange}
+        onCheckedChange={handleChange}
         className="cursor-pointer"
       />
     </div>

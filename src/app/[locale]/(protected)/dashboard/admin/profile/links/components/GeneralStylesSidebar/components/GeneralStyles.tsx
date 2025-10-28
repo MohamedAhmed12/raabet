@@ -1,7 +1,10 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "next-intl";
-import { memo, useCallback } from "react";
-import { Link } from "../../../../../../../../store/use-link-store";
+import { memo, useCallback, useState } from "react";
+import {
+  Link,
+  useLinkStore,
+} from "../../../../../../../../store/use-link-store";
 import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSwitch } from "../../DashboardSwitch";
@@ -9,12 +12,12 @@ import { PrimaryBackgroundTypePicker } from "./PrimaryBackgroundTypePicker";
 
 interface GeneralStylesProps {
   t: ReturnType<typeof useTranslations>;
-  link: Link;
+  linkRaw: Link;
   handleLinkPropertyValChange: (
     key: keyof Link,
     value: string | boolean | number,
     shouldPersistToDatabase?: boolean
-  ) => Promise<void>;
+  ) => void;
 }
 
 // Memoized version of DashboardSwitch
@@ -88,8 +91,9 @@ MemoizedTabs.displayName = "MemoizedTabs";
 
 // Memoized version of GeneralStyles
 const MemoizedGeneralStyles = memo(
-  ({ t, link, handleLinkPropertyValChange }: GeneralStylesProps) => {
+  ({ t, linkRaw, handleLinkPropertyValChange }: GeneralStylesProps) => {
     // Memoize handlers only once when component mounts
+    const [showSecondaryBgColor, setShowSecondaryBgColor] = useState(false);
     const handleOnChange = useCallback(
       (
         key: keyof Link,
@@ -109,51 +113,28 @@ const MemoizedGeneralStyles = memo(
         <DashboardChromPicker
           label={t("primaryTextColor")}
           currentColorLabel="general_styles_primary_text_color"
-          onColorChange={({ hex }: { hex: string }) =>
-            handleOnChange("general_styles_primary_text_color", hex, false)
-          }
-          onChangeComplete={({ hex }: { hex: string }) =>
-            handleOnChange("general_styles_primary_text_color", hex)
-          }
         />
-
-        <PrimaryBackgroundTypePicker
-          link={link}
-          onColorChange={handleOnChange}
-        />
-
+        <PrimaryBackgroundTypePicker />
         <MemoizedDashboardSwitch
           label={t("secondaryBgColor")}
-          checked={link?.general_styles_is_secondary_bgcolor || false}
-          onCheckedChange={(checked) =>
-            handleOnChange("general_styles_is_secondary_bgcolor", checked)
-          }
+          checked={linkRaw?.general_styles_is_secondary_bgcolor || false}
+          onCheckedChange={(checked) => {
+            setShowSecondaryBgColor(checked);
+            handleOnChange("general_styles_is_secondary_bgcolor", checked);
+          }}
         />
 
-        {link.general_styles_is_secondary_bgcolor && (
+        {(linkRaw.general_styles_is_secondary_bgcolor ||
+          showSecondaryBgColor) && (
           <DashboardChromPicker
             label={t("secondaryPrimaryBgColor")}
             currentColorLabel="general_styles_secondary_bgcolor"
-            onColorChange={({ hex }: { hex: string }) =>
-              handleOnChange("general_styles_secondary_bgcolor", hex, false)
-            }
-            onChangeComplete={({ hex }: { hex: string }) =>
-              handleOnChange("general_styles_secondary_bgcolor", hex)
-            }
           />
         )}
-
         <DashboardChromPicker
           label={t("desktopBgColor")}
           currentColorLabel="general_styles_desktop_bgcolor"
-          onColorChange={({ hex }: { hex: string }) =>
-            handleOnChange("general_styles_desktop_bgcolor", hex, false)
-          }
-          onChangeComplete={({ hex }: { hex: string }) =>
-            handleOnChange("general_styles_desktop_bgcolor", hex)
-          }
         />
-
         {/* to be applied next iteration */}
         <MemoizedTabs
           onValueChange={(val: string) =>
@@ -162,7 +143,7 @@ const MemoizedGeneralStyles = memo(
               val === "1"
             )
           }
-          defaultValue={link.general_styles_soft_shadow ? "1" : "0"}
+          defaultValue={linkRaw.general_styles_soft_shadow ? "1" : "0"}
           className="w-full"
         />
       </div>
@@ -173,13 +154,14 @@ MemoizedGeneralStyles.displayName = "MemoizedGeneralStyles";
 
 export default function GeneralStyles() {
   const t = useTranslations("LinksPage");
-  const { link, handleLinkPropertyValChange } = useUpdateLink();
+  const { handleLinkPropertyValChange } = useUpdateLink();
+  const linkRaw = useLinkStore((state) => state.linkRaw);
 
   return (
-    link && (
+    linkRaw && (
       <MemoizedGeneralStyles
         t={t}
-        link={link}
+        linkRaw={linkRaw}
         handleLinkPropertyValChange={handleLinkPropertyValChange}
       />
     )

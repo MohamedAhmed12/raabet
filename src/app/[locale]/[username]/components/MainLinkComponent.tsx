@@ -70,6 +70,10 @@ const MainLinkComponentContent = ({
       };
     }
 
+    if (bgType === "image") {
+      return {};
+    }
+
     // Solid color mode (default)
     return {
       backgroundColor: isSecondaryBgColor ? secondaryBgColor : primaryBgColor,
@@ -97,21 +101,31 @@ const MainLinkComponentContent = ({
           }}
         >
           {/* Background layer for solid/gradient/split colors */}
-          <div className="absolute inset-0 z-0" style={getBackgroundStyle()} />
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundColor:
+               bgType === "image" ? "transparent" : link?.general_styles_primary_bgcolor || "transparent",
+            }}
+          />
 
-          {/* Blurred image background layer - only when background_type is "image" and blur is enabled */}
+          {/* Blurred image background layer - only when background_type is "image" */}
           {bgType === "image" && bgImage && (
             <div
-              className="absolute inset-0 z-[1]"
-              style={{
-                backgroundImage: `url(${bgImage})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                filter: bgImageBlur ? "blur(10px) brightness(0.8)" : "none",
-                borderRadius: "inherit",
-                transform: "scale(1.1)", // Scale up slightly to avoid edges showing
-              }}
-            />
+              className="absolute inset-0 z-[1] pointer-events-none overflow-hidden"
+              style={{ borderRadius: "inherit" }}
+            >
+              <div
+                className="absolute -inset-1"
+                style={{
+                  backgroundImage: `url(${bgImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  filter: bgImageBlur ? "blur(4px) brightness(0.8)" : "none",
+                  willChange: "filter",
+                }}
+              />
+            </div>
           )}
 
           {/* Content layer - always on top */}
@@ -120,9 +134,7 @@ const MainLinkComponentContent = ({
               "flex flex-col h-full p-[33px] relative z-10",
               isSecondaryBgColor && "pt-[18px] mt-[175px]"
             )}
-            style={{
-              backgroundColor: "transparent", // Transparent so background layers show through
-            }}
+            style={getBackgroundStyle()}
           >
             <LinksNavbar isSticky={isSticky} link={link} />
 
@@ -162,4 +174,14 @@ const MainLinkComponentContent = ({
 
 MainLinkComponentContent.displayName = "MainLinkComponent";
 
-export const MainLinkComponent = memo(MainLinkComponentContent);
+export const MainLinkComponent = memo(
+  MainLinkComponentContent,
+  (prevProps, nextProps) => {
+    // Skip re-render only if all props are the same (including object references)
+    return (
+      prevProps.link === nextProps.link &&
+      prevProps.isSticky === nextProps.isSticky &&
+      prevProps.className === nextProps.className
+    );
+  }
+);
