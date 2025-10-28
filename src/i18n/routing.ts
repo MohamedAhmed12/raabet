@@ -12,5 +12,5 @@ export const routing = defineRouting({
   defaultLocale,
 
   localePrefix: 'always', // or 'as-needed'
-  localeDetection: true,
+  localeDetection: false, // Disable automatic locale detection to always use default 'ar'
 });
