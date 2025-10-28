@@ -89,6 +89,7 @@ export default function LinksBlocks({ link }: { link: Link }) {
                 color: "inherit",
                 cursor: isLink ? "pointer" : "default",
                 transformOrigin: "center",
+                position: link.card_styles_design === 4 ? "relative" : "unset",
               }}
               href={isLink ? block.url : undefined}
               target={isLink ? "_blank" : undefined}

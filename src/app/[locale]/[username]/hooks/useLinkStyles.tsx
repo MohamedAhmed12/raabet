@@ -105,7 +105,7 @@ const useLinkStyles = (link: Link) => {
       styles.boxShadow =
         card_styles_design != 4
           ? generateShadows(general_styles_primary_bgcolor)
-          : "unset";
+          : "none";
     } else if (card_styles_design == 0) {
       // Apply styles for design 0
       styles.backgroundColor = card_styles_card_color;
