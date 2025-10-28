@@ -70,6 +70,10 @@ const MainLinkComponentContent = ({
       };
     }
 
+    if (bgType === "image") {
+      return {};
+    }
+
     // Solid color mode (default)
     return {
       backgroundColor: isSecondaryBgColor ? secondaryBgColor : primaryBgColor,
@@ -105,7 +109,7 @@ const MainLinkComponentContent = ({
             }}
           />
 
-          {/* Blurred image background layer - only when background_type is "image" and blur is enabled */}
+          {/* Blurred image background layer - only when background_type is "image" */}
           {bgType === "image" && bgImage && (
             <div
               className="absolute inset-0 z-[1]"
@@ -115,7 +119,7 @@ const MainLinkComponentContent = ({
                 backgroundPosition: "center",
                 filter: bgImageBlur ? "blur(10px) brightness(0.8)" : "none",
                 borderRadius: "inherit",
-                transform: "scale(1.1)", // Scale up slightly to avoid edges showing
+                transform: bgImageBlur ? "scale(1.1)" : "none",
               }}
             />
           )}
