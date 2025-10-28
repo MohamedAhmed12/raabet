@@ -10,6 +10,7 @@ export function LinksAvatar() {
   const {
     user,
     header_styles_profile_shadow,
+    general_styles_soft_shadow,
     header_styles_profile_border_width,
     general_styles_is_secondary_bgcolor,
     header_styles_profile_border_color,
@@ -18,6 +19,7 @@ export function LinksAvatar() {
     useShallow((state) => ({
       user: state.link.user,
       header_styles_profile_shadow: state.link?.header_styles_profile_shadow,
+      general_styles_soft_shadow: state.link?.general_styles_soft_shadow,
       header_styles_profile_border_width:
         state.link?.header_styles_profile_border_width,
       general_styles_is_secondary_bgcolor:
@@ -41,9 +43,13 @@ export function LinksAvatar() {
             }`
         )}
         style={{
-          boxShadow: ` rgba(0, 0, 0) ${profilePicShadow * 6.3}px ${
-            profilePicShadow * 7
-          }px 0px 0px`,
+          boxShadow: general_styles_soft_shadow
+            ? `0 ${4 + profilePicShadow * 2}px ${12 + profilePicShadow * 4}px ${
+                -3 + profilePicShadow * 2
+              }px rgba(0, 0, 0, ${0.15 + profilePicShadow * 0.08})`
+            : `rgba(0, 0, 0) ${profilePicShadow * 6.3}px ${
+                profilePicShadow * 7
+              }px 0px 0px`,
           borderWidth: `${profilePicBorder * 0.008}px`,
           borderColor: header_styles_profile_border_color,
         }}
