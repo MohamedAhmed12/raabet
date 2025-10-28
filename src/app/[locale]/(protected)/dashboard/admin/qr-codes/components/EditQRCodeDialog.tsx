@@ -196,10 +196,12 @@ export function EditQRCodeDialog({
               <DashboardChromPicker
                 label={t("foregroundLabel")}
                 currentColor={foregroundColor}
+                onChangeComplete={(color) => setForegroundColor(color)}
               />
               <DashboardChromPicker
                 label={t("backgroundLabel")}
                 currentColor={backgroundColor}
+                onChangeComplete={(color) => setBackgroundColor(color)}
               />
             </div>
 

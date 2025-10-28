@@ -37,7 +37,7 @@ export interface Link {
   general_styles_gradient_color?: string;
   general_styles_gradient_direction?: number;
   general_styles_gradient_offset?: number;
-  general_styles_bg_image?: string;
+  general_styles_bg_image?: string | null;
   general_styles_bg_image_blur?: boolean;
   // implement in link viewer
   general_styles_soft_shadow?: boolean;
@@ -78,6 +78,7 @@ interface LinkState {
   linkRaw: Link;
   setLink: (props: SetLinkProps) => void;
   replaceLink: (link: Link | ((prev: Link) => Link)) => void;
+  setLinkRaw: (update: Link | ((prev: Link) => Link)) => void;
 }
 
 const createLinkSlice: StateCreator<LinkState> = (set) => ({

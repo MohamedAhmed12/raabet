@@ -15,6 +15,7 @@ interface DashboardChromPickerProps {
   label?: string;
   currentColorLabel?: keyof Link;
   currentColor?: string;
+  onChangeComplete?: (color: string) => void;
 }
 
 const MemoizedChrome = memo(Chrome);
@@ -23,6 +24,7 @@ const DashboardChromPickerContent = ({
   currentColor,
   currentColorLabel,
   label,
+  onChangeComplete,
 }: DashboardChromPickerProps) => {
   const { handleLinkPropertyValChange } = useUpdateLink();
   const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -88,10 +90,14 @@ const DashboardChromPickerContent = ({
     ]
   );
 
-  // Call onChangeComplete when user stops dragging which appply the changes to the database
+  // Call onChangeComplete when user stops dragging which apply the changes to the database
   const handleMouseUp = useCallback(() => {
-    handleColorChange(localColor, true);
-  }, [handleColorChange, localColor]);
+    if (onChangeComplete) {
+      onChangeComplete(localColor);
+    } else {
+      handleColorChange(localColor, true);
+    }
+  }, [onChangeComplete, handleColorChange, localColor]);
 
   return (
     <Popover>
@@ -128,7 +134,8 @@ export const DashboardChromPicker = memo(
     return (
       prevProps.currentColor === nextProps.currentColor &&
       prevProps.currentColorLabel === nextProps.currentColorLabel &&
-      prevProps.label === nextProps.label
+      prevProps.label === nextProps.label &&
+      prevProps.onChangeComplete === nextProps.onChangeComplete
     );
   }
 );
