@@ -44,7 +44,7 @@ export function EditQRCodeDialog({
   const t = useTranslations("QR");
 
   const [websiteUrl, setWebsiteUrl] = useState(qr.destination_url || qr.url);
-  const [displayUrl, setDisplayUrl] = useState('');
+  const [displayUrl, setDisplayUrl] = useState("");
   const [qrSize, setQrSize] = useState(qr.qrSize);
   const [qrLevel, setQrLevel] = useState<"L" | "M" | "Q" | "H">(
     qr.qrLevel as "L" | "M" | "Q" | "H"
@@ -196,12 +196,10 @@ export function EditQRCodeDialog({
               <DashboardChromPicker
                 label={t("foregroundLabel")}
                 currentColor={foregroundColor}
-                onChangeComplete={({ hex }) => setForegroundColor(hex)}
               />
               <DashboardChromPicker
                 label={t("backgroundLabel")}
                 currentColor={backgroundColor}
-                onChangeComplete={({ hex }) => setBackgroundColor(hex)}
               />
             </div>
 

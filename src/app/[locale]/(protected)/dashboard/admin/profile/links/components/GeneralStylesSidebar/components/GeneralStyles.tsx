@@ -1,6 +1,6 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "next-intl";
-import { memo, useCallback } from "react";
+import { memo, useCallback, useState } from "react";
 import {
   Link,
   useLinkStore,
@@ -93,18 +93,18 @@ MemoizedTabs.displayName = "MemoizedTabs";
 const MemoizedGeneralStyles = memo(
   ({ t, linkRaw, handleLinkPropertyValChange }: GeneralStylesProps) => {
     // Memoize handlers only once when component mounts
+    const [showSecondaryBgColor, setShowSecondaryBgColor] = useState(false);
     const handleOnChange = useCallback(
       (
         key: keyof Link,
         value: string | boolean | number,
         shouldPersistToDatabase?: boolean
       ) => {
-        console.log("aaa", value);
-
         handleLinkPropertyValChange(key, value, shouldPersistToDatabase);
       },
       [handleLinkPropertyValChange]
     );
+
     return (
       <div className="section">
         <div className="section-title text-[.82rem] font-bold mb-[22px]">
@@ -113,48 +113,28 @@ const MemoizedGeneralStyles = memo(
         <DashboardChromPicker
           label={t("primaryTextColor")}
           currentColorLabel="general_styles_primary_text_color"
-          onColorChange={({ hex }: { hex: string }) =>
-            handleOnChange("general_styles_primary_text_color", hex, false)
-          }
-          onChangeComplete={({ hex }: { hex: string }) =>
-            handleOnChange("general_styles_primary_text_color", hex)
-          }
         />
-
         <PrimaryBackgroundTypePicker />
-
         <MemoizedDashboardSwitch
           label={t("secondaryBgColor")}
           checked={linkRaw?.general_styles_is_secondary_bgcolor || false}
-          onCheckedChange={(checked) =>
-            handleOnChange("general_styles_is_secondary_bgcolor", checked)
-          }
+          onCheckedChange={(checked) => {
+            setShowSecondaryBgColor(checked);
+            handleOnChange("general_styles_is_secondary_bgcolor", checked);
+          }}
         />
 
-        {linkRaw.general_styles_is_secondary_bgcolor && (
+        {(linkRaw.general_styles_is_secondary_bgcolor ||
+          showSecondaryBgColor) && (
           <DashboardChromPicker
             label={t("secondaryPrimaryBgColor")}
             currentColorLabel="general_styles_secondary_bgcolor"
-            onColorChange={({ hex }: { hex: string }) =>
-              handleOnChange("general_styles_secondary_bgcolor", hex, false)
-            }
-            onChangeComplete={({ hex }: { hex: string }) =>
-              handleOnChange("general_styles_secondary_bgcolor", hex)
-            }
           />
         )}
-
         <DashboardChromPicker
           label={t("desktopBgColor")}
           currentColorLabel="general_styles_desktop_bgcolor"
-          onColorChange={({ hex }: { hex: string }) =>
-            handleOnChange("general_styles_desktop_bgcolor", hex, false)
-          }
-          onChangeComplete={({ hex }: { hex: string }) =>
-            handleOnChange("general_styles_desktop_bgcolor", hex)
-          }
         />
-
         {/* to be applied next iteration */}
         <MemoizedTabs
           onValueChange={(val: string) =>

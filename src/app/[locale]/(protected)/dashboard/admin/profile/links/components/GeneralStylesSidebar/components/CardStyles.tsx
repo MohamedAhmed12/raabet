@@ -41,34 +41,16 @@ export default function CardStyles() {
         <DashboardChromPicker
           label={t("cardColor")}
           currentColorLabel="card_styles_card_color"
-          onColorChange={({ hex }: { hex: string }) =>
-            handleLinkPropertyValChange("card_styles_card_color", hex, false)
-          }
-          onChangeComplete={({ hex }: { hex: string }) =>
-            handleLinkPropertyValChange("card_styles_card_color", hex)
-          }
         />
       )}
 
       <DashboardChromPicker
         label={t("cardTextColor")}
         currentColorLabel="card_styles_text_color"
-        onColorChange={({ hex }: { hex: string }) =>
-          handleLinkPropertyValChange("card_styles_text_color", hex, false)
-        }
-        onChangeComplete={({ hex }: { hex: string }) =>
-          handleLinkPropertyValChange("card_styles_text_color", hex)
-        }
       />
       <DashboardChromPicker
         label={t("labelColor")}
         currentColorLabel="card_styles_label_color"
-        onColorChange={({ hex }: { hex: string }) =>
-          handleLinkPropertyValChange("card_styles_label_color", hex, false)
-        }
-        onChangeComplete={({ hex }: { hex: string }) =>
-          handleLinkPropertyValChange("card_styles_label_color", hex)
-        }
       />
       <DashboardSlider
         label={t("cardCorner")}
@@ -108,19 +90,6 @@ export default function CardStyles() {
             <DashboardChromPicker
               label={t("cardBorderColor")}
               currentColorLabel="card_styles_card_border_color"
-              onColorChange={({ hex }: { hex: string }) =>
-                handleLinkPropertyValChange(
-                  "card_styles_card_border_color",
-                  hex,
-                  false
-                )
-              }
-              onChangeComplete={({ hex }: { hex: string }) =>
-                handleLinkPropertyValChange(
-                  "card_styles_card_border_color",
-                  hex
-                )
-              }
             />
           ) : null}
           <DashboardSlider

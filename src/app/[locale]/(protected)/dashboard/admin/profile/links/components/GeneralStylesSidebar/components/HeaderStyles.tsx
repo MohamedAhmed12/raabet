@@ -9,7 +9,7 @@ export default function HeaderStyles() {
   const t = useTranslations("LinksPage.headerStyles");
   const { handleLinkPropertyValChange } = useUpdateLink();
   const linkRaw = useLinkStore((state) => state.linkRaw);
-  
+
   return (
     <div className="section">
       <div className="section-title text-[.82rem] font-bold mb-[22px]">
@@ -27,9 +27,11 @@ export default function HeaderStyles() {
             false
           )
         }
-        onValueCommit={(value) =>
-          handleLinkPropertyValChange("header_styles_profile_shadow", value)
-        }
+        onValueCommit={(value) => {
+          console.log("value", value);
+
+          handleLinkPropertyValChange("header_styles_profile_shadow", value);
+        }}
       />
       <DashboardSlider
         label={t("profilePictureBorder")}
@@ -56,19 +58,6 @@ export default function HeaderStyles() {
         <DashboardChromPicker
           label={t("profilePictureBorderColor")}
           currentColorLabel="header_styles_profile_border_color"
-          onColorChange={({ hex }: { hex: string }) =>
-            handleLinkPropertyValChange(
-              "header_styles_profile_border_color",
-              hex,
-              false
-            )
-          }
-          onChangeComplete={({ hex }: { hex: string }) =>
-            handleLinkPropertyValChange(
-              "header_styles_profile_border_color",
-              hex
-            )
-          }
         />
       ) : null}
 
