@@ -117,7 +117,7 @@ const MainLinkComponentContent = ({
                 backgroundImage: `url(${bgImage})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                filter: bgImageBlur ? "blur(10px) brightness(0.8)" : "none",
+                filter: bgImageBlur ? "blur(4px) brightness(0.8)" : "none",
                 borderRadius: "inherit",
                 transform: bgImageBlur ? "scale(1.1)" : "none",
               }}
