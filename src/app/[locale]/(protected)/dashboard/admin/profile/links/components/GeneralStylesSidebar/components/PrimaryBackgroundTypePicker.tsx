@@ -9,33 +9,29 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
-import { Link } from "../../../../../../../../store/use-link-store";
+import { useShallow } from "zustand/shallow";
+import {
+  Link,
+  useLinkStore,
+} from "../../../../../../../../store/use-link-store";
+import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
 
-interface PrimaryBackgroundTypePickerProps {
-  link: Link;
-  onColorChange: (
-    key: keyof Link,
-    value: string | boolean | number,
-    shouldPersistToDatabase?: boolean
-  ) => void;
-}
-
-export function PrimaryBackgroundTypePicker({
-  link,
-  onColorChange,
-}: PrimaryBackgroundTypePickerProps) {
+export function PrimaryBackgroundTypePicker() {
   const t = useTranslations("LinksPage");
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const link = useLinkStore(useShallow((state) => state.link));
+  const { handleLinkPropertyValChange } = useUpdateLink();
 
   const handleOnChange = (
     key: keyof Link,
     value: string | boolean | number,
     shouldPersistToDatabase?: boolean
   ) => {
-    onColorChange(key, value, shouldPersistToDatabase);
+    handleLinkPropertyValChange(key, value, shouldPersistToDatabase);
   };
 
   return (
@@ -56,7 +52,7 @@ export function PrimaryBackgroundTypePicker({
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   filter: link.general_styles_bg_image_blur
-                    ? "blur(4px)"
+                    ? "blur(1.5px)"
                     : "none",
                 }}
               />
@@ -125,12 +121,6 @@ export function PrimaryBackgroundTypePicker({
                 <DashboardChromPicker
                   label={t("primaryBgColor")}
                   currentColorLabel="general_styles_primary_bgcolor"
-                  onColorChange={({ hex }: { hex: string }) =>
-                    handleOnChange("general_styles_primary_bgcolor", hex, false)
-                  }
-                  onChangeComplete={({ hex }: { hex: string }) =>
-                    handleOnChange("general_styles_primary_bgcolor", hex)
-                  }
                 />
               </TabsContent>
               <TabsContent value="gradient">
@@ -138,30 +128,10 @@ export function PrimaryBackgroundTypePicker({
                   <DashboardChromPicker
                     label={t("gradientStartColor")}
                     currentColorLabel="general_styles_primary_bgcolor"
-                    onColorChange={({ hex }: { hex: string }) =>
-                      handleOnChange(
-                        "general_styles_primary_bgcolor",
-                        hex,
-                        false
-                      )
-                    }
-                    onChangeComplete={({ hex }: { hex: string }) =>
-                      handleOnChange("general_styles_primary_bgcolor", hex)
-                    }
                   />
                   <DashboardChromPicker
                     label={t("gradientEndColor")}
                     currentColorLabel="general_styles_gradient_color"
-                    onColorChange={({ hex }: { hex: string }) =>
-                      handleOnChange(
-                        "general_styles_gradient_color",
-                        hex,
-                        false
-                      )
-                    }
-                    onChangeComplete={({ hex }: { hex: string }) =>
-                      handleOnChange("general_styles_gradient_color", hex)
-                    }
                   />
                   <DashboardSlider
                     label={t("gradientDirection")}
@@ -216,30 +186,10 @@ export function PrimaryBackgroundTypePicker({
                   <DashboardChromPicker
                     label={t("splitColor1")}
                     currentColorLabel="general_styles_primary_bgcolor"
-                    onColorChange={({ hex }: { hex: string }) =>
-                      handleOnChange(
-                        "general_styles_primary_bgcolor",
-                        hex,
-                        false
-                      )
-                    }
-                    onChangeComplete={({ hex }: { hex: string }) =>
-                      handleOnChange("general_styles_primary_bgcolor", hex)
-                    }
                   />
                   <DashboardChromPicker
                     label={t("splitColor2")}
                     currentColorLabel="general_styles_gradient_color"
-                    onColorChange={({ hex }: { hex: string }) =>
-                      handleOnChange(
-                        "general_styles_gradient_color",
-                        hex,
-                        false
-                      )
-                    }
-                    onChangeComplete={({ hex }: { hex: string }) =>
-                      handleOnChange("general_styles_gradient_color", hex)
-                    }
                   />
                   <DashboardSlider
                     label={t("splitDirection")}
