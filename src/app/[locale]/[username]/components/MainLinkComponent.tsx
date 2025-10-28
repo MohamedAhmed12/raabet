@@ -105,23 +105,27 @@ const MainLinkComponentContent = ({
             className="absolute inset-0 z-0"
             style={{
               backgroundColor:
-                link?.general_styles_primary_bgcolor || "transparent",
+               bgType === "image" ? "transparent" : link?.general_styles_primary_bgcolor || "transparent",
             }}
           />
 
           {/* Blurred image background layer - only when background_type is "image" */}
           {bgType === "image" && bgImage && (
             <div
-              className="absolute inset-0 z-[1]"
-              style={{
-                backgroundImage: `url(${bgImage})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                filter: bgImageBlur ? "blur(4px) brightness(0.8)" : "none",
-                borderRadius: "inherit",
-                transform: bgImageBlur ? "scale(1.1)" : "none",
-              }}
-            />
+              className="absolute inset-0 z-[1] pointer-events-none overflow-hidden"
+              style={{ borderRadius: "inherit" }}
+            >
+              <div
+                className="absolute -inset-1"
+                style={{
+                  backgroundImage: `url(${bgImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  filter: bgImageBlur ? "blur(4px) brightness(0.8)" : "none",
+                  willChange: "filter",
+                }}
+              />
+            </div>
           )}
 
           {/* Content layer - always on top */}
