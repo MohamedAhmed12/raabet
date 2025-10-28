@@ -162,6 +162,12 @@ export default function LinksBlocks({ link }: { link: Link }) {
                           hasPrefixImage ? "line-clamp-2" : "text-center",
                           link?.title_font
                         )}
+                        style={{
+                          color:
+                          link?.card_styles_label_color ||
+                          link?.general_styles_primary_text_color ||
+                          "inherit",
+                        }}
                         dangerouslySetInnerHTML={{ __html: block.title }}
                       />
                       <div
@@ -170,6 +176,12 @@ export default function LinksBlocks({ link }: { link: Link }) {
                           hasPrefixImage ? "line-clamp-2" : "text-center",
                           link?.text_font
                         )}
+                        style={{
+                          color:
+                            link?.card_styles_text_color ||
+                            link?.general_styles_primary_text_color ||
+                            "inherit",
+                        }}
                       >
                         {block.description}
                       </div>
