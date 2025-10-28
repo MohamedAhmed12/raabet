@@ -5,11 +5,18 @@ import { CardDesignToggleGroup } from "../../CardDesignToggleGroup";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { cardDesigns } from "../constants";
+import { useState } from "react";
 
 export default function CardStyles() {
   const t = useTranslations("LinksPage.cardStyles");
   const { handleLinkPropertyValChange } = useUpdateLink();
   const linkRaw = useLinkStore((state) => state.linkRaw);
+
+  const [localCardDesign, setLocalCardDesign] = useState<number>(
+    linkRaw?.card_styles_design || 0
+  );
+
+  console.log("fff", linkRaw);
 
   return (
     <div className="section">
@@ -18,18 +25,19 @@ export default function CardStyles() {
       </div>
 
       <CardDesignToggleGroup
-        initialVal={linkRaw?.card_styles_design?.toString()}
+        initialVal={localCardDesign?.toString()}
         title={t("designGroupTitle")}
         hasTooltip
         tooltipContent={t("designGrouptooltipContent")}
         toggleItems={cardDesigns}
         onValueChange={(value) => {
           const numericValue = parseInt(value);
+          setLocalCardDesign(numericValue);
           handleLinkPropertyValChange("card_styles_design", numericValue);
         }}
       />
 
-      {linkRaw?.card_styles_design === 0 && (
+      {localCardDesign === 0 && (
         <DashboardChromPicker
           label={t("cardColor")}
           currentColorLabel="card_styles_card_color"
@@ -74,7 +82,7 @@ export default function CardStyles() {
           handleLinkPropertyValChange("card_styles_card_corner", value)
         }
       />
-      {linkRaw?.card_styles_design === 0 && (
+      {localCardDesign === 0 && (
         <>
           <DashboardSlider
             label={t("cardBorder")}

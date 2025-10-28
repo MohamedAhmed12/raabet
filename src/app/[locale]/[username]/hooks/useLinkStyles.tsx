@@ -110,9 +110,11 @@ const useLinkStyles = (link: Link) => {
       // Apply styles for design 0
       styles.backgroundColor = card_styles_card_color;
       styles.borderColor = card_styles_card_border_color; // Using general_styles_primary_bgcolor
-      styles.boxShadow = `0 0 ${(card_styles_card_shadow || 0) * 10}px ${
-        (card_styles_card_shadow || 0) / 10
-      }px rgba(0, 0, 0, 0.3)`;
+      styles.boxShadow = card_styles_card_shadow && card_styles_card_shadow > 0
+        ? `0 ${2 + (card_styles_card_shadow || 0) * 2}px ${8 + (card_styles_card_shadow || 0) * 4}px -${
+            card_styles_card_shadow * 2
+          }px rgba(0, 0, 0, ${0.2 + (card_styles_card_shadow || 0) * 0.05})`
+        : "none";
     }
 
     return styles;
