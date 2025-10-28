@@ -1,11 +1,13 @@
+import { Input } from "@/components/ui/input";
+import { Share2, Upload, User } from "lucide-react";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { useLinkStore } from "../../../../../../../../store/use-link-store";
 import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
-import { Input } from "@/components/ui/input";
 import { GCSFileLoader } from "../../LinkBuilderSidebar/GCSFileLoader";
-import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { Share2, Upload, User } from "lucide-react";
+import { useState } from "react";
 
 type ContentProps = {
   t: (key: string) => string;
@@ -59,8 +61,12 @@ export const content: Record<string, ContentFunction> = {
 };
 
 export default function SocialsAndSharing() {
+  const [customLogoURL, setCustomLogoURL] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+
   const t = useTranslations("SocialsAndSharing");
-  const { link, handleLinkPropertyValChange } = useUpdateLink();
+  const { handleLinkPropertyValChange } = useUpdateLink();
+  const link = useLinkStore((state) => state.link);
 
   const getTooltipContent = (key: string) => {
     const contentFunction = content[key];
@@ -72,13 +78,17 @@ export default function SocialsAndSharing() {
     linkId: string
   ) => {
     const file = e.currentTarget.files?.[0];
-
     if (file) {
+      setIsUploading(true);
       try {
         const publicUrl = await GCSFileLoader(linkId, file);
+
+        setCustomLogoURL(publicUrl);
         handleLinkPropertyValChange("social_custom_logo", publicUrl);
       } catch (error) {
         console.error("Upload failed:", error);
+      } finally {
+        setIsUploading(false);
       }
     }
   };
@@ -131,11 +141,13 @@ export default function SocialsAndSharing() {
             className="file-upload-label text-sm flex items-center justify-between gap-2 mb-2 px-4 p-3 relative border rounded-lg bg-white shadow-sm"
           >
             <span>{t("customLogo")}</span>
-            {!link.social_custom_logo ? (
+            {isUploading ? (
+              <div className="size-5 border border-t-2 border-t-blue-500 rounded-full animate-spin" />
+            ) : !link.social_custom_logo && !customLogoURL ? (
               <Upload className="size-5 border" />
             ) : (
               <Image
-                src={link.social_custom_logo}
+                src={link?.social_custom_logo || customLogoURL || ""}
                 alt="Custom logo"
                 width={60}
                 height={60}
@@ -152,7 +164,7 @@ export default function SocialsAndSharing() {
           {link.social_custom_logo && (
             <DashboardSlider
               label="custom_logo_size"
-              defaultValue={[0.02]}
+              defaultValue={[link?.social_custom_logo_size || 0.02]}
               max={1}
               step={0.001}
               onValueChange={(value) =>

@@ -15,7 +15,22 @@ export function LinksHeader({ link }: { link: Link }) {
   return (
     <div className="flex flex-col items-center mb-[33px] text-current">
       <div className="flex flex-col w-full items-center justify-center">
-        <QRCodeDialog />
+        <QRCodeDialog
+          user={link?.user || null}
+          displayname={link?.displayname || ""}
+          QRCodeEnabled={link?.social_enable_qr_code || false}
+          header_styles_profile_shadow={link?.header_styles_profile_shadow || 0}
+          header_styles_profile_border_width={
+            link?.header_styles_profile_border_width || 0
+          }
+          general_styles_soft_shadow={link?.general_styles_soft_shadow || false}
+          general_styles_is_secondary_bgcolor={
+            link?.general_styles_is_secondary_bgcolor || false
+          }
+          header_styles_profile_border_color={
+            link?.header_styles_profile_border_color || ""
+          }
+        />
         <div
           className={cn(
             "mt-2 text-3xl capitalize font-semibold",

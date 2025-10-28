@@ -82,9 +82,6 @@ export const BtnBlockStyling = ({
       <DashboardChromPicker
         label={t("LinksPage.generalStyles.customBlockTextColor")}
         currentColor={block.custom_text_color}
-        onColorChange={({ hex }: { hex: string }) =>
-          onChange("custom_text_color", hex)
-        }
       />
     </DashboardCard>
   );

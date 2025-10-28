@@ -82,6 +82,12 @@ model Link {
   general_styles_is_label_exist       Boolean
   general_styles_secondary_bgcolor    String
   general_styles_soft_shadow          Boolean
+  general_styles_background_type      String              @default("solid")
+  general_styles_gradient_color       String
+  general_styles_gradient_direction  Float
+  general_styles_gradient_offset      Float
+  general_styles_bg_image             String?
+  general_styles_bg_image_blur       Boolean              @default(false)
   header_styles_profile_shadow        Float
   header_styles_profile_border_width  Float
   header_styles_profile_border_color  String

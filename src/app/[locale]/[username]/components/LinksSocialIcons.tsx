@@ -1,3 +1,4 @@
+import { iconNameType } from "@/assets/icons";
 import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
@@ -48,7 +49,10 @@ export default function LinksSocialIcons({ link }: { link: Link }) {
                 }}
                 dir="ltr"
               >
-                <Icon name={social.icon} size={socialIconSize + 24} />
+                <Icon
+                  name={social.icon as iconNameType}
+                  size={socialIconSize + 24}
+                />
                 {social.label && (
                   <span className="text-xs text-center font-semibold">
                     {social.label}

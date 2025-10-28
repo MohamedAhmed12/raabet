@@ -89,6 +89,7 @@ export default function LinksBlocks({ link }: { link: Link }) {
                 color: "inherit",
                 cursor: isLink ? "pointer" : "default",
                 transformOrigin: "center",
+                position: link.card_styles_design === 4 ? "relative" : "unset",
               }}
               href={isLink ? block.url : undefined}
               target={isLink ? "_blank" : undefined}
@@ -168,6 +169,12 @@ export default function LinksBlocks({ link }: { link: Link }) {
                           hasPrefixImage ? "line-clamp-2" : "text-center",
                           link?.title_font
                         )}
+                        style={{
+                          color:
+                          link?.card_styles_label_color ||
+                          link?.general_styles_primary_text_color ||
+                          "inherit",
+                        }}
                         dangerouslySetInnerHTML={{ __html: block.title }}
                       />
                       <div
@@ -176,6 +183,12 @@ export default function LinksBlocks({ link }: { link: Link }) {
                           hasPrefixImage ? "line-clamp-2" : "text-center",
                           link?.text_font
                         )}
+                        style={{
+                          color:
+                            link?.card_styles_text_color ||
+                            link?.general_styles_primary_text_color ||
+                            "inherit",
+                        }}
                       >
                         {block.description}
                       </div>

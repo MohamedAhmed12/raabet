@@ -245,14 +245,12 @@ export const NewQRCodeDialog = () => {
                   <DashboardChromPicker
                     label={t("foregroundLabel")}
                     currentColor={foregroundColor}
-                    onChangeComplete={({ hex }) => setForegroundColor(hex)}
                   />
                 </div>
                 <div className="space-y-2">
                   <DashboardChromPicker
                     label={t("backgroundLabel")}
                     currentColor={backgroundColor}
-                    onChangeComplete={({ hex }) => setBackgroundColor(hex)}
                   />
                 </div>
               </div>

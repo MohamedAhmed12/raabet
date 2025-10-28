@@ -3,10 +3,12 @@ import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
+import { useLinkStore } from "../../../../../../../../store/use-link-store";
 
 export default function HeaderStyles() {
   const t = useTranslations("LinksPage.headerStyles");
-  const { link, handleLinkPropertyValChange } = useUpdateLink();
+  const { handleLinkPropertyValChange } = useUpdateLink();
+  const linkRaw = useLinkStore((state) => state.linkRaw);
 
   return (
     <div className="section">
@@ -15,7 +17,7 @@ export default function HeaderStyles() {
       </div>
       <DashboardSlider
         label={t("profilePictureShadow")}
-        defaultValue={[link?.header_styles_profile_shadow || 0]}
+        defaultValue={[linkRaw?.header_styles_profile_shadow || 0]}
         max={1}
         step={0.001}
         onValueChange={(value) =>
@@ -25,13 +27,15 @@ export default function HeaderStyles() {
             false
           )
         }
-        onValueCommit={(value) =>
-          handleLinkPropertyValChange("header_styles_profile_shadow", value)
-        }
+        onValueCommit={(value) => {
+          console.log("value", value);
+
+          handleLinkPropertyValChange("header_styles_profile_shadow", value);
+        }}
       />
       <DashboardSlider
         label={t("profilePictureBorder")}
-        defaultValue={[link?.header_styles_profile_border_width || 0]}
+        defaultValue={[linkRaw?.header_styles_profile_border_width || 0]}
         max={1}
         step={0.001}
         onValueChange={(value) => {
@@ -49,31 +53,18 @@ export default function HeaderStyles() {
         }}
       />
 
-      {link?.header_styles_profile_border_width &&
-      link?.header_styles_profile_border_width > 0 ? (
+      {linkRaw?.header_styles_profile_border_width &&
+      linkRaw?.header_styles_profile_border_width > 0 ? (
         <DashboardChromPicker
           label={t("profilePictureBorderColor")}
           currentColorLabel="header_styles_profile_border_color"
-          onColorChange={({ hex }: { hex: string }) =>
-            handleLinkPropertyValChange(
-              "header_styles_profile_border_color",
-              hex,
-              false
-            )
-          }
-          onChangeComplete={({ hex }: { hex: string }) =>
-            handleLinkPropertyValChange(
-              "header_styles_profile_border_color",
-              hex
-            )
-          }
         />
       ) : null}
 
       <DashboardSwitch
         label={t("collapseLongBio")}
         tooltipContent={t("collapseLongBioTooltip")}
-        checked={link?.header_styles_collapse_long_bio}
+        checked={linkRaw?.header_styles_collapse_long_bio}
         onCheckedChange={(checked) =>
           handleLinkPropertyValChange(
             "header_styles_collapse_long_bio",
@@ -83,7 +74,7 @@ export default function HeaderStyles() {
       />
       <DashboardSlider
         label={t("socialIconSize")}
-        defaultValue={[link?.header_styles_social_icons_size || 0]}
+        defaultValue={[linkRaw?.header_styles_social_icons_size || 0]}
         max={1}
         step={0.001}
         onValueChange={(value) =>

@@ -127,14 +127,14 @@ export default function Customize({
             <DashboardChromPicker
               label={t("customize.foregroundLabel")}
               currentColor={foregroundColor}
-              onChangeComplete={({ hex }) => setForegroundColor(hex)}
+              onChangeComplete={setForegroundColor}
             />
           </div>
           <div className="space-y-2">
             <DashboardChromPicker
               label={t("customize.backgroundLabel")}
               currentColor={backgroundColor}
-              onChangeComplete={({ hex }) => setBackgroundColor(hex)}
+              onChangeComplete={setBackgroundColor}
             />
           </div>
         </div>

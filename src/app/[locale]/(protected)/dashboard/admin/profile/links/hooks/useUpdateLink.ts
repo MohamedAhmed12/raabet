@@ -2,43 +2,27 @@
 
 import { updateSingleLink } from "@/app/[locale]/actions/updateSingleLink";
 import { useLinkStore } from "@/app/[locale]/store/use-link-store";
-import { useThrottleFn } from "@reactuses/core";
 import { useCallback } from "react";
-import { useShallow } from "zustand/react/shallow";
 
 export function useUpdateLink() {
-  const { link, setLink } = useLinkStore(
-    useShallow((state) => ({
-      link: state.link,
-      setLink: state.setLink,
-    }))
-  );
-
-  const { run: runThrottledUpdate } = useThrottleFn(
-    async (
-      key: keyof typeof link,
-      value: string | boolean | number,
-      shouldPersistToDatabase = true
-    ) => {
-      setLink({ key, value });
-
-      if (shouldPersistToDatabase) {
-        updateSingleLink(link?.id || "", key, value);
-      }
-    },
-    180
-  );
+  const setLink = useLinkStore((state) => state.setLink);
 
   const handleLinkPropertyValChange = useCallback(
-    async (
-      key: keyof typeof link,
+    (
+      key: string,
       val: string | boolean | number,
       shouldPersistToDatabase = true
     ) => {
-      runThrottledUpdate(key, val, shouldPersistToDatabase);
+      
+      setLink({ key: key as any, value: val });
+
+      if (shouldPersistToDatabase) {
+        const currentLink = useLinkStore.getState().link;
+        updateSingleLink(currentLink?.id || "", key as any, val);
+      }
     },
-    [runThrottledUpdate]
+    [setLink]
   );
 
-  return { link, handleLinkPropertyValChange };
+  return { handleLinkPropertyValChange };
 }

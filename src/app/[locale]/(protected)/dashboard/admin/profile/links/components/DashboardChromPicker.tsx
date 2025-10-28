@@ -6,84 +6,94 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/cn";
-import dynamic from "next/dynamic";
-import { memo, useCallback, useMemo, useState } from "react";
-import { useShallow } from "zustand/react/shallow";
+import { Chrome } from "@uiw/react-color";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { useUpdateLink } from "../hooks/useUpdateLink";
 import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
-
-// Dynamically import ChromePicker with ssr: false to disable SSR
-const ChromePicker = dynamic(
-  () => import("react-color").then((mod) => mod.ChromePicker),
-  {
-    ssr: false,
-  }
-);
 
 interface DashboardChromPickerProps {
   label?: string;
   currentColorLabel?: keyof Link;
   currentColor?: string;
-  onChangeComplete?: ({ hex }: { hex: string }) => void;
-  onColorChange?: ({ hex }: { hex: string }) => void;
+  onChangeComplete?: (color: string) => void;
 }
 
-interface ChromePickerProps {
-  color: string;
-  onChange: (color: { hex: string }) => void;
-  onChangeComplete: (({ hex }: { hex: string }) => void) | undefined;
-}
-
-const MemoizedChromePicker = memo(
-  ({ color, onChange, onChangeComplete }: ChromePickerProps) => (
-    <ChromePicker
-      color={color}
-      onChange={onChange}
-      onChangeComplete={onChangeComplete}
-      disableAlpha
-    />
-  )
-);
-MemoizedChromePicker.displayName = "MemoizedChromePicker";
+const MemoizedChrome = memo(Chrome);
 
 const DashboardChromPickerContent = ({
   currentColor,
   currentColorLabel,
   label,
-  onColorChange,
   onChangeComplete,
 }: DashboardChromPickerProps) => {
-  // Type assertion to ensure currentColorLabel is a valid key of Link type
-  const cachedCurrentColorLabel = useLinkStore(
-    useShallow((state) =>
-      currentColorLabel ? state.link[currentColorLabel] : ""
-    )
-  );
+  const { handleLinkPropertyValChange } = useUpdateLink();
+  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const link = useLinkStore((state) => state.link);
   const initialColor = currentColorLabel
-    ? cachedCurrentColorLabel
+    ? (link[currentColorLabel] as string)
     : currentColor;
 
-  const [localColor, setLocalColor] = useState<string>(String(initialColor));
+  const [localColor, setLocalColor] = useState<string>(
+    initialColor || "#000000"
+  );
 
-  // Memoize the color change handler
-  const memoizedOnColorChange = useCallback(
-    ({ hex }: { hex: string }) => {
-      setLocalColor(hex);
-      onColorChange?.({ hex });
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const debouncedHandleLinkPropertyValChange = useCallback(
+    (
+      key: string,
+      value: string | boolean | number,
+      persistToDb: boolean = false
+    ) => {
+      // Clear existing timeout
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+
+      // Set new timeout with 500ms delay
+      debounceTimeoutRef.current = setTimeout(() => {
+        if (handleLinkPropertyValChange) {
+          handleLinkPropertyValChange(key, value, persistToDb);
+        }
+      }, 0);
     },
-    [onColorChange]
+    [handleLinkPropertyValChange]
   );
 
-  // Memoize ChromePicker props
-  const memoizedChromePickerProps = useMemo(
-    () => ({
-      color: localColor,
-      onChange: memoizedOnColorChange,
-      onChangeComplete,
-      disableAlpha: true,
-    }),
-    [localColor, onChangeComplete, memoizedOnColorChange]
+  // Update change to only local store
+  const handleColorChange = useCallback(
+    (color: any, shouldPersistToDatabase: boolean = false) => {
+      const hex = color.hex || color;
+      setLocalColor(hex);
+
+      if (currentColorLabel) {
+        debouncedHandleLinkPropertyValChange(
+          currentColorLabel,
+          hex,
+          shouldPersistToDatabase
+        );
+      }
+    },
+    [setLocalColor, currentColorLabel, debouncedHandleLinkPropertyValChange]
   );
+
+  // Call onChangeComplete when user stops dragging which apply the changes to the database
+  const handleMouseUp = useCallback(() => {
+    if (onChangeComplete) {
+      onChangeComplete(localColor);
+    } else {
+      handleColorChange(localColor, true);
+    }
+  }, [onChangeComplete, handleColorChange, localColor]);
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -92,34 +102,35 @@ const DashboardChromPickerContent = ({
             <LinksPageFieldLabel>{label}</LinksPageFieldLabel>
           </span>
           <div
-            className={cn("rounded-full w-5 h-5")}
+            className="rounded-full w-6 h-6 border border-gray-300"
             style={{
               backgroundColor: localColor,
-              border: "1px solid oklch(.85 .006 264.531)",
             }}
           ></div>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-full" hasPadding={false}>
-        <MemoizedChromePicker {...memoizedChromePickerProps} />
+      <PopoverContent className="w-auto p-3" hasPadding={false}>
+        <style jsx>{`
+          :global(.react-colorful__pointer) {
+            display: none !important;
+          }
+        `}</style>
+        <div onMouseUp={handleMouseUp}>
+          <MemoizedChrome color={localColor} onChange={handleColorChange} />
+        </div>
       </PopoverContent>
     </Popover>
   );
 };
 
-// Memoize the component with a shallow comparison of props
-const MemoizedDashboardChromPicker = memo(
+export const DashboardChromPicker = memo(
   DashboardChromPickerContent,
   (prevProps, nextProps) => {
     return (
+      prevProps.currentColor === nextProps.currentColor &&
+      prevProps.currentColorLabel === nextProps.currentColorLabel &&
       prevProps.label === nextProps.label &&
-      prevProps.onColorChange === nextProps.onColorChange &&
       prevProps.onChangeComplete === nextProps.onChangeComplete
     );
   }
 );
-
-// Export the memoized version
-export const DashboardChromPicker = (props: DashboardChromPickerProps) => {
-  return <MemoizedDashboardChromPicker {...props} />;
-};

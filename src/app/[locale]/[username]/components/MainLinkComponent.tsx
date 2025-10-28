@@ -22,9 +22,64 @@ const MainLinkComponentContent = ({
   isSticky,
   className = "",
 }: MainLinkComponentProps) => {
-  const size = useMemo(() => {
-    return link?.social_custom_logo_size ?? 0;
-  }, [link?.social_custom_logo_size]);
+  const {
+    size,
+    bgType,
+    primaryBgColor,
+    gradientColor,
+    gradientDirection,
+    gradientOffset,
+    isSecondaryBgColor,
+    secondaryBgColor,
+    bgImage,
+    bgImageBlur,
+  } = useMemo(
+    () => ({
+      size: link?.social_custom_logo_size ?? 0,
+      bgType: link?.general_styles_background_type || "solid",
+      primaryBgColor: link?.general_styles_primary_bgcolor,
+      gradientColor: link?.general_styles_gradient_color,
+      gradientDirection: link?.general_styles_gradient_direction || 145,
+      gradientOffset: link?.general_styles_gradient_offset || 50,
+      isSecondaryBgColor: link?.general_styles_is_secondary_bgcolor,
+      secondaryBgColor: link?.general_styles_secondary_bgcolor,
+      bgImage: link?.general_styles_bg_image,
+      bgImageBlur: link?.general_styles_bg_image_blur,
+    }),
+    [link]
+  );
+
+  // Determine background style based on background_type
+  const getBackgroundStyle = () => {
+    // Check background type
+    if (bgType === "gradient") {
+      // Create smooth gradient with controlled transition point
+      const startPercent = Math.max(0, gradientOffset - 25);
+      const endPercent = Math.min(100, gradientOffset + 25);
+
+      return {
+        background: `linear-gradient(${gradientDirection}deg, ${primaryBgColor} ${startPercent}%, ${gradientColor} ${endPercent}%)`,
+      };
+    }
+
+    // Check if split mode
+    if (bgType === "split") {
+      // Create hard split with minimal transition to prevent aliasing
+      const transitionZone = 0.15; // 0.1% minimal smooth transition
+      return {
+        background: `linear-gradient(${gradientDirection}deg, ${primaryBgColor} 0%, ${primaryBgColor} ${gradientOffset - transitionZone}%, ${gradientColor} ${gradientOffset + transitionZone}%, ${gradientColor} 100%)`,
+      };
+    }
+
+    if (bgType === "image") {
+      return {};
+    }
+
+    // Solid color mode (default)
+    return {
+      backgroundColor: isSecondaryBgColor ? secondaryBgColor : primaryBgColor,
+    };
+  };
 
   return (
     link?.id && (
@@ -38,52 +93,82 @@ const MainLinkComponentContent = ({
         <div
           className={cn(
             "w-full flex flex-col max-w-[530px] min-h-[calc(100vh)] max-w-[530px]",
-            "shadow-[0px_7px_29px_0px_rgba(100,100,111,0.15)]"
+            "shadow-[0px_7px_29px_0px_rgba(100,100,111,0.15)]",
+            "relative"
           )}
           style={{
             color: link?.general_styles_primary_text_color,
-            backgroundColor: link?.general_styles_primary_bgcolor,
             borderRadius: "inherit",
           }}
         >
+          {/* Background layer for solid/gradient/split colors */}
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundColor:
+                bgType === "image"
+                  ? "transparent"
+                  : link?.general_styles_primary_bgcolor || "transparent",
+            }}
+          />
+
+          {/* Blurred image background layer - only when background_type is "image" */}
+          {bgType === "image" && bgImage && (
+            <div
+              className="absolute inset-0 z-[1] pointer-events-none overflow-hidden"
+              style={{ borderRadius: "inherit" }}
+            >
+              <div
+                className="absolute -inset-1"
+                style={{
+                  backgroundImage: `url(${bgImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  filter: bgImageBlur ? "blur(4px) brightness(0.8)" : "none",
+                  willChange: "filter",
+                }}
+              />
+            </div>
+          )}
+
+          {/* Content layer - always on top */}
           <div
             className={cn(
-              "flex flex-col h-full p-[33px]",
-              link?.general_styles_is_secondary_bgcolor &&
-                "pt-[18px] mt-[175px]"
+              "flex flex-col h-full p-[33px] relative z-10",
+              isSecondaryBgColor && "pt-[18px] mt-[175px]"
             )}
-            style={{
-              backgroundColor: link?.general_styles_is_secondary_bgcolor
-                ? link?.general_styles_secondary_bgcolor
-                : link?.general_styles_primary_bgcolor,
-            }}
+            style={getBackgroundStyle()}
           >
             <LinksNavbar isSticky={isSticky} link={link} />
-
             <div
               className={cn(
                 "flex flex-col flex-1 mt-[15px]",
-                link?.general_styles_is_secondary_bgcolor && "mt-[25px]"
+                isSecondaryBgColor && "mt-[25px]"
               )}
             >
               <LinksHeader link={link} />
               <LinksSocialIcons link={link} />
               <LinksBlocks link={link} />
             </div>
+
             <div className="flex justify-center">
-              {!link.social_enable_hide_raabet_branding ? (
-                <LinksFooter />
-              ) : (
-                link.social_custom_logo && (
+              {!link.social_enable_hide_raabet_branding && <LinksFooter />}
+
+              {link.social_enable_hide_raabet_branding &&
+                link.social_custom_logo &&
+                size && (
                   <Image
-                    src={link.social_custom_logo}
+                    src={link.social_custom_logo || ""}
                     className="mt-7.5"
                     alt="Custom logo"
                     width={25 + (190 - 25) * size}
                     height={16 + (118 - 16) * size}
+                    style={{
+                      width: `${25 + (190 - 25) * size}px`,
+                      height: `${16 + (118 - 16) * size}px`,
+                    }}
                   />
-                )
-              )}
+                )}
             </div>
           </div>
         </div>
@@ -94,4 +179,14 @@ const MainLinkComponentContent = ({
 
 MainLinkComponentContent.displayName = "MainLinkComponent";
 
-export const MainLinkComponent = memo(MainLinkComponentContent);
+export const MainLinkComponent = memo(
+  MainLinkComponentContent,
+  (prevProps, nextProps) => {
+    // Skip re-render only if all props are the same (including object references)
+    return (
+      prevProps.link === nextProps.link &&
+      prevProps.isSticky === nextProps.isSticky &&
+      prevProps.className === nextProps.className
+    );
+  }
+);
