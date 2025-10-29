@@ -18,6 +18,7 @@ export function Providers({
       session={session}
       refetchInterval={0} // Disable automatic refetching
       refetchOnWindowFocus={false} // Prevent refetch on window focus
+      refetchWhenOffline={false} // Don't refetch when offline
     >
       <ReactQueryProvider>
         <TooltipProvider>{children}</TooltipProvider>

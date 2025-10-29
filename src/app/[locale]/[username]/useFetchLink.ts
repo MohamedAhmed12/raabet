@@ -38,6 +38,7 @@ const useFetchLink = ({
     },
     enabled: !!(userId || username), // Only run the query if we have either userId or username
     staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnMount: false,
     retry: 1,
   });
 };

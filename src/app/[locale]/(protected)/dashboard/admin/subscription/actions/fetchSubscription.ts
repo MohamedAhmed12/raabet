@@ -10,25 +10,20 @@ export async function fetchSubscription(
     return null;
   }
 
+  // Optimize: Fetch user and subscription in a single query (one-to-one relation)
   const user = await prisma.user.findUnique({
     where: { email },
-  });
-
-  if (!user) {
-    return null;
-  }
-
-  // Then get the most recent subscription for this user
-  const currentSubscription = await prisma.subscription.findFirst({
-    where: { userId: user.id },
-    orderBy: {
-      createdAt: "desc",
+    select: {
+      id: true,
+      subscriptions: true, // One-to-one relation, not an array
     },
   });
 
-  if (!currentSubscription) {
+  if (!user || !user.subscriptions) {
     return null;
   }
+
+  const currentSubscription = user.subscriptions;
   // Check if subscription has expired
   const isSubscriptionExpired =
     currentSubscription?.expiresAt &&
