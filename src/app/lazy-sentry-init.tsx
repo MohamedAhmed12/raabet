@@ -31,7 +31,7 @@ export default function LazySentryInit() {
           isDevelopment &&
           process.env.NEXT_PUBLIC_ENABLE_SENTRY_IN_DEV === "true",
 
-        beforeSend: (event, hint) => {
+        beforeSend: (event) => {
           // Filter out common browser errors
           const ignorePatterns = [
             /ResizeObserver/,
