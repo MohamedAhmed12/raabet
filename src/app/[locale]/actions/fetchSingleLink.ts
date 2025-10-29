@@ -12,7 +12,7 @@ export async function fetchSingleLink({
 }) {
   try {
     // Fetch links associated with the user by `username`
-    return await prisma.link.findFirst({
+    const result = await prisma.link.findFirst({
       where: {
         OR: [
           { userName: username }, // Filter by the `userName` field for [username] unauth page (visitor)
@@ -32,20 +32,39 @@ export async function fetchSingleLink({
           },
         },
         qrcodes: {
-          where: { type: 'profile' },
+          where: { type: "profile" },
           take: 1,
           select: {
-            url: true
-          }
-        }
+            url: true,
+          },
+        },
       },
     });
+
+    if (!result) {
+      logError(
+        `No link found for userId: ${userId || "undefined"}, username: ${
+          username || "undefined"
+        }`,
+        {
+          action: "fetchSingleLink/notFound",
+          userId: userId || "undefined",
+          username: username || "undefined",
+        },
+        "warning"
+      );
+    }
+
+    return result;
   } catch (error) {
     logError(error, {
-      action: "fetchSingleLink",
-      errorType: error instanceof Error ? error.constructor.name : "DatabaseError",
+      action: "fetchSingleLink/error",
+      errorType:
+        error instanceof Error ? error.constructor.name : "DatabaseError",
       userId: userId || "undefined",
       username: username || "undefined",
+      errorMessage: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
     });
     throw error;
   }
