@@ -113,7 +113,7 @@ export const Header = () => {
               <button
                 className={cn(
                   "bg-deep-blue-gray text-white px-3 py-2 rounded-4xl font-bold leading-none",
-                  "lg:px-6 lg:py-4"
+                  "lg:px-4.5 lg:py-3"
                 )}
               >
                 <NextLink href="/auth/sign-up" className="text-xs lg:text-base">

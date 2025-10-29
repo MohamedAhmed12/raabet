@@ -60,7 +60,5 @@ export async function generateVCardAction(fullname: string) {
     
     // Return null to handle the error gracefully in the UI
     return null;
-  } finally {
-    await prisma.$disconnect();
   }
 }

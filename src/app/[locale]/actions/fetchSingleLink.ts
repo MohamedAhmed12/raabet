@@ -48,7 +48,5 @@ export async function fetchSingleLink({
       username: username || "undefined",
     });
     throw error;
-  } finally {
-    await prisma.$disconnect();
   }
 }

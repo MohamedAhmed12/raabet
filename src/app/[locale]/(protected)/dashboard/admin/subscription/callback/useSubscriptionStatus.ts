@@ -24,8 +24,9 @@ export function useSubscriptionStatus({
 
       return subscription.status;
     },
-    enabled: !!email, // Only run the query if we have either userId or username
-    staleTime: 0, // Always consider data stale, will refetch on mount
+    enabled: !!email, // Only run the query if we have email
+    staleTime: 2 * 60 * 1000, // 2 minutes - data is fresh for 2 minutes
+    refetchOnMount: false, // Don't refetch on mount if data exists
     refetchInterval: pollingInterval,
   });
 }
