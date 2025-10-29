@@ -13,6 +13,7 @@ import SubscriptionBanner from "../components/SubscriptionBanner";
 import DashboardNotFound from "../not-found";
 import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
 import { problemStatuses } from "../subscription/types/subscripiton";
+import { logError } from "@/lib/errorHandling";
 
 export const DashboardContainer = ({
   children,
@@ -32,7 +33,15 @@ export const DashboardContainer = ({
     email: session?.data?.user?.email as string,
   });
 
-  if (error) return <DashboardNotFound />;
+  if (error) {
+    logError(error as unknown, {
+      action: "dashboard/container",
+      path: pathname,
+      userId: userId || "undefined",
+      timestamp: new Date().toISOString(),
+    });
+    return <DashboardNotFound />;
+  }
 
   return (
     <div className="flex flex-col w-full">

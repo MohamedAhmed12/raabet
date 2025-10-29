@@ -1,5 +1,6 @@
 import { useLinkStore, type Link } from "@/app/[locale]/store/use-link-store";
 import { useQuery } from "@tanstack/react-query";
+import { logError } from "@/lib/errorHandling";
 import { fetchSingleLink } from "../actions/fetchSingleLink";
 import { useShallow } from "zustand/shallow";
 
@@ -23,18 +24,28 @@ const useFetchLink = ({
       if (!userId && !username) {
         throw new Error("User ID or username is required");
       }
-      const response = await fetchSingleLink({ userId, username });
+      try {
+        const response = await fetchSingleLink({ userId, username });
 
-      if (!response) {
-        throw new Error("No link attached to this userId");
+        if (!response) {
+          throw new Error("No link attached to this userId");
+        }
+
+        // @ts-expect-error - response structure differs from Link type (qrcodes field is partial)
+        const linkData = response as Link;
+        replaceLink(linkData);
+        setLinkRaw(linkData);
+
+        return response;
+      } catch (err) {
+        logError(err, {
+          action: "dashboard/useFetchLink",
+          userId: userId || "undefined",
+          username: username || "undefined",
+          timestamp: new Date().toISOString(),
+        });
+        throw err;
       }
-
-      // @ts-expect-error - response structure differs from Link type (qrcodes field is partial)
-      const linkData = response as Link;
-      replaceLink(linkData);
-      setLinkRaw(linkData);
-
-      return response;
     },
     enabled: !!(userId || username), // Only run the query if we have either userId or username
     staleTime: 5 * 60 * 1000, // 5 minutes
