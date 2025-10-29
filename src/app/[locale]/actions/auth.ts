@@ -39,7 +39,7 @@ export const signup = async ({
       },
     });
 
-    createAndSendActivation({
+    await createAndSendActivation({
       userId: user.id,
       email,
       fullname: user.fullname,
@@ -47,7 +47,7 @@ export const signup = async ({
     });
 
     // Start post-signup processes
-    await postSignupProcess(user.id, fullname);
+    postSignupProcess(user.id, fullname);
 
     return { ok: true, error: null };
   } catch (error) {
