@@ -13,8 +13,8 @@ export default function LazySentryInit() {
         integrations: [
           Sentry.browserTracingIntegration(),
           Sentry.replayIntegration({
-            maskAllText: true,
-            maskAllInputs: true,
+            maskAllText: false, // Unmask text for debugging
+            maskAllInputs: false, // Unmask inputs for debugging
             blockAllMedia: true,
           }),
           Sentry.captureConsoleIntegration({
@@ -31,7 +31,7 @@ export default function LazySentryInit() {
           isDevelopment &&
           process.env.NEXT_PUBLIC_ENABLE_SENTRY_IN_DEV === "true",
 
-        beforeSend: (event) => {
+        beforeSend: (event, hint) => {
           // Filter out common browser errors
           const ignorePatterns = [
             /ResizeObserver/,
@@ -45,6 +45,8 @@ export default function LazySentryInit() {
             return null;
           }
 
+          // Ensure all error data is preserved (unmasked)
+          // This ensures full error details are sent to Sentry
           return event;
         },
       });
