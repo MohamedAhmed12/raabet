@@ -16,8 +16,6 @@ export default function CardStyles() {
     linkRaw?.card_styles_design || 0
   );
 
-  console.log("fff", linkRaw);
-
   return (
     <div className="section">
       <div className="section-title text-[.82rem] font-bold mb-[22px]">
