@@ -59,17 +59,6 @@ const useFetchLink = ({
           // Don't throw - continue with response even if store update fails
         }
 
-        logError(
-          `useFetchLink completed`,
-          {
-            action: "useFetchLink/success",
-            userId: userId || "undefined",
-            username: username || "undefined",
-            linkId: response.id,
-          },
-          "info"
-        );
-
         return response;
       } catch (error) {
         logError(error, {

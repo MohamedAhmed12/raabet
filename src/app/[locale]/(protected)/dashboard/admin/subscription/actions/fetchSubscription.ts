@@ -12,15 +12,6 @@ export async function fetchSubscription(
       return null;
     }
 
-    logError(
-      `Starting fetchSubscription for email: ${email}`,
-      {
-        action: "fetchSubscription/start",
-        email: email || "undefined",
-      },
-      "info"
-    );
-
     // Optimize: Fetch user and subscription in a single query (one-to-one relation)
     const user = await prisma.user.findUnique({
       where: { email },
@@ -69,28 +60,21 @@ export async function fetchSubscription(
           action: "fetchSubscription/updateStatus",
           email: email || "undefined",
           subscriptionId: currentSubscription.id,
-          errorType: updateError instanceof Error ? updateError.constructor.name : "DatabaseError",
+          errorType:
+            updateError instanceof Error
+              ? updateError.constructor.name
+              : "DatabaseError",
         });
         // Don't throw - return the subscription with updated status even if DB update fails
       }
     }
 
-    logError(
-      `Successfully fetched subscription`,
-      {
-        action: "fetchSubscription/success",
-        email: email || "undefined",
-        subscriptionId: currentSubscription.id,
-        status: currentSubscription.status,
-      },
-      "info"
-    );
-
     return currentSubscription;
   } catch (error) {
     logError(error, {
       action: "fetchSubscription/error",
-      errorType: error instanceof Error ? error.constructor.name : "DatabaseError",
+      errorType:
+        error instanceof Error ? error.constructor.name : "DatabaseError",
       email: email || "undefined",
       errorMessage: error instanceof Error ? error.message : String(error),
       stack: error instanceof Error ? error.stack : undefined,
