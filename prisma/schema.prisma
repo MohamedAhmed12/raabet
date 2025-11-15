@@ -21,6 +21,7 @@ model User {
   resetTokenExpires     DateTime?
   stripeCustomerId      String?                @unique
   role                  UserRole               @default(USER)
+  createdAt             DateTime               @default(now())
   activationCodes       ActivationCode[]
   links                 Link[]
   newsletterSubscribers NewsletterSubscriber[]
