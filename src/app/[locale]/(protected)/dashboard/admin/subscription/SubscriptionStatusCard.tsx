@@ -1,3 +1,5 @@
+"use client";
+
 import { SubscriptionStatus } from "@prisma/client";
 import React from "react";
 import {
@@ -15,6 +17,7 @@ import {
   AlertTriangle,
   CalendarDays,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface StatusConfig {
   icon: React.ComponentType<any>;
@@ -23,53 +26,54 @@ interface StatusConfig {
   description: string;
 }
 
-const statusConfigs: Record<SubscriptionStatus, StatusConfig> = {
+const getStatusConfigs = (t: (key: string) => string): Record<SubscriptionStatus, StatusConfig> => ({
   active: {
     icon: CheckCircle2,
     color: "text-green-600",
-    title: "Active Subscription",
-    description:
-      "Your subscription is active. You can continue using all features.",
+    title: t("status.active.title"),
+    description: t("status.active.description"),
   },
   pending: {
     icon: Clock,
     color: "text-amber-600",
-    title: "Subscription Pending",
-    description:
-      "Your subscription is pending. Please complete the payment process.",
+    title: t("status.pending.title"),
+    description: t("status.pending.description"),
   },
   trialing: {
     icon: CalendarDays,
     color: "text-orange-700",
-    title: "You have 14 days trial",
-    description: "You are currently on a trial period.",
+    title: t("status.trialing.title"),
+    description: t("status.trialing.description"),
   },
   canceled: {
     icon: XCircle,
     color: "text-red-600",
-    title: "Subscription Canceled",
-    description: "Your subscription has been canceled.",
+    title: t("status.canceled.title"),
+    description: t("status.canceled.description"),
   },
   failed: {
     icon: AlertCircle,
     color: "text-red-600",
-    title: "Payment Failed",
-    description: "Payment processing failed. Please try again.",
+    title: t("status.failed.title"),
+    description: t("status.failed.description"),
   },
   none: {
     icon: AlertTriangle,
     color: "text-orange-600",
-    title: "No Subscription",
-    description: "You don't have an active subscription.",
+    title: t("status.none.title"),
+    description: t("status.none.description"),
   },
-};
+});
 
 export default function SubscriptionStatusCard({
   status,
 }: {
   status: SubscriptionStatus;
 }): React.ReactElement {
+  const t = useTranslations("Subscription");
+  const statusConfigs = getStatusConfigs(t);
   const config = statusConfigs[status];
+  
   return (
     <div className="flex justify-center items-center pt-[3rem]">
       <Card className="flex justify-center items-center w-[300px]">
