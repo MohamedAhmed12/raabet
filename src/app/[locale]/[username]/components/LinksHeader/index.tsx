@@ -1,12 +1,17 @@
 "use client";
 
 import { Link } from "@/app/[locale]/store/use-link-store";
+import { Link as PrismaLink } from "@prisma/client";
 import { cn } from "@/lib/cn";
+import { User } from "next-auth";
 import { useState } from "react";
 import QRCodeDialog from "./QRCodeDialog";
 
-export function LinksHeader({ link }: { link: Link }) {
+type LinkWithUser = (Link | PrismaLink) & { user?: User };
+
+export function LinksHeader({ link }: { link: Link | PrismaLink }) {
   const [collapseBio, setCollapseBio] = useState<boolean>(true);
+  const linkWithUser = link as LinkWithUser;
 
   const handleToggleCollapseBio = () => {
     setCollapseBio((prev) => !prev);
@@ -16,7 +21,7 @@ export function LinksHeader({ link }: { link: Link }) {
     <div className="flex flex-col items-center mb-[33px] text-current">
       <div className="flex flex-col w-full items-center justify-center">
         <QRCodeDialog
-          user={link?.user || null}
+          user={linkWithUser?.user || null}
           displayname={link?.displayname || ""}
           QRCodeEnabled={link?.social_enable_qr_code || false}
           header_styles_profile_shadow={link?.header_styles_profile_shadow || 0}

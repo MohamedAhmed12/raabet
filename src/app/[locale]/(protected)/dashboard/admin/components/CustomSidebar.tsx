@@ -12,30 +12,30 @@ import {
 } from "@/components/ui/sidebar";
 import { useLocaleMeta } from "@/hooks/use-locale-meta";
 import { usePathname } from "@/i18n/navigation";
+import { logError } from "@/lib/errorHandling";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { SubscriptionStatus } from "@prisma/client";
+import { Link as PrismaLink, SubscriptionStatus } from "@prisma/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { addDays, isBefore } from "date-fns";
 import { Award, CirclePlus } from "lucide-react";
 import { signOut, useSession } from "next-auth/react"; // Import signOut from NextAuth.js
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
+import { useMemo, useState } from "react";
 import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
+import FeedbackPopup from "./FeedbackPopup";
 
-export default function CustomSidebar({
-  onOpenFeedbackPopup,
-}: {
-  onOpenFeedbackPopup: () => void;
-}) {
+export default function CustomSidebar() {
+  const [manuallyOpen, setManuallyOpen] = useState(false);
+
   const t = useTranslations("Sidebar");
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
   const session = useSession();
   const pathname = usePathname();
+  const queryClient = useQueryClient();
   const { getOppositeLang, switchLocale } = useLocaleMeta();
-
-  const { data: subscriptionStatus } = useSubscriptionStatus({
-    email: session?.data?.user?.email as string,
-  });
 
   const sidebarTabs: { text: string; url: string; icon: iconNameType }[] = [
     {
@@ -65,6 +65,46 @@ export default function CustomSidebar({
       icon: "qr-code",
     },
   ];
+
+  // @ts-expect-error: [to access user data in session it exists in id]
+  const user = session?.data?.user?.id;
+  const userId = user?.id as string;
+
+  // Get data from React Query cache - must match useFetchLink query key exactly
+  const cachedLinkData = queryClient.getQueryData<PrismaLink>([
+    "link",
+    { userId, username: undefined },
+  ]);
+  const linkId = cachedLinkData?.id as string;
+  const lastFeedbackTimestamp = cachedLinkData?.last_feedback_ts as Date;
+
+  const { data: subscriptionStatus } = useSubscriptionStatus({
+    email: user?.email as string,
+  });
+
+  const shouldShowAutomatically = useMemo(() => {
+    if (!linkId || !lastFeedbackTimestamp) return false;
+
+    try {
+      const feedbackDate = new Date(lastFeedbackTimestamp);
+      if (isNaN(feedbackDate.getTime())) return true; // Invalid date, show feedback
+
+      const fourteenDaysAgo = addDays(new Date(), -14);
+      return isBefore(feedbackDate, fourteenDaysAgo);
+    } catch (err) {
+      logError(err, {
+        action: "shouldShowFeedback",
+        errorType: "UnknownError",
+      });
+      return false;
+    }
+  }, [linkId, lastFeedbackTimestamp]);
+
+  const shouldBeOpen = manuallyOpen || shouldShowAutomatically;
+
+  const handleOpenFeedback = () => {
+    setManuallyOpen(true);
+  };
 
   const isActive = (url: string) => pathname === url;
 
@@ -100,7 +140,7 @@ export default function CustomSidebar({
               className="h-11 flex gap-2 p-[11px] mb-[6px] rounded-sm cursor-pointer break-words !leading-[1.25] text-[14px]"
               variant="dashboardDefault"
               isActive={false}
-              onClick={onOpenFeedbackPopup}
+              onClick={handleOpenFeedback}
             >
               <CirclePlus size={20} className="min-w-[20px] min-h-[20px]" />
               {t("tabs.requestFeature")}
@@ -112,7 +152,7 @@ export default function CustomSidebar({
               className="flex gap-2 p-[11px] mb-[6px] rounded-sm cursor-pointer"
               variant="dashboardDefault"
               isActive={false}
-              onClick={onOpenFeedbackPopup}
+              onClick={handleOpenFeedback}
             >
               <Award size={20} className="min-w-[20px] min-h-[20px]" />
               <span>{t("tabs.rewards")}</span>
@@ -161,6 +201,10 @@ export default function CustomSidebar({
           </Link>
         </SidebarFooter>
       )}
+      <FeedbackPopup
+        shouldBeOpen={shouldBeOpen}
+        setManuallyOpen={setManuallyOpen}
+      />
     </Sidebar>
   );
 }

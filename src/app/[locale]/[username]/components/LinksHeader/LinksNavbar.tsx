@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/app/[locale]/store/use-link-store";
+import { Link as PrismaLink } from "@prisma/client";
 import { ShareBtn } from "@/components/ShareBtn";
 import { cn } from "@/lib/cn";
 import { AddContactDialog } from "./AddContactDialog";
@@ -10,7 +11,7 @@ export default function LinksNavbar({
   link,
 }: {
   isSticky: boolean;
-  link: Link;
+  link: Link | PrismaLink;
 }) {
   return (
     <header

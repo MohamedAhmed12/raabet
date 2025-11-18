@@ -2,6 +2,7 @@
 
 import { generateVCardAction } from "@/app/[locale]/[username]/actions/generateVCardAction";
 import { Link } from "@/app/[locale]/store/use-link-store";
+import { Link as PrismaLink } from "@prisma/client";
 import { Icon } from "@/components/Icon";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,15 +18,18 @@ import { cn } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { LinksNavbarIcon } from "./StickyLinksNavbar";
+import { User } from "next-auth";
+
+type LinkWithUser = (Link | PrismaLink) & { user?: User };
 
 export function AddContactDialog({
   isSticky,
   link,
 }: {
   isSticky: boolean;
-  link: Link;
+  link: Link | PrismaLink;
 }) {
-  const user = link.user;
+  const user = (link as LinkWithUser).user;
 
   const t = useTranslations("ShareBtn");
   const locale = useLocale();

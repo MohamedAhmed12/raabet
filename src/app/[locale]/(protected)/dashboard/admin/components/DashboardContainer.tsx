@@ -1,6 +1,5 @@
 "use client";
 
-import useFetchLink from "@/app/[locale]/[username]/useFetchLink";
 import Loading from "@/app/loading";
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
@@ -10,10 +9,8 @@ import { useLocale } from "next-intl";
 import { usePathname } from "next/navigation";
 import NoSubsContent from "../components/NoSubsContent";
 import SubscriptionBanner from "../components/SubscriptionBanner";
-import DashboardNotFound from "../not-found";
 import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
 import { problemStatuses } from "../subscription/types/subscripiton";
-import { logError } from "@/lib/errorHandling";
 
 export const DashboardContainer = ({
   children,
@@ -26,26 +23,13 @@ export const DashboardContainer = ({
   const fontClass = getFontClassClient(locale);
   const isSubscriptionPage = pathname.includes("/subscription");
 
-  // @ts-expect-error: [to access user data in session it exists in id]
-  const userId = session?.data?.user?.id?.id as string;
-  const { isLoading: isLoadingLink, error } = useFetchLink({ userId });
   const { data: status, isLoading: isLoadingSubs } = useSubscriptionStatus({
     email: session?.data?.user?.email as string,
   });
 
-  if (error) {
-    logError(error as unknown, {
-      action: "dashboard/container",
-      path: pathname,
-      userId: userId || "undefined",
-      timestamp: new Date().toISOString(),
-    });
-    return <DashboardNotFound />;
-  }
-
   return (
-    <div className="flex flex-col w-full">
-      {isLoadingSubs || isLoadingLink || !status ? (
+    <div className="flex flex-col w-full h-full">
+      {isLoadingSubs || !status ? (
         <Loading />
       ) : (
         <>

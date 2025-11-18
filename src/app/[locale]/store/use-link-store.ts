@@ -34,9 +34,9 @@ export interface Link {
   general_styles_is_label_exist?: boolean;
   general_styles_secondary_bgcolor?: string;
   general_styles_background_type?: string;
-  general_styles_gradient_color?: string;
-  general_styles_gradient_direction?: number;
-  general_styles_gradient_offset?: number;
+  general_styles_gradient_color?: string | null;
+  general_styles_gradient_direction?: number | null;
+  general_styles_gradient_offset?: number | null;
   general_styles_bg_image?: string | null;
   general_styles_bg_image_blur?: boolean;
   // implement in link viewer

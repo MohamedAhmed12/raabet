@@ -2,13 +2,17 @@ import { iconNameType } from "@/assets/icons";
 import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
+import { Link as PrismaLink } from "@prisma/client";
 import { useLocale } from "next-intl";
-import { Link } from "../../store/use-link-store";
+import { Link, LinkSocial } from "../../store/use-link-store";
 import { useIncrementSocialClicks } from "../hooks/useIncrementSocialClicks";
 
-export default function LinksSocialIcons({ link }: { link: Link }) {
+type LinkWithSocials = (Link | PrismaLink) & { socials?: LinkSocial[] };
+
+export default function LinksSocialIcons({ link }: { link: Link | PrismaLink }) {
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
+  const linkWithSocials = link as LinkWithSocials;
   const socialIconSize = (link?.header_styles_social_icons_size || 0) * 24;
 
   const { mutateAsync: incrementSocialClicks } = useIncrementSocialClicks();
@@ -18,15 +22,15 @@ export default function LinksSocialIcons({ link }: { link: Link }) {
   };
 
   return (
-    link?.socials &&
-    link?.socials?.length > 0 && (
+    linkWithSocials?.socials &&
+    linkWithSocials?.socials?.length > 0 && (
       <div
         className={cn(
           "social-icons-container flex mb-[31px] justify-center items-center flex-wrap gap-x-2",
           fontClass
         )}
       >
-        {link?.socials.map((social) => {
+        {linkWithSocials?.socials.map((social) => {
           return !social?.icon ? (
             <div key={social.id} className="w-full my-1"></div>
           ) : (

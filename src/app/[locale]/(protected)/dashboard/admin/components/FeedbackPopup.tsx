@@ -1,8 +1,5 @@
 "use client";
 
-import useFetchLink from "@/app/[locale]/[username]/useFetchLink";
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
-import { CustomClientSession } from "@/app/[locale]/types/custom-session";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,6 +15,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { Link } from "@prisma/client";
+import { useQueryClient } from "@tanstack/react-query";
 import { LoaderCircle, Star } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
@@ -27,13 +26,16 @@ import { z } from "zod";
 import { useGiveFeedback } from "../hooks/useGiveFeedback";
 import { useUpdateFeedbackTimestamp } from "../hooks/useUpdateFeedbackTimestamp";
 import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
-import { useShallow } from "zustand/shallow";
+
+interface FeedbackPopupProps {
+  shouldBeOpen: boolean;
+  setManuallyOpen: (open: boolean) => void;
+}
 
 export default function FeedbackPopup({
-  onOpenFeedbackPopup,
-}: {
-  onOpenFeedbackPopup: (open: boolean) => void;
-}) {
+  shouldBeOpen,
+  setManuallyOpen,
+}: FeedbackPopupProps) {
   const [rating, setRating] = useState(0);
   const [highlight, setHighlight] = useState("feature");
   const [message, setMessage] = useState("");
@@ -41,28 +43,23 @@ export default function FeedbackPopup({
 
   const locale = useLocale();
   const t = useTranslations();
-  const session = useSession() as CustomClientSession;
+  const session = useSession();
   const fontClass = getFontClassClient(locale);
-  const { linkId, username } = useLinkStore(
-    useShallow((state) => {
-      return {
-        linkId: state.link.id,
-        username: state.link.userName,
-      };
-    })
-  );
+  const queryClient = useQueryClient();
+
+  // @ts-expect-error: [to access user data in session it exists in id]
+  const userId = session?.data?.user?.id?.id as string;
+
+  // Get link data from QueryClient cache (without refetching)
+  const cachedLinkData = queryClient.getQueryData<Link>(["link", { userId }]);
+
+  const linkId = cachedLinkData?.id as string;
 
   const { data: sessionStatus } = useSubscriptionStatus({
     email: session?.data?.user?.email || "",
   });
 
-  const { refetch: fetchLink } = useFetchLink({ username });
-
-  const { mutate: updateFeedbackTimestamp } = useUpdateFeedbackTimestamp({
-    onSuccess: () => {
-      fetchLink();
-    },
-  });
+  const { mutate: updateFeedbackTimestamp } = useUpdateFeedbackTimestamp();
   const { mutateAsync: giveFeedback, isPending } = useGiveFeedback({
     onSuccess: () => {
       toast.success(t("FeedbackPopup.submitSuccess"));
@@ -104,8 +101,12 @@ export default function FeedbackPopup({
     }
 
     // If validation passes, submit the feedback
+    if (!linkId) {
+      return;
+    }
+
     const result = await giveFeedback({
-      linkId,
+      linkId: linkId as string,
       rating,
       highlight,
       feedback: message,
@@ -122,13 +123,39 @@ export default function FeedbackPopup({
     }
   };
 
-  const handleOnOpenChange = () => {
-    updateFeedbackTimestamp({ linkId });
-    onOpenFeedbackPopup(false);
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      // Reset manual open state when dialog closes
+      setManuallyOpen(false);
+
+      // Optimistically update cache with current timestamp to prevent immediate reopening
+      if (cachedLinkData && linkId) {
+        const now = new Date();
+        queryClient.setQueryData<Link>(["link", { userId }], {
+          ...cachedLinkData,
+          last_feedback_ts: now,
+        });
+
+        // Update timestamp in background (fire-and-forget)
+        updateFeedbackTimestamp(
+          { linkId },
+          {
+            onError: (error) => {
+              console.error("Failed to update feedback timestamp:", error);
+              // Rollback optimistic update on error
+              queryClient.setQueryData<Link>(
+                ["link", { userId }],
+                cachedLinkData
+              );
+            },
+          }
+        );
+      }
+    }
   };
 
   return (
-    <Dialog open={true} onOpenChange={handleOnOpenChange}>
+    <Dialog open={shouldBeOpen} onOpenChange={handleOpenChange}>
       <DialogContent
         className={cn(
           "flex flex-col justify-center items-center px-5 gap-0",

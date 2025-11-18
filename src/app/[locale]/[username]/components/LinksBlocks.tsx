@@ -4,7 +4,7 @@ import { Link } from "@/app/[locale]/store/use-link-store";
 import { animationVariants } from "@/constants/animations";
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
-import { Block } from "@prisma/client";
+import { Block, Link as PrismaLink } from "@prisma/client";
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 import Image from "next/image";
@@ -16,8 +16,10 @@ import useLinkStyles from "../hooks/useLinkStyles";
 
 type EmbedBlock = Block & Partial<EmbedInfo>;
 
-export default function LinksBlocks({ link }: { link: Link }) {
-  const blocks = link?.blocks;
+type LinkWithBlocks = (Link | PrismaLink) & { blocks?: Block[] };
+
+export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
+  const blocks = (link as LinkWithBlocks).blocks;
 
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);

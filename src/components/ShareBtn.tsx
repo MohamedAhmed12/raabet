@@ -2,6 +2,7 @@
 
 import { generateVCardAction } from "@/app/[locale]/[username]/actions/generateVCardAction";
 import { Link } from "@/app/[locale]/store/use-link-store";
+import { Link as PrismaLink } from "@prisma/client";
 import { Icon } from "@/components/Icon";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,13 @@ import { Check, Copy } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
+import { User } from "next-auth";
+import { QRCode } from "@prisma/client";
+
+type LinkWithRelations = (Link | PrismaLink) & { 
+  user?: User;
+  qrcodes?: QRCode[];
+};
 
 export function ShareBtn({
   link,
@@ -26,13 +34,14 @@ export function ShareBtn({
   className = "",
   iconSize,
 }: {
-  link: Link;
+  link: Link | PrismaLink;
   isSticky?: boolean;
   className?: string;
   iconSize?: number;
 }) {
-  const profileurl = link?.qrcodes?.[0]?.url || "";
-  const user = link?.user;
+  const linkWithRelations = link as LinkWithRelations;
+  const profileurl = linkWithRelations?.qrcodes?.[0]?.url || "";
+  const user = linkWithRelations?.user;
 
   const [isCopied, setIsCopied] = useState(false);
 
