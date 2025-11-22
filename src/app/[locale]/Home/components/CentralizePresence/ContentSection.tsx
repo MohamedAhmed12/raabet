@@ -103,7 +103,7 @@ export const ContentSection = () => {
       {/* Description & Input Field */}
       <div className="lg:max-w-[90%] mt-8 mx-auto lg:mx-0">
         <p className="text-lg text-center lg:text-start font-base  text-gray-600 mb-6">
-          {t("Description")}
+          {t("description")}
         </p>
 
         <Claim />

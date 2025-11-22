@@ -228,7 +228,7 @@ export async function generateMetadata(): Promise<Metadata> {
           height: 630,
           alt:
             locale === "ar"
-              ? "رابط لينك - لوحة تحكم أداة رابط في السيرة الذاتية"
+              ? "رابط - لوحة تحكم أداة رابط في السيرة الذاتية"
               : "RabetLink - Link in Bio Tool Dashboard",
         },
       ],

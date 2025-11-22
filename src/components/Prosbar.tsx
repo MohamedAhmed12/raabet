@@ -18,16 +18,16 @@ interface Message {
 const messages: Message[] = [
   { text: "block", icon: AppWindow },
   { text: "live", icon: Clock8 },
-  { text: "Customizable", icon: HandHelping },
+  { text: "customizable", icon: HandHelping },
   { text: "block", icon: AppWindow },
   { text: "live", icon: Clock8 },
-  { text: "Customizable", icon: HandHelping },
+  { text: "customizable", icon: HandHelping },
   { text: "block", icon: AppWindow },
   { text: "live", icon: Clock8 },
-  { text: "Customizable", icon: HandHelping },
+  { text: "customizable", icon: HandHelping },
   { text: "block", icon: AppWindow },
   { text: "live", icon: Clock8 },
-  { text: "Customizable", icon: HandHelping },
+  { text: "customizable", icon: HandHelping },
 ];
 
 export const Prosbar = ({

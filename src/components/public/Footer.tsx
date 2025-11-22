@@ -53,7 +53,7 @@ export const Footer = () => {
           <div>
             {t("Footer.CentralizePresence")}
             <br />
-            {t("Footer.BuiltWith")}
+            {t("Footer.builtWith")}
 
             {/* put my rabet page in the future after creating more of the leade generating free projects */}
             <NextLink href="#" className="mx-1" target="_blank">

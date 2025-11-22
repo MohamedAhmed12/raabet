@@ -2,264 +2,265 @@
   "Blog": {
     "blog": "المدونة",
     "title": "مدونة رابط",
-    "pageTitle": "المدونة - رابط",
-    "description": "اكتشف أحدث المقالات والنصائح حول إنشاء الروابط الشخصية وتحسين حضورك الرقمي",
-    "noPostsAvailable": "لا توجد مقالات متاحة حالياً"
+    "pageTitle": "المدونة - رابط لينك",
+    "description": "تعرف على أحدث المقالات والأفكار والنصائح العملية التي تساعدك على بناء هوية رقمية قوية وجذب جمهورك بسهولة عبر الإنترنت",
+    "noPostsAvailable": "لم تنشر مقالات بعد ترقب جديدنا قريبا"
   },
   "FeedbackPopup": {
-    "promoCode": "كود الخصم",
-    "title": "رأيك يهمنا",
-    "description": "نقدّر ملاحظاتك! شاركنا بتعليقك واستمتع بخصم 75% على مشترياتك القادمة تقديرًا لمساهمتك.",
-    "rateExperience": "قيّم تجربتك العامة",
-    "highlightLabel": "ما الذي تود تسليط الضوء عليه؟",
-    "feature": "أرغب باقتراح ميزة جديدة",
-    "issue": "واجهت مشكلة أو خطأ",
+    "promoCode": "رمز الخصم",
+    "title": "رأيك يصنع فرقا",
+    "description": "نحن نقدر ملاحظاتك لأنها تساعدنا على التطور! شاركنا رأيك الآن واستمتع بخصم 75٪ على اشتراكك القادم شكرا لدعمك وثقتك",
+    "rateExperience": "قيم تجربتك معنا",
+    "highlightLabel": "ما أبرز ما لفت انتباهك؟",
+    "feature": "أرغب في اقتراح ميزة جديدة",
+    "issue": "واجهت مشكلة أو خطأ أثناء الاستخدام",
     "other": "أخرى",
     "messageLabel": "رسالتك",
-    "messagePlaceholder": "شاركنا المزيد من التفاصيل...",
-    "submit": "إرسال",
-    "submitSuccess": "شكراً على مشاركتك!",
-    "discountAlreadyApplied": "أنت الأن تستمتع بخصم 75% على إشتراكك",
+    "messagePlaceholder": "شاركنا تفاصيل أكثر لمساعدتك بشكل أفضل",
+    "submit": "إرسال الملاحظات",
+    "submitSuccess": "شكرا لك! تم استلام رأيك وسيساعدنا في تحسين تجربتك القادمة",
+    "discountAlreadyApplied": "الخصم 75٪ مفعّل بالفعل على اشتراكك الحالي",
     "validation": {
-      "ratingRequired": "الرجاء اختيار التقييم",
-      "highlightRequired": "الرجاء اختيار خيار",
-      "messageRequired": "الرجاء إدخال ملاحظاتك",
-      "messageTooLong": "الملاحظة طويلة جداً"
+      "ratingRequired": "يرجى اختيار تقييم لتجربتك",
+      "highlightRequired": "يرجى تحديد نوع الملاحظة",
+      "messageRequired": "يرجى كتابة ملاحظتك قبل الإرسال",
+      "messageTooLong": "النص طويل جدا، يرجى اختصاره قليلا"
     }
   },
   "NotFoundPage": {
     "title": "الصفحة غير موجودة",
-    "description": "لم يتم العثور على مستخدم لهذا الرابط. قد يكون الرابط غير صحيح، أو ربما قام المستخدم بحذف حسابه أو تم تعليقه.",
-    "returnHome": "العودة الى الصفحة الرئيسية",
-    "something_went_wrong": "حدث خطأ ما!"
+    "description": "عذرا، لم نتمكن من العثور على مستخدم مرتبط بهذا الرابط. قد يكون الرابط غير صحيح، أو تم حذف الحساب أو إيقافه. تحقق من الرابط أو تواصل معنا للمساعدة",
+    "returnHome": "العودة إلى الصفحة الرئيسية",
+    "somethingWentWrong": "خطأ غير متوقع يرجى المحاولة لاحقا"
   },
   "VerifyErrors": {
-    "unauthorized": "غير مصرح",
-    "activation_code_required": "رمز التفعيل مطلوب.",
-    "no_activation_code": "لم يتم العثور على رمز التفعيل.",
-    "invalid_activation_code": "رمز التفعيل غير صحيح.",
-    "internal_server_error": "خطأ في الخادم الداخلي"
+    "unauthorized": "تم رفض الوصول تأكد من صلاحياتك",
+    "activationCodeRequired": "رمز التفعيل مطلوب للمتابعة",
+    "noActivationCode": "لم يتم العثور على رمز تفعيل يرجى المحاولة مرة أخرى",
+    "invalidActivationCode": "رمز التفعيل الذي أدخلته غير صالح",
+    "internalServerError": "حدث خطأ داخلي في الخادم --- فريق الدعم يعمل على إصلاحه"
   },
   "Errors": {
-    "username": "يجب أن يكون اسم المستخدم مكونًا من حرفين على الأقل."
+    "username": "يجب أن يحتوي اسم المستخدم على حرفين على الأقل"
   },
   "ActivationBanner": {
-    "firstHalf": "لتفعيل ملفك الشخصي يجب عليك",
-    "secondHalf": "في خطة",
-    "confirmed": "تم التأكيد",
-    "needConfirmation": "في انتظار التأكيد",
-    "pending": "الاشتراك في انتظار التفعيل",
-    "paymentIssues": "يوجد مشكلة في الاشتراك. يرجى تحديث طريقة الدفع",
-    "paymentIssuesFirstHalf": "يوجد مشكلة في الاشتراك. يرجى تحديث طريقة"
+    "firstHalf": "لتفعيل ملفك الشخصي والاستفادة من المزايا الكاملة، تحتاج إلى الاشتراك",
+    "secondHalf": "في إحدى الباقات المتاحة",
+    "confirmed": "تم التفعيل بنجاح",
+    "needConfirmation": "بانتظار التأكيد",
+    "pending": "اشتراكك قيد المراجعة",
+    "paymentIssuesFirstHalf": "تم رصد مشكلة في عملية الدفع يرجى تحديث معلومات الدفع لضمان استمرار الخدمة"
   },
   "ShareBtn": {
     "add": "إضافة",
-    "addContact": "إضافة جهة اتصال",
-    "asContact": "كجهة اتصال",
+    "addContact": "إضافة إلى جهات الاتصال",
+    "asContact": "كجهة اتصال مباشرة",
     "copyURL": "نسخ رابط الملف الشخصي",
-    "copiedToClipboard": "تم نسخ الرابط"
+    "copiedToClipboard": "تم نسخ الرابط بنجاح يمكنك الآن مشاركته بسهولة!"
   },
   "Shared": {
+    "claim": "احجز الآن",
     "pricing": "الأسعار",
     "rabet": "رابط",
     "email": "البريد الإلكتروني",
-    "subscribe": "الاشتراك",
-    "payment": "الدفع",
+    "subscribe": "ابدأ اشتراكك الآن",
     "username": "اسم المستخدم",
     "confirmed": "تم التأكيد",
-    "needConfirmation": "في انتظار التأكيد",
-    "export": "تصدير",
-    "separator": "فاصل",
+    "needConfirmation": "بانتظار التأكيد",
+    "export": "تصدير البيانات",
+    "separator": "فاصل مرئي",
     "image": "صورة",
-    "title": "عنوان",
-    "text": "نص",
-    "description": "وصف",
-    "styling": "التصميم",
-    "method": "طريقة",
+    "title": "العنوان",
+    "text": "النص",
+    "description": "الوصف التفصيلي",
+    "styling": "التنسيق والمظهر",
+    "method": "طريقة التنفيذ",
+    "payment": "الدفع",
     "type": "النوع",
-    "views": "المشاهدات",
+    "views": "عدد المشاهدات",
     "url": "الرابط",
-    "signup": "إنشاء حساب",
+    "signup": "انشاء حساب جديد",
     "login": "تسجيل الدخول",
-    "contactUs": "اتصل بنا",
-    "userNotFound": "المستخدم غير موجود",
-    "processing": "معالجة...",
-    "resetting": "يتم إعادة تعيين...",
-    "reset": "إعادة تعيين",
-    "passwordMinLimit": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+    "contactUs": "تواصل معنا",
+    "userNotFound": "المستخدم غير موجود في النظام",
+    "processing": "جار معالجة الطلب",
+    "resetting": "جار إعادة التعيين",
+    "rest": "إعادة التعيين",
+    "passwordMinLimit": "يجب ان تحتوي كلمة المرور علي ٦ أحرف علي الأقل",
     "and": "و"
   },
   "Auth": {
     "sign": "تسجيل",
-    "in": "دخول",
-    "welcomeBack": "مرحباً بعودتك! سجل الدخول إلى حسابك في Rabet",
+    "signIn": "دخول",
+    "welcomeBack": "مرحبا بعودتك! سجل الدخول إلى حسابك في Rabet وواصل بناء حضورك الرقمي.",
     "password": "كلمة المرور",
     "fullname": "الاسم الكامل",
     "emailOrUsername": "البريد الإلكتروني أو اسم المستخدم",
     "emailOrUsernamePlaceholder": "أدخل بريدك الإلكتروني أو اسم المستخدم",
     "forgotPassword": "هل نسيت كلمة المرور؟",
-    "passwordResetRequested": "تم طلب إعادة تعيين كلمة المرور",
+    "passwordResetRequested": "تم طلب استعادة كلمة المرور",
     "requestPasswordReset": "طلب إعادة تعيين كلمة المرور",
-    "enterYourNewPassword": "أدخل كلمة المرور الجديدة",
-    "signIn": "تسجيل الدخول",
-    "signUp": "إنشاء حساب",
-    "notYetAMember": "لا تمتلك حساباً بعد؟",
-    "invalidCredentials": "بريد إلكتروني أو كلمة مرور غير صالحين",
-    "somethingWentWrong": "حدث خطأ ما. يرجى المحاولة مرة أخرى",
-    "emailInvalid": "بريد إلكتروني غير صالح",
-    "passwordTooShort": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
-    "notMember": "لا تمتلك حساباً بعد؟",
-    "alreadyHaveAcc": "هل لديك حساباً بالفعل؟",
-    "joining": "بالتسجيل، توافق على",
-    "terms": "الشروط والأحكام",
+    "enterYourNewPassword": "أدخل كلمة المرور الجديدة لحماية حسابك.",
+    "signInButton": "تسجيل الدخول",
+    "signUpButton": "إنشاء حساب جديد",
+    "reset": "إعادة تعيين",
+    "notYetAMember": "ليس لديك حساب بعد؟",
+    "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+    "somethingWentWrong": "حدث خطأ غير متوقع، يُرجى المحاولة مرة أخرى.",
+    "emailInvalid": "صيغة البريد الإلكتروني غير صحيحة",
+    "passwordTooShort": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل",
+    "notMember": "ليس لديك حساب بعد؟",
+    "alreadyHaveAcc": "هل تمتلك حسابًا بالفعل؟",
+    "joining": "بانضمامك، فإنك توافق على",
+    "terms": "شروط الاستخدام",
     "privacy": "سياسة الخصوصية",
     "and": "و",
-    "join": "انضم الى",
-    "okay": "حسناً",
+    "join": "انضم الآن",
+    "okay": "حسنًا",
     "resetPassword": "إعادة تعيين كلمة المرور",
-    "signUpDescription": "أكثر من 10,000 فنان، مبدع، صاحب عمل، وغيرهم يستخدمون Rabet لتجميع وجودهم على الإنترنت",
-    "resetPasswordDescription": "ارسل بريد إلكتروني لإعادة تعيين كلمة المرور",
-    "passwordResetRequestedDescription": "إذا كان هناك حساب مرتبط بهذا البريد الإلكتروني أو اسم المستخدم، سيتم إرسال بريد إلكتروني لإعادة تعيين كلمة المرور",
-    "verifyEmail": "تحقق من البريد الإلكتروني",
-    "confirmEmail": "تأكيد البريد الإلكتروني",
-    "codeSentTo": "أرسلنا رمز تأكيد إلى",
-    "confirmYour": "تأكيد",
+    "signUpDescription": "أكثر من 10000 فنان، ومبدع، ورائد أعمال يستخدمون Rabet لتوحيد وجودهم على الإنترنت في مكان واحد.",
+    "resetPasswordDescription": "أرسل طلبًا عبر البريد الإلكتروني لإعادة تعيين كلمة مرور حسابك بأمان.",
+    "passwordResetRequestedDescription": "إذا كان هناك حساب مرتبط بهذا البريد الإلكتروني أو اسم المستخدم، فستتلقى رسالة إلكترونية تحتوي على رابط لإعادة تعيين كلمة المرور.",
+    "verifyEmail": "تأكيد البريد الإلكتروني",
+    "confirmEmail": "قم بتأكيد بريدك الإلكتروني",
+    "codeSentTo": "تم إرسال رمز التحقق إلى",
+    "yourConfirm": "قم بتأكيد",
     "email": "البريد الإلكتروني",
-    "verifying": "جاري التحقق...",
+    "verifying": "جارٍ التحقق...",
     "confirm": "تأكيد",
     "confirmButton": "تأكيد",
-    "activationSuccessful": "تم التفعيل بنجاح",
-    "activationEmailResent": "تم إرسال بريد التفعيل مرة أخرى",
+    "activationSuccessful": "تم تفعيل الحساب بنجاح!",
+    "activationEmailResent": "تم إرسال رسالة التفعيل مجددًا إلى بريدك الإلكتروني.",
     "errorPrefix": "❌",
-    "resendEmail": "إعادة إرسال بريد التأكيد",
-    "cantFindEmail": "لا تجد البريد؟",
-    "enteredWrongEmail": "هل أدخلت عنوان البريد الإلكتروني الخطأ؟",
-    "changeEmail": "تغيير البريد الإلكتروني",
-    "activationEmailResentFailed": "فشل إرسال بريد التفعيل مرة أخرى",
+    "resendEmail": "إعادة إرسال رسالة تأكيد جديدة",
+    "cantFindEmail": "لم تصلك الرسالة؟",
+    "enteredWrongEmail": "هل أدخلت بريدًا إلكترونيًا غير صحيح؟",
+    "changeEmail": "تعديل البريد الإلكتروني",
+    "activationEmailResentFailed": "فشل في إعادة إرسال رسالة التفعيل",
     "userAlreadyExists": "المستخدم موجود بالفعل"
   },
   "Pricing": {
-    "plans": "خطط الدفع",
-    "description": "اشترك في الخطة المتميزة لتعزيز روابطك في السيرة الذاتية، أو اختر الخطة الاحترافية لتعزيز فريقك بأكمله.",
-    "mostPopular": "الأكثر شعبية",
-    "bestValue": "أفضل قيمة",
-    "premium": "متميز",
-    "general": "عام",
+    "plans": "الباقات",
+    "description": "اشترك في باقة Premium لتمنح صفحتك على رابط لينك قدرات خارقة في العرض والتفاعل، أو اختر خطة Pro لتعزيز أداء فريقك بالكامل بأدوات احترافية متقدمة.",
+    "mostPopular": "الأكثر شيوعًا",
+    "bestValue": "الأفضل من حيث القيمة",
+    "premium": "الباقة المميزة",
+    "general": "الباقة العامة",
     "linkBlocks": "كتل الروابط",
-    "specialBlocks": "كتل خاصة",
-    "analytics": "تحليلات",
-    "unlimitedBlocksAndSocials": "كتل غير محدودة وروابط اجتماعية",
-    "customRaabetURL": "رابط \" رابط\" مخصص",
-    "verificationBadge": "شارة التحقق",
-    "shareButtonWithQRCode": "زر المشاركة مع رمز الاستجابة السريعة + بطاقة vCard",
-    "linkToURL": "رابط إلى URL أو بريد إلكتروني",
-    "imageThumbnails": "مقدمات الصور",
-    "customizeColors": "تخصيص الألوان، الخطوط، الحدود، إلخ...",
-    "animateBlocks": "تحريك الكتل لجذب الانتباه",
-    "audioVideoMedia": "كتلة مدمجة للصوت والفيديو والوسائط",
-    "richTextBlock": "كتلة نص غني",
-    "fileDownloadBlock": "كتلة تحميل الملفات",
-    "totalPageViews": "إجمالي عدد مشاهدات الصفحة ونقرات الروابط",
-    "individualLinkAnalytics": "تحليلات الروابط الفردية",
-    "analyticsDateRange": "تحليلات لفترة زمنية مخصصة",
-    "seeAllFeatures": "عرض جميع المميزات",
-    "pricePerMonth": "دولار شهرياً",
-    "freeTrial": "جرب مجاناً لمدة 14 يوما"
+    "specialBlocks": "الكتل المتقدمة",
+    "analytics": "التحليلات",
+    "unlimitedBlocksAndSocials": "عدد غير محدود من الكتل وروابط التواصل",
+    "customRabetURL": "رابط مخصص باسم Rabet",
+    "verificationBadge": "شارة التوثيق",
+    "shareButtonWithQRCode": "زر مشاركة مدمج مع رمز QR وبطاقة vCard",
+    "linkToURL": "رابط موجه إلى موقع أو بريد إلكتروني",
+    "imageThumbnails": "صور مصغّرة للروابط",
+    "customizeColors": "تخصيص الألوان والخطوط والإطارات لتناسب هويتك البصرية",
+    "animateBlocks": "تحريك الكتل لجذب الانتباه وزيادة التفاعل",
+    "audioVideoMedia": "كتلة مدمجة للوسائط (صوت -- فيديو -- ملفات متعددة)",
+    "richTextBlock": "كتلة نص غني لتنسيق المحتوى بحرية",
+    "fileDownloadBlock": "كتلة لتحميل الملفات بسهولة",
+    "totalPageViews": "إحصائيات إجمالي الزيارات والنقرات على الروابط",
+    "individualLinkAnalytics": "تحليلات دقيقة لكل رابط على حدة",
+    "analyticsDateRange": "تحليلات شاملة لجميع الأوقات أو حسب نطاق زمني محدد",
+    "seeAllFeatures": "استعراض جميع المزايا",
+    "pricePerMonth": "دولار أمريكي شهريًا",
+    "freeTrial": "جرب مجانا لمدة 14 يومًا"
   },
   "LinksPage": {
     "title": "الأنماط العامة",
     "primaryTextColor": "لون النص الأساسي",
     "primaryBgColor": "لون الخلفية الأساسي",
     "primaryBgType": "نوع الخلفية",
-    "solid": "صلب",
-    "split": "مقسم",
-    "gradient": "متدرج",
+    "solid": "لون ثابت",
+    "split": "مقسمة",
+    "gradient": "تدرج لوني",
     "splitColor1": "اللون الأول",
     "splitColor2": "اللون الثاني",
-    "splitDirection": "اتجاه التقسيم (بالدرجات)",
-    "splitPosition": "موضع التقسيم (%)",
-    "secondaryBgColor": "لون الخلفية الثانوية",
-    "secondaryPrimaryBgColor": "لون الخلفية الثانوية الأساسية",
-    "desktopBgColor": "لون الخلفية على سطح المكتب",
-    "enableGradient": "تفعيل خلفية متدرجة",
-    "gradientStartColor": "لون بداية التدرج",
-    "gradientEndColor": "لون نهاية التدرج",
-    "gradientDirection": "اتجاه التدرج (بالدرجات)",
-    "gradientOffset": "نقطة الانتقال بين اللونين (%)",
+    "splitDirection": "اتجاه الانقسام (بالدرجات)",
+    "splitPosition": "موضع الانقسام (%)",
+    "secondaryBgColor": "لون الخلفية الثانوي",
+    "secondaryPrimaryBgColor": "اللون الأساسي للخلفية الثانوية",
+    "desktopBgColor": "لون خلفية سطح المكتب",
+    "enableGradient": "تفعيل التدرّج اللوني",
+    "gradientStartColor": "لون بداية التدرّج",
+    "gradientEndColor": "لون نهاية التدرّج",
+    "gradientDirection": "اتجاه التدرّج (بالدرجات)",
+    "gradientOffset": "نقطة انتقال الألوان (%)",
     "image": "صورة",
-    "uploadImage": "رفع صورة الخلفية",
-    "chooseImage": "...اختر صورة",
+    "uploadImage": "رفع صورة خلفية",
+    "chooseImage": "اختيار صورة...",
     "removeImage": "إزالة الصورة",
-    "enableBlur": "تفعيل الضبابية",
+    "enableBlur": "تفعيل التمويه",
     "headerStyles": {
       "title": "أنماط الرأس",
-      "profilePictureShadow": "ظل صورة الملف الشخصي",
-      "profilePictureBorder": "حدود صورة الملف الشخصي",
-      "profilePictureBorderColor": "لون حدود صورة الملف الشخصي",
+      "profilePictureShadow": "ظل الصورة الشخصية",
+      "profilePictureBorder": "حدود الصورة الشخصية",
+      "profilePictureBorderColor": "لون حدود الصورة الشخصية",
       "collapseLongBio": "طي السيرة الذاتية الطويلة",
-      "collapseLongBioTooltip": "طي السيرة الذاتية الطويلة عند تحميل الصفحة لأول مرة. النقر على السيرة الذاتية الطويلة المطيت سينشأ.",
-      "socialIconSize": "حجم الأيقونة الاجتماعية"
+      "collapseLongBioTooltip": "سيتم طي السيرة الذاتية الطويلة إلى ثلاث أسطر عند تحميل الصفحة لأول مرة. بالنقر عليها سيتم توسيعها بالكامل.",
+      "socialIconSize": "حجم أيقونات وسائل التواصل"
     },
     "cardStyles": {
-      "title": "أنماط البطاقة",
-      "designGroupTitle": "بطاقات لمسية",
-      "designGrouptooltipContent": "توفر البطاقات اللمسية لبطاقاتك مظهرًا وملمسًا ناعمًا ولمسيًا. عند استخدام البطاقات اللمسية، سيتم استخدام لون خلفية الصفحة كلون للبطاقة. بعض خيارات التصميم غير متاحة عند استخدام البطاقات اللمسية.",
+      "title": "أنماط البطاقات",
+      "designGroupTitle": "بطاقات تفاعلية",
+      "designGrouptooltipContent": "توفر البطاقات التفاعلية مظهرًا سلسًا ولمسة عصرية. عند استخدامها، يتم تطبيق لون خلفية الصفحة على البطاقة نفسها، مع بعض خيارات التصميم المحدودة في هذا الوضع.",
       "cardTextColor": "لون نص البطاقة",
-      "labelColor": "لون التسمية",
-      "labelTextColor": "لون نص التسمية",
-      "cardCorner": "زاوية البطاقة",
+      "labelColor": "لون التصنيف",
+      "labelTextColor": "لون نص التصنيف",
+      "cardCorner": "زوايا البطاقة",
       "cardColor": "لون البطاقة",
       "cardBorder": "حدود البطاقة",
       "cardBorderColor": "لون حدود البطاقة",
       "cardShadow": "ظل البطاقة",
-      "cardSpacing": "تباعد البطاقة"
+      "cardSpacing": "المسافة بين البطاقات"
     },
     "generalStyles": {
       "header": {
-        "title": "الرئيسية",
-        "description": "قم بتكوين صورة الملف الشخصي والاسم والسيرة الذاتية. سيتم استخدام هذه الإعدادات أيضًا كصورة وعنوان ووصف عند مشاركة ملفك الشخصي",
-        "uploading": "جاري التحميل...",
+        "title": "رأس الصفحة",
+        "description": "قم بإعداد صورتك الشخصية، واسمك، وسيرتك الذاتية. ستُستخدم هذه الإعدادات كصورة وعنوان ووصف عند مشاركة ملفك الشخصي.",
+        "uploading": "جارٍ الرفع...",
         "fields": {
           "name": "الاسم",
           "bio": "السيرة الذاتية"
         }
       },
-      "linkBuilder": "المحتوى",
-      "styles": "التصميم",
+      "linkBuilder": "منشئ الروابط",
+      "styles": "الأنماط",
       "addSocial": "إضافة وسيلة تواصل اجتماعي",
       "socials": {
         "title": "وسائل التواصل الاجتماعي",
-        "description": "أضف روابط لحساباتك على منصات التواصل الاجتماعي. يرجى لصق الروابط الكاملة لملفاتك الشخصية.",
-        "addSeparator": "إضافة فاصل"
+        "description": "أضف روابط حساباتك على المنصات المختلفة. يُرجى إدخال الروابط الكاملة لحساباتك."
       },
+      "addSeparator": "إضافة فاصل",
       "addBlocks": "إضافة كتل",
       "blocks": {
         "title": "الكتل",
         "helperTooltip": {
           "drag": "اسحب",
-          "toReorder": "انقر على الكتلة لتعديلها."
-        },
-        "AudioBlock": {
-          "mediaUrl": "رابط الصوت",
-          "mediaUrlPlaceholder": "ضع رابط الصوت",
-          "validationMessage": "رابط غير صحيح"
-        },
-        "errors": {
-          "sortingBlocks": "حدث خطأ أثناء إعادة ترتيب الكتل!",
-          "textRequired": "من فضلك ادخل نَص للمتابعة",
-          "titleOrDescriptionRequired": "من فضلك ادخل عنوان و/أو وصف",
-          "bgImageRequired": "الصورة مطلوبة لهذا التنسيق"
+          "toReorder": "لإعادة ترتيب الكتل. انقر على الكتلة لتعديلها."
         }
       },
-      "urlButton": "زر الرابط",
-      "emailButton": "زر البريد الإلكتروني",
-      "fileButton": "زر الملف",
-      "imageButton": "زر الصورة",
+      "audioBlock": {
+        "mediaUrl": "رابط الوسائط",
+        "mediaUrlPlaceholder": "ألصق رابط الوسائط هنا",
+        "validationMessage": "الرابط غير صالح"
+      },
+      "errors": {
+        "sortingBlocks": "حدث خطأ أثناء ترتيب الكتل!",
+        "textRequired": "النص مطلوب",
+        "titleOrDescriptionRequired": "يرجى إضافة عنوان أو وصف",
+        "bgImageRequired": "الصورة مطلوبة لهذا التصميم"
+      },
+      "urlButton": "زر رابط",
+      "emailButton": "زر بريد إلكتروني",
+      "fileButton": "زر تحميل ملف",
+      "imageButton": "زر صورة",
       "divider": "فاصل",
       "text": "نص",
       "audio": "صوت",
       "video": "فيديو",
-      "customBlockTextColor": "لون نص مخصص للبلوك",
+      "customBlockTextColor": "تخصيص لون نص الكتلة",
       "blockForm": {
         "title": {
           "text": "كتلة نص",
@@ -272,27 +273,27 @@
           "video": "كتلة فيديو"
         },
         "btnType": {
-          "btnTypes": "أنواع الزر",
+          "btnTypes": "أنواع الأزرار",
           "link": "رابط",
           "email": "بريد إلكتروني",
           "image": "صورة",
           "file": "ملف"
         },
         "errors": {
-          "validUrlRequired": "من فضلك ادخل رابط صحيح لتتمكن من المتابعة",
-          "validEmailRequired": "من فضلك ادخل بريد إلكتروني صحيح لتتمكن من المتابعة",
-          "validFileRequired": "من فضلك قم برفع ملف لتتمكن من المتابعة",
-          "validThumbnailRequired": "من فضلك قم برفع صورة مصغّرة (thumbnail) لتتمكن من المتابعة"
+          "validUrlRequired": "يرجى إدخال رابط صالح للمتابعة",
+          "validEmailRequired": "يرجى إدخال بريد إلكتروني صالح للمتابعة",
+          "validFileRequired": "يرجى رفع ملف للمتابعة",
+          "validThumbnailRequired": "يرجى رفع صورة مصغّرة للمتابعة"
         },
         "layout": "التخطيط",
-        "uploadedFile": "الملف المرفوع: ",
-        "uploadedImage": "الصورة المرفوعة: "
+        "uploadedFile": "الملف المرفوع:",
+        "uploadedImage": "الصورة المرفوعة"
       }
     }
   },
   "Settings": {
     "title": "الإعدادات",
-    "subTitle": "قم بإعداد تفاصيل حسابك والتكاملات.",
+    "subTitle": "قم بضبط إعدادات حسابك وتكامل الأدوات لتخصيص تجربتك على المنصة.",
     "usernameForm": {
       "title": "اسم المستخدم",
       "placeholder": "اسمك",
@@ -300,220 +301,244 @@
     }
   },
   "QR": {
-    "title": "مولد رمز الQR",
-    "subTitle": "أنشئ رموز QR جميلة لأي رابط فوراً. مجاني وسريع وسهل الاستخدام.",
-    "description": "أنشئ رموز QR ديناميكية وتتبع عدد الـ scans والزيارات",
+    "title": "مولّد رموز QR",
+    "subTitle": "أنشئ رموز QR احترافية لأي رابط في ثوانٍ. مجانية، سريعة، وسهلة الاستخدام.",
+    "description": "أنشئ عددًا غير محدود من رموز QR الديناميكية وتابع أداءها وتحليلاتها بدقة.",
     "newQR": "إنشاء رمز QR جديد",
-    "profileQRTitle": "رمز QR لملفك الشخصي",
+    "profileQRTitle": "رمز QR الخاص بملفك الشخصي",
     "delete": "حذف",
     "download": "تحميل",
-    "successDelete": "تم حذف الرمز الQR بنجاح",
-    "errorDelete": "فشل في حذف الرمز الQR",
-    "urlLabel": "رابط الموقع",
-    "createQRCode": "إنشاء رمز QR جديد",
+    "successDelete": "تم حذف رمز QR بنجاح",
+    "errorDelete": "فشل حذف رمز QR، يرجى المحاولة مرة أخرى",
+    "urlLabel": "رابط الموقع الإلكتروني",
+    "createQRCode": "إنشاء رمز QR",
     "profile": "الملف الشخصي",
-    "url": "رابط",
-    "sizeLabel": "الحجم (بكسل)",
-    "levelLabel": "مستوى تصحيح الخطأ",
+    "url": "الرابط",
+    "sizeLabel": "الحجم (بالبكسل)",
+    "levelLabel": "مستوى تصحيح الأخطاء",
     "levels": {
       "low": "منخفض (7%)",
       "medium": "متوسط (15%)",
-      "quartile": "ربعي (25%)",
-      "high": "عالي (30%)"
+      "quartile": "ربع (25%)",
+      "high": "مرتفع (30%)"
     },
-    "foregroundLabel": "لون المقدمة",
+    "foregroundLabel": "لون الرمز",
     "backgroundLabel": "لون الخلفية",
-    "shapeLabel": "الشكل",
+    "shapeLabel": "شكل رمز QR",
     "shapeSquare": "مربع",
-    "shapeCircle": "دائرة",
-    "includeMargin": "تضمين الهوامش",
-    "previewDescription": "معاينة كيف سيبدو رمز الQR بالإعدادات الحالية",
-    "yourQRCode": "الرمز QR الخاص بك",
+    "shapeCircle": "دائري",
+    "includeMargin": "إضافة هامش",
+    "previewDescription": "عاين شكل رمز QR قبل الحفظ باستخدام الإعدادات الحالية",
+    "yourQRCode": "رمز QR الخاص بك",
     "preview": {
       "title": "معاينة رمز QR",
-      "description": "رمز QR المُنشأ",
-      "urlLabel": "الرابط المستهدف:",
-      "placeholder": "أدخل رابط أعلاه لإنشاء رمز QR"
+      "description": "هذا هو رمز QR الذي تم إنشاؤه بناءً على إعداداتك",
+      "urlLabel": "الرابط المستهدف",
+      "placeholder": "أدخل الرابط أعلاه لإنشاء رمز QR"
     },
     "logoLabel": "الشعار (اختياري)",
-    "uploadLogo": "رفع شعار",
+    "uploadLogo": "رفع الشعار",
     "changeLogo": "تغيير الشعار",
     "removeLogo": "إزالة",
     "logoPreview": "معاينة الشعار",
-    "invalidFileType": "يرجى اختيار ملف صورة",
-    "fileTooLarge": "يجب أن يكون حجم الصورة أقل من 5 ميجابايت",
+    "invalidFileType": "يرجى اختيار ملف صورة فقط",
+    "fileTooLarge": "يجب ألا يتجاوز حجم الصورة 5 ميغابايت",
     "logoUploadSuccess": "تم رفع الشعار بنجاح!",
-    "logoRemoved": "تم إزالة الشعار بنجاح!",
+    "logoRemoved": "تمت إزالة الشعار بنجاح!",
     "createSuccess": "تم إنشاء رمز QR بنجاح!",
-    "createError": "فشل في إنشاء رمز QR",
-    "duplicateError": "يوجد رمز QR لهذا الرابط بالفعل",
-    "profileDeleteError": "لا يمكنك حذف رمز QR الرئيسي لملفك الشخصي",
-    "notFoundError": "رمز QR غير موجود",
+    "createError": "فشل في إنشاء رمز QR، يرجى المحاولة لاحقًا",
+    "duplicateError": "هذا الرمز موجود بالفعل",
+    "profileDeleteError": "لا يمكنك حذف رمز QR الأساسي لملفك الشخصي",
+    "notFoundError": "لم يتم العثور على رمز QR",
     "cancel": "إلغاء",
     "form": {
       "title": "إنشاء رمز QR",
-      "description": "أدخل رابط لإنشاء رمز QR",
+      "description": "أدخل الرابط لإنشاء رمز QR فوري",
       "urlPlaceholder": "https://example.com",
-      "sizeLabel": "الحجم (بكسل)",
-      "levelLabel": "تصحيح الخطأ",
-      "includeMargin": "تضمين الهوامش",
+      "sizeLabel": "الحجم (px)",
+      "levelLabel": "مستوى التصحيح",
+      "includeMargin": "إضافة هامش",
       "generateButton": "إنشاء رمز QR"
     },
     "actions": {
-      "download": "تحميل PNG",
+      "downloadPNG": "تحميل بصيغة PNG",
       "copyUrl": "نسخ الرابط",
       "copyQRCode": "نسخ رمز QR",
       "openUrl": "فتح الرابط"
     },
     "toast": {
       "downloadSuccess": "تم تحميل رمز QR بنجاح!",
-      "downloadError": "فشل في تحميل رمز QR",
+      "downloadError": "فشل تحميل رمز QR",
       "copySuccess": "تم نسخ الرابط إلى الحافظة!",
-      "invalidFileType": "يرجى اختيار ملف صورة",
-      "fileTooLarge": "يجب أن يكون حجم الصورة أقل من 5 ميجابايت",
+      "invalidFileType": "يرجى اختيار ملف صورة فقط",
+      "fileTooLarge": "يجب ألا يتجاوز حجم الصورة 5 ميغابايت",
       "logoUploadSuccess": "تم رفع الشعار بنجاح!",
-      "logoRemoved": "تم إزالة الشعار بنجاح!"
+      "logoRemoved": "تمت إزالة الشعار بنجاح!"
     },
     "features": {
-      "title": "لماذا تختار مولد QR الخاص بنا؟",
+      "title": "لماذا تختار مولّد رموز QR الخاص بنا؟",
       "fast": {
-        "title": "سريع جداً",
-        "description": "أنشئ رموز QR فوراً مع مولدنا المحسّن"
+        "title": "سرعة البرق",
+        "description": "أنشئ رموز QR فورية باستخدام نظام مولّد محسّن وعالي الأداء."
       },
       "download": {
         "title": "جودة عالية",
-        "description": "حمل رموز QR بجودة عالية بصيغة PNG"
+        "description": "قم بتحميل رموز QR الخاصة بك بدقة عالية بصيغة PNG الجاهزة للطباعة."
       },
       "copy": {
         "title": "مشاركة سهلة",
-        "description": "انسخ رموز QR كـ SVG أو شارك الروابط مباشرة"
+        "description": "انسخ رموز QR بصيغة SVG أو شارك الروابط مباشرة مع جمهورك."
       }
     },
     "validation": {
-      "urlRequired": "الرجاء إدخال رابط",
-      "invalidUrl": "الرجاء إدخال رابط صحيح",
-      "invalidFileType": "نوع الملف غير صحيح. يرجى رفع ملف صورة.",
-      "fileTooLarge": "الملف كبير جداً. الحد الأقصى للحجم هو {maxSizeMB} ميجابايت.",
-      "imageTooLargeAfterCompression": "الصورة كبيرة جداً حتى بعد الضغط. يرجى تجربة صورة أصغر.",
-      "failedToProcessImage": "فشل في معالجة الصورة. يرجى تجربة ملف آخر.",
-      "failedToUploadLogo": "فشل في رفع الشعار. يرجى المحاولة مرة أخرى.",
-      "failedToLoadImage": "فشل في تحميل الصورة"
+      "urlRequired": "يرجى إدخال رابط صالح.",
+      "invalidUrl": "الرابط غير صحيح، يرجى التحقق والمحاولة مجددًا.",
+      "invalidFileType": "نوع الملف غير مدعوم. يُرجى رفع صورة فقط.",
+      "fileTooLarge": "حجم الملف كبير جدًا. الحد الأقصى المسموح به هو {maxSizeMB} ميغابايت.",
+      "imageTooLargeAfterCompression": "حتى بعد الضغط، تظل الصورة كبيرة جدًا. يُفضل استخدام صورة أصغر.",
+      "failedToProcessImage": "حدث خطأ أثناء معالجة الصورة. يُرجى تجربة ملف آخر.",
+      "failedToUploadLogo": "تعذر رفع الشعار. حاول مرة أخرى لاحقًا.",
+      "failedToLoadImage": "فشل تحميل الصورة. يُرجى التحقق من الملف والمحاولة مجددًا."
     },
     "tabs": {
-      "generator": "المولد",
+      "generator": "المولّد",
       "customize": "التخصيص",
       "settings": "الإعدادات"
     },
     "customize": {
       "title": "تخصيص رمز QR",
-      "description": "قم بتخصيص مظهر رمز QR الخاص بك",
-      "foregroundLabel": "لون المقدمة",
+      "description": "خصص مظهر رمز QR ليتناسب مع علامتك التجارية أو أسلوبك الشخصي.",
+      "foregroundLabel": "لون الرمز",
       "backgroundLabel": "لون الخلفية",
       "preview": "معاينة",
       "shapeLabel": "الشكل",
       "shapeSquare": "مربع",
-      "shapeCircle": "دائرة"
+      "shapeCircle": "دائري"
     },
     "settings": {
       "title": "إعدادات رمز QR",
-      "description": "تكوين إعدادات رمز QR المتقدمة",
-      "sizeLabel": "الحجم (بكسل)",
-      "sizeHelper": "موصى به: 256 بكسل للويب، 512 بكسل للطباعة",
-      "errorCorrectionLabel": "مستوى تصحيح الخطأ",
-      "marginLabel": "تضمين المنطقة الهادئة (الهوامش)",
-      "marginHelper": "المنطقة الهادئة هي المساحة البيضاء حول رمز QR. يُنصح بتركها مفعلة لمسح أفضل."
+      "description": "تحكم بالإعدادات المتقدمة لرمز QR لتحسين الجودة والأداء.",
+      "sizeLabel": "الحجم (بالبكسل)",
+      "sizeHelper": "مقترح: 256 بكسل للاستخدام عبر الويب، و512 بكسل للطباعة.",
+      "errorCorrectionLabel": "مستوى تصحيح الأخطاء",
+      "marginLabel": "إضافة منطقة فارغة (هامش)",
+      "marginHelper": "المنطقة البيضاء حول الرمز تُسهم في تحسين دقّة المسح الضوئي. نوصي بالإبقاء عليها مفعّلة."
     },
     "errorCorrection": {
-      "explanation": {
-        "title": "حول تصحيح الخطأ",
-        "description": "تصحيح الخطأ يجعل رموز QR أكثر موثوقية من خلال إضافة بيانات احتياطية. المستويات الأعلى يمكنها التعافي من التلف أو الأوساخ أو ظروف المسح الضوئي السيئة، لكنها تؤدي إلى رموز QR أكبر. اختر بناءً على حالة الاستخدام."
-      },
+      "title": "حول ميزة تصحيح الأخطاء",
+      "description": "تعمل ميزة تصحيح الأخطاء على جعل رموز QR أكثر موثوقية من خلال إضافة بيانات احتياطية تُمكّن من استعادة الرمز حتى في حال تلفه أو صعوبة مسحه. كلما ارتفع مستوى التصحيح، زاد حجم الرمز ولكن زادت موثوقيته أيضًا.",
       "low": {
-        "title": "منخفض (7%) - أصغر حجماً",
-        "description": "الأفضل لـ: الشاشات الرقمية، البيئات الداخلية النظيفة، بطاقات العمل عالية الجودة"
+        "title": "منخفض (7%) --- الحجم الأصغر",
+        "description": "مثالي للشاشات الرقمية أو بيئات العرض الداخلية النظيفة، وبطاقات العمل عالية الجودة."
       },
       "medium": {
-        "title": "متوسط (15%) - متوازن",
-        "description": "الأفضل لـ: الروابط العامة، ملفات التواصل الاجتماعي، معظم الاستخدامات الشائعة"
+        "title": "متوسط (15%) --- توازن مثالي",
+        "description": "الأفضل للروابط العامة، وحسابات التواصل الاجتماعي، ومعظم الاستخدامات الشائعة."
       },
       "quartile": {
-        "title": "ربعي (25%) - جيد للرموز التالفة",
-        "description": "الأفضل لـ: تغليف المنتجات، اللافتات الخارجية، المواد التي قد تتسخ أو تبلى"
+        "title": "ربع (25%) --- موثوق للأكواد المتضررة",
+        "description": "مناسب لتغليف المنتجات، والإعلانات الخارجية، والمواد المعرضة للغبار أو التلف."
       },
       "high": {
-        "title": "عالي (30%) - أقصى تصحيح للخطأ",
-        "description": "الأفضل لـ: الملصقات الصناعية، المعدات الطبية، التطبيقات الحرجة، الظروف القاسية"
+        "title": "مرتفع (30%) --- أقصى درجات الحماية",
+        "description": "مثالي للملصقات الصناعية، والمعدات الطبية، والاستخدامات الحساسة في الظروف الصعبة."
       }
     },
     "editQR": "تعديل رمز QR",
     "save": "حفظ",
     "updateSuccess": "تم تحديث رمز QR بنجاح!",
-    "updateError": "فشل في تحديث رمز QR",
-    "notFound": "رمز QR غير موجود",
+    "updateError": "فشل تحديث رمز QR. يُرجى المحاولة لاحقًا.",
+    "notFound": "لم يتم العثور على رمز QR",
     "analytics": "تحليلات رمز QR",
-    "analyticsError": "فشل في تحميل بيانات التحليلات",
-    "totalScans": "إجمالي المسح",
+    "analyticsError": "حدث خطأ أثناء تحميل بيانات التحليلات.",
+    "totalScans": "إجمالي عدد المسحات",
     "thisWeek": "هذا الأسبوع",
     "today": "اليوم"
   },
   "Subscription": {
     "paymentStatus": {
       "failed": "فشل الدفع",
-      "succeeded": "تم الدفع بنجاح"
+      "succeeded": "تم الدفع بنجاح",
+      "tryAgainMsg": "يرجى المحاولة مرة أخرى لاحقًا."
     },
-    "tryAgainMsg": "يرجى المحاولة مرة أخرى لاحقًا.",
-    "restricted": "تحتاج إلى اشتراك فعّال لمشاهدة هذا المحتوى",
-    "uploadInvoice": "ارفع الفاتورة",
-    "uploadInvoiceHelperTxt": "يرجى رفع screenshot من الفاتورة الخاصة بك هنا",
-    "paymentMethod": "إنستاباي أو فودافون كاش",
-    "InvoiceUploadedSuccessfully": "تمَّ رفع الفاتورة بنجاح",
-    "InvoiceUploadFailed": "فشل في رفع الفاتورة",
-    "couponHelperTxt": "تم تطبيق قسيمة صالحة. ادفع فقط ${feesToPay}",
-    "noCouponHelperTxt": "ادفع فقط ${feesToPay}"
+    "restricted": "يجب أن تمتلك اشتراكًا نشطًا للوصول إلى هذا المحتوى.",
+    "uploadInvoice": "رفع الفاتورة",
+    "uploadInvoiceHelperTxt": "يرجى رفع لقطة شاشة توضح تفاصيل الفاتورة هنا.",
+    "paymentMethod": "الدفع عبر إنستا باي أو فودافون كاش",
+    "invoiceUploadedSuccessfully": "تم رفع الفاتورة بنجاح!",
+    "invoiceUploadFailed": "فشل رفع الفاتورة. حاول مجددًا.",
+    "couponHelperTxt": "تم تطبيق كوبون خصم صالح. المبلغ المستحق الآن",
+    "noCouponHelperTxt": "المبلغ المطلوب للدفع هو",
+    "status": {
+      "active": {
+        "title": "اشتراك نشط",
+        "description": "ﺍﺷﺘﺮﺍﻛﻚ ﻧﺸﻂ ﻭﺟﻤﻴﻊ ﺍﻟﻤﻴﺰﺍﺕ ﻣﺘﺎﺣﺔ ﻟﻚ"
+      },
+      "pending": {
+        "title": "اشتراك قيد الانتظار",
+        "description": "ﺍﻻﺷﺘﺮﺍﻙ ﻟﻢ ﻳﻜﺘﻤﻞ ﺑﻌﺪ. ﻳﺮﺟﻰ ﺇﻧﻬﺎﺀ ﺍﻟﺪﻓﻊ"
+      },
+      "trialing": {
+        "title": "لديك ﺗﺠﺮﺑﺔ ﻣﺠﺎﻧﻴﺔ ﻟﻤﺪﺓ 14 يومًا",
+        "description": "ﺃﻧﺖ ﺣﺎﻟﻴﺎ ﻓﻲ ﻓﺘﺮﺓ ﺍﻟﺘﺠﺮﺑﺔ ﺍﻟﻤﺠﺎﻧﻴﺔ"
+      },
+      "canceled": {
+        "title": "تم إلغاء الاشتراك",
+        "description": "ﺗﻢ ﺇﻟﻐﺎﺀ ﺍﻻﺷﺘﺮﺍﻙ ﻭﻟﻦ ﺗﺘﻤﻜﻦ ﻣﻦ ﻣﺘﺎﺑﻌﺔ ﺍﻟﻤﻴﺰﺍﺕ ﺍﻟﻤﺪﻓﻮﻋﺔ"
+      },
+      "failed": {
+        "title": "فشل الدفع",
+        "description": "ﺣﺪﺙ ﺧﻄﺄ ﺃﺛﻨﺎﺀ ﻣﻌﺎﻟﺠﺔ ﺍﻟﺪﻓﻊ. ﻳﺮﺟﻰ ﺇﻋﺎﺩﺓ ﺍﻟﻤﺤﺎﻭﻟﺔ"
+      },
+      "none": {
+        "title": "لا يوجد اشتراك",
+        "description": "ﻻ ﺗﻤﺘﻠﻚ ﺃﻱ ﺍﺷﺘﺮﺍﻙ ﻧﺸﻂ ﺣﺎﻟﻴﺎ"
+      }
+    }
   },
   "SocialsAndSharing": {
-    "sectionTitle": "وسائل التواصل الاجتماعي والمشاركة",
-    "enableAddContact": "تمكين إضافة جهة اتصال",
-    "enableShareButton": "تمكين زر المشاركة",
-    "clickForQRCode": "النقر للحصول على رمز الاستجابة السريعة",
-    "hideRaabetBranding": "إخفاء علامة رابط التجارية",
-    "enableAddContactTooltip": "عند تمكين هذا الخيار، سيتم إضافة أيقونة",
-    "enableAddContactTooltipAfter": "إلى الزاوية العلوية اليمنى من صفحتك، مما يتيح للمستخدمين حفظ معلومات الاتصال الخاصة بك بتنسيق",
-    "enableAddContactTooltipAfter2": "سنقوم بإنشاء vCard تلقائياً باستخدام صورة ملفك الشخصي، واسمك المعروض، وبريدك الإلكتروني، ورقم هاتفك، وأي روابط أخرى مقدمة في حقل وسائل التواصل الاجتماعي.",
-    "enableShareButtonTooltip": "عند تمكين هذا الخيار، سيتم إضافة أيقونة ",
-    "enableShareButtonTooltipAfter": "إلى الزاوية العلوية اليسرى من صفحتك، مما يتيح للمستخدمين نسخ رابط صفحتك ومشاركته بسهولة.",
-    "clickForQRCodeTooltip": "عند تمكين هذا الخيار، يمكنك النقر على صورة ملفك الشخصي لعرض رمز استجابة سريع يرتبط بملفك الشخصي. مفيد لمشاركة ملفك الشخصي مع الأشخاص الذين تلتقي بهم شخصياً.",
-    "hideRaabetBrandingTooltip": "إخفاء شعار 'تم إنشاؤه بواسطة رابط' في أسفل ملفك الشخصي. يمكنك اختيار رفع شعارك الخاص.",
-    "settingsTab": "تاب الإعدادات",
+    "sectionTitle": "وسائل التواصل والمشاركة",
+    "enableAddContact": "تفعيل خيار إضافة جهة اتصال",
+    "enableShareButton": "تفعيل زر المشاركة",
+    "clickForQRCode": "عرض رمز QR بنقرة واحدة",
+    "hideRabetBranding": "إخفاء شعار Rabet",
+    "enableAddContactTooltip": "عند تفعيل هذا الخيار، ستظهر أيقونة في أعلى يمين صفحتك، لتمنح زوارك طريقة سهلة لحفظ بياناتك مباشرة بتنسيق",
+    "enableAddContactTooltipAfter": "يتم إنشاء بطاقة vCard تلقائيًا باستخدام صورتك واسمك وبريدك وروابطك الاجتماعية المسجّلة.",
+    "enableAddContactTooltipAfter2":"ﺳﻴﺘﻢ ﺇﻧﺸﺎﺀ ﺑﻄﺎﻗﺔ vCard ﺗﻠﻘﺎﺋﻴﺎ ﺑﺎﺳﺘﺨﺪﺍﻡ ﺍﻟﺼﻮﺭﺓ ﺍﻟﺸﺨﺼﻴﺔ ﻭﺍﺳﻢ ﺍﻟﻌﺮﺽ ﻭﺍﻟﺒﺮﻳﺪ ﺍﻹﻟﻜﺘﺮﻭﻧﻲ ﻭﺭﻗﻢ ﺍﻟﻬﺎﺗﻒ ﻭﺃﻱ ﺭﻭﺍﺑﻂ ﺗﻤﺖ ﺇﺿﺎﻓﺘﻬﺎ ﻓﻲ ﻗﺴﻢ Socials",
+    "enableShareButtonTooltip": "عند تفعيل هذا الخيار، ستُضاف أيقونة في أعلى يسار صفحتك لتتيح مشاركة ملفك الشخصي بسرعة وسهولة بتنسيق vCard.",
+    "enableShareButtonTooltipAfter":"ﺇﺿﺎﻓﺔ ﺃﻳﻘﻮﻧﺔ ﻓﻲ ﺃﻋﻠﻰ ﻳﺴﺎﺭ ﺍﻟﺼﻔﺤﺔ ﺗﺘﻴﺢ ﻟﻠﻤﺴﺘﺨﺪﻣﻴﻦ ﻣﺸﺎﺭﻛﺔ ﻣﻠﻔﻚ ﺑﺼﻴﻐﺔ vCard ﺑﺴﻬﻮﻟﺔ",
+    "clickForQRCodeTooltip": "عند التفعيل، يمكنك النقر على صورتك الشخصية لعرض رمز QR لصفحتك .  طريقة مثالية لمشاركة ملفك أثناء اللقاءات المباشرة.",
+    "hideRaabetBrandingTooltip": "إخفاء شعار Made with Rabet أسفل صفحتك واستبداله بشعارك الخاص لعلامة أكثر احترافية.",
+    "settingsTab": "علامة تبويب الإعدادات",
     "customLogo": "شعار مخصص"
   },
   "Analytics": {
     "Metrics": {
-      "title": "مقاييس الملف الشخصي",
-      "subTitle": "اكتشف كيف يشاهد الزوار ملفك الشخصي ويتفاعلون معه.",
+      "title": "تحليلات الملف الشخصي",
+      "subTitle": "اكتشف كيف يتفاعل الزوار مع صفحتك، وتابع أداء روابطك لحظة بلحظة",
       "profile": {
-        "title": "مشاهدات ونقرات الملف الشخصي",
-        "profileViews": "مشاهدات الملف الشخصي",
-        "blockClicks": "نقرات الكتل",
-        "socialClicks": "نقرات التواصل الاجتماعي"
+        "title": "المشاهدات والنقرات",
+        "profileViews": "عدد الزيارات",
+        "blockClicks": "نقرات العناصر",
+        "socialClicks": "تفاعل مع وسائل التواصل"
       },
       "socialClicks": {
-        "title": "نقرات التواصل الاجتماعي",
-        "clicks": "النقرات",
+        "title": "تحليلات تفاعل وسائل التواصل",
+        "clicks": "عدد النقرات",
         "url": "الرابط",
         "icon": "الأيقونة"
       },
       "blockInteractions": {
-        "title": "تفاعلات الكتل",
-        "showHidden": "إظهار المخفي",
-        "clicks": "النقرات",
+        "title": "تفاعلات العناصر",
+        "showHidden": "إظهار العناصر المخفية",
+        "clicks": "عدد النقرات",
         "name": "الاسم",
         "added": "تاريخ الإضافة"
       }
     }
   },
   "Datatable": {
-    "row(s)": "صفوف",
+    "row(s)": "صف (وف)",
     "selected": "محدد",
     "of": "من",
     "previous": "السابق",
@@ -523,12 +548,12 @@
     "tabs": {
       "design": "التصميم",
       "settings": "الإعدادات",
-      "analytics": "التحليلات",
+      "analytics": "الإحصاءات",
       "subscribe": "الاشتراك",
-      "qr": "QR كود",
+      "qr": "رموز QR",
       "logout": "تسجيل الخروج",
-      "requestFeature": "أقترح ميزة",
-      "rewards": "المكافآت"
+      "requestFeature": "اقتراح ميزة جديدة",
+      "rewards": "نظام المكافآت"
     },
     "activateProfile": "تفعيل الملف الشخصي",
     "tryFree": "جرّب مجانًا",
@@ -537,189 +562,188 @@
   "Dropdowns": {
     "lastWeek": "الأسبوع الماضي",
     "lastMonth": "الشهر الماضي",
-    "lastYear": "السنة الماضية",
-    "allTime": "طوال الوقت",
-    "none": "لا شيء",
-    "shake": "اهتز",
-    "tada": "تادا",
+    "lastYear": "العام الماضي",
+    "allTime": "طوال الفترة",
+    "none": "بدون تأثير",
+    "shake": "اهتزاز",
+    "tada": "تادا!",
     "pulse": "نبض",
-    "jump": "قفز",
+    "jump": "قفزة",
     "swing": "تأرجح",
-    "jello": "جيلو",
-    "rubberBand": "رباط مطاطي",
-    "animation": "تحريك"
+    "jello": "مرن",
+    "rubberBand": "شريط مطاطي",
+    "animation": "الحركة"
   },
   "Footer": {
-    "CentralizePresence": "نوفر لك حضوراً مركزاً على الإنترنت منذ عام 2025.",
-    "BuiltWith": "مطوّر ب❤️ بواسطة",
+    "CentralizePresence": "نعزز حضورك الرقمي منذ عام 2025",
+    "builtWith": "تم تطويره بكل حب بواسطة",
     "resources": "الموارد",
-    "stayUpdated": "ابقَ على اطلاع",
+    "stayUpdated": "تابع آخر التحديثات والعروض",
     "subscribed": {
-      "thanks": "شكراً على الاشتراك!",
-      "updates": "تابع صندوق الوارد الخاص بك لمتابعة كل جديد"
+      "thanks": "شكرًا لاشتراكك!",
+      "updates": "تحقق من بريدك لتصلك أحدث الأخبار."
     }
   },
   "BlockActions": {
-    "copyBlock": "نسخ البلوك",
+    "copyBlock": "نسخ المكوّن",
     "edit": "تعديل",
-    "schedule": "جدولة",
+    "schedule": "جدولة النشر",
     "delete": "حذف",
-    "copySuccess": "تم نسخ البلوك بنجاح",
-    "copyError": "حدث خطأ أثناء إنشاء نسخة من البلوك",
-    "deleteError": "حدث خطأ أثناء حذف البلوك",
-    "deleteConfirm": "هل أنت متأكد من رغبتك في حذف هذا البلوك؟"
+    "copySuccess": "تم نسخ المكوّن بنجاح!",
+    "copyError": "حدث خطأ أثناء النسخ، حاول مجددًا",
+    "deleteError": "تعذر حذف المكوّن، يرجى المحاولة لاحقًا",
+    "deleteConfirm": "هل أنت متأكد من رغبتك في حذف هذا المكوّن؟"
   },
-  "Contact": {
+  "Contact": {  
     "contact": "تواصل",
     "us": "معنا",
-    "description": "واجهت مشكلة أو عندك سؤال أو تحب أن تقترح ميزة جديدة؟ تواصل معنا — دايمًا يسعدنا نسمع منك!",
-    "chat": "لنتحدث عبر الواتس أب",
-    "email": "البريد الإلكتروني",
-    "instagram": "انستغرام",
+    "description": "هل ترغب في الإبلاغ عن خطأ، أو لديك استفسار، أو فكرة لتطوير المنصة؟ يسعدنا دائمًا الاستماع إليك!",
+    "chat": "تحدث معنا عبر واتساب",
+    "email": "أرسل بريدًا إلكترونيًا",
+    "instagram": "انستجرام",
     "twitter": "تويتر",
-    "linkedin": "لينكد إن",
-    "youtube": "يوتيوب",
+    "linkedIn": "لينكدإن",
+    "youTube": "يوتيوب",
     "tiktok": "تيك توك"
   },
   "Metadata": {
-    "title": "رابط لينك - أداة رابط في السيرة الذاتية | إدارة روابط وسائل التواصل الاجتماعي",
-    "description": "أنشئ صفحة جميلة تحتوي على رابط في السيرة الذاتية لعرض جميع حساباتك على وسائل التواصل الاجتماعي والموسيقى ومقاطع الفيديو والمزيد. موثوق من قبل أكثر من 10,000 مستخدم. خطط مجانية ومميزة متاحة.",
-    "keywords": "رابط في السيرة الذاتية، روابط وسائل التواصل الاجتماعي، رابط السيرة الذاتية، بديل linktree، إدارة وسائل التواصل الاجتماعي، رابط انستغرام في السيرة الذاتية",
+    "titleRabetLink": "أداة الرابط في السيرة إدارة روابط السوشيال ميديا باحتراف",
+    "description": "أنشئ صفحة رابط في السيرة جذابة تُبرز كل حساباتك ومشاريعك ومحتواك في مكان واحد. موثوق من أكثر من 10000 مستخدم حول العالم. خطط مجانية ومميزة متاحة.",
+    "keywords": "رابط في السيرة، bio link، روابط تفاعلية، إدارة وسائل التواصل، بديل Linktree، تسويق رقمي",
     "openGraph": {
-      "title": "رابط لينك - أداة رابط في السيرة الذاتية | إدارة روابط وسائل التواصل الاجتماعي",
-      "description": "أنشئ صفحة جميلة تحتوي على رابط في السيرة الذاتية لعرض جميع حساباتك على وسائل التواصل الاجتماعي والموسيقى ومقاطع الفيديو والمزيد. موثوق من قبل أكثر من 10,000 مستخدم.",
-      "siteName": "رابط لينك"
+      "title": "أداة الرابط في السيرة | منصة إدارة الروابط الاجتماعية",
+      "description": "أنشئ صفحة جذابة ومتكاملة تجمع كل حساباتك ومحتواك بسهولة. موثوق من أكثر من 10000 مستخدم.",
+      "siteName": "رابط"
     },
     "twitter": {
-      "title": "رابط لينك - أداة رابط في السيرة الذاتية",
-      "description": "أنشئ صفحة جميلة تحتوي على رابط في السيرة الذاتية لعرض جميع حساباتك على وسائل التواصل الاجتماعي والموسيقى ومقاطع الفيديو والمزيد."
+      "title": "أداة الرابط في السيرة",
+      "description": "أنشئ صفحتك الاحترافية لعرض كل روابطك ومحتواك في مكان واحد."
     }
   },
   "HomePage": {
     "CentralizePresence": {
-      "users": "محبوب من قبل أكثر من 10,000 مستخدم",
-      "Description": "اجمع حساباتك الاجتماعية، والموسيقى، ومقاطع الفيديو، والمزيد في صفحة جميلة تحتوي على رابط في السيرة الذاتية. سجّل اسمك اليوم!"
+      "users": "موثوق من أكثر من 10000 مستخدم",
+      "description": "اجمع كل حساباتك وموسيقاك وفيديوهاتك في صفحة واحدة أنيقة وسهلة المشاركة. احجز اسمك الآن!"
     },
     "AnimatedBar": {
       "Prosbar": {
-        "block": "منصة قوية لإنشاء المكونات",
-        "live": "ابدأ البث في دقائق",
-        "Customizable": "قابل للتعديل بالكامل"
+        "block": "منشئ عناصر قوي وسهل الاستخدام",
+        "live": "انطلق في دقائق",
+        "customizable": "قابل للتخصيص بالكامل"
       },
       "review": {
-        "people": "كيف الناس ",
-        "saying": "يتحدثون",
-        "aboutUs": "عنا ؟"
+        "people": "ماذا يقول",
+        "saying": "الناس",
+        "aboutUs": "عنّا؟"
       }
     },
     "WhyUs": {
       "titleLabel": "لماذا تختار",
-      "coloredLabel": "Rabet",
-      "mainLabel": "بفضل خيارات التخصيص القوية وأنواع المكوِّنات القوية التي نقدمها، سيبرز ملفك الشخصي عن الضوضاء. كما أن أسعارنا معقولة أكثر من منافسينا، وهي خيار رائع للفرق.",
+      "coloredLabel": "رابط",
+      "mainLabel": "بفضل خيارات التخصيص المتقدمة وأنواع العناصر المتعددة، ستكون صفحتك أكثر تميزًا وجاذبية. نحن أيضًا أكثر توفيرًا من المنافسين، وخيار مثالي للأفراد والفرق على حد سواء.",
       "block": {
         "1stCard": {
-          "title": "قابل للعديل",
-          "label": "المزيد من الخيارات لتصميم صفحتك وجعلها تتناسب مع علامتك التجارية"
+          "title": "مرن في التصميم",
+          "label": "تحكم كامل في ألوانك وخطوطك لتطابق هويتك البصرية."
         },
         "2stCard": {
-          "title": "أكثر فاعلية",
-          "label": "تنوع أكبر في شكل المكونات وخيارات أكثر للتنظيم"
+          "title": "قوي في الأداء",
+          "label": "خيارات متعددة لتنظيم المحتوى وتخصيص تجربة المستخدم."
         },
         "3stCard": {
-          "title": "بأسعار معقولة",
-          "label": "أسعار معقولة أكثر من معظم المنصات المنافسة"
+          "title": "اقتصادي ومجدي",
+          "label": "أسعار مناسبة دون التنازل عن الجودة."
         },
         "4stCard": {
           "title": "مثالي للفرق",
-          "label": "إدارة صفح شخصية متعددة بسهولة بالخطة"
+          "label": "إدارة متزامنة وسهلة لعدة ملفات تعريف من مكان واحد."
         }
       }
     },
-    "groubBlock": {
-      "titleLabel": "تجميع المكونات الي ",
-      "coloredLabel": "ملف",
-      "mainLabel": "استخدم الملفات لتجميع المكوِّنات ذات الصلة والحفاظ على صفحتك منظمة وجديدة."
+    "groupBlock": {
+      "titleLabel": "نظّم مكوناتك داخل",
+      "coloredLabel": "مجلدات",
+      "mainLabel": "استخدم المجلدات لتجميع العناصر المتشابهة والحفاظ على ترتيب وأناقة صفحتك."
     },
     "TryNow": {
-      "tryRabet": "جرّب رابط",
-      "now": " الآن"
+      "tryRabet": "جرّب Rabet",
+      "now": "الآن"
     },
-    "claim": "سجل",
-    "getStarted": "ابدأ الآن",
-    "moreFeatures": "المزيد من المميزات"
+    "getStarted": "ابدأ رحلتك الرقمية",
+    "moreFeatures": "اكتشف المزيد من المميزات"
   },
   "Mockups": {
     "title": "معرض النماذج",
-    "subtitle": "مجموعة مجانية من {count} نموذج جهاز تم إنشاؤه بالذكاء الاصطناعي، مع نماذج جديدة يتم إنشاؤها اسبوعياً.<br/>أسقط screenshot لموقعك/تطبيقك لرؤيته في الmock .صُنع بـ ❤️ بواسطة فريق {team}.",
+    "subtitle": "استكشف مكتبة مجانية تضم {count} نموذج جهاز تم إنشاؤها بالذكاء الاصطناعي مع تحديثات جديدة أسبوعيًا. ارفع لقطة من موقعك أو تطبيقك وشاهدها داخل النماذج. تم تصميمها بعناية بواسطة فريق {team}.",
     "navigation": {
-      "generator": "المولد",
-      "admin": "الإدارة"
+      "generator": "المولّد",
+      "admin": "لوحة الإدارة"
     },
     "search": {
-      "placeholder": "البحث في النماذج بالاسم أو العلامات...",
-      "filterByCategory": "تصفية حسب الفئة",
+      "placeholder": "ابحث باسم النموذج أو الوسوم...",
+      "filterByCategory": "فرز حسب الفئة",
       "clearAll": "مسح الكل",
-      "resultsFound": "نموذج موجود",
-      "resultsFoundPlural": "نماذج موجودة",
+      "resultsFound": "تم العثور على نموذج واحد",
+      "resultsFoundPlural": "تم العثور على عدة نماذج",
       "categories": "الفئات",
       "selected": "المحدد"
     },
     "card": {
       "viewDetails": "عرض التفاصيل",
       "download": "تحميل",
-      "addToFavorites": "إضافة للمفضلة"
+      "addToFavorites": "إضافة إلى المفضلة"
     },
     "gallery": {
-      "loading": "جاري تحميل النماذج...",
-      "noMoreMockups": "لقد وصلت للنهاية! لا توجد نماذج أخرى للتحميل.",
-      "noMockupsFound": "لم يتم العثور على نماذج",
-      "tryAdjustingSearch": "حاول تعديل البحث أو المرشحات",
-      "noMockupsAvailable": "لا توجد نماذج متاحة حالياً"
+      "loading": "جارٍ تحميل النماذج...",
+      "noMoreMockups": "لقد وصلت إلى النهاية! لا مزيد من النماذج.",
+      "noMockupsFound": "لم يتم العثور على نماذج مطابقة.",
+      "tryAdjustingSearch": "جرّب تعديل البحث أو الفلاتر.",
+      "noMockupsAvailable": "لا توجد نماذج متاحة حاليًا."
     },
     "single": {
-      "backToGallery": "العودة للمعرض",
+      "backToGallery": "العودة إلى المعرض",
       "categories": "الفئات",
-      "uploadImage": "رفع صورة",
+      "uploadImage": "ارفع تصميمك الخاص",
       "downloadMockup": "تحميل النموذج"
     },
     "deviceTypes": {
       "iphone": "آيفون",
       "samsung": "سامسونج",
-      "googlePixel": "جوجل بكسل",
-      "oneplus": "وان بلس",
+      "googlePixel": "جوجل بيكسل",
+      "onePlus": "ون بلس",
       "huawei": "هواوي",
       "xiaomi": "شاومي",
       "oppo": "أوبو",
       "vivo": "فيفو",
       "realme": "ريلمي",
-      "nothing": "ناثينج"
+      "nothing": "لاشئ"
     },
     "styles": {
-      "modern": "عصري",
+      "modern": "حديث",
       "classic": "كلاسيكي",
       "minimalist": "بسيط",
-      "premium": "متميز",
+      "premium": "فاخر",
       "futuristic": "مستقبلي",
       "vintage": "عتيق",
-      "gaming": "ألعاب",
-      "business": "أعمال",
+      "gaming": "مخصص للألعاب",
+      "business": "احترافي",
       "creative": "إبداعي",
       "luxury": "فاخر"
     },
     "angles": {
       "front": "أمامي",
-      "angled": "مائل",
+      "angled": "بزاوية",
       "side": "جانبي",
       "3d": "ثلاثي الأبعاد",
-      "isometric": "إيزومتري",
+      "isometric": "إيزومتريك",
       "perspective": "منظوري",
       "flat": "مسطح",
-      "layered": "طبقي"
+      "layered": "بطبقات"
     }
   },
   "Header": {
-    "freeTools": "الأدوات المجانية",
-    "qrGenerator": "مولد QR code",
+    "freeTools": "أدوات مجانية",
+    "qrGenerator": "مولّد رموز QR",
     "home": "الرئيسية",
     "dashboard": "لوحة التحكم",
     "logout": "تسجيل الخروج"

@@ -41,7 +41,7 @@ export default function DashboardLayout({
     <SidebarProvider className="bg-gray-100">
       <CustomSidebar />
       {/* add sidebar inset for mobile view sidebar trigger */}
-      <SidebarInset>
+      <SidebarInset className="overflow-scroll">
         <DashboardContainer>
           {/* mobile sidebar header */}
           <header className="flex w-full justify-between items-center px-4 h-11 shrink-0 items-center transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 bg-transparent border-b border-deep-blue-gray md:!hidden">

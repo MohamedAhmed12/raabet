@@ -8,7 +8,7 @@ import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 
 export const Claim = () => {
-  const t = useTranslations("HomePage");
+  const t = useTranslations();
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
 
@@ -37,10 +37,10 @@ export const Claim = () => {
       <Link
         href="/auth/sign-up"
         className={cn(
-          "bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold"
+          "bg-deep-blue-gray text-white px-6 py-3 rounded-4xl font-bold min-w-max"
         )}
       >
-        {t("claim")}
+        {t("Shared.claim")}
       </Link>
     </div>
   );

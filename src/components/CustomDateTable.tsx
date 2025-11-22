@@ -182,11 +182,11 @@ export function CustomDateTable({
       </div>
       {showFooter && (
         <div className="flex items-center justify-end space-x-2 py-4">
-          <div className="flex-1 text-sm text-muted-foreground text-right">
+          {/* <div className="flex-1 text-sm text-muted-foreground text-right">
             {table?.getFilteredSelectedRowModel()?.rows?.length} {t("of")}{" "}
             {table?.getFilteredRowModel()?.rows?.length} {t("row(s)")}{" "}
             {t("selected")}.
-          </div>
+          </div> */}
           <div className="space-x-2">
             <Button
               variant="outline"

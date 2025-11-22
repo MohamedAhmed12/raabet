@@ -59,6 +59,7 @@
     "copiedToClipboard": "Copied to Clipboard"
   },
   "Shared": {
+    "claim": "Claim Now",
     "pricing": "Pricing",
     "rabet": "Rabet",
     "email": "Email",
@@ -469,7 +470,33 @@
     "InvoiceUploadedSuccessfully": "Invoice uploaded successfully",
     "InvoiceUploadFailed": "Invoice upload failed",
     "couponHelperTxt": "A valid coupon has been applied. Pay only ${feesToPay}",
-    "noCouponHelperTxt": "Pay only ${feesToPay}"
+    "noCouponHelperTxt": "Pay only ${feesToPay}",
+    "status": {
+      "active": {
+        "title": "Active Subscription",
+        "description": "Your subscription is active. You can continue using all features."
+      },
+      "pending": {
+        "title": "Subscription Pending",
+        "description": "Your subscription is pending. Please complete the payment process."
+      },
+      "trialing": {
+        "title": "You have 14 days trial",
+        "description": "You are currently on a trial period."
+      },
+      "canceled": {
+        "title": "Subscription Canceled",
+        "description": "Your subscription has been canceled."
+      },
+      "failed": {
+        "title": "Payment Failed",
+        "description": "Payment processing failed. Please try again."
+      },
+      "none": {
+        "title": "No Subscription",
+        "description": "You don't have an active subscription."
+      }
+    }
   },
   "SocialsAndSharing": {
     "sectionTitle": "Socials & Sharing",
@@ -551,7 +578,7 @@
   },
   "Footer": {
     "CentralizePresence": "Centralizing your online presence since 2025.",
-    "BuiltWith": "Built with ❤️ by",
+    "builtWith": "Built with ❤️ by",
     "resources": "Resources",
     "stayUpdated": "Stay up to date",
     "subscribed": {
@@ -598,13 +625,13 @@
   "HomePage": {
     "CentralizePresence": {
       "users": "Loved by 10,000+ users",
-      "Description": "Gather your socials, music, videos, and more on a beautiful link-in-bio page. Claim your name today!"
+      "description": "Gather your socials, music, videos, and more on a beautiful link-in-bio page. Claim your name today!"
     },
     "AnimatedBar": {
       "Prosbar": {
         "block": "Powerful Block Builder",
         "live": "Go Live in Minutes",
-        "Customizable": "Fully Customizable"
+        "customizable": "Fully Customizable"
       },
       "review": {
         "people": "What are people",
@@ -644,7 +671,6 @@
       "tryRabet": "try Rabbet",
       "now": "now"
     },
-    "claim": "Claim",
     "getStarted": "Get Started",
     "moreFeatures": "More Features"
   },
