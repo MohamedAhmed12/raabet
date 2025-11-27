@@ -22,7 +22,8 @@ function getMessages(locale: "en" | "ar") {
 export async function POST(req: NextRequest) {
   const locale = getLocale(req);
   const messages = getMessages(locale);
-  const t = (key: keyof typeof messages.VerifyErrors) => messages.VerifyErrors[key];
+  type VerifyErrorKey = keyof typeof en.VerifyErrors;
+  const t = (key: VerifyErrorKey): string => messages.VerifyErrors[key];
 
   try {
     // Get session email
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
         action: "verifyAccount",
         errorType: "ValidationError",
       });
-      return NextResponse.json({ error: t("activation_code_required") }, { status: 400 });
+      return NextResponse.json({ error: t("activationCodeRequired") }, { status: 400 });
     }
 
     // Get the latest activation code for the user
@@ -57,7 +58,7 @@ export async function POST(req: NextRequest) {
         action: "verifyAccount",
         errorType: "ValidationError",
       });
-      return NextResponse.json({ error: t("no_activation_code") }, { status: 404 });
+      return NextResponse.json({ error: t("noActivationCode") }, { status: 404 });
     }
 
     // Check if the provided code matches the latest activation code
@@ -66,7 +67,7 @@ export async function POST(req: NextRequest) {
         action: "verifyAccount",
         errorType: "ValidationError",
       });
-      return NextResponse.json({ error: t("invalid_activation_code") }, { status: 400 });
+      return NextResponse.json({ error: t("invalidActivationCode") }, { status: 400 });
     }
 
     // Mark the user as confirmed and activation code as used
@@ -88,6 +89,6 @@ export async function POST(req: NextRequest) {
       action: "verifyAccount",
       errorType: "ValidationError",
     });
-    return NextResponse.json({ error: t("internal_server_error") }, { status: 500 });
+    return NextResponse.json({ error: t("internalServerError") }, { status: 500 });
   }
 }

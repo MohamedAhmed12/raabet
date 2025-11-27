@@ -35,10 +35,10 @@
   },
   "VerifyErrors": {
     "unauthorized": "Unauthorized",
-    "activation_code_required": "Activation code is required.",
-    "no_activation_code": "No activation code found.",
-    "invalid_activation_code": "Invalid activation code.",
-    "internal_server_error": "Internal server error"
+    "activationCodeRequired": "Activation code is required.",
+    "noActivationCode": "No activation code found.",
+    "invalidActivationCode": "Invalid activation code.",
+    "internalServerError": "Internal server error"
   },
   "Errors": {
     "username": "Username must be at least two characters."
