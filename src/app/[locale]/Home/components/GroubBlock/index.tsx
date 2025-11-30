@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { ContentSection } from "../ContentSection";
 import Image from "next/image";
 
-export const GroubBlock = async () => {
+export const GroupBlock = async () => {
   const t = await getTranslations("HomePage");
   return (
     <div className="flex flex-col-reverse md:flex-row w-full h-full">
@@ -15,9 +15,9 @@ export const GroubBlock = async () => {
         />
       </div>
       <ContentSection
-        titleLabel={t("groubBlock.titleLabel")}
-        coloredLabel={t("groubBlock.coloredLabel")}
-        mainLabel={t("groubBlock.mainLabel")}
+        titleLabel={t("groupBlock.titleLabel")}
+        coloredLabel={t("groupBlock.coloredLabel")}
+        mainLabel={t("groupBlock.mainLabel")}
         buttonLabel={t("moreFeatures")}
         underlineColor="bg-[#feeb96]"
         widthClass="w-[80%]"

@@ -45,7 +45,7 @@ export default function Analyticsmetrics() {
       <LoaderCircle className="animate-spin" size={45} />
     </div>
   ) : (
-    <div className="w-full max-w-[1000px]">
+    <div className="w-full max-w-[1000px] py-11">
       <MainTitle title={t("title")} subTitle={t("subTitle")}></MainTitle>
 
       <CustomDropdown
