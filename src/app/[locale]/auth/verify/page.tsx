@@ -19,7 +19,7 @@ export default function VerifyPage() {
   return (
     authUser && (
       <div className={cn("flex min-h-svh flex-col lg:flex-row", fontClass)}>
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1/2 flex-col">
           <div className="flex justify-center w-full gap-2 md:justify-start">
             <a
               href="\"
@@ -38,13 +38,8 @@ export default function VerifyPage() {
             </div>
           </div>
         </div>
-        <div className="flex-1 relative hidden bg-muted lg:block">
-          <Image
-            src="/images/login-bg.jpg"
-            alt="verify"
-            fill
-            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-          />
+        <div className="flex-1/2 relative hidden lg:block">
+          <Image src="/images/login-bg.jpg" alt="verify" fill priority />
         </div>
       </div>
     )

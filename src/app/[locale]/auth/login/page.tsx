@@ -14,9 +14,10 @@ export async function generateMetadata({
 
   return {
     title: locale === "ar" ? "تسجيل الدخول - رابط" : "Login - Rabet Link",
-    description: locale === "ar" 
-      ? "سجل الدخول إلى حسابك في رابط لإدارة روابطك الشخصية"
-      : "Sign in to your Rabet account to manage your personal links",
+    description:
+      locale === "ar"
+        ? "سجل الدخول إلى حسابك في رابط لإدارة روابطك الشخصية"
+        : "Sign in to your Rabet account to manage your personal links",
     alternates: {
       canonical: `${baseUrl}/${locale}/auth/login`,
       languages: {
@@ -31,7 +32,7 @@ export async function generateMetadata({
 export default function LoginPage() {
   return (
     <div className="flex min-h-svh flex-col lg:flex-row">
-      <div className="flex flex-1 flex-col gap-4 p-6 md:p-10">
+      <div className="flex flex-1/2 flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="\" className="flex items-center gap-2 font-medium" dir="ltr">
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
@@ -46,13 +47,8 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      <div className="flex-1 relative hidden bg-muted lg:block">
-        <Image
-          src="/images/login-bg.jpg"
-          alt="login"
-          fill
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
+      <div className="flex-1/2 relative hidden lg:block">
+        <Image src="/images/login-bg.jpg" alt="login" fill priority />
       </div>
     </div>
   );

@@ -13,9 +13,10 @@ export async function generateMetadata({
 
   return {
     title: locale === "ar" ? "إنشاء حساب - رابط" : "Sign Up - Rabet Link",
-    description: locale === "ar" 
-      ? "أنشئ حسابك في رابط وابدأ في إدارة روابطك الشخصية"
-      : "Create your Rabet account and start managing your personal links",
+    description:
+      locale === "ar"
+        ? "أنشئ حسابك في رابط وابدأ في إدارة روابطك الشخصية"
+        : "Create your Rabet account and start managing your personal links",
     alternates: {
       canonical: `${baseUrl}/${locale}/auth/sign-up`,
       languages: {
@@ -30,7 +31,7 @@ export async function generateMetadata({
 export default function SignUp() {
   return (
     <div className="flex min-h-svh flex-col lg:flex-row">
-      <div className="flex flex-1 flex-col gap-4 p-6 md:p-10">
+      <div className="flex flex-1/2 flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="\" className="flex items-center gap-2 font-medium" dir="ltr">
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
@@ -45,13 +46,8 @@ export default function SignUp() {
           </div>
         </div>
       </div>
-      <div className="flex-1 relative hidden bg-muted lg:block">
-        <Image
-          src="/images/login-bg.jpg"
-          alt="Sign-up"
-          fill
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
+      <div className="flex-1/2 relative hidden lg:block">
+        <Image src="/images/login-bg.jpg" alt="Sign-up" fill priority />
       </div>
     </div>
   );
