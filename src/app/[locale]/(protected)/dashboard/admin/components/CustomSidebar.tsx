@@ -22,12 +22,12 @@ import { Award, CirclePlus } from "lucide-react";
 import { signOut, useSession } from "next-auth/react"; // Import signOut from NextAuth.js
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionStatus";
 import FeedbackPopup from "./FeedbackPopup";
 
 export default function CustomSidebar() {
-  const [manuallyOpen, setManuallyOpen] = useState(false);
+  const [shouldBeOpen, setShouldBeOpen] = useState(false);
 
   const t = useTranslations("Sidebar");
   const locale = useLocale();
@@ -82,28 +82,34 @@ export default function CustomSidebar() {
     email: user?.email as string,
   });
 
-  const shouldShowAutomatically = useMemo(() => {
-    if (!linkId || !lastFeedbackTimestamp) return false;
+  // Set shouldBeOpen to true when it should show automatically (14 days since last feedback)
+  useEffect(() => {
+    if (!linkId || !lastFeedbackTimestamp) return;
 
     try {
       const feedbackDate = new Date(lastFeedbackTimestamp);
-      if (isNaN(feedbackDate.getTime())) return true; // Invalid date, show feedback
+
+      if (isNaN(feedbackDate.getTime())) {
+        // Invalid date, show feedback
+        setShouldBeOpen(true);
+        return;
+      }
+      console.log("6");
 
       const fourteenDaysAgo = addDays(new Date(), -14);
-      return isBefore(feedbackDate, fourteenDaysAgo);
+      if (isBefore(feedbackDate, fourteenDaysAgo)) {
+        setShouldBeOpen(true);
+      }
     } catch (err) {
       logError(err, {
         action: "shouldShowFeedback",
         errorType: "UnknownError",
       });
-      return false;
     }
   }, [linkId, lastFeedbackTimestamp]);
 
-  const shouldBeOpen = manuallyOpen || shouldShowAutomatically;
-
   const handleOpenFeedback = () => {
-    setManuallyOpen(true);
+    setShouldBeOpen(true);
   };
 
   const isActive = (url: string) => pathname === url;
@@ -203,7 +209,7 @@ export default function CustomSidebar() {
       )}
       <FeedbackPopup
         shouldBeOpen={shouldBeOpen}
-        setManuallyOpen={setManuallyOpen}
+        setShouldBeOpen={setShouldBeOpen}
       />
     </Sidebar>
   );

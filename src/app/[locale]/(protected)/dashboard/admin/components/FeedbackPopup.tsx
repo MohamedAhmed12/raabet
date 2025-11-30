@@ -29,12 +29,12 @@ import { useSubscriptionStatus } from "../subscription/callback/useSubscriptionS
 
 interface FeedbackPopupProps {
   shouldBeOpen: boolean;
-  setManuallyOpen: (open: boolean) => void;
+  setShouldBeOpen: (open: boolean) => void;
 }
 
 export default function FeedbackPopup({
   shouldBeOpen,
-  setManuallyOpen,
+  setShouldBeOpen,
 }: FeedbackPopupProps) {
   const [rating, setRating] = useState(0);
   const [highlight, setHighlight] = useState("feature");
@@ -125,9 +125,6 @@ export default function FeedbackPopup({
 
   const handleOpenChange = (open: boolean) => {
     if (!open) {
-      // Reset manual open state when dialog closes
-      setManuallyOpen(false);
-
       // Optimistically update cache with current timestamp to prevent immediate reopening
       if (cachedLinkData && linkId) {
         const now = new Date();
@@ -151,6 +148,8 @@ export default function FeedbackPopup({
           }
         );
       }
+
+      setShouldBeOpen(false);
     }
   };
 
