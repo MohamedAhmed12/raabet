@@ -96,7 +96,7 @@ export function PrimaryBackgroundTypePicker() {
           side="right"
           sideOffset={-250}
           align="start"
-          style={{ transform: "translateY(105px)" }}
+          style={{ transform: "translate(-25px, 45px)" }}
         >
           <div className="mb-3">
             <h4 className="font-semibold">{t("primaryBgColor")}</h4>

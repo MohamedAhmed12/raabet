@@ -124,8 +124,7 @@ const MemoizedGeneralStyles = memo(
           }}
         />
 
-        {(linkRaw.general_styles_is_secondary_bgcolor ||
-          showSecondaryBgColor) && (
+        {showSecondaryBgColor && (
           <DashboardChromPicker
             label={t("secondaryPrimaryBgColor")}
             currentColorLabel="general_styles_secondary_bgcolor"
