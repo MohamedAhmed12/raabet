@@ -94,7 +94,7 @@ export const BlocksDialog = ({
         <span>{t("addBlocks")}</span>
         <span className="!text-base">+</span>
       </Button>
-      <DialogContent className={cn("!max-w-[600px]", fontClass)}>
+      <DialogContent className={cn("w-[90%] lg:w-full !max-w-[600px]", fontClass)}>
         <DialogHeader className="flex items-center">
           <DialogTitle className="capitalize mb-3">
             {t("addBlocks")}
@@ -102,12 +102,12 @@ export const BlocksDialog = ({
         </DialogHeader>
 
         {/* body */}
-        <div className="dialog-body flex flex-wrap gap-4">
+        <div className="dialog-body flex justify-center items-center flex-wrap gap-4">
           {blocksStaticData.map((btn) => (
             <Button
               key={btn.icon}
               variant="outline"
-              className="flex flex-col !w-[31.2%] h-auto cursor-pointer"
+              className="flex flex-col w-[45%] lg:!w-[31.2%] h-auto cursor-pointer"
               onClick={() => {
                 onCreateNewBlock(btn.type);
                 closeDialog();

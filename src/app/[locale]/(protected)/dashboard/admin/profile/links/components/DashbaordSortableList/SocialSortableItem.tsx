@@ -151,7 +151,7 @@ const SocialSortableItemComponent = ({ item }: SocialSortableItemProps) => {
       ) : (
         <div className="flex flex-1 justify-center items-center overflow-hidden mx-2">
           <Separator />
-          <span className="mx-3 text-zinc-600">{t("separator")}</span>
+          <span className="mx-3 text-zinc-600 whitespace-nowrap">{t("separator")}</span>
           <Separator />
         </div>
       )}
