@@ -1,6 +1,6 @@
 import { Switch } from "@/components/ui/switch";
 import { useLocale } from "next-intl";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HelperTooltip } from "../../../components/HelperTooltip";
 import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
 
@@ -18,6 +18,11 @@ export const DashboardSwitch = ({
   const locale = useLocale();
   // Initialize from prop once; then local state is the source of truth
   const [isChecked, setIsChecked] = useState<boolean>(() => !!checked);
+
+  // Sync local state with prop changes
+  useEffect(() => {
+    setIsChecked(!!checked);
+  }, [checked]);
 
   const handleChange = (value: boolean) => {
     setIsChecked(value);
