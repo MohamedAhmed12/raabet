@@ -117,7 +117,7 @@ const MemoizedGeneralStyles = memo(
         <PrimaryBackgroundTypePicker />
         <MemoizedDashboardSwitch
           label={t("secondaryBgColor")}
-          checked={linkRaw?.general_styles_is_secondary_bgcolor || false}
+          checked={!!linkRaw?.general_styles_is_secondary_bgcolor}
           onCheckedChange={(checked) => {
             setShowSecondaryBgColor(checked);
             handleOnChange("general_styles_is_secondary_bgcolor", checked);
@@ -134,7 +134,6 @@ const MemoizedGeneralStyles = memo(
           label={t("desktopBgColor")}
           currentColorLabel="general_styles_desktop_bgcolor"
         />
-        {/* to be applied next iteration */}
         <MemoizedTabs
           onValueChange={(val: string) =>
             handleLinkPropertyValChange(
