@@ -6,7 +6,7 @@ import { useCallback, useTransition } from "react";
 
 export function useUpdateLink() {
   const setLink = useLinkStore((state) => state.setLink);
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const handleLinkPropertyValChange = useCallback(
     (
