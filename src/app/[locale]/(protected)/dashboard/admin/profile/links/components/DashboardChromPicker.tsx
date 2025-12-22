@@ -6,8 +6,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Chrome } from "@uiw/react-color";
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { Chrome, ColorResult } from "@uiw/react-color";
+import { memo, useEffect, useRef, useState } from "react";
 import { useUpdateLink } from "../hooks/useUpdateLink";
 import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
 
@@ -47,52 +47,47 @@ const DashboardChromPickerContent = ({
     };
   }, []);
 
-  const debouncedHandleLinkPropertyValChange = useCallback(
-    (
-      key: string,
-      value: string | boolean | number,
-      persistToDb: boolean = false
-    ) => {
-      // Clear existing timeout
-      if (debounceTimeoutRef.current) {
-        clearTimeout(debounceTimeoutRef.current);
-      }
+  const debouncedHandleLinkPropertyValChange = (
+    key: string,
+    value: string | boolean | number,
+    persistToDb: boolean = false
+  ) => {
+    // Clear existing timeout
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+    }
 
-      // Set new timeout with 500ms delay
-      debounceTimeoutRef.current = setTimeout(() => {
-        if (handleLinkPropertyValChange) {
-          handleLinkPropertyValChange(key, value, persistToDb);
-        }
-      }, 0);
-    },
-    [handleLinkPropertyValChange]
-  );
+    // Set new timeout with 500ms delay
+    debounceTimeoutRef.current = setTimeout(() => {
+      if (handleLinkPropertyValChange) {
+        handleLinkPropertyValChange(key, value, persistToDb);
+      }
+    }, 0);
+  };
 
   // Update change to only local store
-  const handleColorChange = useCallback(
-    (color: any, shouldPersistToDatabase: boolean = false) => {
-      const hex = color.hex || color;
-      setLocalColor(hex);
+  const handleColorChange = (color: ColorResult) => {
+    setLocalColor(color.hexa);
+    onChangeCompleteFallback(false);
+  };
 
-      if (currentColorLabel) {
-        debouncedHandleLinkPropertyValChange(
-          currentColorLabel,
-          hex,
-          shouldPersistToDatabase
-        );
-      }
-    },
-    [setLocalColor, currentColorLabel, debouncedHandleLinkPropertyValChange]
-  );
+  const onChangeCompleteFallback = (persistToDb: boolean = false) => {
+    if (!localColor || !currentColorLabel) return;
+    debouncedHandleLinkPropertyValChange(
+      currentColorLabel,
+      localColor,
+      persistToDb
+    );
+  };
 
   // Call onChangeComplete when user stops dragging which apply the changes to the database
-  const handleMouseUp = useCallback(() => {
+  const handleMouseUp = () => {
     if (onChangeComplete) {
       onChangeComplete(localColor);
     } else {
-      handleColorChange(localColor, true);
+      onChangeCompleteFallback(true);
     }
-  }, [onChangeComplete, handleColorChange, localColor]);
+  };
 
   return (
     <Popover>
