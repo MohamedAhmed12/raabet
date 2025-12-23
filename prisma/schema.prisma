@@ -94,6 +94,7 @@ model Link {
   header_styles_profile_border_color  String
   header_styles_collapse_long_bio     Boolean
   header_styles_social_icons_size     Float
+  header_styles_text_spacing          Float               @default(0)
   card_styles_design                  Int
   card_styles_card_color              String
   card_styles_text_color              String

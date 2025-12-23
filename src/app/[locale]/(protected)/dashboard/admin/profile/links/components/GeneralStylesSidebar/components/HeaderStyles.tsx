@@ -73,6 +73,22 @@ export default function HeaderStyles() {
         }
       />
       <DashboardSlider
+        label={t("textSpacing")}
+        defaultValue={[linkRaw?.header_styles_text_spacing || 0]}
+        max={1}
+        step={0.001}
+        onValueChange={(value) =>
+          handleLinkPropertyValChange(
+            "header_styles_text_spacing",
+            value,
+            false
+          )
+        }
+        onValueCommit={(value) =>
+          handleLinkPropertyValChange("header_styles_text_spacing", value)
+        }
+      />
+      <DashboardSlider
         label={t("socialIconSize")}
         defaultValue={[linkRaw?.header_styles_social_icons_size || 0]}
         max={1}

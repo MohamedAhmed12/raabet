@@ -199,6 +199,7 @@
       "profilePictureBorderColor": "Profile Picture Border Color",
       "collapseLongBio": "Collapse Long Bio",
       "collapseLongBioTooltip": "Collapse a long bio down to 3 lines when your profile is first loaded. Clicking on a collapsed bio will expand it.",
+      "textSpacing": "Text Spacing",
       "socialIconSize": "Social Icon Size"
     },
     "cardStyles": {
@@ -207,7 +208,6 @@
       "designGrouptooltipContent": "Touch cards provide a smooth, tactile appearance to your cards. When using touch cards, the background color of the page will be used for the card. Some design options are not available when using touch cards.",
       "cardTextColor": "Card Text Color",
       "labelColor": "Label Color",
-      "labelTextColor": "Label Text Color",
       "cardCorner": "Card Corner",
       "cardColor": "Card Color",
       "cardBorder": "Card Border",

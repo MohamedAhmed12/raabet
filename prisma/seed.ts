@@ -53,6 +53,7 @@ async function main() {
       header_styles_profile_border_color: "rgb(37, 37, 61)",
       header_styles_collapse_long_bio: true,
       header_styles_social_icons_size: 0.1,
+      header_styles_text_spacing: 0,
       card_styles_design: 2,
       card_styles_card_color: "#F1F1F1",
       card_styles_text_color: "#000000",

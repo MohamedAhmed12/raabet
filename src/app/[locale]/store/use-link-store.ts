@@ -46,6 +46,7 @@ export interface Link {
   header_styles_profile_border_color?: string;
   header_styles_collapse_long_bio?: boolean;
   header_styles_social_icons_size?: number;
+  header_styles_text_spacing?: number;
   //     // card_styles_tactile_cards?: number;
   card_styles_design?: number;
   card_styles_card_color?: string;

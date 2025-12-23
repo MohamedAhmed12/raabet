@@ -12,14 +12,23 @@ type LinkWithUser = (Link | PrismaLink) & { user?: User };
 export function LinksHeader({ link }: { link: Link | PrismaLink }) {
   const [collapseBio, setCollapseBio] = useState<boolean>(true);
   const linkWithUser = link as LinkWithUser;
+  const textSpacing = 10 + (link?.header_styles_text_spacing || 0) * 45;
 
   const handleToggleCollapseBio = () => {
     setCollapseBio((prev) => !prev);
   };
 
   return (
-    <div className="flex flex-col items-center mb-[33px] text-current">
-      <div className="flex flex-col w-full items-center justify-center">
+    <div
+      className="flex flex-col items-center text-current"
+      style={{ marginBottom: `${textSpacing}px` }}
+    >
+      <div
+        className="flex flex-col w-full items-center justify-center"
+        style={{
+          rowGap: `${textSpacing}px`,
+        }}
+      >
         <QRCodeDialog
           user={linkWithUser?.user || null}
           displayname={link?.displayname || ""}
@@ -49,7 +58,7 @@ export function LinksHeader({ link }: { link: Link | PrismaLink }) {
           <h2
             dir="auto"
             className={cn(
-              "font-normal text-base leading-[1.3] max-w-[300px] mt-[31px] break-words whitespace-pre-line text-center",
+              "font-normal text-base leading-[1.3] max-w-[300px] break-words whitespace-pre-line text-center !mt-0",
               link.text_font && `${link.text_font}`,
               link.header_styles_collapse_long_bio &&
                 collapseBio &&
