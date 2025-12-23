@@ -59,6 +59,7 @@
     "copiedToClipboard": "Copied to Clipboard"
   },
   "Shared": {
+    "uploading": "Uploading...",
     "claim": "Claim Now",
     "pricing": "Pricing",
     "rabet": "Rabet",
@@ -219,7 +220,6 @@
       "header": {
         "title": "Header",
         "description": "Configure your Profile Picture, Name and Bio. These settings will also be used as the image, title and description when you share your profile",
-        "uploading": "Uploading...",
         "fields": {
           "name": "Name",
           "bio": "Bio"

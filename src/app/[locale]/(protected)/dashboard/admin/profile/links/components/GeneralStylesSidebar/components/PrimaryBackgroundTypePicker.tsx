@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "next-intl";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useShallow } from "zustand/shallow";
 import {
   Link,
@@ -19,10 +19,13 @@ import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
+import { GCSFileLoader } from "../../LinkBuilderSidebar/GCSFileLoader";
 
 export function PrimaryBackgroundTypePicker() {
   const t = useTranslations("LinksPage");
+  const tShared = useTranslations("Shared");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
 
   const link = useLinkStore(useShallow((state) => state.link));
   const { handleLinkPropertyValChange } = useUpdateLink();
@@ -33,6 +36,23 @@ export function PrimaryBackgroundTypePicker() {
     shouldPersistToDatabase?: boolean
   ) => {
     handleLinkPropertyValChange(key, value, shouldPersistToDatabase);
+  };
+
+  const handleBackgroundImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+
+    try {
+      const publicUrl = await GCSFileLoader(link.id, file);
+      handleOnChange("general_styles_bg_image", publicUrl, true);
+    } catch (error) {
+      console.error("Error uploading background image:", error);
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -248,10 +268,14 @@ export function PrimaryBackgroundTypePicker() {
                     </label>
                     <label
                       htmlFor="bg_image"
-                      className="flex items-center justify-center w-full h-10 px-4 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 cursor-pointer"
+                      className={`flex items-center justify-center w-full h-10 px-4 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 ${
+                        uploading
+                          ? "opacity-50 cursor-not-allowed"
+                          : "cursor-pointer"
+                      }`}
                     >
                       <span className="text-sm text-gray-600">
-                        {t("chooseImage")}
+                        {uploading ? tShared("uploading") : t("chooseImage")}
                       </span>
                     </label>
                     <input
@@ -260,36 +284,23 @@ export function PrimaryBackgroundTypePicker() {
                       type="file"
                       accept="image/*"
                       className="hidden"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          const reader = new FileReader();
-                          reader.onloadend = () => {
-                            const base64String = reader.result as string;
-                            handleOnChange(
-                              "general_styles_bg_image",
-                              base64String,
-                              true
-                            );
-                          };
-                          reader.readAsDataURL(file);
-                        }
-                      }}
+                      onChange={handleBackgroundImageChange}
+                      disabled={uploading}
                     />
                   </div>
                   {link?.general_styles_bg_image && (
                     <div className="space-y-2">
-                    <div className="relative w-full h-32 border border-gray-300 rounded overflow-hidden">
-                      <Image
-                        src={link.general_styles_bg_image}
-                        alt="Background"
-                        fill
-                        className={`object-cover ${
-                          link.general_styles_bg_image_blur ? "blur-sm" : ""
-                        }`}
-                        unoptimized
-                      />
-                    </div>
+                      <div className="relative w-full h-32 border border-gray-300 rounded overflow-hidden">
+                        <Image
+                          src={link.general_styles_bg_image}
+                          alt="Background"
+                          fill
+                          className={`object-cover ${
+                            link.general_styles_bg_image_blur ? "blur-sm" : ""
+                          }`}
+                          unoptimized
+                        />
+                      </div>
                       <button
                         onClick={() => {
                           handleOnChange("general_styles_bg_image", "", true);
@@ -307,7 +318,7 @@ export function PrimaryBackgroundTypePicker() {
                   {link?.general_styles_bg_image && (
                     <DashboardSwitch
                       label={t("enableBlur")}
-                      checked={link.general_styles_bg_image_blur || false}
+                      checked={!!link?.general_styles_bg_image_blur}
                       onCheckedChange={(checked) =>
                         handleOnChange(
                           "general_styles_bg_image_blur",

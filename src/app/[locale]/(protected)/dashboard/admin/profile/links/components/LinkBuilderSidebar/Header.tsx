@@ -14,6 +14,7 @@ import { GCSFileLoader } from "./GCSFileLoader";
 
 export const Header = () => {
   const t = useTranslations("LinksPage.generalStyles.header");
+  const tShared = useTranslations("Shared");
   const { link, setLink, replaceLink } = useLinkStore(
     useShallow((state) => ({
       link: state.link,
@@ -105,7 +106,7 @@ export const Header = () => {
           onChange={handlePhotoChange}
           disabled={uploading}
         />
-        {uploading && <span>{t("uploading")}</span>}
+        {uploading && <span>{tShared("uploading")}</span>}
       </div>
       <Input
         id="name"
