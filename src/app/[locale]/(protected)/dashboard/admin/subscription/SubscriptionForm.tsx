@@ -16,7 +16,7 @@ import { GCSFileLoader } from "../profile/links/components/LinkBuilderSidebar/GC
 import { createStripeCustomerSession } from "./actions/createStripeCustomerSession";
 import { useCoupon } from "./hooks/useCoupon";
 import { useUploadScreenshot } from "./hooks/useUploadScreenshot";
-import { Badge } from "@/components/ui/badge";
+import { PaymentMethodTabs } from "./components/PaymentMethodTabs";
 
 interface SubscriptionFormProps {
   refetch: () => void;
@@ -65,7 +65,7 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
       timeoutRef.current = setTimeout(() => {
         refetch();
         timeoutRef.current = null;
-      }, 1500);
+      }, 1800);
     },
   });
 
@@ -141,19 +141,10 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
         <div
           className="w-full flex gap-6 justify-center items-center"
           style={{ minHeight: "inherit" }}
-        >
+          >
           {/* upload V-Cash & Instapay Invoice button */}
           <div className="flex flex-col w-[40%] max-w-[380px]">
-            <Badge
-              variant="gradient"
-              className={cn(
-                "flex flex-col gap-4 py-9 w-full text-white border-none text-xl mb-5",
-                locale == "ar" ? "font-bold" : "font-semibold"
-              )}
-            >
-              <span>{t("Subscription.paymentMethod")}</span>
-              <span>01092124096</span>
-            </Badge>
+            <PaymentMethodTabs />
             <div>
               <label
                 htmlFor="custom_logo"
@@ -161,7 +152,7 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
               >
                 <span className="capitalize">
                   {isPending || isUploadingInvoice
-                    ? t("LinksPage.generalStyles.header.uploading")
+                    ? t("Shared.uploading")
                     : t("Subscription.uploadInvoice")}
                 </span>
                 {!isPending && !isUploadingInvoice && (

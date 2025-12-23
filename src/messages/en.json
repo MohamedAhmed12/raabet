@@ -467,6 +467,7 @@
     "uploadInvoice": "upload the invoice",
     "uploadInvoiceHelperTxt": "Please upload screenshot of the invoice here",
     "paymentMethod": "InstaPay or Vodafone Cash",
+    "paymentLink": "Payment Link",
     "InvoiceUploadedSuccessfully": "Invoice uploaded successfully",
     "InvoiceUploadFailed": "Invoice upload failed",
     "couponHelperTxt": "A valid coupon has been applied. Pay only ${feesToPay}",
