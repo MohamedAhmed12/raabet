@@ -1,9 +1,16 @@
-import { Icon } from "@/components/Icon";
+import Image from "next/image";
 
 export default function Loading() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-deep-blue-gray"></div>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <Image
+        src="/chain-loader.svg"
+        alt="Loading..."
+        width={220}
+        height={220}
+        priority
+        unoptimized
+      />
     </div>
   );
 }
