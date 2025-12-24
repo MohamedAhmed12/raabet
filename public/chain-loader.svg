@@ -1,0 +1,149 @@
+<svg width="220" height="220" viewBox="-50 -50 612 612" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .chain-link-top {
+        animation: pull-top-right 2.5s ease-in-out infinite;
+        transform-origin: 370px 150px;
+        transform-box: fill-box;
+      }
+
+      .chain-link-bottom {
+        animation: pull-bottom-left 2.5s ease-in-out infinite;
+        transform-origin: 140px 380px;
+        transform-box: fill-box;
+      }
+
+      .chain-link-middle {
+        animation: stretch-middle 2.5s ease-in-out infinite;
+        transform-origin: center;
+        transform-box: fill-box;
+      }
+
+      @keyframes pull-top-right {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        15% {
+          transform: translate(5px, -5px) rotate(2deg);
+        }
+        35% {
+          transform: translate(20px, -20px) rotate(12deg);
+        }
+        50% {
+          transform: translate(18px, -18px) rotate(10deg);
+        }
+        65% {
+          transform: translate(10px, -10px) rotate(4deg);
+        }
+        85% {
+          transform: translate(3px, -3px) rotate(1deg);
+        }
+        100% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+      }
+
+      @keyframes pull-bottom-left {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        15% {
+          transform: translate(-5px, 5px) rotate(-2deg);
+        }
+        35% {
+          transform: translate(-20px, 20px) rotate(-12deg);
+        }
+        50% {
+          transform: translate(-18px, 18px) rotate(-10deg);
+        }
+        65% {
+          transform: translate(-10px, 10px) rotate(-4deg);
+        }
+        85% {
+          transform: translate(-3px, 3px) rotate(-1deg);
+        }
+        100% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+      }
+
+      @keyframes stretch-middle {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        15% {
+          transform: scale(1.05);
+          opacity: 0.92;
+        }
+        35% {
+          transform: scale(1.28);
+          opacity: 0.6;
+        }
+        50% {
+          transform: scale(1.25);
+          opacity: 0.65;
+        }
+        65% {
+          transform: scale(1.12);
+          opacity: 0.82;
+        }
+        85% {
+          transform: scale(1.03);
+          opacity: 0.96;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+    <filter id="drop-shadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="4" result="offsetblur"/>
+      <feFlood flood-color="#2196F3" flood-opacity="0.4"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#drop-shadow)">
+    <!-- Top-right chain link trying to break free -->
+    <g class="chain-link-top">
+      <path
+        fill="#2196F3"
+        d="M264.734,247.262c-40.059-40.059-40.059-105.243-0.001-145.301l59.831-59.831
+        c40.061-40.059,105.243-40.059,145.301-0.001c40.061,40.061,40.061,105.243,0.001,145.303l-59.831,59.831
+        C369.977,287.322,304.795,287.322,264.734,247.262z M435.679,76.319c-21.209-21.209-55.716-21.209-76.925,0l-59.831,59.831
+        c-21.208,21.208-21.208,55.715,0,76.923l0.001,0.001c21.209,21.209,55.716,21.209,76.924,0.001l59.831-59.831
+        C456.888,132.034,456.888,97.527,435.679,76.319z"
+      />
+    </g>
+
+    <!-- Bottom-left chain link trying to break free -->
+    <g class="chain-link-bottom">
+      <path
+        fill="#2196F3"
+        d="M42.132,469.865c-40.059-40.059-40.059-105.243,0-145.302l59.831-59.831
+        c40.059-40.059,105.242-40.059,145.301,0c40.061,40.061,40.061,105.243,0.001,145.302l-59.831,59.831
+        C147.375,509.925,82.192,509.925,42.132,469.865z M213.076,298.921c-21.209-21.209-55.716-21.209-76.924-0.001l-59.831,59.832
+        c-21.209,21.209-21.209,55.716-0.001,76.924l0.001,0.001c21.209,21.209,55.716,21.209,76.925,0l59.831-59.831
+        C234.285,354.637,234.285,320.13,213.076,298.921z"
+      />
+    </g>
+
+    <!-- Middle connecting link (stretching) -->
+    <g class="chain-link-middle">
+      <path
+        fill="#00BCD4"
+        d="M161.981,350.016c-9.442-9.442-9.442-24.748,0-34.188L315.83,161.979
+        c9.442-9.442,24.748-9.442,34.188,0c9.442,9.442,9.442,24.748,0,34.188L196.17,350.016
+        C186.729,359.458,171.422,359.458,161.981,350.016z"
+      />
+    </g>
+  </g>
+</svg>
+

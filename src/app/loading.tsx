@@ -6,8 +6,8 @@ export default function Loading() {
       <Image
         src="/chain-loader.svg"
         alt="Loading..."
-        width={220}
-        height={220}
+        width={120}
+        height={120}
         priority
         unoptimized
       />
