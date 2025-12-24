@@ -1,21 +1,19 @@
 import { useTranslations } from "use-intl";
-import { useLinkStore } from "../../../../../../../../store/use-link-store";
 import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { CardDesignToggleGroup } from "../../CardDesignToggleGroup";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { cardDesigns } from "../constants";
 import { useState } from "react";
+import type { Link } from "@/app/[locale]/store/use-link-store";
 
-export default function CardStyles() {
+export default function CardStyles({ linkRaw }: { linkRaw?: Link }) {
   const t = useTranslations("LinksPage.cardStyles");
   const { handleLinkPropertyValChange } = useUpdateLink();
-  const linkRaw = useLinkStore((state) => state.linkRaw);
 
   const [localCardDesign, setLocalCardDesign] = useState<number>(
     linkRaw?.card_styles_design || 0
   );
-
   return (
     <div className="section">
       <div className="section-title text-[.82rem] font-bold mb-[22px]">

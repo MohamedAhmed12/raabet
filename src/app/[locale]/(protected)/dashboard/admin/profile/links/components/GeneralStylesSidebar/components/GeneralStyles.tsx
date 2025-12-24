@@ -1,10 +1,7 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "next-intl";
 import { memo, useCallback, useState } from "react";
-import {
-  Link,
-  useLinkStore,
-} from "../../../../../../../../store/use-link-store";
+import { Link } from "../../../../../../../../store/use-link-store";
 import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSwitch } from "../../DashboardSwitch";
@@ -150,10 +147,9 @@ const MemoizedGeneralStyles = memo(
 );
 MemoizedGeneralStyles.displayName = "MemoizedGeneralStyles";
 
-export default function GeneralStyles() {
+export default function GeneralStyles({ linkRaw }: { linkRaw?: Link }) {
   const t = useTranslations("LinksPage");
   const { handleLinkPropertyValChange } = useUpdateLink();
-  const linkRaw = useLinkStore((state) => state.linkRaw);
 
   return (
     linkRaw && (

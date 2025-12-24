@@ -3,12 +3,11 @@ import { useUpdateLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
-import { useLinkStore } from "../../../../../../../../store/use-link-store";
+import type { Link } from "../../../../../../../../store/use-link-store";
 
-export default function HeaderStyles() {
+export default function HeaderStyles({ linkRaw }: { linkRaw?: Link }) {
   const t = useTranslations("LinksPage.headerStyles");
   const { handleLinkPropertyValChange } = useUpdateLink();
-  const linkRaw = useLinkStore((state) => state.linkRaw);
 
   return (
     <div className="section">
