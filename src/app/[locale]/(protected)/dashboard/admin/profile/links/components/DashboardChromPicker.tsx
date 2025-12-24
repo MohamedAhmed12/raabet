@@ -7,7 +7,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Chrome } from "@uiw/react-color";
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { useUpdateLink } from "../hooks/useUpdateLink";
 import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
 
@@ -27,9 +27,9 @@ const DashboardChromPickerContent = ({
   onChangeComplete,
 }: DashboardChromPickerProps) => {
   const { handleLinkPropertyValChange } = useUpdateLink();
-  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
   const link = useLinkStore((state) => state.link);
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  
   const initialColor = currentColorLabel
     ? (link[currentColorLabel] as string)
     : currentColor;
@@ -37,65 +37,67 @@ const DashboardChromPickerContent = ({
   const [localColor, setLocalColor] = useState<string>(
     initialColor || "#000000"
   );
+  
+  const [isOpen, setIsOpen] = useState(false);
 
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (debounceTimeoutRef.current) {
-        clearTimeout(debounceTimeoutRef.current);
+  // Persist color to database
+  const persistColorToDb = useCallback(
+    (hexa: string) => {
+      if (currentColorLabel && handleLinkPropertyValChange) {
+        handleLinkPropertyValChange(currentColorLabel, hexa, true);
       }
-    };
-  }, []);
-
-  const debouncedHandleLinkPropertyValChange = useCallback(
-    (
-      key: string,
-      value: string | boolean | number,
-      persistToDb: boolean = false
-    ) => {
-      // Clear existing timeout
-      if (debounceTimeoutRef.current) {
-        clearTimeout(debounceTimeoutRef.current);
+      if (onChangeComplete) {
+        onChangeComplete(hexa);
       }
-
-      // Set new timeout with 500ms delay
-      debounceTimeoutRef.current = setTimeout(() => {
-        if (handleLinkPropertyValChange) {
-          handleLinkPropertyValChange(key, value, persistToDb);
-        }
-      }, 0);
     },
-    [handleLinkPropertyValChange]
+    [currentColorLabel, handleLinkPropertyValChange, onChangeComplete]
   );
 
-  // Update change to only local store
+  // Update color while dragging - immediate preview with debounced DB persistence
   const handleColorChange = useCallback(
-    (color: any, shouldPersistToDatabase: boolean = false) => {
+    (color: any) => {
       const hexa = color.hexa || color;
+      
+      // Update local state immediately for instant visual feedback (no lag)
       setLocalColor(hexa);
 
-      if (currentColorLabel) {
-        debouncedHandleLinkPropertyValChange(
-          currentColorLabel,
-          hexa,
-          shouldPersistToDatabase
-        );
+      // Update store immediately for preview (persistToDb: false)
+      if (currentColorLabel && handleLinkPropertyValChange) {
+        handleLinkPropertyValChange(currentColorLabel, hexa, false);
       }
+
+      // Clear existing debounce timer
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+
+      // Set new debounce timer - persist after 500ms of inactivity
+      debounceTimerRef.current = setTimeout(() => {
+        persistColorToDb(hexa);
+      }, 500);
     },
-    [setLocalColor, currentColorLabel, debouncedHandleLinkPropertyValChange]
+    [currentColorLabel, handleLinkPropertyValChange, persistColorToDb]
   );
 
-  // Call onChangeComplete when user stops dragging which apply the changes to the database
-  const handleMouseUp = useCallback(() => {
-    if (onChangeComplete) {
-      onChangeComplete(localColor);
-    } else {
-      handleColorChange(localColor, true);
-    }
-  }, [onChangeComplete, handleColorChange, localColor]);
+  // Persist to database when popover closes
+  const handleOpenChange = useCallback(
+    (open: boolean) => {
+      setIsOpen(open);
+      
+      // When closing, clear debounce timer and persist immediately
+      if (!open) {
+        if (debounceTimerRef.current) {
+          clearTimeout(debounceTimerRef.current);
+          debounceTimerRef.current = null;
+        }
+        persistColorToDb(localColor);
+      }
+    },
+    [persistColorToDb, localColor]
+  );
 
   return (
-    <Popover>
+    <Popover open={isOpen} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
         <div className="dashboard-general-style-controller cursor-pointer">
           <span className="flex gap-2 justify-center items-center">
@@ -115,9 +117,7 @@ const DashboardChromPickerContent = ({
             display: none !important;
           }
         `}</style>
-        <div onMouseUp={handleMouseUp}>
-          <MemoizedChrome color={localColor} onChange={handleColorChange} />
-        </div>
+        <MemoizedChrome color={localColor} onChange={handleColorChange} />
       </PopoverContent>
     </Popover>
   );
