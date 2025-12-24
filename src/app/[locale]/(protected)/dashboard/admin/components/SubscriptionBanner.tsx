@@ -7,7 +7,7 @@ import Link from "next/link";
 import React from "react";
 
 interface SubscriptionBannerProps {
-  status: string;
+  status?: string;
 }
 
 const SubscriptionBanner: React.FC<SubscriptionBannerProps> = ({ status }) => {
@@ -15,7 +15,7 @@ const SubscriptionBanner: React.FC<SubscriptionBannerProps> = ({ status }) => {
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
 
-  if (status === "active") return null;
+  if (!status || status === "active") return null;
 
   let message: React.ReactNode = null;
   let conditionalStyle = "";

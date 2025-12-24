@@ -2,8 +2,8 @@ import { Icon } from "@/components/Icon";
 
 export default function Loading() {
   return (
-    <div className="flex h-screen justify-center items-center">
-      <Icon name="loader-circle" className="animate-spin" size={45} />
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-deep-blue-gray"></div>
     </div>
   );
 }

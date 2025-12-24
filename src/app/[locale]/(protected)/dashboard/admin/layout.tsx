@@ -14,6 +14,8 @@ import useFetchLink from "../../../[username]/useFetchLink";
 import CustomSidebar from "./components/CustomSidebar";
 import { DashboardContainer } from "./components/DashboardContainer";
 import DashboardNotFound from "./not-found";
+import { useSubscriptionStatus } from "./subscription/callback/useSubscriptionStatus";
+import Loading from "@/app/loading";
 
 export default function DashboardLayout({
   children,
@@ -25,7 +27,20 @@ export default function DashboardLayout({
 
   // @ts-expect-error: [to access user data in session it exists in id]
   const userId = session?.data?.user?.id?.id as string;
-  const { error } = useFetchLink({ userId });
+  const userEmail = session?.data?.user?.email as string;
+
+  // Fetch link data
+  const { error, isLoading, isFetching, data } = useFetchLink({ userId });
+
+  // Fetch subscription status
+  const { isLoading: isLoadingSubs } = useSubscriptionStatus({
+    email: userEmail,
+  });
+
+  // Show loading state ONLY on initial load (not refetches)
+  if (session.status === "loading" || isLoading || !data || isLoadingSubs) {
+    return <Loading />;
+  }
 
   if (error) {
     logError(error as unknown, {
