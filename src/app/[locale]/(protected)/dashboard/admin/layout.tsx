@@ -30,7 +30,7 @@ export default function DashboardLayout({
   const userEmail = session?.data?.user?.email as string;
 
   // Fetch link data
-  const { error, isLoading, isFetching, data } = useFetchLink({ userId });
+  const { error, isLoading, data } = useFetchLink({ userId });
 
   // Fetch subscription status
   const { isLoading: isLoadingSubs } = useSubscriptionStatus({
