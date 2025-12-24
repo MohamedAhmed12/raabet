@@ -17,7 +17,7 @@ export default function GeneralStylesSidebar() {
     <div
       className={cn(
         "font-medium !bg-white w-full border-1 border-l-[#d3d3d3] p-[22px] pb-15 max-h-max",
-        "lg:overflow-y-auto lg:w-[360px] lg:max-h-[100vh]",
+        "lg:overflow-y-auto lg:max-h-[100vh]",
         fontClass
       )}
     >
