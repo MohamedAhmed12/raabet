@@ -1,12 +1,12 @@
 "use client";
 
-import {iconNameType} from "@/assets/icons";
-import {Icon} from "@/components/Icon";
-import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
-import {cn} from "@/lib/cn";
-import {useState} from "react";
-import {HelperTooltip} from "../../../components/HelperTooltip";
-import {LinksPageFieldLabel} from "./LinksPageFieldLabel";
+import { iconNameType } from "@/assets/icons";
+import { Icon } from "@/components/Icon";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { cn } from "@/lib/cn";
+import { useState } from "react";
+import { HelperTooltip } from "../../../components/HelperTooltip";
+import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
 
 export const CardDesignToggleGroup = ({
   initialVal,
@@ -22,7 +22,7 @@ export const CardDesignToggleGroup = ({
   hasTooltip?: boolean;
   tooltipContent?: string;
   titleBg?: string;
-  toggleItems: {icon: iconNameType; value: string}[];
+  toggleItems: { icon: iconNameType; value: string }[];
   onValueChange: (value: string) => void;
 }>) => {
   const [selectedValue, setSelectedValue] = useState<string>(
@@ -30,8 +30,9 @@ export const CardDesignToggleGroup = ({
   );
 
   const handleOnChange = (value: string) => {
-    setSelectedValue(value);
-    onValueChange(value);
+    const val = value || selectedValue;
+    setSelectedValue(val);
+    onValueChange(val);
   };
 
   return (

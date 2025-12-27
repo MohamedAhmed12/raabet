@@ -201,6 +201,7 @@ async function main() {
       {
         linkId: link.id,
         url: "/images/7.jpg",
+        bg_image: "/images/7.jpg",
         type: BlockType.image,
         title: "title5",
         description: "description 5",

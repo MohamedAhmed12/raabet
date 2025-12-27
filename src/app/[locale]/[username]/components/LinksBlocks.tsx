@@ -134,6 +134,9 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
                     height={60}
                     alt="image"
                     className="object-cover w-full h-full max-h-[160px]"
+                    style={{
+                      borderRadius: linkStyles.borderRadius,
+                    }}
                   />
                 ) : (
                   <>
@@ -173,9 +176,9 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
                         )}
                         style={{
                           color:
-                          link?.card_styles_label_color ||
-                          link?.general_styles_primary_text_color ||
-                          "inherit",
+                            link?.card_styles_label_color ||
+                            link?.general_styles_primary_text_color ||
+                            "inherit",
                         }}
                         dangerouslySetInnerHTML={{ __html: block.title }}
                       />
