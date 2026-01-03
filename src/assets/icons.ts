@@ -52,6 +52,8 @@ import {
   Upload,
   StickyNote,
   BadgeCheck,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 
 import {
@@ -201,6 +203,8 @@ const icons = {
   upload: Upload,
   stickyNote: StickyNote,
   badgeCheck: BadgeCheck,
+  eye: Eye,
+  eyeOff: EyeOff,
   ar: arFlag,
   en: enFlag,
   ...socialIcons,

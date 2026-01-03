@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { copyBlock } from "../../actions/copyBlocks";
 import { deleteBlock } from "../../actions/deleteBlocks";
 import { useGetLink, useUpdateLinkField } from "../../hooks/useUpdateLink";
+import { toggleBlockVisibility } from "../../actions/toggleBlockVisibility";
 import { ActionButton } from "./ActionButton";
 
 interface BlockActionsProps {
@@ -15,6 +16,8 @@ interface BlockActionsProps {
 const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
   const [isCopying, setIsCopying] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isTogglingVisibility, setIsTogglingVisibility] = useState(false);
+
   const getLink = useGetLink();
   const link = getLink();
   const oldBlocks = link?.blocks || [];
@@ -22,6 +25,8 @@ const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
   const updateLinkField = useUpdateLinkField();
 
   const t = useTranslations("BlockActions");
+
+  const isHidden = ((block as any) as Block & { hidden?: boolean }).hidden ?? false;
 
   const handleCopyBlock = useCallback(
     async (e: React.MouseEvent) => {
@@ -41,6 +46,42 @@ const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
       }
     },
     [block, oldBlocks, updateLinkField, t]
+  );
+
+  const handleToggleVisibility = useCallback(
+    async (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (!block.id || !link?.id) return;
+
+      setIsTogglingVisibility(true);
+
+      // Optimistic update
+      const updatedBlocks = oldBlocks.map((b) =>
+        b.id === block.id ? { ...b, hidden: !isHidden } : b
+      );
+      updateLinkField("blocks", updatedBlocks, false);
+
+      try {
+        const result = await toggleBlockVisibility(block.id, !isHidden);
+        if (result.success && result.block) {
+          toast.success(
+            isHidden
+              ? t("blockShown") || "Block shown"
+              : t("blockHidden") || "Block hidden"
+          );
+        }
+      } catch (error) {
+        console.error(error);
+        // Revert on error
+        updateLinkField("blocks", oldBlocks, false);
+        toast.error(
+          t("toggleVisibilityError") || "Failed to toggle block visibility"
+        );
+      } finally {
+        setIsTogglingVisibility(false);
+      }
+    },
+    [block.id, isHidden, link, oldBlocks, updateLinkField, t]
   );
 
   const handleDeleteBlock = useCallback(
@@ -83,6 +124,17 @@ const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
       />
 
       <ActionButton icon="pencil" onClick={() => onEdit()} content={"Edit"} />
+
+      <ActionButton
+        icon={isHidden ? "eye" : "eyeOff"}
+        onClick={handleToggleVisibility}
+        content={
+          isHidden
+            ? t("showBlock") || "Show block"
+            : t("hideBlock") || "Hide block"
+        }
+        isLoading={isTogglingVisibility}
+      />
 
       {/* present schedule blocks next release  */}
       {/* <ActionButton

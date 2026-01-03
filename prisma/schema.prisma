@@ -189,6 +189,7 @@ model Block {
   corner            Int         @default(0)
   layout            String      @default("0")
   views             Int         @default(0)
+  hidden            Boolean     @default(false)
   linkId            String
   created_at        DateTime    @default(now())
   updated_at        DateTime    @updatedAt

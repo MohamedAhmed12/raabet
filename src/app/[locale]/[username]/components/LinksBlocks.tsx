@@ -48,7 +48,9 @@ function getOverlayShadow(link: Link | PrismaLink): string | null {
 }
 
 export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
-  const blocks = (link as LinkWithBlocks).blocks;
+  const allBlocks = (link as LinkWithBlocks).blocks;
+  // Filter out hidden blocks from public view
+  const blocks = allBlocks?.filter((block) => !((block as any) as Block & { hidden?: boolean }).hidden);
 
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);

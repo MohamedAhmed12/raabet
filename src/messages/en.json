@@ -596,7 +596,12 @@
     "copySuccess": "Block copied successfully",
     "copyError": "Something went wrong while copying the block",
     "deleteError": "Something went wrong while deleting the block",
-    "deleteConfirm": "Are you sure you want to delete this block?"
+    "deleteConfirm": "Are you sure you want to delete this block?",
+    "showBlock": "Show block",
+    "hideBlock": "Hide block",
+    "blockShown": "Block shown",
+    "blockHidden": "Block hidden",
+    "toggleVisibilityError": "Failed to toggle block visibility"
   },
   "Contact": {
     "contact": "Contact",
