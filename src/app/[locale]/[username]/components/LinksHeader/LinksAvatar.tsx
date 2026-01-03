@@ -28,6 +28,20 @@ export function LinksAvatar({
 
   if (!user) return null;
 
+  let boxShadow = "none";
+
+  if (profilePicShadow > 0) {
+    if (general_styles_soft_shadow) {
+      boxShadow = `${profilePicShadow * 6.3}px ${profilePicShadow * 7}px ${
+        7 + profilePicShadow * 3
+      }px 0px rgba(0, 0, 0, ${0.25 + profilePicShadow * 0.12})`;
+    } else {
+      boxShadow = `rgba(0, 0, 0) ${profilePicShadow * 6.3}px ${
+        profilePicShadow * 7
+      }px 0px 0px`;
+    }
+  }
+
   return (
     <div className={`relative mb-5 ${QRCodeEnabled ? "cursor-pointer" : ""}`}>
       <Avatar
@@ -39,13 +53,7 @@ export function LinksAvatar({
             }`
         )}
         style={{
-          boxShadow: general_styles_soft_shadow
-            ? `0 ${4 + profilePicShadow * 2}px ${12 + profilePicShadow * 4}px ${
-                -3 + profilePicShadow * 2
-              }px rgba(0, 0, 0, ${0.15 + profilePicShadow * 0.08})`
-            : `rgba(0, 0, 0) ${profilePicShadow * 6.3}px ${
-                profilePicShadow * 7
-              }px 0px 0px`,
+          boxShadow,
           borderWidth: `${profilePicBorder * 0.008}px`,
           borderColor: header_styles_profile_border_color,
         }}

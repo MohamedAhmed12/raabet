@@ -18,6 +18,35 @@ type EmbedBlock = Block & Partial<EmbedInfo>;
 
 type LinkWithBlocks = (Link | PrismaLink) & { blocks?: Block[] };
 
+/**
+ * Calculates the overlay shadow for block designs
+ * - Design 4: Returns inset shadow
+ * - Design 0 with soft shadow: Returns soft shadow (will be combined with hard shadow from useLinkStyles)
+ */
+function getOverlayShadow(link: Link | PrismaLink): string | null {
+  const cardShadow = link.card_styles_card_shadow || 0;
+
+  if (link.card_styles_design == 4) {
+    return "rgba(0, 0, 0, 0.04) -5px -5px 13px inset, rgba(0, 0, 0, 0.15) 5px 5px 13px inset";
+  }
+
+  if (link.card_styles_design == 0) {
+    if (cardShadow === 0) {
+      return null;
+    }
+    
+    if (link.general_styles_soft_shadow) {
+      return `${cardShadow * 6.3}px ${cardShadow * 7}px ${
+        18 + cardShadow * 6
+      }px 0px rgba(0, 0, 0, ${0.25 + cardShadow * 0.12})`;
+    } else {
+      return `rgba(0, 0, 0) ${cardShadow * 6.3}px ${cardShadow * 7}px 0px 0px`;
+    }
+  }
+
+  return null;
+}
+
 export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
   const blocks = (link as LinkWithBlocks).blocks;
 
@@ -78,6 +107,7 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
           const shouldAnimate = animation !== "none";
           const hasPrefixImage = block.layout === "2" && block.bg_image;
           const hasBgImage = block.layout === "3" && block.bg_image;
+          const overlayShadow = getOverlayShadow(link);
 
           return (
             <BlockComponent
@@ -91,7 +121,11 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
                 color: "inherit",
                 cursor: isLink ? "pointer" : "default",
                 transformOrigin: "center",
-                position: link.card_styles_design === 4 ? "relative" : "unset",
+                position: overlayShadow
+                  ? "relative"
+                  : link.card_styles_design === 4
+                  ? "relative"
+                  : "unset",
               }}
               href={isLink ? block.url : undefined}
               target={isLink ? "_blank" : undefined}
@@ -106,12 +140,11 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
               animate={shouldAnimate ? animation : {}}
               variants={animationVariants as any}
             >
-              {link.card_styles_design == 4 && (
+              {overlayShadow && (
                 <div
                   className="absolute h-full w-full top-0 left-0"
                   style={{
-                    boxShadow:
-                      "rgba(0, 0, 0, 0.04) -5px -5px 13px inset, rgba(0, 0, 0, 0.15) 5px 5px 13px inset",
+                    boxShadow: overlayShadow,
                     borderRadius: linkStyles.borderRadius,
                   }}
                 ></div>

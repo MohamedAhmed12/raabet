@@ -38,10 +38,10 @@ function generateShadows(hexColor) {
 
   // Generate shadows
   const lightShadow = lightenColor(hexColor, 0.2);
-
   const darkShadow = darkenColor(hexColor, 0.155);
 
-  return `${lightShadow} -5px -5px 13px, ${darkShadow} 5px 5px 13px`;
+  // All four corners: top-right and bottom-left are more prominent
+  return `${lightShadow} -5px -5px 13px, ${lightShadow} 5px -5px 13px, ${darkShadow} -5px 5px 13px, ${darkShadow} 5px 5px 13px`;
 }
 
 function generateBackground(baseColor, design) {

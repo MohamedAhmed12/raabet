@@ -153,10 +153,8 @@ const MainLinkComponentContent = ({
 
             <div className="flex justify-center">
               {!link.social_enable_hide_raabet_branding && <LinksFooter />}
-
               {link.social_enable_hide_raabet_branding &&
-                link.social_custom_logo &&
-                size && (
+                link.social_custom_logo && (
                   <Image
                     src={link.social_custom_logo || ""}
                     className="mt-7.5"
@@ -165,7 +163,7 @@ const MainLinkComponentContent = ({
                     height={16 + (118 - 16) * size}
                     style={{
                       width: `${25 + (190 - 25) * size}px`,
-                      height: `${16 + (118 - 16) * size}px`,
+                      height: 'auto'
                     }}
                   />
                 )}

@@ -16,7 +16,7 @@ export default function LinkBuilderSidebar() {
   return (
     <div
       className={cn(
-        "font-medium !bg-white w-full border-1 border-r-[#d3d3d3] max-h-max",
+        "font-medium !bg-white w-full border-1 border-r-[#d3d3d3] max-h-max min-h-full",
         "lg:overflow-y-auto lg:max-h-[100vh]",
         fontClass
       )}
