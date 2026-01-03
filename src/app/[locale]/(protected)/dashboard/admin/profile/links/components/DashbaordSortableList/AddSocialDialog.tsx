@@ -1,6 +1,5 @@
 "use client";
 
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { iconNameType, socialIcons } from "@/assets/icons";
 import { Icon } from "@/components/Icon";
 import {
@@ -10,11 +9,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useShallow } from "zustand/react/shallow";
-import { createSocial } from "../../actions/createSocial";
+import { useCreateSocial } from "../../hooks/useCreateSocial";
+import { useGetLink } from "../../hooks/useUpdateLink";
 
 type IconNameType = keyof typeof socialIcons;
 
@@ -28,26 +28,28 @@ const iconList: { iconName: IconNameType; title: string }[] = Object.keys(
 export const AddSocialDialog = () => {
   const t = useTranslations("LinksPage.generalStyles");
   const [open, setOpen] = useState(false);
-  const { setLink, linkId } = useLinkStore(
-    useShallow((state) => ({
-      setLink: state.setLink,
-      linkId: state.link.id,
-    }))
-  );
+  const getLink = useGetLink();
+  const link = getLink();
+  const queryClient = useQueryClient();
+
+  const { mutateAsync: createSocialMutation, isPending } = useCreateSocial({
+    onSuccess: () => {
+      setOpen(false);
+      toast.success(t("addSocialSuccess") || "Social added successfully");
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || "Failed to add social item");
+    },
+  });
 
   const handleAddSocial = async (icon: iconNameType) => {
-    if (!linkId) {
+    if (!link?.id) {
       toast.error("Missing link ID");
       return;
     }
 
-    const result = await createSocial({ linkId, icon });
-
-    if (result.success && result.socials) {
-      setLink({ key: "socials", value: result?.socials });
-    } else {
-      toast.error(result.error || "Failed to add social item");
-    }
+    await createSocialMutation({ icon });
+    await queryClient.refetchQueries({ queryKey: ["link"] });
   };
 
   return (
@@ -66,11 +68,9 @@ export const AddSocialDialog = () => {
           {iconList.map(({ iconName, title }) => (
             <button
               key={iconName}
-              onClick={() => {
-                handleAddSocial(iconName);
-                setOpen(false);
-              }}
-              className="flex items-center justify-center flex-col border rounded-lg p-3 hover:bg-muted transition text-sm"
+              onClick={() => handleAddSocial(iconName)}
+              disabled={isPending}
+              className="flex items-center justify-center flex-col border rounded-lg p-3 hover:bg-muted transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Icon name={iconName} size={20} />
               <span className="mt-2">{title}</span>

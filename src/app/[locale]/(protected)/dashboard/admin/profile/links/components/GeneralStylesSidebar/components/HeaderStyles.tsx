@@ -1,13 +1,13 @@
+import type { Link } from "@/app/[locale]/types/link";
 import { useTranslations } from "next-intl";
-import { useUpdateLink } from "../../../hooks/useUpdateLink";
+import { useUpdateLinkField } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
-import type { Link } from "../../../../../../../../store/use-link-store";
 
 export default function HeaderStyles({ linkRaw }: { linkRaw?: Link }) {
   const t = useTranslations("LinksPage.headerStyles");
-  const { handleLinkPropertyValChange } = useUpdateLink();
+  const updateLinkField = useUpdateLinkField();
 
   return (
     <div className="section">
@@ -20,16 +20,12 @@ export default function HeaderStyles({ linkRaw }: { linkRaw?: Link }) {
         max={1}
         step={0.001}
         onValueChange={(value) =>
-          handleLinkPropertyValChange(
-            "header_styles_profile_shadow",
-            value,
-            false
-          )
+          updateLinkField("header_styles_profile_shadow", value, false)
         }
         onValueCommit={(value) => {
           console.log("value", value);
 
-          handleLinkPropertyValChange("header_styles_profile_shadow", value);
+          updateLinkField("header_styles_profile_shadow", value);
         }}
       />
       <DashboardSlider
@@ -38,17 +34,10 @@ export default function HeaderStyles({ linkRaw }: { linkRaw?: Link }) {
         max={1}
         step={0.001}
         onValueChange={(value) => {
-          handleLinkPropertyValChange(
-            "header_styles_profile_border_width",
-            value,
-            false
-          );
+          updateLinkField("header_styles_profile_border_width", value, false);
         }}
         onValueCommit={(value) => {
-          handleLinkPropertyValChange(
-            "header_styles_profile_border_width",
-            value
-          );
+          updateLinkField("header_styles_profile_border_width", value);
         }}
       />
 
@@ -65,10 +54,7 @@ export default function HeaderStyles({ linkRaw }: { linkRaw?: Link }) {
         tooltipContent={t("collapseLongBioTooltip")}
         checked={linkRaw?.header_styles_collapse_long_bio}
         onCheckedChange={(checked) =>
-          handleLinkPropertyValChange(
-            "header_styles_collapse_long_bio",
-            checked
-          )
+          updateLinkField("header_styles_collapse_long_bio", checked)
         }
       />
       <DashboardSlider
@@ -77,14 +63,10 @@ export default function HeaderStyles({ linkRaw }: { linkRaw?: Link }) {
         max={1}
         step={0.001}
         onValueChange={(value) =>
-          handleLinkPropertyValChange(
-            "header_styles_text_spacing",
-            value,
-            false
-          )
+          updateLinkField("header_styles_text_spacing", value, false)
         }
         onValueCommit={(value) =>
-          handleLinkPropertyValChange("header_styles_text_spacing", value)
+          updateLinkField("header_styles_text_spacing", value)
         }
       />
       <DashboardSlider
@@ -93,14 +75,10 @@ export default function HeaderStyles({ linkRaw }: { linkRaw?: Link }) {
         max={1}
         step={0.001}
         onValueChange={(value) =>
-          handleLinkPropertyValChange(
-            "header_styles_social_icons_size",
-            value,
-            false
-          )
+          updateLinkField("header_styles_social_icons_size", value, false)
         }
         onValueCommit={(value) =>
-          handleLinkPropertyValChange("header_styles_social_icons_size", value)
+          updateLinkField("header_styles_social_icons_size", value)
         }
       />
     </div>

@@ -10,12 +10,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
-import { useShallow } from "zustand/shallow";
-import {
-  Link,
-  useLinkStore,
-} from "../../../../../../../../store/use-link-store";
-import { useUpdateLink } from "../../../hooks/useUpdateLink";
+import { useUpdateLinkField, useGetLink } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
@@ -27,22 +22,23 @@ export function PrimaryBackgroundTypePicker() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
 
-  const link = useLinkStore(useShallow((state) => state.link));
-  const { handleLinkPropertyValChange } = useUpdateLink();
+  const getLink = useGetLink();
+  const link = getLink();
+  const updateLinkField = useUpdateLinkField();
 
   const handleOnChange = (
-    key: keyof Link,
+    key: string,
     value: string | boolean | number,
     shouldPersistToDatabase?: boolean
   ) => {
-    handleLinkPropertyValChange(key, value, shouldPersistToDatabase);
+    updateLinkField(key, value, shouldPersistToDatabase);
   };
 
   const handleBackgroundImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (!file || !link?.id) return;
     setUploading(true);
 
     try {

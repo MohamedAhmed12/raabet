@@ -1,41 +1,33 @@
 "use client";
 
 import { updateUser } from "@/app/[locale]/(protected)/dashboard/admin/profile/links/actions/updateUser";
-import { updateSingleLink } from "@/app/[locale]/actions/updateSingleLink";
-import { Link, useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState, useTransition } from "react";
-import { useShallow } from "zustand/react/shallow";
+import { useGetLink, useUpdateLinkField } from "../../hooks/useUpdateLink";
 import { DashboardAccordion } from "../DashboardAccordion";
 import { GCSFileLoader } from "./GCSFileLoader";
 
 export const Header = () => {
   const t = useTranslations("LinksPage.generalStyles.header");
   const tShared = useTranslations("Shared");
-  const { link, setLink, replaceLink } = useLinkStore(
-    useShallow((state) => ({
-      link: state.link,
-      setLink: state.setLink,
-      replaceLink: state.replaceLink,
-    }))
-  );
+
+  // Get link from React Query
+  const getLink = useGetLink();
+  const link = getLink();
+
+  // Get update function
+  const updateLinkField = useUpdateLinkField();
+  const queryClient = useQueryClient();
 
   const [uploading, setUploading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [inputValue, setInputValue] = useState(link.displayname);
-  const [bioValue, setBioValue] = useState(link.bio);
-
-  const handleLinkPropertyValChange = async (
-    key: string,
-    val: string | boolean | number
-  ) => {
-    await updateSingleLink(link.id, key, val);
-    setLink({ key: key as keyof Link, value: val });
-  };
+  const [inputValue, setInputValue] = useState(link?.displayname || "");
+  const [bioValue, setBioValue] = useState(link?.bio || "");
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -47,13 +39,13 @@ export const Header = () => {
 
   const handleNameBlur = () => {
     startTransition(() => {
-      handleLinkPropertyValChange("displayname", inputValue || "");
+      updateLinkField("displayname", inputValue || "", true);
     });
   };
 
   const handleBioBlur = () => {
     startTransition(() => {
-      handleLinkPropertyValChange("bio", bioValue || "");
+      updateLinkField("bio", bioValue || "", true);
     });
   };
 
@@ -61,24 +53,26 @@ export const Header = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (!file || !link?.id) return;
     setUploading(true);
 
     try {
       const publicUrl = await GCSFileLoader(link.id, file);
       await updateUser({ id: link?.user?.id }, { avatar: publicUrl });
-      replaceLink((prev) => {
-        const preUser = prev?.user;
-        if (!preUser) return prev;
 
-        return {
-          ...prev,
-          user: {
-            ...preUser,
-            avatar: publicUrl,
-          },
-        };
-      });
+      // Update user avatar in cache (cache-only, no DB persistence needed)
+      if (link?.user) {
+        queryClient.setQueriesData({ queryKey: ["link"] }, (old: any) => {
+          if (!old) return old;
+          return {
+            ...old,
+            user: {
+              ...old.user,
+              avatar: publicUrl,
+            },
+          };
+        });
+      }
     } catch (error) {
       console.error("Error uploading file:", error);
     } finally {
@@ -86,10 +80,12 @@ export const Header = () => {
     }
   };
 
+  if (!link) return null;
+
   return (
     <DashboardAccordion mainLabel={t("title")} content={t("description")}>
       <div className="flex items-center gap-2">
-        {link.user?.avatar && (
+        {link?.user?.avatar && (
           <Image
             src={link.user.avatar}
             alt="Profile"
@@ -106,7 +102,9 @@ export const Header = () => {
           onChange={handlePhotoChange}
           disabled={uploading}
         />
-        {uploading && <span>{tShared("uploading")}</span>}
+        {uploading && (
+          <span className="whitespace-nowrap">{tShared("uploading")}</span>
+        )}
       </div>
       <Input
         id="name"

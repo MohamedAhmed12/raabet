@@ -1,10 +1,10 @@
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { QRCode } from "@prisma/client";
 import {
   useMutation,
   UseMutationOptions,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useGetLink } from "../../profile/links/hooks/useUpdateLink";
 import { createQRCode } from "../actions/createQRCode";
 
 interface QRCodeCustomization {
@@ -19,14 +19,24 @@ interface QRCodeCustomization {
 
 export function useCreateQRCode(
   options?: Omit<
-    UseMutationOptions<QRCode, Error, { url: string; customization?: QRCodeCustomization }>,
+    UseMutationOptions<
+      QRCode,
+      Error,
+      { url: string; customization?: QRCodeCustomization }
+    >,
     "mutationKey" | "mutationFn"
   >
 ) {
   const queryClient = useQueryClient();
-  const linkId = useLinkStore((state) => state.link.id);
+  const getLink = useGetLink();
+  const link = getLink();
+  const linkId = link?.id;
 
-  return useMutation<QRCode, Error, { url: string; customization?: QRCodeCustomization }>({
+  return useMutation<
+    QRCode,
+    Error,
+    { url: string; customization?: QRCodeCustomization }
+  >({
     mutationKey: ["createQRCode"],
     mutationFn: async ({ url, customization }) => {
       if (!url) {

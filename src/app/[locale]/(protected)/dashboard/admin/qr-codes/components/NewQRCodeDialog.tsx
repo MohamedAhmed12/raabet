@@ -1,6 +1,5 @@
 "use client";
 
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -32,8 +31,8 @@ import {
 } from "@/lib/qrCodeUtils";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { useShallow } from "zustand/react/shallow";
 import { useCreateQRCode } from "../hooks/useCreateQRCode";
+import { useGetLink } from "../../profile/links/hooks/useUpdateLink";
 import Image from "next/image";
 
 const QRCodesStyles = ["Square", "Circle"] as const;
@@ -61,12 +60,9 @@ export const NewQRCodeDialog = () => {
   const t = useTranslations("QR");
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
-
-  const { fullname } = useLinkStore(
-    useShallow((state) => ({
-      fullname: state.link.user?.fullname,
-    }))
-  );
+  const getLink = useGetLink();
+  const link = getLink();
+  const fullname = link?.user?.fullname;
   const profileurl = fullname
     ? `${process.env.NEXT_PUBLIC_BASE_URL}/${fullname}`
     : "";

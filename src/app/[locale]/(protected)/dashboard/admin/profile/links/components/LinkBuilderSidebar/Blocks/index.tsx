@@ -1,19 +1,18 @@
 "use client";
 
 import { DashboardCard } from "@/app/[locale]/(protected)/dashboard/admin/components/DashboardCard";
-import { Link, useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Icon } from "@/components/Icon";
 import { Block, BlockType } from "@prisma/client";
 import { useTranslations } from "next-intl";
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useMemo, useState, useEffect } from "react";
 import { toast } from "sonner";
-import { useShallow } from "zustand/react/shallow";
 import { createBlock } from "../../../actions/createBlocks";
 import { orderBlocks } from "../../../actions/orderBlocks";
 import DashbaordSortableList from "../../DashbaordSortableList";
 import { BlockSortableItem } from "../../DashbaordSortableList/BlockSortableItem";
 import { BlocksDialog } from "./components/BlocksDialog";
 import { CreateUpdateBlockForm } from "./components/CreateUpdateBlockForm";
+import { useGetLink, useUpdateLinkField } from "../../../hooks/useUpdateLink";
 
 const Blocks = memo(
   () => {
@@ -21,31 +20,46 @@ const Blocks = memo(
       useState<BlockType | null>(null);
 
     const t = useTranslations("LinksPage.generalStyles.blocks");
-    const { blocks, setLink } = useLinkStore(
-      useShallow((state) => ({
-        blocks: state.link.blocks,
-        setLink: state.setLink,
-      }))
+    const getLink = useGetLink();
+    const link = getLink();
+    const updateLinkField = useUpdateLinkField();
+
+    // Use local state to prevent UI shifting during drag operations
+    const [localBlocks, setLocalBlocks] = useState<Block[] | undefined>(
+      link?.blocks
     );
 
+    // Sync local state with cache updates
+    useEffect(() => {
+      if (link?.blocks) {
+        setLocalBlocks(link.blocks);
+      }
+    }, [link?.blocks]);
+
+    const blocks = localBlocks || link?.blocks;
+
     const handleOnDragEnd = useCallback(
-      (newBlocksOrder: Block[]) => {
+      async (newBlocksOrder: Block[]) => {
         const oldBlocksOrder = [...blocks!];
 
-        setLink({ key: "blocks", value: newBlocksOrder });
+        // Update local state immediately - this prevents UI shifting
+        setLocalBlocks(newBlocksOrder);
+
+        // Update cache optimistically
+        updateLinkField("blocks", newBlocksOrder, false);
 
         try {
-          orderBlocks(newBlocksOrder);
+          // Persist to database
+          await orderBlocks(newBlocksOrder);
         } catch (error) {
           console.error(error);
           toast.error(t("errors.sortingBlocks"));
-          setLink({
-            key: "blocks",
-            value: oldBlocksOrder,
-          });
+          // Revert both local state and cache on error
+          setLocalBlocks(oldBlocksOrder);
+          updateLinkField("blocks", oldBlocksOrder, false);
         }
       },
-      [blocks, setLink, t]
+      [blocks, updateLinkField, t]
     );
 
     // Memoize the block creation handler
@@ -53,21 +67,18 @@ const Blocks = memo(
       async (block: Block) => {
         try {
           const newBlock = await createBlock(block);
+          const updatedBlocks = [...(blocks || []), newBlock];
 
-          setLink({
-            key: "blocks",
-            value: (prev: Link) => {
-              const prevBlocks = prev?.blocks || [];
-              return [...prevBlocks, newBlock];
-            },
-          });
+          // Update both local state and cache
+          setLocalBlocks(updatedBlocks);
+          updateLinkField("blocks", updatedBlocks, false);
           setCreateNewBlockType(null);
         } catch (error) {
           console.error(error);
           toast.error("Something went wrong while creating new block!");
         }
       },
-      [setLink]
+      [blocks, updateLinkField]
     );
 
     const handleOnCreateNewBlock = (blockType: BlockType) => {

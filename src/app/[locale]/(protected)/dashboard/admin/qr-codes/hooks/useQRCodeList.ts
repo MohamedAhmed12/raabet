@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { getQRCodeList } from "../actions/getQRCodeList";
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { useGetLink } from "../../profile/links/hooks/useUpdateLink";
 
 export function useQRCodeList() {
-  const linkId = useLinkStore((state) => state.link.id);
+  const getLink = useGetLink();
+  const link = getLink();
+  const linkId = link?.id;
 
   return useQuery({
-    queryKey: ["listQRCodes"],
-    queryFn: () => getQRCodeList({ linkId }),
+    queryKey: ["listQRCodes", linkId],
+    queryFn: () => getQRCodeList({ linkId: linkId! }),
     enabled: !!linkId,
     staleTime: Infinity,
   });

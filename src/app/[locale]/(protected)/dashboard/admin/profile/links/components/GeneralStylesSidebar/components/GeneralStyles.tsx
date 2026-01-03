@@ -1,8 +1,8 @@
+import { Link } from "@/app/[locale]/types/link";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "next-intl";
 import { memo, useCallback, useState } from "react";
-import { Link } from "../../../../../../../../store/use-link-store";
-import { useUpdateLink } from "../../../hooks/useUpdateLink";
+import { useUpdateLinkField } from "../../../hooks/useUpdateLink";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSwitch } from "../../DashboardSwitch";
 import { PrimaryBackgroundTypePicker } from "./PrimaryBackgroundTypePicker";
@@ -10,11 +10,11 @@ import { PrimaryBackgroundTypePicker } from "./PrimaryBackgroundTypePicker";
 interface GeneralStylesProps {
   t: ReturnType<typeof useTranslations>;
   linkRaw: Link;
-  handleLinkPropertyValChange: (
-    key: keyof Link,
+  updateLinkField: (
+    key: string,
     value: string | boolean | number,
     shouldPersistToDatabase?: boolean
-  ) => void;
+  ) => Promise<void>;
 }
 
 // Memoized version of DashboardSwitch
@@ -88,7 +88,7 @@ MemoizedTabs.displayName = "MemoizedTabs";
 
 // Memoized version of GeneralStyles
 const MemoizedGeneralStyles = memo(
-  ({ t, linkRaw, handleLinkPropertyValChange }: GeneralStylesProps) => {
+  ({ t, linkRaw, updateLinkField }: GeneralStylesProps) => {
     // Memoize handlers only once when component mounts
     const [showSecondaryBgColor, setShowSecondaryBgColor] = useState(false);
     const handleOnChange = useCallback(
@@ -97,9 +97,9 @@ const MemoizedGeneralStyles = memo(
         value: string | boolean | number,
         shouldPersistToDatabase?: boolean
       ) => {
-        handleLinkPropertyValChange(key, value, shouldPersistToDatabase);
+        updateLinkField(key, value, shouldPersistToDatabase);
       },
-      [handleLinkPropertyValChange]
+      [updateLinkField]
     );
 
     return (
@@ -133,10 +133,7 @@ const MemoizedGeneralStyles = memo(
         />
         <MemoizedTabs
           onValueChange={(val: string) =>
-            handleLinkPropertyValChange(
-              "general_styles_soft_shadow",
-              val === "1"
-            )
+            updateLinkField("general_styles_soft_shadow", val === "1")
           }
           defaultValue={linkRaw.general_styles_soft_shadow ? "1" : "0"}
           className="w-full"
@@ -149,14 +146,14 @@ MemoizedGeneralStyles.displayName = "MemoizedGeneralStyles";
 
 export default function GeneralStyles({ linkRaw }: { linkRaw?: Link }) {
   const t = useTranslations("LinksPage");
-  const { handleLinkPropertyValChange } = useUpdateLink();
+  const updateLinkField = useUpdateLinkField();
 
   return (
     linkRaw && (
       <MemoizedGeneralStyles
         t={t}
         linkRaw={linkRaw}
-        handleLinkPropertyValChange={handleLinkPropertyValChange}
+        updateLinkField={updateLinkField}
       />
     )
   );

@@ -1,6 +1,5 @@
 "use client";
 
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { BlockAnimation, BlockTextAlign } from "@/app/[locale]/types/block";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -8,6 +7,7 @@ import { Block, BlockType } from "@prisma/client";
 import { useLocale, useTranslations } from "next-intl";
 import React, { useState } from "react";
 import { z } from "zod";
+import { useGetLink } from "../../../../../hooks/useUpdateLink";
 import {
   blocks,
   blockSchemas,
@@ -32,8 +32,10 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
   const t = useTranslations("LinksPage.generalStyles.blockForm");
-  const linkId = useLinkStore((state) => state.link.id);
-  const blocksLength = useLinkStore((state) => state.link.blocks?.length);
+  const getLink = useGetLink();
+  const link = getLink();
+  const linkId = link?.id;
+  const blocksLength = link?.blocks?.length;
 
   const BlockComponent = blocks[type];
   const blocksTitles = {
@@ -83,8 +85,6 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
       unknown,
       z.infer<(typeof blockSchemas)[BlockType]>
     > = validateBlock(block, type);
-    console.log("type", block);
-    console.log("result", result);
 
     if (!result.success) {
       if (result?.error) {

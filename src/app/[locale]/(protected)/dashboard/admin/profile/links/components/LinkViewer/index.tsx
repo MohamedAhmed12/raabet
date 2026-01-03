@@ -2,24 +2,21 @@
 
 import "./style.css"; // TO DO: conditionally import it only in links page
 
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { MainLinkScrollableContainer } from "@/components/ScrollableContainer";
 import { cn } from "@/lib/utils";
 import { useCallback, useState } from "react";
-import { useShallow } from "zustand/shallow";
+import { useGetLink } from "../../hooks/useUpdateLink";
 import { LinkViewerTabs } from "./LinkViewerTabs";
 
 export function LinkViewer() {
   const [selectedTab, setSelectedTab] = useState(0);
-
-  const link = useLinkStore(
-    useShallow((state) => state.link)
-  );
+  const getLink = useGetLink();
+  const link = getLink();
 
   const handleOnClick = useCallback((i: number) => setSelectedTab(i), []);
 
   return (
-    link.id && (
+    link?.id && (
       <div
         className={cn(
           "flex flex-col flex-1 gap-2 items-center h-[35%] p-[22px] overflow-auto",

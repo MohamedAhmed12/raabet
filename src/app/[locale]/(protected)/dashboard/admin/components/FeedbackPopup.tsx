@@ -51,7 +51,7 @@ export default function FeedbackPopup({
   const userId = session?.data?.user?.id?.id as string;
 
   // Get link data from QueryClient cache (without refetching)
-  const cachedLinkData = queryClient.getQueryData<Link>(["link", { userId }]);
+  const cachedLinkData = queryClient.getQueryData<Link>(["link"]);
 
   const linkId = cachedLinkData?.id as string;
 
@@ -128,7 +128,7 @@ export default function FeedbackPopup({
       // Optimistically update cache with current timestamp to prevent immediate reopening
       if (cachedLinkData && linkId) {
         const now = new Date();
-        queryClient.setQueryData<Link>(["link", { userId }], {
+        queryClient.setQueryData<Link>(["link"], {
           ...cachedLinkData,
           last_feedback_ts: now,
         });
@@ -141,7 +141,7 @@ export default function FeedbackPopup({
               console.error("Failed to update feedback timestamp:", error);
               // Rollback optimistic update on error
               queryClient.setQueryData<Link>(
-                ["link", { userId }],
+                ["link"],
                 cachedLinkData
               );
             },

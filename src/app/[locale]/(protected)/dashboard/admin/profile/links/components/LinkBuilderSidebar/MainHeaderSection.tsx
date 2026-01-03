@@ -1,12 +1,12 @@
 "use client";
 
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { ShareBtn } from "@/components/ShareBtn";
 import { Copy } from "lucide-react";
-import { useShallow } from "zustand/react/shallow";
+import { useGetLink } from "../../hooks/useUpdateLink";
 
 export const MainHeaderSection = () => {
-  const link = useLinkStore(useShallow((state) => state.link));
+  const getLink = useGetLink();
+  const link = getLink();
 
   const url = link?.qrcodes?.[0]?.url || "";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { useGetLink } from "../profile/links/hooks/useUpdateLink";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,6 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
-import { useShallow } from "zustand/react/shallow";
 import { GCSFileLoader } from "../profile/links/components/LinkBuilderSidebar/GCSFileLoader";
 import { createStripeCustomerSession } from "./actions/createStripeCustomerSession";
 import { useCoupon } from "./hooks/useCoupon";
@@ -32,12 +31,10 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
   const t = useTranslations();
   const locale = useLocale();
   const { data: session, update } = useSession();
-  const { linkId, userId } = useLinkStore(
-    useShallow((state) => ({
-      linkId: state.link.id,
-      userId: state.link.user?.id,
-    }))
-  );
+  const getLink = useGetLink();
+  const link = getLink();
+  const linkId = link?.id;
+  const userId = link?.user?.id;
 
   // @ts-expect-error: [to access user data in session it exists in id]
   const sessionUser = useMemo(() => session?.user?.id, [session?.user?.id]);

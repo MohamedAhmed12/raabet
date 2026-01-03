@@ -1,15 +1,15 @@
+import type { Link } from "@/app/[locale]/types/link";
+import { useState } from "react";
 import { useTranslations } from "use-intl";
-import { useUpdateLink } from "../../../hooks/useUpdateLink";
+import { useUpdateLinkField } from "../../../hooks/useUpdateLink";
 import { CardDesignToggleGroup } from "../../CardDesignToggleGroup";
 import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { cardDesigns } from "../constants";
-import { useState } from "react";
-import type { Link } from "@/app/[locale]/store/use-link-store";
 
 export default function CardStyles({ linkRaw }: { linkRaw?: Link }) {
   const t = useTranslations("LinksPage.cardStyles");
-  const { handleLinkPropertyValChange } = useUpdateLink();
+  const updateLinkField = useUpdateLinkField();
 
   const [localCardDesign, setLocalCardDesign] = useState<number>(
     linkRaw?.card_styles_design || 0
@@ -29,7 +29,7 @@ export default function CardStyles({ linkRaw }: { linkRaw?: Link }) {
         onValueChange={(value) => {
           const numericValue = parseInt(value);
           setLocalCardDesign(numericValue);
-          handleLinkPropertyValChange("card_styles_design", numericValue);
+          updateLinkField("card_styles_design", numericValue);
         }}
       />
 
@@ -54,10 +54,10 @@ export default function CardStyles({ linkRaw }: { linkRaw?: Link }) {
         max={1}
         step={0.001}
         onValueChange={(value) =>
-          handleLinkPropertyValChange("card_styles_card_corner", value, false)
+          updateLinkField("card_styles_card_corner", value, false)
         }
         onValueCommit={(value) =>
-          handleLinkPropertyValChange("card_styles_card_corner", value)
+          updateLinkField("card_styles_card_corner", value)
         }
       />
       {localCardDesign === 0 && (
@@ -68,17 +68,10 @@ export default function CardStyles({ linkRaw }: { linkRaw?: Link }) {
             max={1}
             step={0.001}
             onValueChange={(value) =>
-              handleLinkPropertyValChange(
-                "card_styles_card_border_width",
-                value,
-                false
-              )
+              updateLinkField("card_styles_card_border_width", value, false)
             }
             onValueCommit={(value) =>
-              handleLinkPropertyValChange(
-                "card_styles_card_border_width",
-                value
-              )
+              updateLinkField("card_styles_card_border_width", value)
             }
           />
           {linkRaw?.card_styles_card_border_width &&
@@ -94,14 +87,10 @@ export default function CardStyles({ linkRaw }: { linkRaw?: Link }) {
             max={1}
             step={0.001}
             onValueChange={(value) =>
-              handleLinkPropertyValChange(
-                "card_styles_card_shadow",
-                value,
-                false
-              )
+              updateLinkField("card_styles_card_shadow", value, false)
             }
             onValueCommit={(value) =>
-              handleLinkPropertyValChange("card_styles_card_shadow", value)
+              updateLinkField("card_styles_card_shadow", value)
             }
           />
           <DashboardSlider
@@ -110,14 +99,10 @@ export default function CardStyles({ linkRaw }: { linkRaw?: Link }) {
             max={1}
             step={0.001}
             onValueChange={(value) =>
-              handleLinkPropertyValChange(
-                "card_styles_card_spacing",
-                value,
-                false
-              )
+              updateLinkField("card_styles_card_spacing", value, false)
             }
             onValueCommit={(value) =>
-              handleLinkPropertyValChange("card_styles_card_spacing", value)
+              updateLinkField("card_styles_card_spacing", value)
             }
           />
         </>

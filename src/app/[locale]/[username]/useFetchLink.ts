@@ -1,8 +1,10 @@
-import { useLinkStore, type Link } from "@/app/[locale]/store/use-link-store";
 import { logError } from "@/lib/errorHandling";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSingleLink } from "../actions/fetchSingleLink";
-import { useShallow } from "zustand/shallow";
+// Note: We don't explicitly type the return value because fetchSingleLink returns
+// a Link with partially selected qrcodes (only { url }), which doesn't match
+// the full LinkWithRelations type. TypeScript will infer the correct type from
+// the queryFn return value.
 
 const useFetchLink = ({
   userId,
@@ -11,15 +13,8 @@ const useFetchLink = ({
   userId?: string | undefined;
   username?: string;
 }) => {
-  const { replaceLink, setLinkRaw } = useLinkStore(
-    useShallow((state) => ({
-      replaceLink: state.replaceLink,
-      setLinkRaw: state.setLinkRaw,
-    }))
-  );
-
   return useQuery({
-    queryKey: ["link", { userId, username }],
+    queryKey: ["link"],
     queryFn: async () => {
       try {
         if (!userId && !username) {
@@ -42,21 +37,6 @@ const useFetchLink = ({
             username: username || "undefined",
           });
           throw error;
-        }
-
-        try {
-          // @ts-expect-error - response structure differs from Link type (qrcodes field is partial)
-          const linkData = response as Link;
-          replaceLink(linkData);
-          setLinkRaw(linkData);
-        } catch (storeError) {
-          logError(storeError, {
-            action: "useFetchLink/storeUpdate",
-            userId: userId || "undefined",
-            username: username || "undefined",
-            linkId: response.id,
-          });
-          // Don't throw - continue with response even if store update fails
         }
 
         return response;

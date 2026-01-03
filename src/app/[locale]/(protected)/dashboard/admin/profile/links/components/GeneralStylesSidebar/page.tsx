@@ -1,12 +1,11 @@
 "use client";
 
+import type { Link as LinkFromTypes } from "@/app/[locale]/types/link";
 import { Separator } from "@/components/ui/separator";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { useLocale } from "next-intl";
-import { useSession } from "next-auth/react";
-import { useQuery } from "@tanstack/react-query";
-import type { Link } from "@/app/[locale]/store/use-link-store";
+import { useGetLink } from "../../hooks/useUpdateLink";
 import CardStyles from "./components/CardStyles";
 import GeneralStyles from "./components/GeneralStyles";
 import HeaderStyles from "./components/HeaderStyles";
@@ -15,16 +14,11 @@ import SocialsAndSharing from "./components/SocialsAndSharing";
 export default function GeneralStylesSidebar() {
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
-  
-  // Get link from React Query - subscribe to updates
-  const session = useSession();
-  // @ts-expect-error: [to access user data in session it exists in id]
-  const userId = session?.data?.user?.id?.id as string;
-  
-  const { data: linkRaw } = useQuery<Link>({
-    queryKey: ["link", { userId, username: undefined }],
-    enabled: false, // Don't fetch - just subscribe to cache updates
-  });
+  const getLink = useGetLink();
+
+  // Get link from cache using the new getLink method
+  // Type assertion needed because child components expect Link from types/link
+  const linkRaw = getLink() as LinkFromTypes | undefined;
 
   return (
     <div

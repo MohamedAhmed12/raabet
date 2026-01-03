@@ -2,8 +2,8 @@ import { Input } from "@/components/ui/input";
 import { Share2, Upload, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import type { Link } from "../../../../../../../../store/use-link-store";
-import { useUpdateLink } from "../../../hooks/useUpdateLink";
+import type { Link } from "@/app/[locale]/types/link";
+import { useUpdateLinkField } from "../../../hooks/useUpdateLink";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
 import { GCSFileLoader } from "../../LinkBuilderSidebar/GCSFileLoader";
@@ -65,7 +65,7 @@ export default function SocialsAndSharing({ linkRaw }: { linkRaw?: Link }) {
   const [isUploading, setIsUploading] = useState(false);
 
   const t = useTranslations("SocialsAndSharing");
-  const { handleLinkPropertyValChange } = useUpdateLink();
+  const updateLinkField = useUpdateLinkField();
 
   const getTooltipContent = (key: string) => {
     const contentFunction = content[key];
@@ -83,7 +83,7 @@ export default function SocialsAndSharing({ linkRaw }: { linkRaw?: Link }) {
         const publicUrl = await GCSFileLoader(linkId, file);
 
         setCustomLogoURL(publicUrl);
-        handleLinkPropertyValChange("social_custom_logo", publicUrl);
+        updateLinkField("social_custom_logo", publicUrl);
       } catch (error) {
         console.error("Upload failed:", error);
       } finally {
@@ -102,7 +102,7 @@ export default function SocialsAndSharing({ linkRaw }: { linkRaw?: Link }) {
         checked={linkRaw?.social_enable_add_contacts}
         tooltipContent={getTooltipContent("Enable Add Contact")}
         onCheckedChange={(checked) =>
-          handleLinkPropertyValChange("social_enable_add_contacts", checked)
+          updateLinkField("social_enable_add_contacts", checked)
         }
       />
 
@@ -111,7 +111,7 @@ export default function SocialsAndSharing({ linkRaw }: { linkRaw?: Link }) {
         checked={linkRaw?.social_enable_share_btn}
         tooltipContent={getTooltipContent("Enable Share Button")}
         onCheckedChange={(checked) =>
-          handleLinkPropertyValChange("social_enable_share_btn", checked)
+          updateLinkField("social_enable_share_btn", checked)
         }
       />
       <DashboardSwitch
@@ -119,7 +119,7 @@ export default function SocialsAndSharing({ linkRaw }: { linkRaw?: Link }) {
         checked={linkRaw?.social_enable_qr_code}
         tooltipContent={getTooltipContent("Click For QR Code")}
         onCheckedChange={(checked) =>
-          handleLinkPropertyValChange("social_enable_qr_code", checked)
+          updateLinkField("social_enable_qr_code", checked)
         }
       />
       <DashboardSwitch
@@ -127,10 +127,7 @@ export default function SocialsAndSharing({ linkRaw }: { linkRaw?: Link }) {
         checked={linkRaw?.social_enable_hide_raabet_branding}
         tooltipContent={getTooltipContent("hide raabet branding")}
         onCheckedChange={(checked) =>
-          handleLinkPropertyValChange(
-            "social_enable_hide_raabet_branding",
-            checked
-          )
+          updateLinkField("social_enable_hide_raabet_branding", checked)
         }
       />
       {linkRaw?.social_enable_hide_raabet_branding && (
@@ -167,14 +164,10 @@ export default function SocialsAndSharing({ linkRaw }: { linkRaw?: Link }) {
               max={1}
               step={0.001}
               onValueChange={(value) =>
-                handleLinkPropertyValChange(
-                  "social_custom_logo_size",
-                  value,
-                  false
-                )
+                updateLinkField("social_custom_logo_size", value, false)
               }
               onValueCommit={(value) =>
-                handleLinkPropertyValChange("social_custom_logo_size", value)
+                updateLinkField("social_custom_logo_size", value)
               }
             />
           )}
@@ -202,7 +195,7 @@ export default function SocialsAndSharing({ linkRaw }: { linkRaw?: Link }) {
         checked={link.social_enable_enable_verified_badge}
         tooltipContent={content["enable verified badge"]}
         onCheckedChange={(checked) =>
-          handleLinkPropertyValChange(
+          updateLinkField(
             "social_enable_enable_verified_badge",
             checked
           )

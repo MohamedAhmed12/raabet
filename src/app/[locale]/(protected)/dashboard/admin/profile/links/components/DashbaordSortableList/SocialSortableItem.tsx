@@ -1,6 +1,6 @@
 "use client";
 
-import { LinkSocial, useLinkStore } from "@/app/[locale]/store/use-link-store";
+import { LinkSocial } from "@/app/[locale]/store/use-link-store";
 import { iconNameType } from "@/assets/icons";
 import { Icon } from "@/components/Icon";
 import { Input } from "@/components/ui/input";
@@ -10,13 +10,14 @@ import { CSS } from "@dnd-kit/utilities";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GripVertical, Loader2, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { memo, useState, useTransition } from "react";
+import { memo, startTransition, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
-import { useShallow } from "zustand/react/shallow";
 import { deleteSocial } from "../../actions/deleteSocial";
 import { updateLinkUrl } from "../../actions/updateLinkUrl";
 import { updateSocialLabel } from "../../actions/updateSocialLabel";
+import { useGetLink, useUpdateLinkField } from "../../hooks/useUpdateLink";
 import { EditSocialLabelDialog } from "./EditSocialLabelDialog";
 
 const schema = z.object({
@@ -31,14 +32,13 @@ const SocialSortableItemComponent = ({ item }: SocialSortableItemProps) => {
   const isSeparator = !item?.icon;
   const [isDeleting, setIsDeleting] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isPending, startTransition] = useTransition();
 
   const t = useTranslations("Shared");
-
-  const socials = useLinkStore(useShallow((state) => state.link.socials));
-  const linkId = useLinkStore((state) => state.link.id);
-  const setLink = useLinkStore((state) => state.setLink);
+  const getLink = useGetLink();
+  const link = getLink();
+  const socials = link?.socials;
+  const linkId = link?.id;
+  const updateLinkField = useUpdateLinkField();
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -75,14 +75,20 @@ const SocialSortableItemComponent = ({ item }: SocialSortableItemProps) => {
   };
 
   const handleDelete = async () => {
+    if (!linkId) {
+      toast.error(t("something_went_wrong"));
+      return;
+    }
+
     setIsDeleting(true);
 
     startTransition(async () => {
       const result = await deleteSocial(item.id, linkId);
       if (result.success && result.socials) {
-        setLink({ key: "socials", value: result.socials });
+        updateLinkField("socials", result.socials, false);
       } else {
         console.error("Failed to delete item:", result.error);
+        toast.error(result.error || "Failed to delete social");
       }
       setIsDeleting(false);
     });
@@ -99,20 +105,22 @@ const SocialSortableItemComponent = ({ item }: SocialSortableItemProps) => {
       social.id === item.id ? { ...social, label: value } : social
     );
 
-    setLink({ key: "socials", value: updatedSocials });
+    updateLinkField("socials", updatedSocials, false);
 
     try {
       const response = await updateSocialLabel(item.id, value);
 
       if (!response.success) {
         // Revert on error
-        setLink({ key: "socials", value: socials });
+        updateLinkField("socials", socials, false);
         console.error("Failed to update label:", response.error);
+        toast.error(response.error || "Failed to update label");
       }
     } catch (error) {
       // Revert on error
-      setLink({ key: "socials", value: socials });
+      updateLinkField("socials", socials, false);
       console.error("Error updating label:", error);
+      toast.error("Failed to update label");
     }
   };
 
@@ -151,7 +159,9 @@ const SocialSortableItemComponent = ({ item }: SocialSortableItemProps) => {
       ) : (
         <div className="flex flex-1 justify-center items-center overflow-hidden mx-2">
           <Separator />
-          <span className="mx-3 text-zinc-600 whitespace-nowrap">{t("separator")}</span>
+          <span className="mx-3 text-zinc-600 whitespace-nowrap">
+            {t("separator")}
+          </span>
           <Separator />
         </div>
       )}

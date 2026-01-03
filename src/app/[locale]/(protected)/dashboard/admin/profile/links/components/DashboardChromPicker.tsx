@@ -1,6 +1,5 @@
 "use client";
 
-import { Link, useLinkStore } from "@/app/[locale]/store/use-link-store";
 import {
   Popover,
   PopoverContent,
@@ -8,12 +7,12 @@ import {
 } from "@/components/ui/popover";
 import { Chrome } from "@uiw/react-color";
 import { memo, useCallback, useRef, useState } from "react";
-import { useUpdateLink } from "../hooks/useUpdateLink";
+import { useGetLink, useUpdateLinkField } from "../hooks/useUpdateLink";
 import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
 
 interface DashboardChromPickerProps {
   label?: string;
-  currentColorLabel?: keyof Link;
+  currentColorLabel?: string;
   currentColor?: string;
   onChangeComplete?: (color: string) => void;
 }
@@ -26,44 +25,47 @@ const DashboardChromPickerContent = ({
   label,
   onChangeComplete,
 }: DashboardChromPickerProps) => {
-  const { handleLinkPropertyValChange } = useUpdateLink();
-  const link = useLinkStore((state) => state.link);
+  const getLink = useGetLink();
+  const updateLinkField = useUpdateLinkField();
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
-  
-  const initialColor = currentColorLabel
-    ? (link[currentColorLabel] as string)
-    : currentColor;
+
+  const link = getLink();
+
+  const initialColor =
+    currentColorLabel && link
+      ? ((link as Record<string, any>)[currentColorLabel] as string)
+      : currentColor;
 
   const [localColor, setLocalColor] = useState<string>(
     initialColor || "#000000"
   );
-  
+
   const [isOpen, setIsOpen] = useState(false);
 
   // Persist color to database
   const persistColorToDb = useCallback(
     (hexa: string) => {
-      if (currentColorLabel && handleLinkPropertyValChange) {
-        handleLinkPropertyValChange(currentColorLabel, hexa, true);
+      if (currentColorLabel) {
+        updateLinkField(currentColorLabel, hexa, true);
       }
       if (onChangeComplete) {
         onChangeComplete(hexa);
       }
     },
-    [currentColorLabel, handleLinkPropertyValChange, onChangeComplete]
+    [currentColorLabel, updateLinkField, onChangeComplete]
   );
 
   // Update color while dragging - immediate preview with debounced DB persistence
   const handleColorChange = useCallback(
     (color: any) => {
       const hexa = color.hexa || color;
-      
+
       // Update local state immediately for instant visual feedback (no lag)
       setLocalColor(hexa);
 
       // Update store immediately for preview (persistToDb: false)
-      if (currentColorLabel && handleLinkPropertyValChange) {
-        handleLinkPropertyValChange(currentColorLabel, hexa, false);
+      if (currentColorLabel) {
+        updateLinkField(currentColorLabel, hexa, false);
       }
 
       // Clear existing debounce timer
@@ -76,14 +78,14 @@ const DashboardChromPickerContent = ({
         persistColorToDb(hexa);
       }, 500);
     },
-    [currentColorLabel, handleLinkPropertyValChange, persistColorToDb]
+    [currentColorLabel, updateLinkField, persistColorToDb]
   );
 
   // Persist to database when popover closes
   const handleOpenChange = useCallback(
     (open: boolean) => {
       setIsOpen(open);
-      
+
       // When closing, clear debounce timer and persist immediately
       if (!open) {
         if (debounceTimerRef.current) {

@@ -78,7 +78,6 @@ interface LinkState {
   link: Link;
   linkRaw: Link;
   setLink: (props: SetLinkProps) => void;
-  replaceLink: (link: Link | ((prev: Link) => Link)) => void;
   setLinkRaw: (update: Link | ((prev: Link) => Link)) => void;
 }
 
@@ -99,11 +98,6 @@ const createLinkSlice: StateCreator<LinkState> = (set) => ({
       },
     }));
   },
-
-  replaceLink: (update) =>
-    set((state) => ({
-      link: typeof update === "function" ? update(state.link) : update,
-    })),
 
   setLinkRaw: (update: Link | ((prev: Link) => Link)) => {
     set(
