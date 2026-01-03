@@ -104,6 +104,10 @@ export default function SubscriptionForm({ refetch }: SubscriptionFormProps) {
       const file = e.currentTarget.files?.[0];
 
       if (file) {
+        if (!linkId) {
+          return;
+        }
+
         try {
           setIsUploadingInvoice(true);
           // Generate a unique filename with user ID and date

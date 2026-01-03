@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { listAnalytics } from "../actions/listAnalytics";
 import { useGetLink } from "../../../profile/links/hooks/useUpdateLink";
-import { Link } from "@/app/[locale]/store/use-link-store";
 
 export function useAnalyticsList(dateRange: number = 0) {
   // Get linkId from getLink method

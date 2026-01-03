@@ -47,9 +47,6 @@ export default function FeedbackPopup({
   const fontClass = getFontClassClient(locale);
   const queryClient = useQueryClient();
 
-  // @ts-expect-error: [to access user data in session it exists in id]
-  const userId = session?.data?.user?.id?.id as string;
-
   // Get link data from QueryClient cache (without refetching)
   const cachedLinkData = queryClient.getQueryData<Link>(["link"]);
 
@@ -140,10 +137,7 @@ export default function FeedbackPopup({
             onError: (error) => {
               console.error("Failed to update feedback timestamp:", error);
               // Rollback optimistic update on error
-              queryClient.setQueryData<Link>(
-                ["link"],
-                cachedLinkData
-              );
+              queryClient.setQueryData<Link>(["link"], cachedLinkData);
             },
           }
         );

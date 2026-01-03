@@ -10,6 +10,10 @@ export const MainHeaderSection = () => {
 
   const url = link?.qrcodes?.[0]?.url || "";
 
+  if (!link) {
+    return null;
+  }
+
   return (
     <div className="flex justify-between h-[55px] px-[22px] py-[11px]">
       <div className="flex items-center justify-between gap-2">
