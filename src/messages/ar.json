@@ -59,6 +59,7 @@
     "copiedToClipboard": "تم نسخ الرابط بنجاح !"
   },
   "Shared": {
+    "somethingWentWrong": "حدث خطأ غير متوقع، يُرجى المحاولة مرة أخرى",
     "uploading": "جارٍ الرفع...",
     "claim": "احجز الآن",
     "pricing": "الأسعار",

@@ -59,6 +59,7 @@
     "copiedToClipboard": "Copied to Clipboard"
   },
   "Shared": {
+    "somethingWentWrong": "Something went wrong!",
     "uploading": "Uploading...",
     "claim": "Claim Now",
     "pricing": "Pricing",
