@@ -1,11 +1,10 @@
-import { Link, useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { Block } from "@prisma/client";
 import { useTranslations } from "next-intl";
 import { memo, useCallback, useState } from "react";
 import { toast } from "sonner";
-import { useShallow } from "zustand/react/shallow";
 import { copyBlock } from "../../actions/copyBlocks";
 import { deleteBlock } from "../../actions/deleteBlocks";
+import { useGetLink, useUpdateLinkField } from "../../hooks/useUpdateLink";
 import { ActionButton } from "./ActionButton";
 
 interface BlockActionsProps {
@@ -16,11 +15,11 @@ interface BlockActionsProps {
 const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
   const [isCopying, setIsCopying] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const { setLink } = useLinkStore(
-    useShallow((state) => ({
-      setLink: state.setLink,
-    }))
-  );
+  const getLink = useGetLink();
+  const link = getLink();
+  const oldBlocks = link?.blocks || [];
+
+  const updateLinkField = useUpdateLinkField();
 
   const t = useTranslations("BlockActions");
 
@@ -28,12 +27,11 @@ const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
     async (e: React.MouseEvent) => {
       e.stopPropagation();
       setIsCopying(true);
+
       try {
         const clonedBlock = await copyBlock(block);
-        setLink({
-          key: "blocks",
-          value: (prev: Link) => [...(prev.blocks || []), clonedBlock],
-        });
+        const updatedBlocks = [...oldBlocks, clonedBlock];
+        updateLinkField("blocks", updatedBlocks, false);
         toast.success(t("copySuccess"));
       } catch (error) {
         console.error(error);
@@ -42,7 +40,7 @@ const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
         setIsCopying(false);
       }
     },
-    [block, setLink, t]
+    [block, oldBlocks, updateLinkField, t]
   );
 
   const handleDeleteBlock = useCallback(
@@ -55,28 +53,31 @@ const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
       }
 
       setIsDeleting(true);
+
+      // Optimistic update
+      const updatedBlocks = oldBlocks.filter((b) => b.id !== block.id);
+      updateLinkField("blocks", updatedBlocks, false);
+
       try {
-        const deletedBlock = await deleteBlock(block.id);
-        setLink({
-          key: "blocks",
-          value: (prev: Link) =>
-            (prev.blocks || []).filter((b) => b.id !== deletedBlock.id),
-        });
+        await deleteBlock(block.id);
+        // Server confirmed deletion, keep the optimistic update
       } catch (error) {
         console.error(error);
+        // Revert on error
+        updateLinkField("blocks", oldBlocks, false);
         toast.error(t("deleteError"));
       } finally {
         setIsDeleting(false);
       }
     },
-    [block.id, setLink, t]
+    [block.id, oldBlocks, updateLinkField, t]
   );
 
   return (
     <div className="flex space-x-1 text-gray-600">
       <ActionButton
         icon="copy"
-        onClick={(e) => handleCopyBlock(e)}
+        onClick={handleCopyBlock}
         content={t("copyBlock")}
         isLoading={isCopying}
       />
@@ -93,7 +94,7 @@ const BlockActions = memo(({ block, onEdit }: BlockActionsProps) => {
 
       <ActionButton
         icon="delete"
-        onClick={(e) => handleDeleteBlock(e)}
+        onClick={handleDeleteBlock}
         content={t("delete")}
         isLoading={isDeleting}
       />
