@@ -66,9 +66,10 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
     layout: "1",
     linkId: linkId || "",
     views: 0,
+    hidden: false,
     created_at: new Date(),
     updated_at: new Date(),
-  };
+  } as Block;
 
   const [formData, setFormData] = useState<Block>(block || initialBlock);
   const [errors, setErrors] = useState<z.ZodIssue[]>([]);
