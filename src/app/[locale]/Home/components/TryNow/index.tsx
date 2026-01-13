@@ -14,20 +14,26 @@ export default function TryNow() {
       <Prosbar bgColorClass="bg-[#d9acfd]" />
       <div className="flex flex-col-reverse lg:flex-row bg-light-orange">
         <div className="relative flex justify-end flex-1 md:flex-1/2 min-h-[80vh] overflow-hidden">
-          <Image
-            src={locale === "ar" ? "/images/page-preview-ar.png" : "/images/page-preview-en.png"}
-            alt="try now"
-            width={200}
-            height={200}
+          <div
             className={cn(
-              "w-[95%] m-auto mb-8",
+              "w-[95%]  m-auto mb-8",
               "lg:h-[105%] lg:absolute lg:bottom-[-90px] lg:w-[80%] lg:mb-0",
               locale === "ar" ? "lg:left-0" : "lg:right-0"
             )}
-          />
+          >
+            <Image
+              src={
+                locale === "ar"
+                  ? "/images/page-preview-ar.png"
+                  : "/images/page-preview-en.png"
+              }
+              alt="try now"
+              fill
+            />
+          </div>
         </div>
         <ContentSection />
       </div>
     </>
   );
-};
+}
