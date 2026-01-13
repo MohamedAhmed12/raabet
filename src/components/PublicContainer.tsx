@@ -9,9 +9,9 @@ export const PublicContainer = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="pt-16">{children}</div>
+      <div className="pt-16 flex-1">{children}</div>
       <Footer />
     </div>
   );

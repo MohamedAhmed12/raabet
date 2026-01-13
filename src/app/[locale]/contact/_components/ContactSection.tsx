@@ -14,7 +14,7 @@ export const ContactSection = () => {
   const t = useTranslations("Contact");
 
   return (
-    <section className="py-20 px-4 max-w-2xl mx-auto">
+    <section className="py-20 px-4 max-w-2xl mx-auto w-full h-full flex flex-col">
       <div className="text-center max-w-3xl mx-auto mb-16">
         <h1 className="flex gap-2 justify-center text-4xl md:text-6xl font-bold text-deep-blue-gray mb-6">
           <span className="relative">
