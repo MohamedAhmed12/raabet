@@ -1,10 +1,11 @@
 "use client";
 
 import { Link } from "@/app/[locale]/store/use-link-store";
+import Loading from "@/app/loading";
 import { cn } from "@/lib/cn";
 import { Link as PrismaLink } from "@prisma/client";
 import Image from "next/image";
-import { memo, useMemo } from "react";
+import { memo, useLayoutEffect, useMemo, useState } from "react";
 import LinksBlocks from "./LinksBlocks";
 import LinksFooter from "./LinksFooter";
 import { LinksHeader } from "./LinksHeader";
@@ -49,6 +50,61 @@ const MainLinkComponentContent = ({
     [link]
   );
 
+  // Preload background image and track loading state
+  const needsImageLoad = bgType === "image" && bgImage;
+  const [bgImageLoaded, setBgImageLoaded] = useState(() => {
+    // If no image needed, start as loaded
+    if (typeof window === "undefined") return false; // SSR
+    return !needsImageLoad;
+  });
+
+  useLayoutEffect(() => {
+    if (!needsImageLoad) {
+      setBgImageLoaded(true);
+      return;
+    }
+
+    // Add preload link to head for better browser optimization
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = bgImage!;
+    document.head.appendChild(link);
+
+    // Preload image
+    const img = new window.Image();
+
+    const handleLoad = () => {
+      setBgImageLoaded(true);
+      // Cleanup preload link
+      if (document.head.contains(link)) {
+        document.head.removeChild(link);
+      }
+    };
+
+    const handleError = () => {
+      setBgImageLoaded(true); // Show content even on error
+      // Cleanup preload link
+      if (document.head.contains(link)) {
+        document.head.removeChild(link);
+      }
+    };
+
+    img.onload = handleLoad;
+    img.onerror = handleError;
+    img.src = bgImage!;
+
+    // Check if image is already loaded (cached) - check after setting src
+    if (img.complete && img.naturalWidth > 0) {
+      handleLoad();
+    }
+  }, [needsImageLoad, bgImage]);
+
+  // Show loading component until image is loaded (if background type is image)
+  if (needsImageLoad && !bgImageLoaded) {
+    return <Loading />;
+  }
+
   // Determine background style based on background_type
   const getBackgroundStyle = () => {
     // Check background type
@@ -67,7 +123,11 @@ const MainLinkComponentContent = ({
       // Create hard split with minimal transition to prevent aliasing
       const transitionZone = 0.15; // 0.1% minimal smooth transition
       return {
-        background: `linear-gradient(${gradientDirection}deg, ${primaryBgColor} 0%, ${primaryBgColor} ${gradientOffset - transitionZone}%, ${gradientColor} ${gradientOffset + transitionZone}%, ${gradientColor} 100%)`,
+        background: `linear-gradient(${gradientDirection}deg, ${primaryBgColor} 0%, ${primaryBgColor} ${
+          gradientOffset - transitionZone
+        }%, ${gradientColor} ${
+          gradientOffset + transitionZone
+        }%, ${gradientColor} 100%)`,
       };
     }
 
@@ -113,7 +173,7 @@ const MainLinkComponentContent = ({
           />
 
           {/* Blurred image background layer - only when background_type is "image" */}
-          {bgType === "image" && bgImage && (
+          {bgType === "image" && bgImage && bgImageLoaded && (
             <div
               className="absolute inset-0 z-[1] pointer-events-none overflow-hidden"
               style={{ borderRadius: "inherit" }}
@@ -163,7 +223,7 @@ const MainLinkComponentContent = ({
                     height={16 + (118 - 16) * size}
                     style={{
                       width: `${25 + (190 - 25) * size}px`,
-                      height: 'auto'
+                      height: "auto",
                     }}
                   />
                 )}
