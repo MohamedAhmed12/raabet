@@ -10,9 +10,7 @@ if (!process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY) {
   throw new Error("NEXT_PUBLIC_STRIPE_SECRET_KEY is not set");
 }
 
-const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY, {
-  apiVersion: "2025-06-30.basil", // Required for customerSessions API
-});
+const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!);
 
 export async function createStripeCustomerSession() {
   const session = await getServerSession(authOptions);
@@ -85,7 +83,7 @@ export async function createStripeCustomerSession() {
   } catch (error: any) {
     const errorMessage = error?.message || "Unknown error";
     const errorType = error?.type || "StripeError";
-    
+
     logError(`Failed to create Stripe customer session: ${errorMessage}`, {
       action: "createStripeCustomerSession",
       errorType: errorType,
@@ -96,9 +94,11 @@ export async function createStripeCustomerSession() {
         rawError: error,
       },
     });
-    
+
     throw new Error(
-      `Failed to create Stripe customer session: ${errorMessage}${error?.code ? ` (${error.code})` : ""}`
+      `Failed to create Stripe customer session: ${errorMessage}${
+        error?.code ? ` (${error.code})` : ""
+      }`
     );
   }
 }
