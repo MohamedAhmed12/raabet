@@ -6,7 +6,13 @@ import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!);
+if (!process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY) {
+  throw new Error("NEXT_PUBLIC_STRIPE_SECRET_KEY is not set");
+}
+
+const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY, {
+  apiVersion: "2025-06-30.basil", // Required for customerSessions API
+});
 
 export async function createStripeCustomerSession() {
   const session = await getServerSession(authOptions);
@@ -64,15 +70,35 @@ export async function createStripeCustomerSession() {
   }
 
   // Create stripe customer session
-  const customerSession = await stripe.customerSessions.create({
-    customer: stripeCustomerId,
-    components: {
-      pricing_table: { enabled: true },
-    },
-  });
+  try {
+    const customerSession = await stripe.customerSessions.create({
+      customer: stripeCustomerId,
+      components: {
+        pricing_table: { enabled: true },
+      },
+    });
 
-  return {
-    clientSecret: customerSession.client_secret,
-    user,
-  };
+    return {
+      clientSecret: customerSession.client_secret,
+      user,
+    };
+  } catch (error: any) {
+    const errorMessage = error?.message || "Unknown error";
+    const errorType = error?.type || "StripeError";
+    
+    logError(`Failed to create Stripe customer session: ${errorMessage}`, {
+      action: "createStripeCustomerSession",
+      errorType: errorType,
+      errorDetails: {
+        customerId: stripeCustomerId,
+        errorCode: error?.code,
+        errorStatus: error?.statusCode,
+        rawError: error,
+      },
+    });
+    
+    throw new Error(
+      `Failed to create Stripe customer session: ${errorMessage}${error?.code ? ` (${error.code})` : ""}`
+    );
+  }
 }
