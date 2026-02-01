@@ -2,6 +2,7 @@
 
 import { createAndSendActivation } from "@/lib/activation";
 import { logError } from "@/lib/errorHandling";
+import { sendNewRegistrationNotification } from "@/lib/telegram";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { getTranslations } from "next-intl/server";
@@ -45,6 +46,9 @@ export const signup = async ({
       fullname: user.fullname,
       supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL as string,
     });
+
+    // Notify admin via Telegram (fire-and-forget)
+    sendNewRegistrationNotification(user.fullname, user.email);
 
     // Start post-signup processes
     postSignupProcess(user.id, fullname);
