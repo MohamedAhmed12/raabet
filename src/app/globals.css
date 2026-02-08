@@ -8,7 +8,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-noto-sans: var(--font-noto-sans-display);
-  --font-cairo: var(--font-cairo);
+  --font-noto-sans-arabic: var(--font-noto-sans-arabic);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-background: var(--sidebar-background);
   --color-sidebar-border: var(--sidebar-border);

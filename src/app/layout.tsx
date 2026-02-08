@@ -3,7 +3,7 @@ import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import localFont from "next/font/local";
+import { Noto_Sans_Arabic, Noto_Sans_Display } from "next/font/google";
 import Script from "next/script";
 import { Toaster } from "sonner";
 
@@ -16,70 +16,18 @@ import arMessages from "../messages/ar.json";
 import enMessages from "../messages/en.json";
 import LazySentryInit from "./lazy-sentry-init";
 
-const notoSans = localFont({
-  src: [
-    {
-      path: "../fonts/NotoSansDisplay-Regular.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../fonts/NotoSansDisplay-Medium.ttf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../fonts/NotoSansDisplay-SemiBold.ttf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../fonts/NotoSansDisplay-Bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../fonts/NotoSansDisplay-ExtraBold.ttf",
-      weight: "800",
-      style: "normal",
-    },
-  ],
+const notoSans = Noto_Sans_Display({
   variable: "--font-noto-sans-display",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
   display: "swap",
-  preload: true,
 });
 
-const Cairo = localFont({
-  src: [
-    {
-      path: "../fonts/Cairo-Regular.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Cairo-Medium.ttf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Cairo-SemiBold.ttf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Cairo-Bold.ttf",
-      weight: "700",
-      style: "normal",
-    },
-    {
-      path: "../fonts/Cairo-ExtraBold.ttf",
-      weight: "800",
-      style: "normal",
-    },
-  ],
-  variable: "--font-cairo",
+const notoSansArabic = Noto_Sans_Arabic({
+  variable: "--font-noto-sans-arabic",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["arabic"],
   display: "swap",
-  preload: true,
 });
 
 const messages: Record<string, any> = {
@@ -274,7 +222,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={isRTL ? "rtl" : "ltr"}>
       <body
-        className={`${Cairo.variable} ${notoSans.variable} antialiased text-deep-blue-gray`}
+        className={`${notoSansArabic.variable} ${notoSans.variable} antialiased text-deep-blue-gray`}
         style={{ marginRight: "0!important" }}
       >
         <LazySentryInit />
