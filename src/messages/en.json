@@ -194,6 +194,25 @@
     "chooseImage": "Choose an image...",
     "removeImage": "Remove Image",
     "enableBlur": "Enable Blur",
+    "themeSection": {
+      "title": "Theme",
+      "emptyThemes": "Empty themes",
+      "themeDefault": "Default (keep current)",
+      "themeEmpty": "Empty",
+      "themeMinimal": "Minimal",
+      "themePlaceholder": "Choose a theme",
+      "designWithAI": "Design with AI",
+      "designWithAIDialog": {
+        "title": "Design with AI",
+        "description": "Describe how you want your link page to look. We'll apply colors and styles to match.",
+        "promptLabel": "Describe your design",
+        "promptPlaceholder": "e.g. Professional blue theme, minimal and clean, warm earth tones...",
+        "promptRequired": "Please enter a description",
+        "cancel": "Cancel",
+        "generate": "Generate",
+        "comingSoon": "Design with AI is coming soon. We'll use your prompt to style your page automatically."
+      }
+    },
     "headerStyles": {
       "title": "Header Styles",
       "profilePictureShadow": "Profile Picture Shadow",
@@ -261,6 +280,9 @@
       "text": "Text",
       "audio": "Audio",
       "video": "Video",
+      "map": "Location",
+      "mapDescription": "Add a place (store, café, office) with a Google Maps link.",
+      "viewOnMap": "View on Map",
       "customBlockTextColor": "Custom Block Text Color",
       "blockForm": {
         "title": {
@@ -271,7 +293,24 @@
           "image": "New Button",
           "separator": "Separator Block",
           "audio": "Audio Block",
-          "video": "Video Block"
+          "video": "Video Block",
+          "map": "Location Block"
+        },
+        "mapBlock": {
+          "titleLabel": "Location details",
+          "locationTitle": "Location name",
+          "locationTitlePlaceholder": "e.g. Downtown Branch",
+          "titleRequired": "Location name is required",
+          "locationUrlLabel": "Google Maps link",
+          "googleMapsUrl": "Maps URL",
+          "googleMapsUrlPlaceholder": "Paste embed link or Share link from Google Maps",
+          "urlRequired": "A valid Google Maps URL is required",
+          "urlHint": "Paste a Share link (maps.app.goo.gl) or the embed link from the steps below.",
+          "howToEmbedTitle": "How to get the embed link from Google Maps",
+          "howToEmbedStep1": "Open <link>Google Maps</link> and search for your location (or open a place).",
+          "howToEmbedStep2": "Click the \"Share\" button on the place or map.",
+          "howToEmbedStep3": "Switch to the \"Embed a map\" tab.",
+          "howToEmbedStep4": "Click \"Copy HTML\" or copy the link that starts with https://www.google.com/maps/embed... and paste it above."
         },
         "btnType": {
           "btnTypes": "Button Types",

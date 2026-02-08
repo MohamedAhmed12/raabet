@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { AudioBlock } from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/AudioBlock";
 import { BtnBlock } from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/BtnBlock";
+import { MapBlock } from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/MapBlock";
 import { SeparatorBlock } from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/SeparatorBlock";
 import { TextBlock } from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/TextBlock";
 import { VideoBlock } from "../components/LinkBuilderSidebar/Blocks/components/CreateUpdateBlockForm/components/VideoBlock";
@@ -67,6 +68,14 @@ const blockSchemas = {
   video: BaseBlockSchema.extend({
     url: z.string().url("validUrlRequired"),
   }),
+
+  map: BaseBlockSchema.extend({
+    title: z.string().min(1, "titleRequired"),
+    url: z.string().url("validUrlRequired"),
+  }).refine((data) => data.title?.trim(), {
+    message: "titleRequired",
+    path: ["title"],
+  }),
 } as const;
 
 // Validation function
@@ -90,6 +99,7 @@ export const blocks = {
   separator: SeparatorBlock,
   audio: AudioBlock,
   video: VideoBlock,
+  map: MapBlock,
 } as const;
 
 // Export types

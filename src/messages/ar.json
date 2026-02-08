@@ -194,6 +194,25 @@
     "chooseImage": "اختيار صورة...",
     "removeImage": "إزالة الصورة",
     "enableBlur": "تفعيل التمويه",
+    "themeSection": {
+      "title": "المظهر",
+      "emptyThemes": "سمات فارغة",
+      "themeDefault": "افتراضي (الإبقاء على الحالي)",
+      "themeEmpty": "فارغ",
+      "themeMinimal": "بسيط",
+      "themePlaceholder": "اختر مظهرًا",
+      "designWithAI": "تصميم بالذكاء الاصطناعي",
+      "designWithAIDialog": {
+        "title": "تصميم بالذكاء الاصطناعي",
+        "description": "صف كيف تريد أن يبدو صفحة الرابط. سنطبق الألوان والأنماط لتحقيق ذلك.",
+        "promptLabel": "صف التصميم",
+        "promptPlaceholder": "مثال: مظهر أزرق احترافي، بسيط ونظيف، ألوان أرضية دافئة...",
+        "promptRequired": "يرجى إدخال وصف",
+        "cancel": "إلغاء",
+        "generate": "إنشاء",
+        "comingSoon": "تصميم بالذكاء الاصطناعي قريبًا. سنستخدم وصفك لتنسيق الصفحة تلقائيًا."
+      }
+    },
     "headerStyles": {
       "title": "أنماط الرأس",
       "profilePictureShadow": "ظل الصورة الشخصية",
@@ -261,6 +280,9 @@
       "text": "نص",
       "audio": "صوت",
       "video": "فيديو",
+      "map": "موقع",
+      "mapDescription": "أضف مكانًا (متجر، مقهى، مكتب) مع رابط خرائط جوجل.",
+      "viewOnMap": "عرض على الخريطة",
       "customBlockTextColor": "تخصيص لون نص الكتلة",
       "blockForm": {
         "title": {
@@ -271,7 +293,24 @@
           "image": "زر جديد",
           "separator": "كتلة فاصل",
           "audio": "كتلة صوت",
-          "video": "كتلة فيديو"
+          "video": "كتلة فيديو",
+          "map": "كتلة موقع"
+        },
+        "mapBlock": {
+          "titleLabel": "تفاصيل الموقع",
+          "locationTitle": "اسم الموقع",
+          "locationTitlePlaceholder": "مثال: فرع وسط البلد",
+          "titleRequired": "اسم الموقع مطلوب",
+          "locationUrlLabel": "رابط خرائط جوجل",
+          "googleMapsUrl": "رابط الخرائط",
+          "googleMapsUrlPlaceholder": "ألصق رابط التضمين أو رابط المشاركة من خرائط جوجل",
+          "urlRequired": "رابط خرائط جوجل صالح مطلوب",
+          "urlHint": "ألصق رابط المشاركة (maps.app.goo.gl) أو رابط التضمين من الخطوات أدناه.",
+          "howToEmbedTitle": "كيف تحصل على رابط التضمين من خرائط جوجل",
+          "howToEmbedStep1": "افتح <link>خرائط جوجل</link> وابحث عن موقعك (أو افتح مكاناً).",
+          "howToEmbedStep2": "انقر على \"مشاركة\" في صفحة المكان أو الخريطة.",
+          "howToEmbedStep3": "انتقل إلى تبويب \"تضمين خريطة\".",
+          "howToEmbedStep4": "انقر \"نسخ HTML\" أو انسخ الرابط الذي يبدأ بـ https://www.google.com/maps/embed... والصقه أعلاه."
         },
         "btnType": {
           "btnTypes": "أنواع الأزرار",

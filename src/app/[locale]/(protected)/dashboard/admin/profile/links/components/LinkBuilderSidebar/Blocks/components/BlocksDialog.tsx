@@ -80,6 +80,12 @@ export const BlocksDialog = ({
       title: t("video"),
       description: "Embed YouTube, Vimeo, and more...",
     },
+    {
+      icon: "map-pin",
+      type: "map",
+      title: t("map"),
+      description: t("mapDescription"),
+    },
   ];
 
   const closeDialog = () => setIsDialogOpen(false);
@@ -105,7 +111,7 @@ export const BlocksDialog = ({
         <div className="dialog-body flex justify-center items-center flex-wrap gap-4">
           {blocksStaticData.map((btn) => (
             <Button
-              key={btn.icon}
+              key={btn.type}
               variant="outline"
               className="flex flex-col w-[45%] lg:!w-[31.2%] h-auto cursor-pointer"
               onClick={() => {

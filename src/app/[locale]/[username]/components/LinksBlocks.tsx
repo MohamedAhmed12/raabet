@@ -13,6 +13,7 @@ import { BlockTextAlign } from "../../types/block";
 import { useIframeClickTracker } from "../hooks/useIframeClickTracker";
 import { useIncrementBlockClicks } from "../hooks/useIncrementBlockClicks";
 import useLinkStyles from "../hooks/useLinkStyles";
+import { MapBlockEmbed } from "./MapBlockEmbed";
 
 type EmbedBlock = Block & Partial<EmbedInfo>;
 
@@ -34,11 +35,10 @@ function getOverlayShadow(link: Link | PrismaLink): string | null {
     if (cardShadow === 0) {
       return null;
     }
-    
+
     if (link.general_styles_soft_shadow) {
-      return `${cardShadow * 6.3}px ${cardShadow * 7}px ${
-        18 + cardShadow * 6
-      }px 0px rgba(0, 0, 0, ${0.25 + cardShadow * 0.12})`;
+      return `${cardShadow * 6.3}px ${cardShadow * 7}px ${18 + cardShadow * 6
+        }px 0px rgba(0, 0, 0, ${0.25 + cardShadow * 0.12})`;
     } else {
       return `rgba(0, 0, 0) ${cardShadow * 6.3}px ${cardShadow * 7}px 0px 0px`;
     }
@@ -116,9 +116,8 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
               key={block.id}
               className="flex items-center w-full max-h-[160px]"
               style={{
-                marginBottom: `${
-                  11 + 33 * (link.card_styles_card_spacing || 0)
-                }px`,
+                marginBottom: `${11 + 33 * (link.card_styles_card_spacing || 0)
+                  }px`,
                 textDecoration: "none",
                 color: "inherit",
                 cursor: isLink ? "pointer" : "default",
@@ -126,8 +125,8 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
                 position: overlayShadow
                   ? "relative"
                   : link.card_styles_design === 4
-                  ? "relative"
-                  : "unset",
+                    ? "relative"
+                    : "unset",
               }}
               href={isLink ? block.url : undefined}
               target={isLink ? "_blank" : undefined}
@@ -173,20 +172,15 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
                       borderRadius: linkStyles.borderRadius,
                     }}
                   />
+                ) : block.type === "map" ? (
+                  <MapBlockEmbed
+                    url={block.url!}
+                    title={block.title}
+                    blockId={block.id}
+                    borderRadius={linkStyles.borderRadius}
+                  />
                 ) : (
                   <>
-                    {hasPrefixImage && (
-                      <div className="relative flex-shrink-0 w-1/3 min-h-[100px] max-h-[160px] flex">
-                        <Image
-                          src={block.bg_image}
-                          fill
-                          alt="image"
-                          style={{
-                            borderRadius: linkStyles.borderRadius,
-                          }}
-                        />
-                      </div>
-                    )}
                     <div
                       className={cn(
                         "flex flex-col justify-center px-4 py-2 w-2/3 overflow-hidden",
@@ -198,8 +192,8 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
                       style={
                         hasBgImage
                           ? {
-                              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${block.bg_image})`,
-                            }
+                            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${block.bg_image})`,
+                          }
                           : {}
                       }
                     >

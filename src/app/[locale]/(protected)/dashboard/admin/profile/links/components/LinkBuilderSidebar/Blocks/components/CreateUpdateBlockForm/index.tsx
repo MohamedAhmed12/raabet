@@ -47,6 +47,7 @@ export const CreateUpdateBlockForm: React.FC<CreateUpdateBlockFormProps> = ({
     separator: t("title.separator"),
     audio: t("title.audio"),
     video: t("title.video"),
+    map: t("title.map"),
   };
 
   const initialBlock: Block = {
