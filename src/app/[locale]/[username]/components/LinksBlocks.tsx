@@ -35,10 +35,11 @@ function getOverlayShadow(link: Link | PrismaLink): string | null {
     if (cardShadow === 0) {
       return null;
     }
-
+    
     if (link.general_styles_soft_shadow) {
-      return `${cardShadow * 6.3}px ${cardShadow * 7}px ${18 + cardShadow * 6
-        }px 0px rgba(0, 0, 0, ${0.25 + cardShadow * 0.12})`;
+      return `${cardShadow * 6.3}px ${cardShadow * 7}px ${
+        18 + cardShadow * 6
+      }px 0px rgba(0, 0, 0, ${0.25 + cardShadow * 0.12})`;
     } else {
       return `rgba(0, 0, 0) ${cardShadow * 6.3}px ${cardShadow * 7}px 0px 0px`;
     }
@@ -116,8 +117,9 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
               key={block.id}
               className="flex items-center w-full max-h-[160px]"
               style={{
-                marginBottom: `${11 + 33 * (link.card_styles_card_spacing || 0)
-                  }px`,
+                marginBottom: `${
+                  11 + 33 * (link.card_styles_card_spacing || 0)
+                }px`,
                 textDecoration: "none",
                 color: "inherit",
                 cursor: isLink ? "pointer" : "default",
@@ -181,6 +183,18 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
                   />
                 ) : (
                   <>
+                    {hasPrefixImage && (
+                      <div className="relative flex-shrink-0 w-1/3 min-h-[100px] max-h-[160px] flex">
+                        <Image
+                          src={block.bg_image}
+                          fill
+                          alt="image"
+                          style={{
+                            borderRadius: linkStyles.borderRadius,
+                          }}
+                        />
+                      </div>
+                    )}
                     <div
                       className={cn(
                         "flex flex-col justify-center px-4 py-2 w-2/3 overflow-hidden",
