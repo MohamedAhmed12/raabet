@@ -1,7 +1,7 @@
 import { stripHtmlTags } from "@/app/[locale]/[username]/helpers/stripHtmlTags";
-import { Link, useLinkStore } from "@/app/[locale]/store/use-link-store";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { useQueryClient } from "@tanstack/react-query";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Block } from "@prisma/client";
@@ -15,11 +15,10 @@ import { BlockActions } from "./BlockActions";
 
 export const BlockSortableItem = ({ block }: { block: Block }) => {
   const [isDialogVisible, setIsDialogVisible] = useState(false);
+  const queryClient = useQueryClient();
 
   const locale = useLocale();
   const fontClass = getFontClassClient(locale);
-
-  const setLink = useLinkStore((state) => state.setLink);
 
   const { setNodeRef, attributes, listeners, transform, transition } =
     useSortable({
@@ -35,15 +34,15 @@ export const BlockSortableItem = ({ block }: { block: Block }) => {
     try {
       const updatedBlock = await updateBlockAction(block);
 
-      setLink({
-        key: "blocks",
-        value: (prev: Link) => {
-          const prevBlocks = prev?.blocks || [];
-
-          return prevBlocks.map((block) =>
-            block.id === updatedBlock.id ? updatedBlock : block
-          );
-        },
+      // Update blocks in React Query cache (same pattern as Header avatar update)
+      queryClient.setQueriesData({ queryKey: ["link"] }, (old: any) => {
+        if (!old?.blocks) return old;
+        return {
+          ...old,
+          blocks: old.blocks.map((b: Block) =>
+            b.id === updatedBlock.id ? updatedBlock : b
+          ),
+        };
       });
       setIsDialogVisible(false);
     } catch (error) {
