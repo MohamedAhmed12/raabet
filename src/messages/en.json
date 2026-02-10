@@ -281,7 +281,7 @@
       "audio": "Audio",
       "video": "Video",
       "map": "Location",
-      "mapDescription": "Add a place (store, café, office) with a Google Maps link.",
+      "mapDescription": "Add a place (store, café) with a Google Maps link.",
       "urlDescription": "Opens a web page to the specified URL.",
       "emailDescription": "Opens an email to the specified address.",
       "fileDescription": "Opens an uploaded file (PDF, image, audio, etc.)",
