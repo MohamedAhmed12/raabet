@@ -59,7 +59,7 @@ async function main() {
       card_styles_text_color: "#000000",
       card_styles_label_color: "#F1F1F1",
       card_styles_card_corner: 0,
-      card_styles_card_border_width: 5,
+      card_styles_card_border_width: 0.1,
       card_styles_card_border_color: "rgb(37, 37, 61)",
       card_styles_card_shadow: 5,
       card_styles_card_spacing: 0,
