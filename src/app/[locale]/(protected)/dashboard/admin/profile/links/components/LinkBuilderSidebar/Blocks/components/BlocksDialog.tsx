@@ -100,7 +100,7 @@ export const BlocksDialog = ({
         <span>{t("addBlocks")}</span>
         <span className="!text-base">+</span>
       </Button>
-      <DialogContent className={cn("w-[90%] lg:w-full !max-w-[600px]", fontClass)}>
+      <DialogContent className={cn("w-[90%] !max-w-[600px] max-h-[70%] overflow-y-auto", "lg:w-full", fontClass)}>
         <DialogHeader className="flex items-center">
           <DialogTitle className="capitalize mb-3">
             {t("addBlocks")}
