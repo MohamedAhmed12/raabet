@@ -41,6 +41,7 @@ export function LinksHeader({ link }: { link: Link | PrismaLink }) {
           general_styles_is_secondary_bgcolor={
             link?.general_styles_is_secondary_bgcolor || false
           }
+          general_styles_background_type={link?.general_styles_background_type || "solid"}
           header_styles_profile_border_color={
             link?.header_styles_profile_border_color || ""
           }

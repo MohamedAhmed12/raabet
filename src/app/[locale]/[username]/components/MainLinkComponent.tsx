@@ -195,7 +195,7 @@ const MainLinkComponentContent = ({
           <div
             className={cn(
               "flex flex-col h-full p-[33px] relative z-10",
-              isSecondaryBgColor && "pt-[18px] mt-[175px]"
+              isSecondaryBgColor && bgType !== "image" && "pt-[18px] mt-[175px]"
             )}
             style={getBackgroundStyle()}
           >
@@ -203,7 +203,7 @@ const MainLinkComponentContent = ({
             <div
               className={cn(
                 "flex flex-col flex-1 mt-[15px]",
-                isSecondaryBgColor && "mt-[25px]"
+                isSecondaryBgColor && bgType !== "image" && "mt-[25px]"
               )}
             >
               <LinksHeader link={link} />

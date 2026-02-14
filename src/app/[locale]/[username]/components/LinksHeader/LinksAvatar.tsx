@@ -6,6 +6,7 @@ import Image from "next/image";
 
 export function LinksAvatar({
   user,
+  general_styles_background_type,
   header_styles_profile_shadow,
   header_styles_profile_border_width,
   general_styles_soft_shadow,
@@ -14,6 +15,7 @@ export function LinksAvatar({
   QRCodeEnabled,
 }: {
   user: User | null;
+  general_styles_background_type: string;
   header_styles_profile_shadow: number;
   header_styles_profile_border_width: number;
   general_styles_soft_shadow: boolean;
@@ -47,7 +49,7 @@ export function LinksAvatar({
       <Avatar
         className={cn(
           "size-[110px]",
-          general_styles_is_secondary_bgcolor &&
+          general_styles_is_secondary_bgcolor && general_styles_background_type !== "image" &&
             `absolute top-[-120px] ${
               locale === "ar" ? "translate-x-1/2" : "-translate-x-1/2"
             }`

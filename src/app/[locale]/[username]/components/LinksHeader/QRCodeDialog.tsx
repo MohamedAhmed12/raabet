@@ -20,6 +20,7 @@ export default function QRCodeDialog({
   general_styles_soft_shadow,
   general_styles_is_secondary_bgcolor,
   header_styles_profile_border_color,
+  general_styles_background_type,
 }: {
   user: User | null;
   displayname: string;
@@ -29,6 +30,7 @@ export default function QRCodeDialog({
   general_styles_soft_shadow: boolean;
   general_styles_is_secondary_bgcolor: boolean;
   header_styles_profile_border_color: string;
+  general_styles_background_type: string;
 }) {
   const profileurl = `${process.env.NEXT_PUBLIC_BASE_URL}/${
     user?.fullname || ""
@@ -40,6 +42,7 @@ export default function QRCodeDialog({
       header_styles_profile_shadow={header_styles_profile_shadow}
       header_styles_profile_border_width={header_styles_profile_border_width}
       general_styles_soft_shadow={general_styles_soft_shadow}
+      general_styles_background_type={general_styles_background_type}
       general_styles_is_secondary_bgcolor={general_styles_is_secondary_bgcolor}
       header_styles_profile_border_color={header_styles_profile_border_color}
       QRCodeEnabled={QRCodeEnabled}
@@ -50,6 +53,7 @@ export default function QRCodeDialog({
         <LinksAvatar
           user={user}
           header_styles_profile_shadow={header_styles_profile_shadow}
+          general_styles_background_type={general_styles_background_type}
           header_styles_profile_border_width={
             header_styles_profile_border_width
           }
