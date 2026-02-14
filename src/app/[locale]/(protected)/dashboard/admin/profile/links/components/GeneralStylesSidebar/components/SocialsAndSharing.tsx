@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import type { Link } from "@/app/[locale]/types/link";
 import { useUpdateLinkField } from "../../../hooks/useUpdateLink";
+import { DashboardChromPicker } from "../../DashboardChromPicker";
 import { DashboardSlider } from "../../DashboardSlider";
 import { DashboardSwitch } from "../../DashboardSwitch";
 import { GCSFileLoader } from "../../LinkBuilderSidebar/GCSFileLoader";
@@ -129,6 +130,11 @@ export default function SocialsAndSharing({ linkRaw }: { linkRaw?: Link }) {
         onCheckedChange={(checked) =>
           updateLinkField("social_enable_hide_raabet_branding", checked)
         }
+      />
+      <DashboardChromPicker
+        label={t("raabetBrandingColor")}
+        currentColorLabel="social_raabet_branding_color"
+        currentColor={linkRaw?.social_raabet_branding_color}
       />
       {linkRaw?.social_enable_hide_raabet_branding && (
         <div className="flex flex-col gap-2">

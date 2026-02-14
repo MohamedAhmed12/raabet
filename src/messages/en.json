@@ -553,6 +553,7 @@
     "enableShareButton": "Enable Share Button",
     "clickForQRCode": "Click for QR Code",
     "hideRaabetBranding": "Hide Rabet Branding",
+    "raabetBrandingColor": "Rabet Branding Color",
     "enableAddContactTooltip": "Enabling this will add a",
     "enableAddContactTooltipAfter": "icon to the top right of your page which will allow users to easily save your contact info via the ",
     "enableAddContactTooltipAfter2": " format. We will automatically generate your vCard using your profile picture, display name, email, phone number and any other links provided in the Socials field.",

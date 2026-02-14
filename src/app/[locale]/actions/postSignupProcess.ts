@@ -57,6 +57,7 @@ export const postSignupProcess = async (userId: string, fullname: string) => {
         social_enable_hide_raabet_branding: false,
         social_custom_logo: "",
         social_custom_logo_size: 0,
+        social_raabet_branding_color: "#6B5B71",
       },
     });
 

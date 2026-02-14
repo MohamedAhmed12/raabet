@@ -113,6 +113,7 @@ model Link {
   social_enable_hide_raabet_branding  Boolean       @default(false)
   social_custom_logo                  String        @default("")
   social_custom_logo_size             Float         @default(0)
+  social_raabet_branding_color        String        @default("#6B5B71")
   analytics                           Analytics[]
   blocks                              Block[]
   feedbacks                           Feedback[]

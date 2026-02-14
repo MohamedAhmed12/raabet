@@ -553,6 +553,7 @@
     "enableShareButton": "تفعيل زر المشاركة",
     "clickForQRCode": "عرض رمز QR بنقرة واحدة",
     "hideRaabetBranding": "إخفاء شعار Rabet",
+    "raabetBrandingColor": "لون شعار Rabet",
     "enableAddContactTooltip": "عند تفعيل هذا الخيار، ستظهر أيقونة في أعلى يمين صفحتك، لتمنح زوارك طريقة سهلة لحفظ بياناتك مباشرة بتنسيق",
     "enableAddContactTooltipAfter": "يتم إنشاء بطاقة vCard تلقائيًا باستخدام صورتك واسمك وبريدك وروابطك الاجتماعية المسجّلة.",
     "enableAddContactTooltipAfter2": "ﺳﻴﺘﻢ ﺇﻧﺸﺎﺀ ﺑﻄﺎﻗﺔ vCard ﺗﻠﻘﺎﺋﻴﺎ ﺑﺎﺳﺘﺨﺪﺍﻡ ﺍﻟﺼﻮﺭﺓ ﺍﻟﺸﺨﺼﻴﺔ ﻭﺍﺳﻢ ﺍﻟﻌﺮﺽ ﻭﺍﻟﺒﺮﻳﺪ ﺍﻹﻟﻜﺘﺮﻭﻧﻲ ﻭﺭﻗﻢ ﺍﻟﻬﺎﺗﻒ ﻭﺃﻱ ﺭﻭﺍﺑﻂ ﺗﻤﺖ ﺇﺿﺎﻓﺘﻬﺎ ﻓﻲ ﻗﺴﻢ Socials",

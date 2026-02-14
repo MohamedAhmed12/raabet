@@ -212,7 +212,14 @@ const MainLinkComponentContent = ({
             </div>
 
             <div className="flex justify-center">
-              {!link.social_enable_hide_raabet_branding && <LinksFooter />}
+              {!link.social_enable_hide_raabet_branding && (
+                <LinksFooter
+                  brandingColor={
+                    (link as Link & { social_raabet_branding_color?: string })
+                      ?.social_raabet_branding_color
+                  }
+                />
+              )}
               {link.social_enable_hide_raabet_branding &&
                 link.social_custom_logo && (
                   <Image
