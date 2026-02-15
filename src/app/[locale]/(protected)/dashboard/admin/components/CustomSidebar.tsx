@@ -67,7 +67,6 @@ export default function CustomSidebar() {
 
   // @ts-expect-error: [to access user data in session it exists in id]
   const user = session?.data?.user?.id;
-  const userId = user?.id as string;
 
   // Subscribe to link cache so we re-render when cache updates (same key as useFetchLink / setQueryData)
   const { data: cachedLinkData } = useQuery<PrismaLink | undefined>({

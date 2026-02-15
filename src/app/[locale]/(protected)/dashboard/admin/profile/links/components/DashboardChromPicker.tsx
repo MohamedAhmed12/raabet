@@ -1,11 +1,10 @@
 "use client";
 
 import {
-  getCssColor,
   parseStoredColor,
   rgbaToCss,
   toStoredRgbaJson,
-  type Rgba,
+  type Rgba
 } from "@/lib/linkColorUtils";
 import {
   memo,
