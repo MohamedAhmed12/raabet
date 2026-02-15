@@ -1,5 +1,6 @@
 "use client";
 
+import { getCssColor } from "@/lib/linkColorUtils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -88,7 +89,7 @@ export function PrimaryBackgroundTypePicker() {
                               link.general_styles_gradient_offset || 50;
                             const startPercent = Math.max(0, offset - 25);
                             const endPercent = Math.min(100, offset + 25);
-                            return `linear-gradient(${direction}deg, ${link.general_styles_primary_bgcolor} ${startPercent}%, ${link.general_styles_gradient_color} ${endPercent}%)`;
+                            return `linear-gradient(${direction}deg, ${getCssColor(link.general_styles_primary_bgcolor)} ${startPercent}%, ${getCssColor(link.general_styles_gradient_color)} ${endPercent}%)`;
                           })()
                         : link.general_styles_background_type === "split" &&
                           link.general_styles_gradient_offset !== undefined &&
@@ -98,9 +99,9 @@ export function PrimaryBackgroundTypePicker() {
                               link.general_styles_gradient_direction || 145;
                             const offset =
                               link.general_styles_gradient_offset || 50;
-                            return `linear-gradient(${direction}deg, ${link.general_styles_primary_bgcolor} 0%, ${link.general_styles_primary_bgcolor} ${offset}%, ${link.general_styles_gradient_color} ${offset}%, ${link.general_styles_gradient_color} 100%)`;
+                            return `linear-gradient(${direction}deg, ${getCssColor(link.general_styles_primary_bgcolor)} 0%, ${getCssColor(link.general_styles_primary_bgcolor)} ${offset}%, ${getCssColor(link.general_styles_gradient_color)} ${offset}%, ${getCssColor(link.general_styles_gradient_color)} 100%)`;
                           })()
-                        : link.general_styles_primary_bgcolor,
+                        : getCssColor(link.general_styles_primary_bgcolor),
                   }}
                 />
               )
