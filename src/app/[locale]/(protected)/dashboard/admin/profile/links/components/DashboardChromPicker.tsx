@@ -1,138 +1,163 @@
 "use client";
 
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Chrome } from "@uiw/react-color";
-import { memo, useCallback, useRef, useState } from "react";
+  getCssColor,
+  parseStoredColor,
+  rgbaToCss,
+  toStoredRgbaJson,
+  type Rgba,
+} from "@/lib/linkColorUtils";
+import {
+  memo,
+  useCallback,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
+import { ChromePicker, type ColorResult } from "react-color";
 import { useGetLink, useUpdateLinkField } from "../hooks/useUpdateLink";
 import { LinksPageFieldLabel } from "./LinksPageFieldLabel";
 
-interface DashboardChromPickerProps {
+export interface DashboardChromPickerProps {
   label?: string;
   currentColorLabel?: string;
   currentColor?: string;
   onChangeComplete?: (color: string) => void;
 }
 
-const MemoizedChrome = memo(Chrome);
+const popoverStyle: CSSProperties = {
+  position: "absolute",
+  zIndex: 2,
+};
 
-const DashboardChromPickerContent = ({
+const coverStyle: CSSProperties = {
+  position: "fixed",
+  top: "0px",
+  right: "0px",
+  bottom: "0px",
+  left: "0px",
+};
+
+function colorResultToRgba(color: ColorResult): Rgba {
+  const { r, g, b, a = 1 } = color.rgb;
+  return { r, g, b, a };
+}
+
+function DashboardChromPickerComponent({
   currentColor,
   currentColorLabel,
   label,
   onChangeComplete,
-}: DashboardChromPickerProps) => {
+}: DashboardChromPickerProps) {
   const getLink = useGetLink();
   const updateLinkField = useUpdateLinkField();
-  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const link = getLink();
+  const rawInitial =
+    (currentColorLabel && link
+      ? (link as unknown as Record<string, string>)[currentColorLabel]
+      : currentColor) ?? "";
 
-  const initialColor =
-    currentColorLabel && link
-      ? ((link as Record<string, any>)[currentColorLabel] as string)
-      : currentColor;
+  const initialRgba = parseStoredColor(rawInitial);
+  const latestColorRef = useRef<Rgba>(initialRgba);
+  const lastCacheUpdateRef = useRef<number>(0);
+  const THROTTLE_MS = 80;
 
-  const [localColor, setLocalColor] = useState<string>(
-    initialColor || "#000000"
-  );
+  const [displayColorPicker, setDisplayColorPicker] = useState(false);
+  const [localColor, setLocalColor] = useState<Rgba>(initialRgba);
 
-  const [isOpen, setIsOpen] = useState(false);
-
-  // Persist color to database
   const persistColorToDb = useCallback(
-    (hexa: string) => {
+    (storedValue: string) => {
       if (currentColorLabel) {
-        updateLinkField(currentColorLabel, hexa, true);
+        updateLinkField(currentColorLabel, storedValue, true);
       }
       if (onChangeComplete) {
-        onChangeComplete(hexa);
+        onChangeComplete(storedValue);
       }
     },
     [currentColorLabel, updateLinkField, onChangeComplete]
   );
 
-  // Update color while dragging - immediate preview with debounced DB persistence
+  const handleClick = useCallback(() => {
+    setDisplayColorPicker((prev) => {
+      if (!prev) latestColorRef.current = localColor;
+      return !prev;
+    });
+  }, [localColor]);
+
+  const handleClose = useCallback(() => {
+    setDisplayColorPicker(false);
+    persistColorToDb(toStoredRgbaJson(latestColorRef.current));
+  }, [persistColorToDb]);
+
   const handleColorChange = useCallback(
-    (color: any) => {
-      const hexa = color.hexa || color;
+    (color: ColorResult) => {
+      const rgba = colorResultToRgba(color);
+      latestColorRef.current = rgba;
+      setLocalColor(rgba);
 
-      // Update local state immediately for instant visual feedback (no lag)
-      setLocalColor(hexa);
-
-      // Update store immediately for preview (persistToDb: false)
-      if (currentColorLabel) {
-        updateLinkField(currentColorLabel, hexa, false);
+      if (!currentColorLabel) return;
+      const now = Date.now();
+      if (now - lastCacheUpdateRef.current >= THROTTLE_MS) {
+        lastCacheUpdateRef.current = now;
+        updateLinkField(currentColorLabel, toStoredRgbaJson(rgba), false);
       }
-
-      // Clear existing debounce timer
-      if (debounceTimerRef.current) {
-        clearTimeout(debounceTimerRef.current);
-      }
-
-      // Set new debounce timer - persist after 500ms of inactivity
-      debounceTimerRef.current = setTimeout(() => {
-        persistColorToDb(hexa);
-      }, 500);
     },
-    [currentColorLabel, updateLinkField, persistColorToDb]
+    [currentColorLabel, updateLinkField]
   );
 
-  // Persist to database when popover closes
-  const handleOpenChange = useCallback(
-    (open: boolean) => {
-      setIsOpen(open);
-
-      // When closing, clear debounce timer and persist immediately
-      if (!open) {
-        if (debounceTimerRef.current) {
-          clearTimeout(debounceTimerRef.current);
-          debounceTimerRef.current = null;
-        }
-        persistColorToDb(localColor);
+  const handleColorChangeComplete = useCallback(
+    (color: ColorResult) => {
+      const rgba = colorResultToRgba(color);
+      latestColorRef.current = rgba;
+      if (currentColorLabel) {
+        updateLinkField(currentColorLabel, toStoredRgbaJson(rgba), false);
       }
     },
-    [persistColorToDb, localColor]
+    [currentColorLabel, updateLinkField]
   );
 
   return (
-    <Popover open={isOpen} onOpenChange={handleOpenChange}>
-      <PopoverTrigger asChild>
-        <div className="dashboard-general-style-controller cursor-pointer">
-          <span className="flex gap-2 justify-center items-center">
-            <LinksPageFieldLabel>{label}</LinksPageFieldLabel>
-          </span>
-          <div
-            className="rounded-full w-6 h-6 border border-gray-300"
-            style={{
-              backgroundColor: localColor,
-            }}
-          ></div>
-        </div>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-3" hasPadding={false}>
-        <style jsx>{`
-          :global(.react-colorful__pointer) {
-            display: none !important;
+    <div className="relative">
+      <div
+        role="button"
+        tabIndex={0}
+        className="dashboard-general-style-controller cursor-pointer flex gap-2 justify-center items-center"
+        onClick={handleClick}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleClick();
           }
-        `}</style>
-        <MemoizedChrome color={localColor} onChange={handleColorChange} />
-      </PopoverContent>
-    </Popover>
+        }}
+      >
+        <LinksPageFieldLabel>{label}</LinksPageFieldLabel>
+        <div
+          className="rounded-full w-6 h-6 border border-gray-300 shrink-0"
+          style={{ backgroundColor: rgbaToCss(localColor) }}
+        />
+      </div>
+      {displayColorPicker ? (
+        <div style={popoverStyle}>
+          <div
+            style={coverStyle}
+            onClick={handleClose}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") handleClose();
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Close color picker"
+          />
+          <ChromePicker
+            color={localColor}
+            onChange={handleColorChange}
+            onChangeComplete={handleColorChangeComplete}
+          />
+        </div>
+      ) : null}
+    </div>
   );
-};
+}
 
-export const DashboardChromPicker = memo(
-  DashboardChromPickerContent,
-  (prevProps, nextProps) => {
-    return (
-      prevProps.currentColor === nextProps.currentColor &&
-      prevProps.currentColorLabel === nextProps.currentColorLabel &&
-      prevProps.label === nextProps.label &&
-      prevProps.onChangeComplete === nextProps.onChangeComplete
-    );
-  }
-);
+export const DashboardChromPicker = memo(DashboardChromPickerComponent);
