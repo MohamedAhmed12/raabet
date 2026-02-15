@@ -5,13 +5,14 @@ import "./style.css"; // TO DO: conditionally import it only in links page
 import { MainLinkScrollableContainer } from "@/components/ScrollableContainer";
 import { cn } from "@/lib/utils";
 import { useCallback, useState } from "react";
-import { useGetLink } from "../../hooks/useUpdateLink";
 import { LinkViewerTabs } from "./LinkViewerTabs";
+import { useQueryClient } from "@tanstack/react-query";
+import { Link } from "@prisma/client";
 
 export function LinkViewer() {
   const [selectedTab, setSelectedTab] = useState(0);
-  const getLink = useGetLink();
-  const link = getLink();
+  const queryClient = useQueryClient();
+  const link = queryClient.getQueryData<Link>(["link"]);
 
   const handleOnClick = useCallback((i: number) => setSelectedTab(i), []);
 
