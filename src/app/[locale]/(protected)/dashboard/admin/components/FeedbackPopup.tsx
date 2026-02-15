@@ -16,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Link } from "@prisma/client";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { LoaderCircle, Star } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
@@ -47,8 +47,12 @@ export default function FeedbackPopup({
   const fontClass = getFontClassClient(locale);
   const queryClient = useQueryClient();
 
-  // Get link data from QueryClient cache (without refetching)
-  const cachedLinkData = queryClient.getQueryData<Link>(["link"]);
+  // Subscribe to link cache so we re-render when cache updates
+  const { data: cachedLinkData } = useQuery<Link | undefined>({
+    queryKey: ["link"],
+    queryFn: () => Promise.resolve(undefined),
+    enabled: false,
+  });
 
   const linkId = cachedLinkData?.id as string;
 

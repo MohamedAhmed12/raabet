@@ -16,7 +16,7 @@ import { logError } from "@/lib/errorHandling";
 import { getFontClassClient } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Link as PrismaLink, SubscriptionStatus } from "@prisma/client";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { addDays, isBefore } from "date-fns";
 import { Award, CirclePlus } from "lucide-react";
 import { signOut, useSession } from "next-auth/react"; // Import signOut from NextAuth.js
@@ -34,7 +34,6 @@ export default function CustomSidebar() {
   const fontClass = getFontClassClient(locale);
   const session = useSession();
   const pathname = usePathname();
-  const queryClient = useQueryClient();
   const { getOppositeLang, switchLocale } = useLocaleMeta();
 
   const sidebarTabs: { text: string; url: string; icon: iconNameType }[] = [
@@ -70,11 +69,12 @@ export default function CustomSidebar() {
   const user = session?.data?.user?.id;
   const userId = user?.id as string;
 
-  // Get data from React Query cache - must match useFetchLink query key exactly
-  const cachedLinkData = queryClient.getQueryData<PrismaLink>([
-    "link",
-    { userId, username: undefined },
-  ]);
+  // Subscribe to link cache so we re-render when cache updates (same key as useFetchLink / setQueryData)
+  const { data: cachedLinkData } = useQuery<PrismaLink | undefined>({
+    queryKey: ["link"],
+    queryFn: () => Promise.resolve(undefined),
+    enabled: false,
+  });
   const linkId = cachedLinkData?.id as string;
   const lastFeedbackTimestamp = cachedLinkData?.last_feedback_ts as Date;
 
