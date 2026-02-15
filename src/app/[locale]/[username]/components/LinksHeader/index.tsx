@@ -1,8 +1,9 @@
 "use client";
 
 import { Link } from "@/app/[locale]/store/use-link-store";
-import { Link as PrismaLink } from "@prisma/client";
 import { cn } from "@/lib/cn";
+import { getCssColor } from "@/lib/linkColorUtils";
+import { Link as PrismaLink } from "@prisma/client";
 import { User } from "next-auth";
 import { useState } from "react";
 import QRCodeDialog from "./QRCodeDialog";
@@ -42,9 +43,9 @@ export function LinksHeader({ link }: { link: Link | PrismaLink }) {
             link?.general_styles_is_secondary_bgcolor || false
           }
           general_styles_background_type={link?.general_styles_background_type || "solid"}
-          header_styles_profile_border_color={
-            link?.header_styles_profile_border_color || ""
-          }
+          header_styles_profile_border_color={getCssColor(
+            link?.header_styles_profile_border_color
+          )}
         />
         <div
           className={cn(

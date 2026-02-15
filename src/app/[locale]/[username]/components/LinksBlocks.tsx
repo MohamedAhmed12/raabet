@@ -4,6 +4,7 @@ import { Link } from "@/app/[locale]/store/use-link-store";
 import { animationVariants } from "@/constants/animations";
 import { cn } from "@/lib/cn";
 import { getFontClassClient } from "@/lib/fonts";
+import { getCssColor } from "@/lib/linkColorUtils";
 import { Block, Link as PrismaLink } from "@prisma/client";
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
@@ -157,8 +158,9 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
                 className="flex items-center justify-center w-full h-full min-h-[60px]"
                 style={{
                   ...linkStyles,
-                  color:
-                    block?.custom_text_color || link?.card_styles_text_color,
+                  color: getCssColor(
+                    block?.custom_text_color || link?.card_styles_text_color
+                  ),
                   textAlign: block.text_align as BlockTextAlign,
                 }}
                 dir={block.text_align === "right" ? "rtl" : "ltr"}
@@ -218,10 +220,10 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
                           link?.title_font
                         )}
                         style={{
-                          color:
+                          color: getCssColor(
                             link?.card_styles_label_color ||
-                            link?.general_styles_primary_text_color ||
-                            "inherit",
+                              link?.general_styles_primary_text_color
+                          ) || "inherit",
                         }}
                         dangerouslySetInnerHTML={{ __html: block.title }}
                       />
@@ -232,10 +234,10 @@ export default function LinksBlocks({ link }: { link: Link | PrismaLink }) {
                           link?.text_font
                         )}
                         style={{
-                          color:
+                          color: getCssColor(
                             link?.card_styles_text_color ||
-                            link?.general_styles_primary_text_color ||
-                            "inherit",
+                              link?.general_styles_primary_text_color
+                          ) || "inherit",
                         }}
                       >
                         {block.description}

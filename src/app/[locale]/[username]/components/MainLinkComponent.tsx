@@ -3,6 +3,7 @@
 import { Link } from "@/app/[locale]/store/use-link-store";
 import Loading from "@/app/loading";
 import { cn } from "@/lib/cn";
+import { getCssColor } from "@/lib/linkColorUtils";
 import { Link as PrismaLink } from "@prisma/client";
 import Image from "next/image";
 import { memo, useLayoutEffect, useMemo, useState } from "react";
@@ -38,12 +39,12 @@ const MainLinkComponentContent = ({
     () => ({
       size: link?.social_custom_logo_size ?? 0,
       bgType: link?.general_styles_background_type || "solid",
-      primaryBgColor: link?.general_styles_primary_bgcolor,
-      gradientColor: link?.general_styles_gradient_color,
+      primaryBgColor: getCssColor(link?.general_styles_primary_bgcolor),
+      gradientColor: getCssColor(link?.general_styles_gradient_color),
       gradientDirection: link?.general_styles_gradient_direction || 145,
       gradientOffset: link?.general_styles_gradient_offset || 50,
       isSecondaryBgColor: link?.general_styles_is_secondary_bgcolor,
-      secondaryBgColor: link?.general_styles_secondary_bgcolor,
+      secondaryBgColor: getCssColor(link?.general_styles_secondary_bgcolor),
       bgImage: link?.general_styles_bg_image,
       bgImageBlur: link?.general_styles_bg_image_blur,
     }),
@@ -146,7 +147,7 @@ const MainLinkComponentContent = ({
       <div
         className={cn("flex justify-center w-full", className)}
         style={{
-          backgroundColor: link?.general_styles_desktop_bgcolor,
+          backgroundColor: getCssColor(link?.general_styles_desktop_bgcolor),
           borderRadius: "inherit",
         }}
       >
@@ -157,7 +158,7 @@ const MainLinkComponentContent = ({
             "relative"
           )}
           style={{
-            color: link?.general_styles_primary_text_color,
+            color: getCssColor(link?.general_styles_primary_text_color),
             borderRadius: "inherit",
           }}
         >
@@ -168,7 +169,7 @@ const MainLinkComponentContent = ({
               backgroundColor:
                 bgType === "image"
                   ? "transparent"
-                  : link?.general_styles_primary_bgcolor || "transparent",
+                  : primaryBgColor || "transparent",
             }}
           />
 
@@ -214,10 +215,10 @@ const MainLinkComponentContent = ({
             <div className="flex justify-center">
               {!link.social_enable_hide_raabet_branding && (
                 <LinksFooter
-                  brandingColor={
+                  brandingColor={getCssColor(
                     (link as Link & { social_raabet_branding_color?: string })
                       ?.social_raabet_branding_color
-                  }
+                  )}
                 />
               )}
               {link.social_enable_hide_raabet_branding &&

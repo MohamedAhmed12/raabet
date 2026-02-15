@@ -1,6 +1,7 @@
 /* eslint-disable */
 // @ts-nocheck
 import { Link } from "@/app/[locale]/store/use-link-store";
+import { getCssColor, storedColorToHex } from "@/lib/linkColorUtils";
 import { useMemo } from "react";
 
 function generateShadows(hexColor) {
@@ -88,6 +89,7 @@ const useLinkStyles = (link: Link) => {
       general_styles_primary_bgcolor,
     } = link || {}; // Destructure link properties
 
+    const primaryBgHex = storedColorToHex(general_styles_primary_bgcolor);
     const styles = {
       borderRadius: card_styles_card_corner ? card_styles_card_corner * 28 : 0,
       borderWidth:
@@ -96,20 +98,20 @@ const useLinkStyles = (link: Link) => {
 
     // Check if the card design is 1
     if (card_styles_design !== 0) {
-      // Apply styles for design 1
+      // Apply styles for design 1 (generateBackground/generateShadows expect hex)
       styles.background = generateBackground(
-        general_styles_primary_bgcolor,
+        primaryBgHex,
         card_styles_design
       );
-      styles.borderColor = general_styles_primary_bgcolor; // Using general_styles_primary_bgcolor
+      styles.borderColor = getCssColor(general_styles_primary_bgcolor);
       styles.boxShadow =
         card_styles_design != 4
-          ? generateShadows(general_styles_primary_bgcolor)
+          ? generateShadows(primaryBgHex)
           : "none";
     } else if (card_styles_design == 0) {
       // Apply styles for design 0
-      styles.backgroundColor = card_styles_card_color;
-      styles.borderColor = card_styles_card_border_color; // Using general_styles_primary_bgcolor
+      styles.backgroundColor = getCssColor(card_styles_card_color);
+      styles.borderColor = getCssColor(card_styles_card_border_color);
       styles.boxShadow = card_styles_card_shadow && card_styles_card_shadow > 0
         ? `0 ${2 + (card_styles_card_shadow || 0) * 2}px ${8 + (card_styles_card_shadow || 0) * 4}px -${
             card_styles_card_shadow * 2
